@@ -1,187 +1,187 @@
 ---
 name: webapp-testing
-description: Web application testing principles. E2E, Playwright, deep audit strategies.
+description: Web uygulaması test etme prensipleri. E2E, Playwright, derin denetim stratejileri.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Web App Testing
+# Web Uygulaması Test Etme (Web App Testing)
 
-> Discover and test everything. Leave no route untested.
+> Her şeyi keşfet ve test et. Test edilmemiş rota bırakma.
 
-## 🔧 Runtime Scripts
+## 🔧 Çalışma Zamanı Script'leri
 
-**Execute these for automated browser testing:**
+**Otomatik tarayıcı testi için bunları çalıştırın:**
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `scripts/playwright_runner.py` | Basic browser test | `python scripts/playwright_runner.py https://example.com` |
-| | With screenshot | `python scripts/playwright_runner.py <url> --screenshot` |
-| | Accessibility check | `python scripts/playwright_runner.py <url> --a11y` |
+| Script | Amaç | Kullanım |
+|--------|------|----------|
+| `scripts/playwright_runner.py` | Temel tarayıcı testi | `python scripts/playwright_runner.py https://example.com` |
+| | Ekran görüntüsüyle | `python scripts/playwright_runner.py <url> --screenshot` |
+| | Erişilebilirlik kontrolü | `python scripts/playwright_runner.py <url> --a11y` |
 
-**Requires:** `pip install playwright && playwright install chromium`
-
----
-
-## 1. Deep Audit Approach
-
-### Discovery First
-
-| Target | How to Find |
-|--------|-------------|
-| Routes | Scan app/, pages/, router files |
-| API endpoints | Grep for HTTP methods |
-| Components | Find component directories |
-| Features | Read documentation |
-
-### Systematic Testing
-
-1. **Map** - List all routes/APIs
-2. **Scan** - Verify they respond
-3. **Test** - Cover critical paths
+**Gerekli:** `pip install playwright && playwright install chromium`
 
 ---
 
-## 2. Testing Pyramid for Web
+## 1. Derin Denetim Yaklaşımı
+
+### Önce Keşif
+
+| Hedef | Nasıl Bulunur |
+|-------|---------------|
+| Rotalar | app/, pages/, router dosyalarını tara |
+| API uç noktaları | HTTP metodları için grep |
+| Componentler | Component dizinlerini bul |
+| Özellikler | Dokümantasyonu oku |
+
+### Sistematik Test Etme
+
+1. **Haritalama** - Tüm rota/API'leri listele
+2. **Tarama** - Yanıt verdiğini doğrula
+3. **Test Etme** - Kritik yolları kapsa
+
+---
+
+## 2. Web İçin Test Piramidi
 
 ```
-        /\          E2E (Few)
-       /  \         Critical user flows
+        /\          E2E (Az)
+       /  \         Kritik kullanıcı akışları
       /----\
-     /      \       Integration (Some)
-    /--------\      API, data flow
+     /      \       Entegrasyon (Bazı)
+    /--------\      API, veri akışı
    /          \
-  /------------\    Component (Many)
-                    Individual UI pieces
+  /------------\    Component (Çok)
+                    Bireysel UI parçaları
 ```
 
 ---
 
-## 3. E2E Test Principles
+## 3. E2E Test Prensipleri
 
-### What to Test
+### Neyi Test Etmeli
 
-| Priority | Tests |
-|----------|-------|
-| 1 | Happy path user flows |
-| 2 | Authentication flows |
-| 3 | Critical business actions |
-| 4 | Error handling |
+| Öncelik | Testler |
+|---------|---------|
+| 1 | Mutlu yol kullanıcı akışları |
+| 2 | Kimlik doğrulama akışları |
+| 3 | Kritik iş eylemleri |
+| 4 | Hata yönetimi |
 
-### E2E Best Practices
+### E2E En İyi Uygulamalar
 
-| Practice | Why |
-|----------|-----|
-| Use data-testid | Stable selectors |
-| Wait for elements | Avoid flaky tests |
-| Clean state | Independent tests |
-| Avoid implementation details | Test user behavior |
+| Uygulama | Neden |
+|---------| ------|
+| data-testid kullan | Stabil seçiciler |
+| Elementleri bekle | Kararsız testlerden kaçın |
+| State'i temizle | Bağımsız testler |
+| İmplementasyon detaylarından kaçın | Kullanıcı davranışını test et |
 
 ---
 
-## 4. Playwright Principles
+## 4. Playwright Prensipleri
 
-### Core Concepts
+### Temel Kavramlar
 
-| Concept | Use |
-|---------|-----|
-| Page Object Model | Encapsulate page logic |
-| Fixtures | Reusable test setup |
-| Assertions | Built-in auto-wait |
-| Trace Viewer | Debug failures |
+| Kavram | Kullanım |
+|--------|----------|
+| Page Object Model | Sayfa mantığını kapsülle |
+| Fixtures | Yeniden kullanılabilir test kurulumu |
+| Assertions | Dahili otomatik bekleme |
+| Trace Viewer | Başarısızlıkları debug et |
 
-### Configuration
+### Yapılandırma
 
-| Setting | Recommendation |
-|---------|----------------|
-| Retries | 2 on CI |
+| Ayar | Öneri |
+|------|-------|
+| Retries | CI'da 2 |
 | Trace | on-first-retry |
 | Screenshots | on-failure |
 | Video | retain-on-failure |
 
 ---
 
-## 5. Visual Testing
+## 5. Görsel Test Etme
 
-### When to Use
+### Ne Zaman Kullanılır
 
-| Scenario | Value |
-|----------|-------|
-| Design system | High |
-| Marketing pages | High |
-| Component library | Medium |
-| Dynamic content | Lower |
+| Senaryo | Değer |
+|---------|-------|
+| Tasarım sistemi | Yüksek |
+| Pazarlama sayfaları | Yüksek |
+| Component kütüphanesi | Orta |
+| Dinamik içerik | Düşük |
 
-### Strategy
+### Strateji
 
-- Baseline screenshots
-- Compare on changes
-- Review visual diffs
-- Update intentional changes
-
----
-
-## 6. API Testing Principles
-
-### Coverage Areas
-
-| Area | Tests |
-|------|-------|
-| Status codes | 200, 400, 404, 500 |
-| Response shape | Matches schema |
-| Error messages | User-friendly |
-| Edge cases | Empty, large, special chars |
+- Baseline ekran görüntüleri
+- Değişikliklerde karşılaştır
+- Görsel farkları incele
+- Kasıtlı değişiklikleri güncelle
 
 ---
 
-## 7. Test Organization
+## 6. API Test Etme Prensipleri
 
-### File Structure
+### Kapsam Alanları
+
+| Alan | Testler |
+|------|---------|
+| Durum kodları | 200, 400, 404, 500 |
+| Yanıt şekli | Şema ile eşleşir |
+| Hata mesajları | Kullanıcı dostu |
+| Uç durumlar | Boş, büyük, özel karakterler |
+
+---
+
+## 7. Test Organizasyonu
+
+### Dosya Yapısı
 
 ```
 tests/
-├── e2e/           # Full user flows
-├── integration/   # API, data
-├── component/     # UI units
-└── fixtures/      # Shared data
+├── e2e/           # Tam kullanıcı akışları
+├── integration/   # API, veri
+├── component/     # UI birimleri
+└── fixtures/      # Paylaşılan veri
 ```
 
-### Naming Convention
+### İsimlendirme Konvansiyonu
 
-| Pattern | Example |
-|---------|---------|
-| Feature-based | `login.spec.ts` |
-| Descriptive | `user-can-checkout.spec.ts` |
-
----
-
-## 8. CI Integration
-
-### Pipeline Steps
-
-1. Install dependencies
-2. Install browsers
-3. Run tests
-4. Upload artifacts (traces, screenshots)
-
-### Parallelization
-
-| Strategy | Use |
-|----------|-----|
-| Per file | Playwright default |
-| Sharding | Large suites |
-| Workers | Multiple browsers |
+| Desen | Örnek |
+|-------|-------|
+| Özellik-tabanlı | `login.spec.ts` |
+| Açıklayıcı | `user-can-checkout.spec.ts` |
 
 ---
 
-## 9. Anti-Patterns
+## 8. CI Entegrasyonu
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Test implementation | Test behavior |
-| Hardcode waits | Use auto-wait |
-| Skip cleanup | Isolate tests |
-| Ignore flaky tests | Fix root cause |
+### Pipeline Adımları
+
+1. Bağımlılıkları kur
+2. Tarayıcıları kur
+3. Testleri çalıştır
+4. Artifact'leri yükle (trace'ler, ekran görüntüleri)
+
+### Paralelleştirme
+
+| Strateji | Kullanım |
+|----------|----------|
+| Dosya başına | Playwright varsayılan |
+| Sharding | Büyük suit'ler |
+| Workers | Birden fazla tarayıcı |
 
 ---
 
-> **Remember:** E2E tests are expensive. Use them for critical paths only.
+## 9. Anti-Desenler
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| İmplementasyonu test et | Davranışı test et |
+| Sabit beklemeleri kodla | Otomatik bekleme kullan |
+| Temizlemeyi atla | Testleri izole et |
+| Kararsız testleri görmezden gel | Kök nedeni düzelt |
+
+---
+
+> **Unutma:** E2E testleri pahalıdır. Yalnızca kritik yollar için kullan.

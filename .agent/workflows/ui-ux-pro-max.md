@@ -1,24 +1,24 @@
 ---
-description: Plan and implement UI
+description: Kullanıcı Arayüzü (UI) planlayın ve uygulayın
 ---
 
 ---
-description: AI-powered design intelligence with 50+ styles, 95+ color palettes, and automated design system generation
+description: 50+ stil, 95+ renk paleti ve otomatik tasarım sistemi oluşturma özelliğine sahip YZ destekli tasarım zekası
 ---
 
 # ui-ux-pro-max
 
-Comprehensive design guide for web and mobile applications. Contains 50+ styles, 97 color palettes, 57 font pairings, 99 UX guidelines, and 25 chart types across 9 technology stacks. Searchable database with priority-based recommendations.
+Web ve mobil uygulamalar için kapsamlı tasarım kılavuzu. 9 teknoloji yığını genelinde 50+ stil, 97 renk paleti, 57 font eşleşmesi, 99 UX yönergesi ve 25 grafik türü içerir. Öncelik tabanlı önerilere sahip aranabilir bir veritabanıdır.
 
-## Prerequisites
+## Ön Koşullar
 
-Check if Python is installed:
+Python'un kurulu olup olmadığını kontrol edin:
 
 ```bash
 python3 --version || python --version
 ```
 
-If Python is not installed, install it based on user's OS:
+Python kurulu değilse, kullanıcının işletim sistemine göre kurun:
 
 **macOS:**
 ```bash
@@ -37,260 +37,260 @@ winget install Python.Python.3.12
 
 ---
 
-## How to Use This Workflow
+## Bu İş Akışı Nasıl Kullanılır?
 
-When user requests UI/UX work (design, build, create, implement, review, fix, improve), follow this workflow:
+Kullanıcı UI/UX çalışması (tasarım, oluşturma, uygulama, inceleme, düzeltme, iyileştirme) talep ettiğinde bu iş akışını takip edin:
 
-### Step 1: Analyze User Requirements
+### 1. Adım: Kullanıcı Gereksinimlerini Analiz Et
 
-Extract key information from user request:
-- **Product type**: SaaS, e-commerce, portfolio, dashboard, landing page, etc.
-- **Style keywords**: minimal, playful, professional, elegant, dark mode, etc.
-- **Industry**: healthcare, fintech, gaming, education, etc.
-- **Stack**: React, Vue, Next.js, or default to `html-tailwind`
+Kullanıcı isteğinden temel bilgileri çıkarın:
+- **Ürün türü**: SaaS, e-ticaret, portföy, panel (dashboard), açılış sayfası (landing page), vb.
+- **Stil anahtar kelimeleri**: minimal, oyuncu, profesyonel, zarif, karanlık mod, vb.
+- **Sektör**: sağlık, fintech, oyun, eğitim, vb.
+- **Teknoloji Yığını (Stack)**: React, Vue, Next.js veya varsayılan olarak `html-tailwind`
 
-### Step 2: Generate Design System (REQUIRED)
+### 2. Adım: Tasarım Sistemi Oluştur (ZORUNLU)
 
-**Always start with `--design-system`** to get comprehensive recommendations with reasoning:
-
-```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywords>" --design-system [-p "Project Name"]
-```
-
-This command:
-1. Searches 5 domains in parallel (product, style, color, landing, typography)
-2. Applies reasoning rules from `ui-reasoning.csv` to select best matches
-3. Returns complete design system: pattern, style, colors, typography, effects
-4. Includes anti-patterns to avoid
-
-**Example:**
-```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --design-system -p "Serenity Spa"
-```
-
-### Step 2b: Persist Design System (Master + Overrides Pattern)
-
-To save the design system for hierarchical retrieval across sessions, add `--persist`:
+Gerekçelendirilmiş kapsamlı öneriler almak için **her zaman `--design-system` ile başlayın**:
 
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name"
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<urun_turu> <sektor> <anahtar_kelimeler>" --design-system [-p "Proje Adı"]
 ```
 
-This creates:
-- `design-system/MASTER.md` — Global Source of Truth with all design rules
-- `design-system/pages/` — Folder for page-specific overrides
+Bu komut:
+1. 5 alanı (domain) paralel olarak arar (ürün, stil, renk, sayfa yapısı, tipografi)
+2. En iyi eşleşmeleri seçmek için `ui-reasoning.csv` dosyasındaki mantık kurallarını uygular
+3. Tam tasarım sistemini döndürür: desen, stil, renkler, tipografi, efektler
+4. Kaçınılması gereken anti-desenleri (anti-patterns) içerir
 
-**With page-specific override:**
+**Örnek:**
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name" --page "dashboard"
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "güzellik spa sağlık hizmeti" --design-system -p "Serenity Spa"
 ```
 
-This also creates:
-- `design-system/pages/dashboard.md` — Page-specific deviations from Master
+### 2b. Adım: Tasarım Sistemini Kalıcı Hale Getir (Ana + Geçersiz Kılma Deseni)
 
-**How hierarchical retrieval works:**
-1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
-2. If the page file exists, its rules **override** the Master file
-3. If not, use `design-system/MASTER.md` exclusively
-
-### Step 3: Supplement with Detailed Searches (as needed)
-
-After getting the design system, use domain searches to get additional details:
+Tasarım sistemini oturumlar arası hiyerarşik erişim için kaydetmek üzere `--persist` ekleyin:
 
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<sorgu>" --design-system --persist -p "Proje Adı"
 ```
 
-**When to use detailed searches:**
+Bu şunları oluşturur:
+- `design-system/MASTER.md` — Tüm tasarım kurallarını içeren Global Doğruluk Kaynağı
+- `design-system/pages/` — Sayfaya özgü geçersiz kılmalar (overrides) için klasör
 
-| Need | Domain | Example |
+**Sayfaya özgü geçersiz kılma ile:**
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<sorgu>" --design-system --persist -p "Proje Adı" --page "dashboard"
+```
+
+Bu ayrıca şunları oluşturur:
+- `design-system/pages/dashboard.md` — Ana dosyadan (Master) sayfaya özgü sapmalar
+
+**Hiyerarşik erişim nasıl çalışır:**
+1. Belirli bir sayfayı oluştururken (örneğin "Ödeme"), önce `design-system/pages/odeme.md` dosyasını kontrol edin
+2. Sayfa dosyası mevcutsa, kuralları Ana (Master) dosyayı **geçersiz kılar**
+3. Mevcut değilse, sadece `design-system/MASTER.md` dosyasını kullanın
+
+### 3. Adım: Detaylı Aramalarla Destekle (gerektiğinde)
+
+Tasarım sistemini aldıktan sonra, ek detaylar için alan (domain) aramalarını kullanın:
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<anahtar_kelime>" --domain <alan> [-n <maks_sonuc>]
+```
+
+**Ne zaman detaylı arama yapılmalı:**
+
+| İhtiyaç | Alan | Örnek |
 |------|--------|---------|
-| More style options | `style` | `--domain style "glassmorphism dark"` |
-| Chart recommendations | `chart` | `--domain chart "real-time dashboard"` |
-| UX best practices | `ux` | `--domain ux "animation accessibility"` |
-| Alternative fonts | `typography` | `--domain typography "elegant luxury"` |
-| Landing structure | `landing` | `--domain landing "hero social-proof"` |
+| Daha fazla stil seçeneği | `style` | `--domain style "glassmorphism dark"` |
+| Grafik önerileri | `chart` | `--domain chart "gerçek zamanlı panel"` |
+| UX en iyi pratikleri | `ux` | `--domain ux "animasyon erişilebilirlik"` |
+| Alternatif yazı tipleri | `typography` | `--domain typography "zarif lüks"` |
+| Sayfa yapısı | `landing` | `--domain landing "hero sosyal-kanıt"` |
 
-### Step 4: Stack Guidelines (Default: html-tailwind)
+### 4. Adım: Yazılım Yığını Kılavuzları (Varsayılan: html-tailwind)
 
-Get implementation-specific best practices. If user doesn't specify a stack, **default to `html-tailwind`**.
+Uygulamaya özel en iyi pratikleri alın. Kullanıcı bir yığın belirtmezse, **varsayılan olarak `html-tailwind` kullanın**.
 
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --stack html-tailwind
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<anahtar_kelime>" --stack html-tailwind
 ```
 
-Available stacks: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
-, `jetpack-compose`
+Kullanılabilir yığınlar (stacks): `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
+
 ---
 
-## Search Reference
+## Arama Referansı
 
-### Available Domains
+### Kullanılabilir Alanlar (Domains)
 
-| Domain | Use For | Example Keywords |
+| Alan | Kullanım Amacı | Örnek Anahtar Kelimeler |
 |--------|---------|------------------|
-| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
-| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
-| `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
-| `color` | Color palettes by product type | saas, ecommerce, healthcare, beauty, fintech, service |
-| `landing` | Page structure, CTA strategies | hero, hero-centric, testimonial, pricing, social-proof |
-| `chart` | Chart types, library recommendations | trend, comparison, timeline, funnel, pie |
-| `ux` | Best practices, anti-patterns | animation, accessibility, z-index, loading |
-| `react` | React/Next.js performance | waterfall, bundle, suspense, memo, rerender, cache |
-| `web` | Web interface guidelines | aria, focus, keyboard, semantic, virtualize |
-| `prompt` | AI prompts, CSS keywords | (style name) |
+| `product` | Ürün türü önerileri | SaaS, e-ticaret, portföy, sağlık, güzellik, hizmet |
+| `style` | UI stilleri, renkler, efektler | glassmorphism, minimalizm, karanlık mod, brutalizm |
+| `typography` | Yazı tipi eşleşmeleri, Google Fonts | zarif, oyuncu, profesyonel, modern |
+| `color` | Ürün türüne göre renk paletleri | saas, e-ticaret, sağlık, güzellik, fintech, hizmet |
+| `landing` | Sayfa yapısı, CTA stratejileri | hero, hero-odaklı, referans, fiyatlandırma, sosyal-kanıt |
+| `chart` | Grafik türleri, kütüphane önerileri | trend, karşılaştırma, zaman çizelgesi, huni, pasta |
+| `ux` | En iyi pratikler, anti-desenler | animasyon, erişilebilirlik, z-index, yükleme |
+| `react` | React/Next.js performansı | waterfall, bundle, suspense, memo, rerender, cache |
+| `web` | Web arayüzü yönergeleri | aria, odak, klavye, semantik, sanallaştırma |
+| `prompt` | YZ komutları, CSS anahtar kelimeleri | (stil adı) |
 
-### Available Stacks
+### Kullanılabilir Yazılım Yığınları (Stacks)
 
-| Stack | Focus |
+| Yığın (Stack) | Odak Noktası |
 |-------|-------|
-| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
-| `react` | State, hooks, performance, patterns |
-| `nextjs` | SSR, routing, images, API routes |
+| `html-tailwind` | Tailwind yardımcı sınıfları, responsive, a11y (VARSIYILAN) |
+| `react` | Durum (state), hook'lar, performans, desenler |
+| `nextjs` | SSR, yönlendirme, görseller, API rotaları |
 | `vue` | Composition API, Pinia, Vue Router |
-| `svelte` | Runes, stores, SvelteKit |
-| `swiftui` | Views, State, Navigation, Animation |
-| `react-native` | Components, Navigation, Lists |
-| `flutter` | Widgets, State, Layout, Theming |
-| `shadcn` | shadcn/ui components, theming, forms, patterns |
-| `jetpack-compose` | Composables, Modifiers, State Hoisting, Recomposition |
+| `svelte` | Runes, depolar (stores), SvelteKit |
+| `swiftui` | Görünümler (Views), Durum, Navigasyon, Animasyon |
+| `react-native` | Bileşenler, Navigasyon, Listeler |
+| `flutter` | Widget'lar, Durum, Düzen, Temalandırma |
+| `shadcn` | shadcn/ui bileşenleri, temalandırma, formlar, desenler |
+| `jetpack-compose` | Birleştirilebilir öğeler (Composables), Değiştiriciler (Modifiers), Durum Yönetimi |
 
 ---
 
-## Example Workflow
+## Örnek İş Akışı
 
-**User request:** "Làm landing page cho dịch vụ chăm sóc da chuyên nghiệp"
+**Kullanıcı isteği:** "Profesyonel bir cilt bakımı hizmeti için açılış sayfası yap"
 
-### Step 1: Analyze Requirements
-- Product type: Beauty/Spa service
-- Style keywords: elegant, professional, soft
-- Industry: Beauty/Wellness
-- Stack: html-tailwind (default)
+### 1. Adım: Gereksinimleri Analiz Et
+- Ürün türü: Güzellik/Spa hizmeti
+- Stil anahtar kelimeleri: zarif, profesyonel, yumuşak
+- Sektör: Güzellik/Sağlık
+- Yazılım Yığını: html-tailwind (varsayılan)
 
-### Step 2: Generate Design System (REQUIRED)
+### 2. Adım: Tasarım Sistemi Oluştur (ZORUNLU)
 
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "beauty spa wellness service elegant" --design-system -p "Serenity Spa"
 ```
 
-**Output:** Complete design system with pattern, style, colors, typography, effects, and anti-patterns.
+**Çıktı:** Desen, stil, renkler, tipografi, efektler ve anti-desenleri içeren tam tasarım sistemi.
 
-### Step 3: Supplement with Detailed Searches (as needed)
+### 3. Adım: Detaylı Aramalarla Destekle (gerektiğinde)
 
 ```bash
-# Get UX guidelines for animation and accessibility
+# Animasyon ve erişilebilirlik için UX yönergelerini al
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "animation accessibility" --domain ux
 
-# Get alternative typography options if needed
+# Gerekirse alternatif tipografi seçeneklerini al
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "elegant luxury serif" --domain typography
 ```
 
-### Step 4: Stack Guidelines
+### 4. Adım: Yazılım Yığını Kılavuzları
 
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "layout responsive form" --stack html-tailwind
 ```
 
-**Then:** Synthesize design system + detailed searches and implement the design.
+**Ardından:** Tasarım sistemi + detaylı aramaları sentezleyin ve tasarımı uygulayın.
 
 ---
 
-## Output Formats
+## Çıktı Formatları
 
-The `--design-system` flag supports two output formats:
+`--design-system` bayrağı iki çıktı formatını destekler:
 
 ```bash
-# ASCII box (default) - best for terminal display
+# ASCII kutu (varsayılan) - terminal ekranı için en iyisi
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system
 
-# Markdown - best for documentation
+# Markdown - dokümantasyon için en iyisi
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system -f markdown
 ```
 
 ---
 
-## Tips for Better Results
+## Daha İyi Sonuçlar İçin İpuçları
 
-1. **Be specific with keywords** - "healthcare SaaS dashboard" > "app"
-2. **Search multiple times** - Different keywords reveal different insights
-3. **Combine domains** - Style + Typography + Color = Complete design system
-4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
-5. **Use stack flag** - Get implementation-specific best practices
-6. **Iterate** - If first search doesn't match, try different keywords
-
----
-
-## Common Rules for Professional UI
-
-These are frequently overlooked issues that make UI look unprofessional:
-
-### Icons & Visual Elements
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **No emoji icons** | Use SVG icons (Heroicons, Lucide, Simple Icons) | Use emojis like 🎨 🚀 ⚙️ as UI icons |
-| **Stable hover states** | Use color/opacity transitions on hover | Use scale transforms that shift layout |
-| **Correct brand logos** | Research official SVG from Simple Icons | Guess or use incorrect logo paths |
-| **Consistent icon sizing** | Use fixed viewBox (24x24) with w-6 h-6 | Mix different icon sizes randomly |
-
-### Interaction & Cursor
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Cursor pointer** | Add `cursor-pointer` to all clickable/hoverable cards | Leave default cursor on interactive elements |
-| **Hover feedback** | Provide visual feedback (color, shadow, border) | No indication element is interactive |
-| **Smooth transitions** | Use `transition-colors duration-200` | Instant state changes or too slow (>500ms) |
-
-### Light/Dark Mode Contrast
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Glass card light mode** | Use `bg-white/80` or higher opacity | Use `bg-white/10` (too transparent) |
-| **Text contrast light** | Use `#0F172A` (slate-900) for text | Use `#94A3B8` (slate-400) for body text |
-| **Muted text light** | Use `#475569` (slate-600) minimum | Use gray-400 or lighter |
-| **Border visibility** | Use `border-gray-200` in light mode | Use `border-white/10` (invisible) |
-
-### Layout & Spacing
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Floating navbar** | Add `top-4 left-4 right-4` spacing | Stick navbar to `top-0 left-0 right-0` |
-| **Content padding** | Account for fixed navbar height | Let content hide behind fixed elements |
-| **Consistent max-width** | Use same `max-w-6xl` or `max-w-7xl` | Mix different container widths |
+1. **Anahtar kelimelerde spesifik olun** - "sağlık SaaS paneli" > "uygulama"
+2. **Birden fazla kez arayın** - Farklı anahtar kelimeler farklı içgörüler sunar
+3. **Alanları birleştirin** - Stil + Tipografi + Renk = Tam tasarım sistemi
+4. **Her zaman UX'i kontrol edin** - Yaygın sorunlar için "animasyon", "z-index", "erişilebilirlik" araması yapın
+5. **Yığın (stack) bayrağını kullanın** - Uygulamaya özel en iyi pratikleri alın
+6. **Yineleyin** - İlk arama eşleşmezse farklı anahtar kelimeler deneyin
 
 ---
 
-## Pre-Delivery Checklist
+## Profesyonel UI İçin Ortak Kurallar
 
-Before delivering UI code, verify these items:
+Bunlar, UI'ın profesyonel görünmemesine neden olan ve sıkça gözden kaçan sorunlardır:
 
-### Visual Quality
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] Brand logos are correct (verified from Simple Icons)
-- [ ] Hover states don't cause layout shift
-- [ ] Use theme colors directly (bg-primary) not var() wrapper
+### İkonlar ve Görsel Öğeler
 
-### Interaction
-- [ ] All clickable elements have `cursor-pointer`
-- [ ] Hover states provide clear visual feedback
-- [ ] Transitions are smooth (150-300ms)
-- [ ] Focus states visible for keyboard navigation
+| Kural | Yap | Yapma |
+|------|----|----- |
+| **Emoji ikon yok** | SVG ikonları kullan (Heroicons, Lucide, Simple Icons) | UI ikonu olarak 🎨 🚀 ⚙️ gibi emojiler kullanma |
+| **Kararlı hover durumları** | Üzerine gelindiğinde (hover) renk/opaklık geçişleri kullan | Düzeni kaydıran ölçeklendirme (scale) dönüşümleri yapma |
+| **Doğru marka logoları** | Simple Icons'dan resmi SVG'leri araştır | Yanlış logo yollarını tahmin etme veya kullanma |
+| **Tutarlı ikon boyutları** | w-6 h-6 ile sabit viewBox (24x24) kullan | Farklı ikon boyutlarını rastgele karıştırma |
 
-### Light/Dark Mode
-- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
-- [ ] Glass/transparent elements visible in light mode
-- [ ] Borders visible in both modes
-- [ ] Test both modes before delivery
+### Etkileşim ve İmleç
 
-### Layout
-- [ ] Floating elements have proper spacing from edges
-- [ ] No content hidden behind fixed navbars
-- [ ] Responsive at 375px, 768px, 1024px, 1440px
-- [ ] No horizontal scroll on mobile
+| Kural | Yap | Yapma |
+|------|----|----- |
+| **İmleç göstergesi (pointer)** | Tüm tıklanabilir/hover edilebilir kartlara `cursor-pointer` ekle | Etkileşimli öğelerde varsayılan imleci bırakma |
+| **Hover geri bildirimi** | Görsel geri bildirim sağla (renk, gölge, kenarlık) | Öğenin etkileşimli olduğuna dair hiçbir belirti bırakmama |
+| **Pürüzsüz geçişler** | `transition-colors duration-200` kullan | Anında durum değişiklikleri veya çok yavaş (>500ms) geçişler |
 
-### Accessibility
-- [ ] All images have alt text
-- [ ] Form inputs have labels
-- [ ] Color is not the only indicator
-- [ ] `prefers-reduced-motion` respected
+### Işık/Karanlık Mod Kontrastı
+
+| Kural | Yap | Yapma |
+|------|----|----- |
+| **İyi ışık modu cam kartı** | `bg-white/80` veya daha yüksek opaklık kullan | `bg-white/10` kullanma (çok şeffaf kalır) |
+| **Işık modu metin kontrastı** | Metin için `#0F172A` (slate-900) kullan | Gövde metni için `#94A3B8` (slate-400) kullanma |
+| **Işık modu silik metin** | Minimum `#475569` (slate-600) kullan | gray-400 veya daha açık renkleri kullanma |
+| **Kenarlık görünürlüğü** | Işık modunda `border-gray-200` kullan | `border-white/10` kullanma (görünmez kalır) |
+
+### Düzen ve Boşluklandırma
+
+| Kural | Yap | Yapma |
+|------|----|----- |
+| **Yüzen navbar** | `top-4 left-4 right-4` boşluğu ekle | Navigasyon çubuğunu doğrudan `top-0` sınırına yapıştırma |
+| **İçerik dolgusu (padding)** | Sabit navbar yüksekliğini hesaba kat | İçeriğin sabit öğelerin arkasında kalmasına izin verme |
+| **Tutarlı maksimum genişlik** | Aynı `max-w-6xl` veya `max-w-7xl` değerini kullan | Farklı konteyner genişliklerini karıştırma |
+
+---
+
+## Teslim Öncesi Kontrol Listesi
+
+UI kodunu teslim etmeden önce bu maddeleri doğrulayın:
+
+### Görsel Kalite
+- [ ] İkon olarak emoji kullanılmadı (yerine SVG kullanıldı)
+- [ ] Tüm ikonlar tutarlı bir setten (Heroicons/Lucide)
+- [ ] Marka logoları doğru (Simple Icons'dan doğrulandı)
+- [ ] Hover durumları düzen kaymasına (layout shift) neden olmuyor
+- [ ] var() sarmalayıcısı yerine doğrudan tema renklerini (bg-primary) kullanın
+
+### Etkileşim
+- [ ] Tüm tıklanabilir öğelerde `cursor-pointer` mevcut
+- [ ] Hover durumları net görsel geri bildirim sağlıyor
+- [ ] Geçişler pürüzsüz (150-300ms)
+- [ ] Klavye navigasyonu için odak (focus) durumları görünür
+
+### Işık/Karanlık Mod
+- [ ] Işık modu metni yeterli kontrasta sahip (minimum 4.5:1)
+- [ ] Cam/şeffaf öğeler ışık modunda görünür
+- [ ] Kenarlıklar her iki modda da görünür
+- [ ] Teslim etmeden önce her iki modu da test edin
+
+### Düzen (Layout)
+- [ ] Yüzen öğelerin kenarlardan uygun boşlukları var
+- [ ] Sabit navbar'ların arkasında gizli içerik yok
+- [ ] 375px, 768px, 1024px, 1440px genişliklerinde uyumlu (responsive)
+- [ ] Mobilde yatay kaydırma (horizontal scroll) yok
+
+### Erişilebilirlik
+- [ ] Tüm görsellerin alt metni (alt text) var
+- [ ] Form alanlarının etiketleri (labels) var
+- [ ] Renk, tek gösterge değil
+- [ ] `prefers-reduced-motion` ayarına saygı duyuldu

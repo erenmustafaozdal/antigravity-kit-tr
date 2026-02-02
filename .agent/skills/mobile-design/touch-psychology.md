@@ -1,537 +1,421 @@
-# Touch Psychology Reference
+# Dokunmatik Psikolojisi Referansı
 
-> Deep dive into mobile touch interaction, Fitts' Law for touch, thumb zone anatomy, gesture psychology, and haptic feedback.
-> **This is the mobile equivalent of ux-psychology.md - CRITICAL for all mobile work.**
+> Mobil dokunmatik etkileşim, dokunma için Fitts Yasası, başparmak bölgesi anatomisi, jest psikolojisi ve haptik (titreşim) geri bildirim konularına derin dalış.
+> **Bu, ux-psychology.md dosyasının mobil karşılığıdır - tüm mobil işler için KRİTİKTİR.**
 
 ---
 
-## 1. Fitts' Law for Touch
+## 1. Dokunma İçin Fitts Yasası
 
-### The Fundamental Difference
-
-```
-DESKTOP (Mouse/Trackpad):
-├── Cursor size: 1 pixel (precision)
-├── Visual feedback: Hover states
-├── Error cost: Low (easy to retry)
-└── Target acquisition: Fast, precise
-
-MOBILE (Finger):
-├── Contact area: ~7mm diameter (imprecise)
-├── Visual feedback: No hover, only tap
-├── Error cost: High (frustrating retries)
-├── Occlusion: Finger covers the target
-└── Target acquisition: Slower, needs larger targets
-```
-
-### Fitts' Law Formula Adapted
+### Temel Fark
 
 ```
-Touch acquisition time = a + b × log₂(1 + D/W)
+MASAÜSTÜ (Fare/Trackpad):
+├── İmleç boyutu: 1 piksel (hassas)
+├── Görsel geri bildirim: Hover (üzerine gelme) durumları
+├── Hata maliyeti: Düşük (yeniden denemek kolay)
+└── Hedefe ulaşım: Hızlı, hassas
 
-Where:
-├── D = Distance to target
-├── W = Width of target
-└── For touch: W must be MUCH larger than desktop
+MOBİL (Parmak):
+├── Temas alanı: ~7mm çap (hassas değil)
+├── Görsel geri bildirim: Hover yok, sadece dokunma
+├── Hata maliyeti: Yüksek (sinir bozucu tekrarlar)
+├── Oklüzyon: Parmak hedefi kapatır
+└── Hedefe ulaşım: Daha yavaş, daha büyük hedefler gerektirir
 ```
 
-### Minimum Touch Target Sizes
+### Uyarlanmış Fitts Yasası Formülü
 
-| Platform | Minimum | Recommended | Use For |
+```
+Dokunmatik erişim süresi = a + b × log₂(1 + D/W)
+
+Burada:
+├── D = Hedefe olan uzaklık
+├── W = Hedefin genişliği
+└── Dokunma için: W, masaüstüne göre ÇOK daha büyük olmalıdır
+```
+
+### Minimum Dokunmatik Hedef Boyutları
+
+| Platform | Minimum | Önerilen | Kullanım Amacı |
 |----------|---------|-------------|---------|
-| **iOS (HIG)** | 44pt × 44pt | 48pt+ | All tappable elements |
-| **Android (Material)** | 48dp × 48dp | 56dp+ | All tappable elements |
-| **WCAG 2.2** | 44px × 44px | - | Accessibility compliance |
-| **Critical Actions** | - | 56-64px | Primary CTAs, destructive actions |
+| **iOS (HIG)** | 44pt × 44pt | 48pt+ | Tüm tıklanabilir öğeler |
+| **Android (Material)** | 48dp × 48dp | 56dp+ | Tüm tıklanabilir öğeler |
+| **WCAG 2.2** | 44px × 44px | - | Erişilebilirlik uyumluluğu |
+| **Kritik Eylemler** | - | 56-64px | Birincil CTA'lar, yıkıcı eylemler |
 
-### Visual Size vs Hit Area
+### Görsel Boyut vs Tıklama Alanı
 
 ```
 ┌─────────────────────────────────────┐
 │                                     │
 │    ┌─────────────────────────┐      │
 │    │                         │      │
-│    │    [  BUTTON  ]         │ ← Visual: 36px
+│    │    [  BUTON   ]         │ ← Görsel: 36px
 │    │                         │      │
 │    └─────────────────────────┘      │
-│                                     │ ← Hit area: 48px (padding extends)
+│                                     │ ← Tıklama alanı: 48px (padding ile genişletilmiş)
 └─────────────────────────────────────┘
 
-✅ CORRECT: Visual can be smaller if hit area is minimum 44-48px
-❌ WRONG: Making hit area same as small visual element
+✅ DOĞRU: Tıklama alanı minimum 44-48px ise görsel daha küçük olabilir
+❌ YANLIŞ: Tıklama alanını küçük görsel öğeyle aynı boyutta yapmak
 ```
 
-### Application Rules
+### Uygulama Kuralları
 
-| Element | Visual Size | Hit Area |
+| Öğe | Görsel Boyut | Tıklama Alanı |
 |---------|-------------|----------|
-| Icon buttons | 24-32px | 44-48px (padding) |
-| Text links | Any | 44px height minimum |
-| List items | Full width | 48-56px height |
-| Checkboxes/Radio | 20-24px | 44-48px tap area |
-| Close/X buttons | 24px | 44px minimum |
-| Tab bar items | Icon 24-28px | Full tab width, 49px height (iOS) |
+| İkon butonları | 24-32px | 44-48px (dolgu/padding ile) |
+| Metin linkleri | Herhangi biri | Minimum 44px yükseklik |
+| Liste öğeleri | Tam genişlik | 48-56px yükseklik |
+| Checkbox/Radio | 20-24px | 44-48px dokunma alanı |
+| Kapat/X butonları | 24px | Minimum 44px |
+| Tab bar öğeleri | İkon 24-28px | Tam sekme genişliği, 49px yükseklik (iOS) |
 
 ---
 
-## 2. Thumb Zone Anatomy
+## 2. Başparmak Bölgesi Anatomisi
 
-### One-Handed Phone Usage
+### Tek Elle Telefon Kullanımı
 
 ```
-Research shows: 49% of users hold phone one-handed.
+Araştırmalar gösteriyor ki: Kullanıcıların %49'u telefonu tek elle tutuyor.
 
 ┌─────────────────────────────────────┐
 │                                     │
 │  ┌─────────────────────────────┐    │
-│  │       HARD TO REACH         │    │ ← Status bar, top nav
-│  │      (requires stretch)     │    │    Put: Back, menu, settings
+│  │       ERİŞİMİ ZOR           │    │ ← Durum çubuğu, üst navigasyon
+│  │      (uzanma gerektirir)    │    │    Şunları koyun: Geri, menü, ayarlar
 │  │                             │    │
 │  ├─────────────────────────────┤    │
 │  │                             │    │
-│  │       OK TO REACH           │    │ ← Content area
-│  │      (comfortable)          │    │    Put: Secondary actions, content
+│  │       ERİŞİMİ NORMAL        │    │ ← İçerik alanı
+│  │        (konforlu)           │    │    Şunları koyun: İkincil eylemler, içerik
 │  │                             │    │
 │  ├─────────────────────────────┤    │
 │  │                             │    │
-│  │       EASY TO REACH         │    │ ← Tab bar, FAB zone
-│  │      (thumb's arc)          │    │    Put: PRIMARY CTAs!
+│  │       ERİŞİMİ KOLAY         │    │ ← Tab bar, FAB bölgesi
+│  │      (başparmak yayı)       │    │    Şunları koyun: BİRİNCİL CTA'lar!
 │  │                             │    │
 │  └─────────────────────────────┘    │
 │                                     │
-│          [    HOME    ]             │
+│          [   ANA EKRAN  ]           │
 └─────────────────────────────────────┘
 ```
 
-### Thumb Arc (Right-Handed User)
+### Başparmak Yayı (Sağ Elini Kullanan Kullanıcı)
 
 ```
-Right hand holding phone:
+Telefonu sağ elle tutarken:
 
 ┌───────────────────────────────┐
-│  STRETCH      STRETCH    OK   │
+│  ZORLANMA     ZORLANMA   OK   │
 │                               │
-│  STRETCH        OK       EASY │
+│  ZORLANMA       OK      KOLAY │
 │                               │
-│    OK          EASY      EASY │
+│    OK          KOLAY    KOLAY │
 │                               │
-│   EASY         EASY      EASY │
+│   KOLAY        KOLAY    KOLAY │
 └───────────────────────────────┘
 
-Left hand is mirrored.
-→ Design for BOTH hands or assume right-dominant
+Sol el bunun tam tersidir.
+→ HER İKİ el için de tasarlayın veya sağ elin baskın olduğunu varsayın.
 ```
 
-### Placement Guidelines
+### Yerleşim Yönergeleri
 
-| Element Type | Ideal Position | Reason |
+| Öğe Türü | İdeal Konum | Neden? |
 |--------------|----------------|--------|
-| **Primary CTA** | Bottom center/right | Easy thumb reach |
-| **Tab bar** | Bottom | Natural thumb position |
-| **FAB** | Bottom right | Easy for right hand |
-| **Navigation** | Top (stretch) | Less frequent use |
-| **Destructive actions** | Top left | Hard to reach = harder to accidentally tap |
-| **Dismiss/Cancel** | Top left | Convention + safety |
-| **Confirm/Done** | Top right or bottom | Convention |
+| **Birincil CTA** | Alt orta/sağ | Kolay başparmak erişimi |
+| **Tab bar** | Alt | Doğal başparmak pozisyonu |
+| **FAB** | Sağ alt | Sağ el için kolay erişim |
+| **Navigasyon** | Üst (uzanma) | Daha az sıklıkta kullanım |
+| **Yıkıcı eylemler** | Sol üst | Erişimi zor = yanlışlıkla dokunması zor |
+| **Kapat/İptal** | Sol üst | Genel kabul görmüş kural + güvenlik |
+| **Onayla/Tamam** | Sağ üst veya alt | Genel kabul görmüş kural |
 
-### Large Phone Considerations (>6")
+### Büyük Telefon Değerlendirmeleri (>6")
 
 ```
-On large phones, top 40% becomes "dead zone" for one-handed use.
+Büyük telefonlarda üst %40'lık alan tek elle kullanım için "ölü bölge" haline gelir.
 
-Solutions:
-├── Reachability features (iOS)
-├── Pull-down interfaces (drawer pulls content down)
-├── Bottom sheet navigation
-├── Floating action buttons
-└── Gesture-based alternatives to top actions
+Çözümler:
+├── Erişilebilirlik özellikleri (iOS Reachability)
+├── Aşağı çekilebilir arayüzler (içeriği aşağıya çeken yapılar)
+├── Alt sayfa (bottom sheet) navigasyonu
+├── Yüzen aksiyon butonları (FAB)
+├── Üst eylemler için jest tabanlı alternatifler
 ```
 
 ---
 
-## 3. Touch vs Click Psychology
+## 3. Dokunma vs Tıklama Psikolojisi
 
-### Expectation Differences
+### Beklenti Farklılıkları
 
-| Aspect | Click (Desktop) | Touch (Mobile) |
+| Konu | Tıklama (Masaüstü) | Dokunma (Mobil) |
 |--------|-----------------|----------------|
-| **Feedback timing** | Can wait 100ms | Expect instant (<50ms) |
-| **Visual feedback** | Hover → Click | Immediate tap response |
-| **Error tolerance** | Easy retry | Frustrating, feels broken |
-| **Precision** | High | Low |
-| **Context menu** | Right-click | Long press |
-| **Cancel action** | ESC key | Swipe away, outside tap |
+| **Geri bildirim süresi**| 100ms bekleyebilir | Anında beklenti (<50ms) |
+| **Görsel geri bildirim**| Hover → Tıklama | Anında dokunma yanıtı |
+| **Hata toleransı** | Kolay yeniden deneme | Sinir bozucu, bozuk hissettirir |
+| **Hassasiyet** | Yüksek | Düşük |
+| **Bağlam menüsü** | Sağ tık | Uzun basış |
+| **İptal eylemi** | ESC tuşu | Kaydırarak uzaklaştırma, dışarı dokunma |
 
-### Touch Feedback Requirements
-
-```
-Tap → Immediate visual change (< 50ms)
-├── Highlight state (background color change)
-├── Scale down slightly (0.95-0.98)
-├── Ripple effect (Android Material)
-├── Haptic feedback for confirmation
-└── Never nothing!
-
-Loading → Show within 100ms
-├── If action takes > 100ms
-├── Show spinner/progress
-├── Disable button (prevent double tap)
-└── Optimistic UI when possible
-```
-
-### The "Fat Finger" Problem
+### Dokunmatik Geri Bildirim Gereksinimleri
 
 ```
-Problem: Finger occludes target during tap
-├── User can't see exactly where they're tapping
-├── Visual feedback appears UNDER finger
-└── Increases error rate
+Dokunma → Anında görsel değişiklik (< 50ms)
+├── Vurgu durumu (arka plan rengi değişimi)
+├── Hafifçe küçülme (scale down 0.95-0.98)
+├── Dalgalanma efekti (Android Material Ripple)
+├── Onay için haptik (titreşim) geri bildirimi
+└── Asla yanıtsız bırakma!
 
-Solutions:
-├── Show feedback ABOVE touch point (tooltips)
-├── Use cursor-like offset for precision tasks
-├── Magnification loupe for text selection
-└── Large enough targets that precision doesn't matter
+Yükleme → 100ms içinde göster
+├── Eylem > 100ms sürüyorsa
+├── Spinner/ilerleme çubuğu göster
+├── Butonu devre dışı bırak (çift dokunmayı önle)
+└── Mümkünse iyimser (optimistic) UI kullan
+```
+
+### "Şişman Parmak" Sorunu
+
+```
+Sorun: Dokunma sırasında parmak hedefi kapatır
+├── Kullanıcı tam olarak nereye dokunduğunu göremez
+├── Görsel geri bildirim parmağın ALTINDA kalır
+└── Hata oranını artırır
+
+Çözümler:
+├── Geri bildirimi dokunma noktasının ÜSTÜNDE göster (tooltip gibi)
+├── Hassas görevler için imleç benzeri kaydırma (offset) kullan
+├── Metin seçimi için büyütme büyüteci (loupe) kullan
+├── Hedefleri hassasiyet gerektirmeyecek kadar büyük yap
 ```
 
 ---
 
-## 4. Gesture Psychology
+## 4. Jest (Gesture) Psikolojisi
 
-### Gesture Discoverability Problem
+### Jest Keşfedilebilirliği Sorunu
 
 ```
-Problem: Gestures are INVISIBLE.
-├── User must discover/remember them
-├── No hover/visual hint
-├── Different mental model than tap
-└── Many users never discover gestures
+Sorun: Jestler GÖRÜNMEZDİR.
+├── Kullanıcı onları keşfetmeli/hatırlamalıdır
+├── Hover/görsel ipucu yoktur
+├── Dokunmadan farklı bir zihinsel modeldir
+└── Birçok kullanıcı jestleri asla keşfedemez
 
-Solution: Always provide visible alternative
-├── Swipe to delete → Also show delete button or menu
-├── Pull to refresh → Also show refresh button
-├── Pinch to zoom → Also show zoom controls
-└── Gestures as shortcuts, not only way
+Çözüm: Her zaman görünür bir alternatif sunun
+├── Silmek için kaydır → Ayrıca sil butonu veya menüsü göster
+├── Yenilemek için çek → Ayrıca yenile butonu göster
+├── Yakınlaştırmak için çimdikle → Ayrıca yakınlaştırma kontrolleri göster
+└── Jestleri tek yol değil, birer kısayol olarak kullanın
 ```
 
-### Common Gesture Conventions
+### Yaygın Jest Kuralları
 
-| Gesture | Universal Meaning | Usage |
+| Jest | Evrensel Anlam | Kullanım |
 |---------|-------------------|-------|
-| **Tap** | Select, activate | Primary action |
-| **Double tap** | Zoom in, like/favorite | Quick action |
-| **Long press** | Context menu, selection mode | Secondary options |
-| **Swipe horizontal** | Navigation, delete, actions | List actions |
-| **Swipe down** | Refresh, dismiss | Pull to refresh |
-| **Pinch** | Zoom in/out | Maps, images |
-| **Two-finger scroll** | Scroll within scroll | Nested scrolls |
+| **Dokunma** | Seç, etkinleştir | Birincil eylem |
+| **Çift dokunma** | Yakınlaştır, beğen/favori | Hızlı eylem |
+| **Uzun basış** | Bağlam menüsü, seçim modu | İkincil seçenekler |
+| **Yatay kaydırma** | Navigasyon, silme, eylemler | Liste eylemleri |
+| **Aşağı kaydırma** | Yenile, kapat | Çek-yenile |
+| **Çimdikleme** | Yakınlaştır/Uzaklaştır | Haritalar, görseller |
+| **İki parmak kaydırma**| Kaydırma içinde kaydırma | İçe içe kaydırmalar |
 
-### Gesture Affordance Design
+### Jest Belirginliği (Affordance) Tasarımı
 
 ```
-Swipe actions need visual hints:
+Kaydırma eylemleri görsel ipuçlarına ihtiyaç duyar:
 
 ┌─────────────────────────────────────────┐
 │  ┌───┐                                  │
-│  │ ≡ │  Item with hidden actions...   → │ ← Edge hint (partial color)
+│  │ ≡ │  Gizli eylemleri olan öğe...   → │ ← Kenar ipucu (kısmi renk)
 │  └───┘                                  │
 └─────────────────────────────────────────┘
 
-✅ Good: Slight color peek at edge suggesting swipe
-✅ Good: Drag handle icon ( ≡ ) suggesting reorder
-✅ Good: Onboarding tooltip explaining gesture
-❌ Bad: Hidden gestures with no visual affordance
+✅ İyi: Kenarda hafif bir renk görünmesi kaydırmayı çağrıştırır
+✅ İyi: Taşıma ikonu ( ≡ ) yeniden sıralamayı çağrıştırır
+✅ İyi: Jesti açıklayan tanıtım ipucu (onboarding tooltip)
+❌ Kötü: Görsel ipucu olmayan gizli jestler
 ```
-
-### Platform Gesture Differences
-
-| Gesture | iOS | Android |
-|---------|-----|---------|
-| **Back** | Edge swipe from left | System back button/gesture |
-| **Share** | Action sheet | Share sheet |
-| **Context menu** | Long press / Force touch | Long press |
-| **Dismiss modal** | Swipe down | Back button or swipe |
-| **Delete in list** | Swipe left, tap delete | Swipe left, immediate or undo |
 
 ---
 
-## 5. Haptic Feedback Patterns
+## 5. Haptik Geri Bildirim Desenleri
 
-### Why Haptics Matter
+### Haptik Neden Önemlidir?
 
 ```
-Haptics provide:
-├── Confirmation without looking
-├── Richer, more premium feel
-├── Accessibility (blind users)
-├── Reduced error rate
-└── Emotional satisfaction
+Haptik şunları sağlar:
+├── Bakmadan onay alma
+├── Daha zengin, daha premium bir his
+├── Erişilebilirlik (görme engelli kullanıcılar)
+├── Azaltılmış hata oranı
+└── Duygusal tatmin
 
-Without haptics:
-├── Feels "cheap" or web-like
-├── User unsure if action registered
-└── Missed opportunity for delight
+Haptik olmadan:
+├── "Ucuz" veya web sitesi gibi hissettirir
+├── Kullanıcı eylemin algılanıp algılanmadığından emin olamaz
+└── Keyif alma fırsatı kaçırılır
 ```
 
-### iOS Haptic Types
+### iOS Haptik Türleri
 
-| Type | Intensity | Use Case |
+| Tür | Yoğunluk | Kullanım Durumu |
 |------|-----------|----------|
-| `selection` | Light | Picker scroll, toggle, selection |
-| `light` | Light | Minor actions, hover equivalent |
-| `medium` | Medium | Standard tap confirmation |
-| `heavy` | Strong | Important completed, drop |
-| `success` | Pattern | Task completed successfully |
-| `warning` | Pattern | Warning, attention needed |
-| `error` | Pattern | Error occurred |
+| `selection` | Hafif | Seçici kaydırma, anahtar, seçim |
+| `light` | Hafif | Küçük eylemler, hover karşılığı |
+| `medium` | Orta | Standart dokunma onayı |
+| `heavy` | Güçlü | Önemli tamamlama, bırakma |
+| `success` | Desen | Görev başarıyla tamamlandı |
+| `warning` | Desen | Uyarı, dikkat gerekiyor |
+| `error` | Desen | Hata oluştu |
 
-### Android Haptic Types
+### Android Haptik Türleri
 
-| Type | Use Case |
+| Tür | Kullanım Durumu |
 |------|----------|
-| `CLICK` | Standard tap feedback |
-| `HEAVY_CLICK` | Important actions |
-| `DOUBLE_CLICK` | Confirm actions |
-| `TICK` | Scroll/scrub feedback |
-| `LONG_PRESS` | Long press activation |
-| `REJECT` | Error/invalid action |
-
-### Haptic Usage Guidelines
-
-```
-✅ DO use haptics for:
-├── Button taps
-├── Toggle switches
-├── Picker/slider values
-├── Pull to refresh trigger
-├── Successful action completion
-├── Errors and warnings
-├── Swipe action thresholds
-└── Important state changes
-
-❌ DON'T use haptics for:
-├── Every scroll position
-├── Every list item
-├── Background events
-├── Passive displays
-└── Too frequently (haptic fatigue)
-```
-
-### Haptic Intensity Mapping
-
-| Action Importance | Haptic Level | Example |
-|-------------------|--------------|---------|
-| Minor/Browsing | Light / None | Scrolling, hovering |
-| Standard Action | Medium / Selection | Tap, toggle |
-| Significant Action | Heavy / Success | Complete, confirm |
-| Critical/Destructive | Heavy / Warning | Delete, payment |
-| Error | Error pattern | Failed action |
+| `CLICK` | Standart dokunma geri bildirimi |
+| `HEAVY_CLICK` | Önemli eylemler |
+| `DOUBLE_CLICK` | Eylemleri onaylama |
+| `TICK` | Kaydırma/tarama geri bildirimi |
+| `LONG_PRESS` | Uzun basış etkinleştirme |
+| `REJECT` | Hata/geçersiz eylem |
 
 ---
 
-## 6. Mobile Cognitive Load
+## 6. Mobil Bilişsel Yük
 
-### How Mobile Differs from Desktop
+### Mobilin Masaüstünden Farkı
 
-| Factor | Desktop | Mobile | Implication |
+| Faktör | Masaüstü | Mobil | Etki |
 |--------|---------|--------|-------------|
-| **Attention** | Focused sessions | Interrupted constantly | Design for micro-sessions |
-| **Context** | Controlled environment | Anywhere, any condition | Handle bad lighting, noise |
-| **Multitasking** | Multiple windows | One app visible | Complete task in-app |
-| **Input speed** | Fast (keyboard) | Slow (touch typing) | Minimize input, smart defaults |
-| **Error recovery** | Easy (undo, back) | Harder (no keyboard shortcuts) | Prevent errors, easy recovery |
+| **Dikkat** | Odaklanmış oturumlar | Sürekli kesinti | Mikro-oturumlar için tasarla |
+| **Bağlam** | Kontrollü ortam | Her yer, her koşul | Kötü ışık, gürültü ile baş et |
+| **Çoklu Görev** | Çoklu pencere | Tek uygulama görünür | Görevi uygulama içinde tamamla |
+| **Giriş Hızı** | Hızlı (klavye) | Yavaş (dokunmatik) | Girişi minimize et, akıllı varsayılanlar |
+| **Hata Kurtarma** | Kolay (geri al) | Daha zor | Hataları önle, kolay kurtarma sağla |
 
-### Reducing Mobile Cognitive Load
-
-```
-1. ONE PRIMARY ACTION per screen
-   └── Clear what to do next
-   
-2. PROGRESSIVE DISCLOSURE
-   └── Show only what's needed now
-   
-3. SMART DEFAULTS
-   └── Pre-fill what you can
-   
-4. CHUNKING
-   └── Break long forms into steps
-   
-5. RECOGNITION over RECALL
-   └── Show options, don't make user remember
-   
-6. CONTEXT PERSISTENCE
-   └── Save state on interrupt/background
-```
-
-### Miller's Law for Mobile
+### Mobil Bilişsel Yükü Azaltma
 
 ```
-Desktop: 7±2 items in working memory
-Mobile: Reduce to 5±1 (more distractions)
-
-Navigation: Max 5 tab bar items
-Options: Max 5 per menu level
-Steps: Max 5 visible steps in progress
+1. Ekran başına TEK BİRİNCİL EYLEM
+   └── Sırada ne yapılacağı net olsun
+   
+2. KADEMELİ AÇIKLAMA (Progressive Disclosure)
+   └── Sadece şu an gerekeni göster
+   
+3. AKILLI VARSAYILANLAR
+   └── Doldurulabilecekleri önceden doldur
+   
+4. GRUPLANDIRMA (Chunking)
+   └── Uzun formları adımlara böl
+   
+5. HATIRLAMA YERİNE TANIMA (Recognition over Recall)
+   └── Seçenekleri göster, kullanıcıyı hatırlamaya zorlama
+   
+6. BAĞLAM KALICILIĞI
+   └── Kesinti veya arka plana geçişte durumu kaydet
 ```
 
-### Hick's Law for Mobile
+### Mobil İçin Miller Yasası
 
 ```
-More choices = slower decisions
+Masaüstü: Çalışma belleğinde 7±2 öğe
+Mobil: 5±1'e düşürün (daha fazla dikkat dağıtıcı)
 
-Mobile impact: Even worse than desktop
-├── Smaller screen = less overview
-├── Scrolling required = items forgotten
-├── Interruptions = lost context
-└── Decision fatigue faster
-
-Solution: Progressive disclosure
-├── Start with 3-5 options
-├── "More" for additional
-├── Smart ordering (most used first)
-└── Previous selections remembered
+Navigasyon: Maksimum 5 tab bar öğesi
+Seçenekler: Menü seviyesi başına maksimum 5 öğe
+Adımlar: İlerlemede görünür maksimum 5 adım
 ```
 
 ---
 
-## 7. Touch Accessibility
+## 7. Dokunmatik Erişilebilirlik
 
-### Motor Impairment Considerations
-
-```
-Users with motor impairments may:
-├── Have tremors (need larger targets)
-├── Use assistive devices (different input method)
-├── Have limited reach (one-handed necessity)
-├── Need more time (avoid timeouts)
-└── Make accidental touches (need confirmation)
-
-Design responses:
-├── Generous touch targets (48dp+)
-├── Adjustable timing for gestures
-├── Undo for destructive actions
-├── Switch control support
-└── Voice control support
-```
-
-### Touch Target Spacing (A11y)
+### Motor Engeli Değerlendirmeleri
 
 ```
-WCAG 2.2 Success Criterion 2.5.8:
+Motor engeli olan kullanıcılar:
+├── Titremeleri olabilir (daha büyük hedeflere ihtiyaç duyarlar)
+├── Yardımcı cihazlar kullanabilirler (farklı giriş yöntemi)
+├── Sınırlı erişimleri olabilir (tek el zorunluluğu)
+├── Daha fazla zamana ihtiyaç duyabilirler (zaman aşımlarından kaçının)
+└── Yanlışlıkla dokunabilirler (onay gereksinimi)
 
-Touch targets MUST have:
-├── Width: ≥ 44px
-├── Height: ≥ 44px
-├── Spacing: ≥ 8px from adjacent targets
-
-OR the target is:
-├── Inline (within text)
-├── User-controlled (user can resize)
-├── Essential (no alternative design)
+Tasarım yanıtları:
+├── Cömert dokunmatik hedefler (48dp+)
+├── Jestler için ayarlanabilir zamanlama
+├── Yıkıcı eylemler için geri alma (undo)
+├── Anahtar kontrolü (switch control) desteği
+└── Sesli kontrol desteği
 ```
-
-### Accessible Touch Patterns
-
-| Pattern | Accessible Implementation |
-|---------|---------------------------|
-| Swipe actions | Provide menu alternative |
-| Drag and drop | Provide select + move option |
-| Pinch zoom | Provide zoom buttons |
-| Force touch | Provide long press alternative |
-| Shake gesture | Provide button alternative |
 
 ---
 
-## 8. Emotion in Touch
+## 8. Dokunmatik Hissiyatı ve Duygu
 
-### The Premium Feel
+### Premium Hissiyat
 
 ```
-What makes touch feel "premium":
-├── Instant response (< 50ms)
-├── Appropriate haptic feedback
-├── Smooth 60fps animations
-├── Correct resistance/physics
-├── Sound feedback (when appropriate)
-└── Attention to spring physics
+Dokunmayı "premium" hissettiren nedir:
+├── Anında yanıt (< 50ms)
+├── Uygun haptik geri bildirimi
+├── Pürüzsüz 60fps animasyonlar
+├── Doğru direnç/fizik kuralları
+├── Sesli geri bildirim (uygun olduğunda)
+└── Yay (spring) fiziğine gösterilen özen
 ```
 
-### Emotional Touch Feedback
+### Duygusal Dokunma Geri Bildirimi
 
-| Emotion | Touch Response |
+| Duygu | Dokunma Yanıtı |
 |---------|----------------|
-| Success | Haptic success + confetti/check |
-| Error | Haptic error + shake animation |
-| Warning | Haptic warning + attention color |
-| Delight | Unexpected smooth animation |
-| Power | Heavy haptic on significant action |
-
-### Trust Building Through Touch
-
-```
-Trust signals in touch interactions:
-├── Consistent behavior (same action = same response)
-├── Reliable feedback (never fails silently)
-├── Secure feel for sensitive actions
-├── Professional animations (not janky)
-└── No accidental actions (confirmation for destructive)
-```
+| Başarı | Haptik başarı + konfeti/onay işareti |
+| Hata | Haptik hata + sallanma (shake) animasyonu |
+| Uyarı | Haptik uyarı + dikkat rengi |
+| Keyif | Beklenmedik pürüzsüz animasyon |
+| Güç | Önemli eylemde güçlü haptik |
 
 ---
 
-## 9. Touch Psychology Checklist
+## 9. Dokunmatik Psikolojisi Kontrol Listesi
 
-### Before Every Screen
+### Her Ekrandan Önce
 
-- [ ] **All touch targets ≥ 44-48px?**
-- [ ] **Primary CTA in thumb zone?**
-- [ ] **Destructive actions require confirmation?**
-- [ ] **Gesture alternatives exist (visible buttons)?**
-- [ ] **Haptic feedback on important actions?**
-- [ ] **Immediate visual feedback on tap?**
-- [ ] **Loading states for actions > 100ms?**
-
-### Before Release
-
-- [ ] **Tested on smallest supported device?**
-- [ ] **Tested one-handed on large phone?**
-- [ ] **All gestures have visible alternatives?**
-- [ ] **Haptics work correctly (test on device)?**
-- [ ] **Touch targets tested with accessibility settings?**
-- [ ] **No tiny close buttons or icons?**
+- [ ] **Tüm dokunmatik hedefler ≥ 44-48px mi?**
+- [ ] **Birincil CTA başparmak bölgesinde mi?**
+- [ ] **Yıkıcı eylemler onay gerektiriyor mu?**
+- [ ] **Jest alternatifleri (görünür butonlar) var mı?**
+- [ ] **Önemli eylemlerde haptik geri bildirimi var mı?**
+- [ ] **Dokunmada anında görsel geri bildirim var mı?**
+- [ ] **100ms'den uzun süren eylemler için yükleme durumları var mı?**
 
 ---
 
-## 10. Quick Reference Card
+## 10. Hızlı Referans Kartı
 
-### Touch Target Sizes
+### Dokunmatik Hedef Boyutları
 
 ```
                      iOS        Android     WCAG
 Minimum:           44pt       48dp       44px
-Recommended:       48pt+      56dp+      -
-Spacing:           8pt+       8dp+       8px+
+Önerilen:          48pt+      56dp+      -
+Boşluklar:         8pt+       8dp+       8px+
 ```
 
-### Thumb Zone Actions
+### Başparmak Bölgesi Eylemleri
 
 ```
-TOP:      Navigation, settings, back (infrequent)
-MIDDLE:   Content, secondary actions
-BOTTOM:   Primary CTA, tab bar, FAB (frequent)
-```
-
-### Haptic Selection
-
-```
-Light:    Selection, toggle, minor
-Medium:   Tap, standard action
-Heavy:    Confirm, complete, drop
-Success:  Task done
-Error:    Failed action
-Warning:  Attention needed
+ÜST:      Navigasyon, ayarlar, geri (nadir kullanım)
+ORTA:     İçerik, ikincil eylemler
+ALT:      Birincil CTA, tab bar, FAB (sık kullanım)
 ```
 
 ---
 
-> **Remember:** Every touch is a conversation between user and device. Make it feel natural, responsive, and respectful of human fingers—not precise cursor points.
+> **Unutma:** Her dokunuş, kullanıcı ile cihaz arasında bir sohbetidir. Bunun hassas imleç noktaları gibi değil; doğal, duyarlı ve insan parmaklarına saygılı hissettirmesini sağlayın.

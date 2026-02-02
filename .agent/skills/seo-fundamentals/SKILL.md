@@ -1,129 +1,131 @@
 ---
 name: seo-fundamentals
-description: SEO fundamentals, E-E-A-T, Core Web Vitals, and Google algorithm principles.
+description: SEO temelleri, E-E-A-T, Temel Web Vitals (Core Web Vitals) ve Google algoritma prensipleri.
 allowed-tools: Read, Glob, Grep
 ---
 
-# SEO Fundamentals
+# SEO Temelleri (Search Engine Optimization Fundamentals)
 
-> Principles for search engine visibility.
-
----
-
-## 1. E-E-A-T Framework
-
-| Principle | Signals |
-|-----------|---------|
-| **Experience** | First-hand knowledge, real examples |
-| **Expertise** | Credentials, depth of knowledge |
-| **Authoritativeness** | Backlinks, mentions, industry recognition |
-| **Trustworthiness** | HTTPS, transparency, accurate info |
+> Arama motoru görünürlüğü için prensipler.
 
 ---
 
-## 2. Core Web Vitals
+## 1. E-E-A-T Çerçevesi
 
-| Metric | Target | Measures |
-|--------|--------|----------|
-| **LCP** | < 2.5s | Loading performance |
-| **INP** | < 200ms | Interactivity |
-| **CLS** | < 0.1 | Visual stability |
-
----
-
-## 3. Technical SEO Principles
-
-### Site Structure
-
-| Element | Purpose |
-|---------|---------|
-| XML sitemap | Help crawling |
-| robots.txt | Control access |
-| Canonical tags | Prevent duplicates |
-| HTTPS | Security signal |
-
-### Performance
-
-| Factor | Impact |
-|--------|--------|
-| Page speed | Core Web Vital |
-| Mobile-friendly | Ranking factor |
-| Clean URLs | Crawlability |
+| Prensip | Sinyaller |
+|---------|-----------|
+| **Experience (Deneyim)** | İlk elden bilgi, gerçek örnekler |
+| **Expertise (Uzmanlık)** | Kimlik bilgileri, bilgi derinliği |
+| **Authoritativeness (Otorite)** | Geri bağlantılar (backlinks), bahsedilmeler, sektör tanınırlığı |
+| **Trustworthiness (Güvenilirlik)** | HTTPS, şeffaflık, doğru bilgi |
 
 ---
 
-## 4. Content SEO Principles
+## 2. Temel Web Vitals (Core Web Vitals)
 
-### Page Elements
+| Metrik | Hedef | Ölçüm |
+|--------|-------|
 
-| Element | Best Practice |
-|---------|---------------|
-| Title tag | 50-60 chars, keyword front |
-| Meta description | 150-160 chars, compelling |
-| H1 | One per page, main keyword |
-| H2-H6 | Logical hierarchy |
-| Alt text | Descriptive, not stuffed |
-
-### Content Quality
-
-| Factor | Importance |
-|--------|------------|
-| Depth | Comprehensive coverage |
-| Freshness | Regular updates |
-| Uniqueness | Original value |
-| Readability | Clear writing |
+-------|
+| **LCP** | < 2.5sn | Yüklenme performansı |
+| **INP** | < 200ms | Etkileşim (Interactivity) |
+| **CLS** | < 0.1 | Görsel kararlılık |
 
 ---
 
-## 5. Schema Markup Types
+## 3. Teknik SEO Prensipleri
 
-| Type | Use |
-|------|-----|
-| Article | Blog posts, news |
-| Organization | Company info |
-| Person | Author profiles |
-| FAQPage | Q&A content |
-| Product | E-commerce |
-| Review | Ratings |
-| BreadcrumbList | Navigation |
+### Site Yapısı
 
----
+| Öğe | Amaç |
+|-----|------|
+| XML sitemap | Taramaya yardım et (crawling) |
+| robots.txt | Erişimi kontrol et |
+| Canonical etiketleri | Kopyaları önle |
+| HTTPS | Güvenlik sinyali |
 
-## 6. AI Content Guidelines
+### Performans
 
-### What Google Looks For
-
-| ✅ Do | ❌ Don't |
-|-------|----------|
-| AI draft + human edit | Publish raw AI content |
-| Add original insights | Copy without value |
-| Expert review | Skip fact-checking |
-| Follow E-E-A-T | Keyword stuffing |
-
----
-
-## 7. Ranking Factors (Prioritized)
-
-| Priority | Factor |
-|----------|--------|
-| 1 | Quality, relevant content |
-| 2 | Backlinks from authority sites |
-| 3 | Page experience (Core Web Vitals) |
-| 4 | Mobile optimization |
-| 5 | Technical SEO fundamentals |
-
----
-
-## 8. Measurement
-
-| Metric | Tool |
+| Faktör | Etki |
 |--------|------|
-| Rankings | Search Console, Ahrefs |
-| Traffic | Analytics |
-| Core Web Vitals | PageSpeed Insights |
-| Indexing | Search Console |
-| Backlinks | Ahrefs, Semrush |
+| Sayfa hızı | Temel Web Vitals |
+| Mobil uyumlu | Sıralama faktörü |
+| Temiz URL'ler | Taranabilirlik (crawlability) |
 
 ---
 
-> **Remember:** SEO is a long-term game. Quality content + technical excellence + patience = results.
+## 4. İçerik SEO Prensipleri
+
+### Sayfa Öğeleri
+
+| Öğe | En İyi Uygulama |
+|-----|-----------------|
+| Title etiketi | 50-60 karakter, anahtar kelime önde |
+| Meta açıklaması | 150-160 karakter, cazip |
+| H1 | Sayfa başına bir, ana anahtar kelime |
+| H2-H6 | Mantıksal hiyerarşi |
+| Alt metni | Açıklayıcı, yığılmamış (stuffed değil) |
+
+### İçerik Kalitesi
+
+| Faktör | Önem |
+|--------|------|
+| Derinlik | Kapsamlı kapsam |
+| Tazelik | Düzenli güncellemeler |
+| Benzersizlik | Özgün değer |
+| Okunabilirlik | Net yazım |
+
+---
+
+## 5. Şema İşaretle Türleri (Schema Markup)
+
+| Tür | Kullanım |
+|-----|----------|
+| Article | Blog yazıları, haberler |
+| Organization | Şirket bilgileri |
+| Person | Yazar profilleri |
+| FAQPage | Soru-Cevap içeriği |
+| Product | E-ticaret |
+| Review | Değerlendirmeler |
+| BreadcrumbList | Navigasyon |
+
+---
+
+## 6. YZ İçerik Yönergeleri
+
+### Google'ın Aradığı Şeyler
+
+| ✅ Yapın | ❌ Yapmayın |
+|---------|-------------|
+| YZ taslağı + insan düzenlemesi | Ham YZ içeriğini doğrudan yayınla |
+| Özgün içgörüler ekle | Değer katmadan kopyala |
+| Uzman incelemesi | Bilgi doğrulamayı atla |
+| E-E-A-T'ı takip et | Anahtar kelime yığma (keyword stuffing) |
+
+---
+
+## 7. Sıralama Faktörleri (Önceliklendirilmiş)
+
+| Öncelik | Faktör |
+|---------|--------|
+| 1 | Kaliteli, alakalı içerik |
+| 2 | Otorite sitelerden geri bağlantılar (backlinks) |
+| 3 | Sayfa deneyimi (Temel Web Vitals) |
+| 4 | Mobil optimizasyonu |
+| 5 | Teknik SEO temelleri |
+
+---
+
+## 8. Ölçümleme
+
+| Metrik | Araç |
+|--------|------|
+| Sıralamalar | Search Console, Ahrefs |
+| Trafik | Analytics |
+| Temel Web Vitals | PageSpeed Insights |
+| İndeksleme | Search Console |
+| Geri bağlantılar | Ahrefs, Semrush |
+
+---
+
+> **Unutmayın:** SEO uzun soluklu bir oyundur. Kaliteli içerik + teknik mükemmellik + sabır = sonuçlar.

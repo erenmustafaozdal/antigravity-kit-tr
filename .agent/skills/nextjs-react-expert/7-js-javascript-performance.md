@@ -1,29 +1,29 @@
-# 7. JavaScript Performance
+# 7. JavaScript Performansı (JavaScript Performance)
 
-> **Impact:** LOW-MEDIUM
-> **Focus:** Micro-optimizations for hot paths can add up to meaningful improvements.
-
----
-
-## Overview
-
-This section contains **12 rules** focused on javascript performance.
+> **Etki:** DÜŞÜK-ORTA
+> **Odak:** Sık kullanılan yollardaki mikro-optimizasyonlar anlamlı iyileştirmelere dönüşebilir.
 
 ---
 
-## Rule 7.1: Avoid Layout Thrashing
+## Genel Bakış
 
-**Impact:** MEDIUM  
-**Tags:** javascript, dom, css, performance, reflow, layout-thrashing  
+Bu bölüm, JavaScript performansına odaklanan **12 kural** içerir.
 
-## Avoid Layout Thrashing
+---
 
-Avoid interleaving style writes with layout reads. When you read a layout property (like `offsetWidth`, `getBoundingClientRect()`, or `getComputedStyle()`) between style changes, the browser is forced to trigger a synchronous reflow.
+## Kural 7.1: Layout Thrashing'den Kaçın
 
-**This is OK (browser batches style changes):**
+**Etki:** ORTA  
+**Etiketler:** javascript, dom, css, performance, reflow, layout-thrashing  
+
+## Layout Thrashing'den Kaçının
+
+Stil yazmalarını layout okumalarıyla iç içe geçirmekten kaçının. Stil değişiklikleri arasında bir layout özelliği (örn. `offsetWidth`, `getBoundingClientRect()` veya `getComputedStyle()`) okuduğunuzda, tarayıcı senkron reflow tetiklemeye zorlanır.
+
+**Bu iyi (tarayıcı stil değişikliklerini toplu hale getirir):**
 ```typescript
 function updateElementStyles(element: HTMLElement) {
-  // Each line invalidates style, but browser batches the recalculation
+  // Her satır stili geçersiz kılar ama tarayıcı yeniden hesaplamayı toplar
   element.style.width = '100px'
   element.style.height = '200px'
   element.style.backgroundColor = 'blue'
@@ -31,45 +31,45 @@ function updateElementStyles(element: HTMLElement) {
 }
 ```
 
-**Incorrect (interleaved reads and writes force reflows):**
+**Yanlış (iç içe okuma ve yazmalar reflow'a zorlar):**
 ```typescript
 function layoutThrashing(element: HTMLElement) {
   element.style.width = '100px'
-  const width = element.offsetWidth  // Forces reflow
+  const width = element.offsetWidth  // Reflow'a zorlar
   element.style.height = '200px'
-  const height = element.offsetHeight  // Forces another reflow
+  const height = element.offsetHeight  // Başka bir reflow'a zorlar
 }
 ```
 
-**Correct (batch writes, then read once):**
+**Doğru (yazmaları topla, sonra bir kez oku):**
 ```typescript
 function updateElementStyles(element: HTMLElement) {
-  // Batch all writes together
+  // Tüm yazmaları birlikte topla
   element.style.width = '100px'
   element.style.height = '200px'
   element.style.backgroundColor = 'blue'
   element.style.border = '1px solid black'
   
-  // Read after all writes are done (single reflow)
+  // Tüm yazmalar bittikten sonra oku (tek reflow)
   const { width, height } = element.getBoundingClientRect()
 }
 ```
 
-**Correct (batch reads, then writes):**
+**Doğru (okumaları topla, sonra yazmalar):**
 ```typescript
 function avoidThrashing(element: HTMLElement) {
-  // Read phase - all layout queries first
+  // Okuma fazı - önce tüm layout sorguları
   const rect1 = element.getBoundingClientRect()
   const offsetWidth = element.offsetWidth
   const offsetHeight = element.offsetHeight
   
-  // Write phase - all style changes after
+  // Yazma fazı - tüm stil değişiklikleri sonra
   element.style.width = '100px'
   element.style.height = '200px'
 }
 ```
 
-**Better: use CSS classes**
+**Daha iyi: CSS sınıfları kullanın**
 ```css
 .highlighted-box {
   width: 100px;
@@ -86,49 +86,49 @@ function updateElementStyles(element: HTMLElement) {
 }
 ```
 
-**React example:**
+**React örneği:**
 ```tsx
-// Incorrect: interleaving style changes with layout queries
+// Yanlış: layout sorguları ile stil değişikliklerini iç içe geçirme
 function Box({ isHighlighted }: { isHighlighted: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
     if (ref.current && isHighlighted) {
       ref.current.style.width = '100px'
-      const width = ref.current.offsetWidth // Forces layout
+      const width = ref.current.offsetWidth // Layout'a zorlar
       ref.current.style.height = '200px'
     }
   }, [isHighlighted])
   
-  return <div ref={ref}>Content</div>
+  return <div ref={ref}>İçerik</div>
 }
 
-// Correct: toggle class
+// Doğru: sınıfı değiştir
 function Box({ isHighlighted }: { isHighlighted: boolean }) {
   return (
     <div className={isHighlighted ? 'highlighted-box' : ''}>
-      Content
+      İçerik
     </div>
   )
 }
 ```
 
-Prefer CSS classes over inline styles when possible. CSS files are cached by the browser, and classes provide better separation of concerns and are easier to maintain.
+Mümkün olduğunda inline stillere göre CSS sınıflarını tercih edin. CSS dosyaları tarayıcı tarafından önbelleğe alınır ve sınıflar daha iyi endişelerin ayrılmasını sağlar ve bakımı daha kolaydır.
 
-See [this gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) and [CSS Triggers](https://csstriggers.com/) for more information on layout-forcing operations.
+Layout'a zorlayan işlemler hakkında daha fazla bilgi için [bu gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) ve [CSS Triggers](https://csstriggers.com/)'a bakın.
 
 ---
 
-## Rule 7.2: Build Index Maps for Repeated Lookups
+## Kural 7.2: Tekrarlanan Aramalar İçin İndeks Map'leri Oluşturun
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, map, indexing, optimization, performance  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, map, indexing, optimization, performance  
 
-## Build Index Maps for Repeated Lookups
+## Tekrarlanan Aramalar İçin İndeks Map'leri Oluşturun
 
-Multiple `.find()` calls by the same key should use a Map.
+Aynı key ile birden fazla `.find()` çağrısı Map kullanmalıdır.
 
-**Incorrect (O(n) per lookup):**
+**Yanlış (arama başına O(n)):**
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
@@ -139,7 +139,7 @@ function processOrders(orders: Order[], users: User[]) {
 }
 ```
 
-**Correct (O(1) per lookup):**
+**Doğru (arama başına O(1)):**
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
@@ -152,21 +152,21 @@ function processOrders(orders: Order[], users: User[]) {
 }
 ```
 
-Build map once (O(n)), then all lookups are O(1).
-For 1000 orders × 1000 users: 1M ops → 2K ops.
+Map'i bir kez oluştur (O(n)), sonra tüm aramalar O(1)'dir.
+1000 sipariş × 1000 kullanıcı için: 1M işlem → 2K işlem.
 
 ---
 
-## Rule 7.3: Cache Property Access in Loops
+## Kural 7.3: Döngülerde Özellik Erişimini Önbelleğe Alın
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, loops, optimization, caching  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, loops, optimization, caching  
 
-## Cache Property Access in Loops
+## Döngülerde Özellik Erişimini Önbelleğe Alın
 
-Cache object property lookups in hot paths.
+Sık kullanılan yollarda nesne özellik aramalarını önbelleğe alın.
 
-**Incorrect (3 lookups × N iterations):**
+**Yanlış (3 arama × N iterasyon):**
 
 ```typescript
 for (let i = 0; i < arr.length; i++) {
@@ -174,7 +174,7 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-**Correct (1 lookup total):**
+**Doğru (toplam 1 arama):**
 
 ```typescript
 const value = obj.config.settings.value
@@ -186,23 +186,23 @@ for (let i = 0; i < len; i++) {
 
 ---
 
-## Rule 7.4: Cache Repeated Function Calls
+## Kural 7.4: Tekrarlayan Fonksiyon Çağrılarını Önbelleğe Alın
 
-**Impact:** MEDIUM  
-**Tags:** javascript, cache, memoization, performance  
+**Etki:** ORTA  
+**Etiketler:** javascript, cache, memoization, performance  
 
-## Cache Repeated Function Calls
+## Tekrarlayan Fonksiyon Çağrılarını Önbelleğe Alın
 
-Use a module-level Map to cache function results when the same function is called repeatedly with the same inputs during render.
+Aynı fonksiyon render sırasında aynı girdilerle tekrar tekrar çağrıldığında, fonksiyon sonuçlarını önbelleğe almak için modül seviyesinde bir Map kullanın.
 
-**Incorrect (redundant computation):**
+**Yanlış (gereksiz hesaplama):**
 
 ```typescript
 function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <div>
       {projects.map(project => {
-        // slugify() called 100+ times for same project names
+        // slugify() aynı proje isimleri için 100+ kez çağrılıyor
         const slug = slugify(project.name)
         
         return <ProjectCard key={project.id} slug={slug} />
@@ -212,10 +212,10 @@ function ProjectList({ projects }: { projects: Project[] }) {
 }
 ```
 
-**Correct (cached results):**
+**Doğru (önbelleğe alınmış sonuçlar):**
 
 ```typescript
-// Module-level cache
+// Modül seviyesinde önbellek
 const slugifyCache = new Map<string, string>()
 
 function cachedSlugify(text: string): string {
@@ -231,7 +231,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <div>
       {projects.map(project => {
-        // Computed only once per unique project name
+        // Benzersiz proje adı başına yalnızca bir kez hesaplanır
         const slug = cachedSlugify(project.name)
         
         return <ProjectCard key={project.id} slug={slug} />
@@ -241,7 +241,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
 }
 ```
 
-**Simpler pattern for single-value functions:**
+**Tek değer fonksiyonlar için daha basit desen:**
 
 ```typescript
 let isLoggedInCache: boolean | null = null
@@ -255,37 +255,37 @@ function isLoggedIn(): boolean {
   return isLoggedInCache
 }
 
-// Clear cache when auth changes
+// Auth değiştiğinde önbelleği temizle
 function onAuthChange() {
   isLoggedInCache = null
 }
 ```
 
-Use a Map (not a hook) so it works everywhere: utilities, event handlers, not just React components.
+Her yerde çalışsın diye Map kullanın (hook değil): yardımcı programlar, event handler'lar, sadece React componentleri değil.
 
-Reference: [How we made the Vercel Dashboard twice as fast](https://vercel.com/blog/how-we-made-the-vercel-dashboard-twice-as-fast)
+Referans: [How we made the Vercel Dashboard twice as fast](https://vercel.com/blog/how-we-made-the-vercel-dashboard-twice-as-fast)
 
 ---
 
-## Rule 7.5: Cache Storage API Calls
+## Kural 7.5: Storage API Çağrılarını Önbelleğe Alın
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, localStorage, storage, caching, performance  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, localStorage, storage, caching, performance  
 
-## Cache Storage API Calls
+## Storage API Çağrılarını Önbelleğe Alın
 
-`localStorage`, `sessionStorage`, and `document.cookie` are synchronous and expensive. Cache reads in memory.
+`localStorage`, `sessionStorage` ve `document.cookie` senkron ve pahalıdır. Okumaları bellekte önbelleğe alın.
 
-**Incorrect (reads storage on every call):**
+**Yanlış (her çağrıda storage'ı okur):**
 
 ```typescript
 function getTheme() {
   return localStorage.getItem('theme') ?? 'light'
 }
-// Called 10 times = 10 storage reads
+// 10 kez çağrılırsa = 10 storage okuması
 ```
 
-**Correct (Map cache):**
+**Doğru (Map önbelleği):**
 
 ```typescript
 const storageCache = new Map<string, string | null>()
@@ -299,13 +299,13 @@ function getLocalStorage(key: string) {
 
 function setLocalStorage(key: string, value: string) {
   localStorage.setItem(key, value)
-  storageCache.set(key, value)  // keep cache in sync
+  storageCache.set(key, value)  // önbelleği senkronize tut
 }
 ```
 
-Use a Map (not a hook) so it works everywhere: utilities, event handlers, not just React components.
+Her yerde çalışsın diye Map kullanın (hook değil): yardımcı programlar, event handler'lar, sadece React componentleri değil.
 
-**Cookie caching:**
+**Cookie önbellekleme:**
 
 ```typescript
 let cookieCache: Record<string, string> | null = null
@@ -320,9 +320,9 @@ function getCookie(name: string) {
 }
 ```
 
-**Important (invalidate on external changes):**
+**Önemli (harici değişikliklerden geçersiz kılın):**
 
-If storage can change externally (another tab, server-set cookies), invalidate cache:
+Storage harici olarak değişebiliyorsa (başka bir sekme, sunucu tarafı cookie'ler), önbelleği geçersiz kılın:
 
 ```typescript
 window.addEventListener('storage', (e) => {
@@ -338,16 +338,16 @@ document.addEventListener('visibilitychange', () => {
 
 ---
 
-## Rule 7.6: Combine Multiple Array Iterations
+## Kural 7.6: Birden Fazla Dizi İterasyonunu Birleştirin
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, arrays, loops, performance  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, arrays, loops, performance  
 
-## Combine Multiple Array Iterations
+## Birden Fazla Dizi İterasyonunu Birleştirin
 
-Multiple `.filter()` or `.map()` calls iterate the array multiple times. Combine into one loop.
+Birden fazla `.filter()` veya `.map()` çağrısı diziyi birden fazla kez iterate eder. Tek bir döngüde birleştirin.
 
-**Incorrect (3 iterations):**
+**Yanlış (3 iterasyon):**
 
 ```typescript
 const admins = users.filter(u => u.isAdmin)
@@ -355,7 +355,7 @@ const testers = users.filter(u => u.isTester)
 const inactive = users.filter(u => !u.isActive)
 ```
 
-**Correct (1 iteration):**
+**Doğru (1 iterasyon):**
 
 ```typescript
 const admins: User[] = []
@@ -371,37 +371,37 @@ for (const user of users) {
 
 ---
 
-## Rule 7.7: Early Length Check for Array Comparisons
+## Kural 7.7: Dizi Karşılaştırmaları İçin Erken Uzunluk Kontrolü
 
-**Impact:** MEDIUM-HIGH  
-**Tags:** javascript, arrays, performance, optimization, comparison  
+**Etki:** ORTA-YÜKSEK  
+**Etiketler:** javascript, arrays, performance, optimization, comparison  
 
-## Early Length Check for Array Comparisons
+## Dizi Karşılaştırmaları İçin Erken Uzunluk Kontrolü
 
-When comparing arrays with expensive operations (sorting, deep equality, serialization), check lengths first. If lengths differ, the arrays cannot be equal.
+Pahalı işlemlerle dizileri karşılaştırırken (sıralama, derin eşitlik, serialization), önce uzunlukları kontrol edin. Uzunluklar farklıysa, diziler eşit olamaz.
 
-In real-world applications, this optimization is especially valuable when the comparison runs in hot paths (event handlers, render loops).
+Gerçek dünya uygulamalarında, bu optimizasyon özellikle karşılaştırma sık kullanılan yollarda çalıştığında değerlidir (event handler'lar, render döngüleri).
 
-**Incorrect (always runs expensive comparison):**
+**Yanlış (her zaman pahalı karşılaştırma yapar):**
 
 ```typescript
 function hasChanges(current: string[], original: string[]) {
-  // Always sorts and joins, even when lengths differ
+  // Uzunluklar farklı olsa bile her zaman sıralar ve birleştirir
   return current.sort().join() !== original.sort().join()
 }
 ```
 
-Two O(n log n) sorts run even when `current.length` is 5 and `original.length` is 100. There is also overhead of joining the arrays and comparing the strings.
+İki O(n log n) sıralama, `current.length` 5 ve `original.length` 100 olduğunda bile çalışır. Dizileri birleştirme ve string'leri karşılaştırma yükü de vardır.
 
-**Correct (O(1) length check first):**
+**Doğru (önce O(1) uzunluk kontrolü):**
 
 ```typescript
 function hasChanges(current: string[], original: string[]) {
-  // Early return if lengths differ
+  // Uzunluklar farklıysa erken dön
   if (current.length !== original.length) {
     return true
   }
-  // Only sort when lengths match
+  // Yalnızca uzunluklar eşleştiğinde sırala
   const currentSorted = current.toSorted()
   const originalSorted = original.toSorted()
   for (let i = 0; i < currentSorted.length; i++) {
@@ -413,24 +413,24 @@ function hasChanges(current: string[], original: string[]) {
 }
 ```
 
-This new approach is more efficient because:
-- It avoids the overhead of sorting and joining the arrays when lengths differ
-- It avoids consuming memory for the joined strings (especially important for large arrays)
-- It avoids mutating the original arrays
-- It returns early when a difference is found
+Bu yeni yaklaşım daha verimlidir çünkü:
+- Uzunluklar farklı olduğunda dizileri sıralama ve birleştirme yükünden kaçınır
+- Birleştirilmiş string'ler için bellek tüketiminden kaçınır (özellikle büyük diziler için önemli)
+- Orijinal dizileri mutate etmekten kaçınır
+- Bir fark bulunduğunda erken döner
 
 ---
 
-## Rule 7.8: Early Return from Functions
+## Kural 7.8: Fonksiyonlardan Erken Dönüş
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, functions, optimization, early-return  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, functions, optimization, early-return  
 
-## Early Return from Functions
+## Fonksiyonlardan Erken Dönüş
 
-Return early when result is determined to skip unnecessary processing.
+Gereksiz işlemeyi atlamak için sonuç belirlendiğinde erken dönün.
 
-**Incorrect (processes all items even after finding answer):**
+**Yanlış (cevabı bulduktan sonra bile tüm öğeleri işler):**
 
 ```typescript
 function validateUsers(users: User[]) {
@@ -440,29 +440,29 @@ function validateUsers(users: User[]) {
   for (const user of users) {
     if (!user.email) {
       hasError = true
-      errorMessage = 'Email required'
+      errorMessage = 'E-posta gerekli'
     }
     if (!user.name) {
       hasError = true
-      errorMessage = 'Name required'
+      errorMessage = 'İsim gerekli'
     }
-    // Continues checking all users even after error found
+    // Hata bulunduktan sonra bile tüm kullanıcıları kontrol etmeye devam eder
   }
   
   return hasError ? { valid: false, error: errorMessage } : { valid: true }
 }
 ```
 
-**Correct (returns immediately on first error):**
+**Doğru (ilk hatada hemen döner):**
 
 ```typescript
 function validateUsers(users: User[]) {
   for (const user of users) {
     if (!user.email) {
-      return { valid: false, error: 'Email required' }
+      return { valid: false, error: 'E-posta gerekli' }
     }
     if (!user.name) {
-      return { valid: false, error: 'Name required' }
+      return { valid: false, error: 'İsim gerekli' }
     }
   }
 
@@ -472,16 +472,16 @@ function validateUsers(users: User[]) {
 
 ---
 
-## Rule 7.9: Hoist RegExp Creation
+## Kural 7.9: RegExp Oluşturmayı Yukarı Taşıyın
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, regexp, optimization, memoization  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, regexp, optimization, memoization  
 
-## Hoist RegExp Creation
+## RegExp Oluşturmayı Yukarı Taşıyın
 
-Don't create RegExp inside render. Hoist to module scope or memoize with `useMemo()`.
+Render içinde RegExp oluşturmayın. Modül scope'una taşıyın veya `useMemo()` ile memoize edin.
 
-**Incorrect (new RegExp every render):**
+**Yanlış (her render'da yeni RegExp):**
 
 ```tsx
 function Highlighter({ text, query }: Props) {
@@ -491,7 +491,7 @@ function Highlighter({ text, query }: Props) {
 }
 ```
 
-**Correct (memoize or hoist):**
+**Doğru (memoize edin veya yukarı taşıyın):**
 
 ```tsx
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -506,9 +506,9 @@ function Highlighter({ text, query }: Props) {
 }
 ```
 
-**Warning (global regex has mutable state):**
+**Uyarı (global regex mutable state'e sahiptir):**
 
-Global regex (`/g`) has mutable `lastIndex` state:
+Global regex (`/g`) mutable `lastIndex` state'ine sahiptir:
 
 ```typescript
 const regex = /foo/g
@@ -518,16 +518,16 @@ regex.test('foo')  // false, lastIndex = 0
 
 ---
 
-## Rule 7.10: Use Loop for Min/Max Instead of Sort
+## Kural 7.10: Sort Yerine Min/Max İçin Döngü Kullanın
 
-**Impact:** LOW  
-**Tags:** javascript, arrays, performance, sorting, algorithms  
+**Etki:** DÜŞÜK  
+**Etiketler:** javascript, arrays, performance, sorting, algorithms  
 
-## Use Loop for Min/Max Instead of Sort
+## Sort Yerine Min/Max İçin Döngü Kullanın
 
-Finding the smallest or largest element only requires a single pass through the array. Sorting is wasteful and slower.
+En küçük veya en büyük öğeyi bulmak yalnızca dizi üzerinden tek bir geçiş gerektirir. Sıralama gereksizdir ve daha yavaştır.
 
-**Incorrect (O(n log n) - sort to find latest):**
+**Yanlış (O(n log n) - en sonuncuyu bulmak için sırala):**
 
 ```typescript
 interface Project {
@@ -542,9 +542,9 @@ function getLatestProject(projects: Project[]) {
 }
 ```
 
-Sorts the entire array just to find the maximum value.
+Maksimum değeri bulmak için tüm diziyi sıralar.
 
-**Incorrect (O(n log n) - sort for oldest and newest):**
+**Yanlış (O(n log n) - en eski ve en yeni için sırala):**
 
 ```typescript
 function getOldestAndNewest(projects: Project[]) {
@@ -553,9 +553,9 @@ function getOldestAndNewest(projects: Project[]) {
 }
 ```
 
-Still sorts unnecessarily when only min/max are needed.
+Yalnızca min/max gerektiğinde hala gereksiz yere sıralar.
 
-**Correct (O(n) - single loop):**
+**Doğru (O(n) - tek döngü):**
 
 ```typescript
 function getLatestProject(projects: Project[]) {
@@ -587,9 +587,9 @@ function getOldestAndNewest(projects: Project[]) {
 }
 ```
 
-Single pass through the array, no copying, no sorting.
+Dizi üzerinden tek geçiş, kopyalama yok, sıralama yok.
 
-**Alternative (Math.min/Math.max for small arrays):**
+**Alternatif (küçük diziler için Math.min/Math.max):**
 
 ```typescript
 const numbers = [5, 2, 8, 1, 9]
@@ -597,27 +597,27 @@ const min = Math.min(...numbers)
 const max = Math.max(...numbers)
 ```
 
-This works for small arrays, but can be slower or just throw an error for very large arrays due to spread operator limitations. Maximal array length is approximately 124000 in Chrome 143 and 638000 in Safari 18; exact numbers may vary - see [the fiddle](https://jsfiddle.net/qw1jabsx/4/). Use the loop approach for reliability.
+Bu küçük diziler için çalışır, ancak spread operator sınırlamaları nedeniyle çok büyük diziler için daha yavaş olabilir veya hata verebilir. Chrome 143'te maksimum dizi uzunluğu yaklaşık 124000 ve Safari 18'de 638000'dir; kesin sayılar değişebilir - [fiddle'a](https://jsfiddle.net/qw1jabsx/4/) bakın. Güvenilirlik için döngü yaklaşımını kullanın.
 
 ---
 
-## Rule 7.11: Use Set/Map for O(1) Lookups
+## Kural 7.11: O(1) Aramalar İçin Set/Map Kullanın
 
-**Impact:** LOW-MEDIUM  
-**Tags:** javascript, set, map, data-structures, performance  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** javascript, set, map, data-structures, performance  
 
-## Use Set/Map for O(1) Lookups
+## O(1) Aramalar İçin Set/Map Kullanın
 
-Convert arrays to Set/Map for repeated membership checks.
+Tekrarlayan üyelik kontrolleri için dizileri Set/Map'e dönüştürün.
 
-**Incorrect (O(n) per check):**
+**Yanlış (kontrol başına O(n)):**
 
 ```typescript
 const allowedIds = ['a', 'b', 'c', ...]
 items.filter(item => allowedIds.includes(item.id))
 ```
 
-**Correct (O(1) per check):**
+**Doğru (kontrol başına O(1)):**
 
 ```typescript
 const allowedIds = new Set(['a', 'b', 'c', ...])
@@ -626,20 +626,20 @@ items.filter(item => allowedIds.has(item.id))
 
 ---
 
-## Rule 7.12: Use toSorted() Instead of sort() for Immutability
+## Kural 7.12: Immutability İçin sort() Yerine toSorted() Kullanın
 
-**Impact:** MEDIUM-HIGH  
-**Tags:** javascript, arrays, immutability, react, state, mutation  
+**Etki:** ORTA-YÜKSEK  
+**Etiketler:** javascript, arrays, immutability, react, state, mutation  
 
-## Use toSorted() Instead of sort() for Immutability
+## Immutability İçin sort() Yerine toSorted() Kullanın
 
-`.sort()` mutates the array in place, which can cause bugs with React state and props. Use `.toSorted()` to create a new sorted array without mutation.
+`.sort()` diziyi yerinde mutate eder, bu da React state ve props ile hatalara neden olabilir. Mutasyon olmadan yeni bir sıralanmış dizi oluşturmak için `.toSorted()` kullanın.
 
-**Incorrect (mutates original array):**
+**Yanlış (orijinal dizi mutate edilir):**
 
 ```typescript
 function UserList({ users }: { users: User[] }) {
-  // Mutates the users prop array!
+  // Users prop dizisini mutate eder!
   const sorted = useMemo(
     () => users.sort((a, b) => a.name.localeCompare(b.name)),
     [users]
@@ -648,11 +648,11 @@ function UserList({ users }: { users: User[] }) {
 }
 ```
 
-**Correct (creates new array):**
+**Doğru (yeni dizi oluşturur):**
 
 ```typescript
 function UserList({ users }: { users: User[] }) {
-  // Creates new sorted array, original unchanged
+  // Yeni sıralanmış dizi oluşturur, orijinal değişmez
   const sorted = useMemo(
     () => users.toSorted((a, b) => a.name.localeCompare(b.name)),
     [users]
@@ -661,24 +661,23 @@ function UserList({ users }: { users: User[] }) {
 }
 ```
 
-**Why this matters in React:**
+**React'te neden önemlidir:**
 
-1. Props/state mutations break React's immutability model - React expects props and state to be treated as read-only
-2. Causes stale closure bugs - Mutating arrays inside closures (callbacks, effects) can lead to unexpected behavior
+1. Props/state mutasyonları React'in immutability modelini bozar - React, props ve state'in salt okunur olarak değerlendirilmesini bekler
+2. Stale closure buglarına neden olur - Kapamlarda (callback'ler, effect'ler) dizileri mutate etmek beklenmedik davranışlara yol açabilir
 
-**Browser support (fallback for older browsers):**
+**Tarayıcı desteği (eski tarayıcılar için fallback):**
 
-`.toSorted()` is available in all modern browsers (Chrome 110+, Safari 16+, Firefox 115+, Node.js 20+). For older environments, use spread operator:
+`.toSorted()` tüm modern tarayıcılarda mevcuttur (Chrome 110+, Safari 16+, Firefox 115+, Node.js 20+). Eski ortamlar için spread operator kullanın:
 
 ```typescript
-// Fallback for older browsers
+// Eski tarayıcılar için fallback
 const sorted = [...items].sort((a, b) => a.value - b.value)
 ```
 
-**Other immutable array methods:**
+**Diğer immutable dizi metodları:**
 
 - `.toSorted()` - immutable sort
 - `.toReversed()` - immutable reverse
 - `.toSpliced()` - immutable splice
 - `.with()` - immutable element replacement
-

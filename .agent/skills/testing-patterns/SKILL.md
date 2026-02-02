@@ -1,178 +1,178 @@
 ---
 name: testing-patterns
-description: Testing patterns and principles. Unit, integration, mocking strategies.
+description: Test desenleri ve prensipleri. Birim testleri (unit), entegrasyon testleri, mocking stratejileri.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Testing Patterns
+# Test Desenleri (Testing Patterns)
 
-> Principles for reliable test suites.
+> Güvenilir test paketleri için prensipler.
 
 ---
 
-## 1. Testing Pyramid
+## 1. Test Piramidi (Testing Pyramid)
 
 ```
-        /\          E2E (Few)
-       /  \         Critical flows
+        /\          E2E (Az)
+       /  \         Kritik akışlar
       /----\
-     /      \       Integration (Some)
-    /--------\      API, DB queries
+     /      \       Entegrasyon (Orta)
+    /--------\      API, DB sorguları
    /          \
-  /------------\    Unit (Many)
-                    Functions, classes
+  /------------\    Birim (Çok)
+                    Fonksiyonlar, sınıflar
 ```
 
 ---
 
-## 2. AAA Pattern
+## 2. AAA Deseni
 
-| Step | Purpose |
-|------|---------|
-| **Arrange** | Set up test data |
-| **Act** | Execute code under test |
-| **Assert** | Verify outcome |
-
----
-
-## 3. Test Type Selection
-
-### When to Use Each
-
-| Type | Best For | Speed |
-|------|----------|-------|
-| **Unit** | Pure functions, logic | Fast (<50ms) |
-| **Integration** | API, DB, services | Medium |
-| **E2E** | Critical user flows | Slow |
+| Adım | Amaç |
+|------|------|
+| **Arrange (Hazırla)** | Test verilerini kurma |
+| **Act (Uygula)** | Test edilen kodu çalıştır |
+| **Assert (Kontrol Et)** | Sonucu doğrula |
 
 ---
 
-## 4. Unit Test Principles
+## 3. Test Türü Seçimi
 
-### Good Unit Tests
+### Her Birinin Ne Zaman Kullanılacağı
 
-| Principle | Meaning |
-|-----------|---------|
-| Fast | < 100ms each |
-| Isolated | No external deps |
-| Repeatable | Same result always |
-| Self-checking | No manual verification |
-| Timely | Written with code |
-
-### What to Unit Test
-
-| Test | Don't Test |
-|------|------------|
-| Business logic | Framework code |
-| Edge cases | Third-party libs |
-| Error handling | Simple getters |
+| Tür | En Uygun Durum | Hız |
+|-----|----------------|-----|
+| **Birim (Unit)** | Saf fonksiyonlar, mantık | Hızlı (< 50ms) |
+| **Entegrasyon (Integration)** | API, DB, servisler | Orta |
+| **E2E (Uçtan Uca)** | Kritik kullanıcı akışları | Yavaş |
 
 ---
 
-## 5. Integration Test Principles
+## 4. Birim Test Prensipleri
 
-### What to Test
+### İyi Birim Testleri
 
-| Area | Focus |
-|------|-------|
-| API endpoints | Request/response |
-| Database | Queries, transactions |
-| External services | Contracts |
+| Prensip | Anlamı |
+|---------|--------|
+| Hızlı (Fast) | < 100ms per test |
+| İzole (Isolated) | Dış bağımlılık yok |
+| Tekrarlanabilir (Repeatable) | Her zaman aynı sonuç |
+| Kendi Kendini Kontrol Eden (Self-checking) | Manuel doğrulama yok |
+| Zamanında (Timely) | Kod ile birlikte yazılır |
 
-### Setup/Teardown
+### Neyi Birim Test Yapmalı?
 
-| Phase | Action |
+| Test Et | Test Etme |
+|---------|-----------|
+| İş mantığı | Framework kodu |
+| Uç durumlar (edge cases) | Üçüncü parti kütüphaneler |
+| Hata yönetimi | Basit getter'lar |
+
+---
+
+## 5. Entegrasyon Test Prensipleri
+
+### Neyi Test Etmeli?
+
+| Alan | Odak |
+|------|------|
+| API uç noktaları | İstek/yanıt |
+| Veritabanı | Sorgular, işlemler (transactions) |
+| Dış servisler | Sözleşmeler (contracts) |
+
+### Kurulum/Temizlik (Setup/Teardown)
+
+| Aşama | Eylem |
 |-------|--------|
-| Before All | Connect resources |
-| Before Each | Reset state |
-| After Each | Clean up |
-| After All | Disconnect |
+| Before All | Kaynakları bağla |
+| Before Each | Durumu sıfırla |
+| After Each | Temizle |
+| After All | Bağlantıları kes |
 
 ---
 
-## 6. Mocking Principles
+## 6. Mocking Prensipleri
 
-### When to Mock
+### Ne Zaman Mock Yapılmalı?
 
-| Mock | Don't Mock |
-|------|------------|
-| External APIs | The code under test |
-| Database (unit) | Simple dependencies |
-| Time/random | Pure functions |
-| Network | In-memory stores |
+| Mock Yap | Mock Yapma |
+|----------|------------|
+| Dış API'ler | Test edilen kod |
+| Veritabanı (birim testinde) | Basit bağımlılıklar |
+| Zaman/rastgele | Saf fonksiyonlar (pure functions) |
+| Ağ | Bellekteki depolar (in-memory stores) |
 
-### Mock Types
+### Mock Türleri
 
-| Type | Use |
-|------|-----|
-| Stub | Return fixed values |
-| Spy | Track calls |
-| Mock | Set expectations |
-| Fake | Simplified implementation |
-
----
-
-## 7. Test Organization
-
-### Naming
-
-| Pattern | Example |
-|---------|---------|
-| Should behavior | "should return error when..." |
-| When condition | "when user not found..." |
-| Given-when-then | "given X, when Y, then Z" |
-
-### Grouping
-
-| Level | Use |
-|-------|-----|
-| describe | Group related tests |
-| it/test | Individual case |
-| beforeEach | Common setup |
+| Tür | Kullanım |
+|-----|----------|
+| Stub | Sabit değerler döndürür |
+| Spy | Çağrıları takip eder |
+| Mock | Beklentileri ayarlar |
+| Fake | Basitleştirilmiş uygulama |
 
 ---
 
-## 8. Test Data
+## 7. Test Organizasyonu
 
-### Strategies
+### İsimlendirme
 
-| Approach | Use |
-|----------|-----|
-| Factories | Generate test data |
-| Fixtures | Predefined datasets |
-| Builders | Fluent object creation |
+| Desen | Örnek |
+|-------|-------|
+| Davranış odaklı | "kullanıcı bulunamadığında hata döndürmeli" |
+| Şart odaklı | "kullanıcı bulunamadığında..." |
+| Given-when-then | "X verildiğinde, Y yapıldığında, Z olmalı" |
 
-### Principles
+### Gruplama
 
-- Use realistic data
-- Randomize non-essential values (faker)
-- Share common fixtures
-- Keep data minimal
-
----
-
-## 9. Best Practices
-
-| Practice | Why |
-|----------|-----|
-| One assert per test | Clear failure reason |
-| Independent tests | No order dependency |
-| Fast tests | Run frequently |
-| Descriptive names | Self-documenting |
-| Clean up | Avoid side effects |
+| Seviye | Kullanım |
+|--------|----------|
+| describe | İlgili testleri grupla |
+| it/test | Tekil durum |
+| beforeEach | Ortak kurulum |
 
 ---
 
-## 10. Anti-Patterns
+## 8. Test Verisi
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Test implementation | Test behavior |
-| Duplicate test code | Use factories |
-| Complex test setup | Simplify or split |
-| Ignore flaky tests | Fix root cause |
-| Skip cleanup | Reset state |
+### Stratejiler
+
+| Yaklaşım | Kullanım |
+|----------|----------|
+| Factory'ler | Test verisi üret |
+| Fixture'lar | Önceden tanımlı veri kümeleri |
+| Builder'lar | Akıcı nesne oluşturma (fluent object creation) |
+
+### Prensipler
+
+- Gerçekçi veri kullan
+- Önemsiz olmayan değerleri rastgeleleştir (faker)
+- Ortak fixture'ları paylaş
+- Veriyi minimal tut
 
 ---
 
-> **Remember:** Tests are documentation. If someone can't understand what the code does from the tests, rewrite them.
+## 9. En İyi Pratikler
+
+| Pratik | Neden? |
+|--------|--------|
+| Test başına bir assert | Net hata nedeni |
+| Bağımsız testler | Sıra bağımlılığı olmaması |
+| Hızlı testler | Sık sık çalıştırılabilir |
+| Açıklayıcı isimler | Kendi kendini belgeler |
+| Temizlik | Yan etkilerden kaçın |
+
+---
+
+## 10. Anti-Desenler (Yapılmaması Gerekenler)
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| Uygulamayı (implementation) test et | Davranışı (behavior) test et |
+| Test kodunu tekrarla | Factory kullan |
+| Karmaşık test kurulumu | Basitleştir veya böl |
+| Düzensiz testleri görmezden gel | Kök nedeni düzelt |
+| Temizliği atla | Durumu sıfırla |
+
+---
+
+> **Unutmayın:** Testler dokümantasyondur. Birisi testlerden kodun ne yaptığını anlayamıyorsa, testleri yeniden yazın.

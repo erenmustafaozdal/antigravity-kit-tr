@@ -1,167 +1,167 @@
 ---
 name: game-development
-description: Game development orchestrator. Routes to platform-specific skills based on project needs.
+description: Oyun geliştirme orkestratörü. Proje ihtiyaçlarına göre platforma özel yeteneklere yönlendirir.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Game Development
+# Oyun Geliştirme (Game Development)
 
-> **Orchestrator skill** that provides core principles and routes to specialized sub-skills.
-
----
-
-## When to Use This Skill
-
-You are working on a game development project. This skill teaches the PRINCIPLES of game development and directs you to the right sub-skill based on context.
+> Temel prensipleri sağlayan ve uzmanlaşmış alt yeteneklere yönlendiren **orkestratör yetenek**.
 
 ---
 
-## Sub-Skill Routing
+## Bu Yetenek Ne Zaman Kullanılır?
 
-### Platform Selection
+Bir oyun geliştirme projesi üzerinde çalışıyorsunuz. Bu yetenek size oyun geliştirmenin PRENSİPLERİNİ öğretir ve bağlama göre sizi doğru alt yeteneğe yönlendirir.
 
-| If the game targets... | Use Sub-Skill |
+---
+
+## Alt Yetenek Yönlendirmesi
+
+### Platform Seçimi
+
+| Hedef platform... | Kullanılacak Alt Yetenek |
 |------------------------|---------------|
-| Web browsers (HTML5, WebGL) | `game-development/web-games` |
-| Mobile (iOS, Android) | `game-development/mobile-games` |
-| PC (Steam, Desktop) | `game-development/pc-games` |
-| VR/AR headsets | `game-development/vr-ar` |
+| Web tarayıcıları (HTML5, WebGL) | `game-development/web-games` |
+| Mobil (iOS, Android) | `game-development/mobile-games` |
+| PC (Steam, Masaüstü) | `game-development/pc-games` |
+| VR/AR cihazları | `game-development/vr-ar` |
 
-### Dimension Selection
+### Boyut Seçimi
 
-| If the game is... | Use Sub-Skill |
+| Oyun türü... | Kullanılacak Alt Yetenek |
 |-------------------|---------------|
-| 2D (sprites, tilemaps) | `game-development/2d-games` |
-| 3D (meshes, shaders) | `game-development/3d-games` |
+| 2B (sprite'lar, tilemap'ler) | `game-development/2d-games` |
+| 3B (mesh'ler, shader'lar) | `game-development/3d-games` |
 
-### Specialty Areas
+### Uzmanlık Alanları
 
-| If you need... | Use Sub-Skill |
+| Şunlara ihtiyacınız varsa... | Kullanılacak Alt Yetenek |
 |----------------|---------------|
-| GDD, balancing, player psychology | `game-development/game-design` |
-| Multiplayer, networking | `game-development/multiplayer` |
-| Visual style, asset pipeline, animation | `game-development/game-art` |
-| Sound design, music, adaptive audio | `game-development/game-audio` |
+| GDD, dengeleme, oyuncu psikolojisi | `game-development/game-design` |
+| Çok oyunculu (Multiplayer), ağ iletişimi | `game-development/multiplayer` |
+| Görsel stil, varlık (asset) boru hattı, animasyon | `game-development/game-art` |
+| Ses tasarımı, müzik, adaptif ses | `game-development/game-audio` |
 
 ---
 
-## Core Principles (All Platforms)
+## Temel Prensipler (Tüm Platformlar)
 
-### 1. The Game Loop
+### 1. Oyun Döngüsü (The Game Loop)
 
-Every game, regardless of platform, follows this pattern:
+Platformdan bağımsız olarak her oyun şu deseni takip eder:
 
 ```
-INPUT  → Read player actions
-UPDATE → Process game logic (fixed timestep)
-RENDER → Draw the frame (interpolated)
+INPUT (GİRDİ)  → Oyuncu eylemlerini oku
+UPDATE (GÜNCELLE) → Oyun mantığını işle (fixed timestep)
+RENDER (ÇİZ) → Kareyi ekrana çiz (interpolated)
 ```
 
-**Fixed Timestep Rule:**
-- Physics/logic: Fixed rate (e.g., 50Hz)
-- Rendering: As fast as possible
-- Interpolate between states for smooth visuals
+**Sabit Zaman Adımı (Fixed Timestep) Kuralı:**
+- Fizik/Mantık: Sabit hızda (örneğin 50Hz)
+- Çizim: Mümkün olduğunca hızlı
+- Akıcı görseller için durumlar arasında interpolasyon (ara değer bulma) yapın.
 
 ---
 
-### 2. Pattern Selection Matrix
+### 2. Desen Seçim Matrisi
 
-| Pattern | Use When | Example |
+| Desen | Ne Zaman Kullanılır | Örnek |
 |---------|----------|---------|
-| **State Machine** | 3-5 discrete states | Player: Idle→Walk→Jump |
-| **Object Pooling** | Frequent spawn/destroy | Bullets, particles |
-| **Observer/Events** | Cross-system communication | Health→UI updates |
-| **ECS** | Thousands of similar entities | RTS units, particles |
-| **Command** | Undo, replay, networking | Input recording |
-| **Behavior Tree** | Complex AI decisions | Enemy AI |
+| **Durum Makinesi (State Machine)** | 3-5 belirgin durum varsa | Oyuncu: Bekleme→Yürüme→Zıplama |
+| **Nesne Havuzu (Object Pooling)** | Sık yaratma/yok etme varsa | Mermiler, parçacıklar |
+| **Gözlemci/Olaylar (Observer/Events)** | Sistemler arası iletişim | Sağlık Durumu→UI güncellemeleri |
+| **ECS (Entity Component System)** | Binlerce benzer varlık varsa | RTS birimleri, parçacıklar |
+| **Komut (Command)** | Geri alma, replay, ağ iletişimi | Girdi kaydetme |
+| **Davranış Ağacı (Behavior Tree)** | Karmaşık YZ kararları | Düşman YZ |
 
-**Decision Rule:** Start with State Machine. Add ECS only when performance demands.
-
----
-
-### 3. Input Abstraction
-
-Abstract input into ACTIONS, not raw keys:
-
-```
-"jump"  → Space, Gamepad A, Touch tap
-"move"  → WASD, Left stick, Virtual joystick
-```
-
-**Why:** Enables multi-platform, rebindable controls.
+**Karar Kuralı:** Durum Makinesi ile başlayın. ECS'yi sadece performans gerektirdiğinde ekleyin.
 
 ---
 
-### 4. Performance Budget (60 FPS = 16.67ms)
+### 3. Girdi Soyutlama (Input Abstraction)
 
-| System | Budget |
+Girdiyi ham tuşlar yerine EYLEMLERE (ACTIONS) soyutlayın:
+
+```
+"zipla"  → Boşluk, Oyun kumandası A, Dokunma
+"hareket"  → WASD, Sol çubuk, Sanal joystick
+```
+
+**Neden:** Çoklu platform desteği ve yeniden atanabilir kontroller sağlar.
+
+---
+
+### 4. Performans Bütçesi (60 FPS = 16.67ms)
+
+| Sistem | Bütçe |
 |--------|--------|
-| Input | 1ms |
-| Physics | 3ms |
-| AI | 2ms |
-| Game Logic | 4ms |
-| Rendering | 5ms |
-| Buffer | 1.67ms |
+| Girdi | 1ms |
+| Fizik | 3ms |
+| YZ (AI) | 2ms |
+| Oyun Mantığı | 4ms |
+| Çizim (Rendering) | 5ms |
+| Tampon (Buffer) | 1.67ms |
 
-**Optimization Priority:**
-1. Algorithm (O(n²) → O(n log n))
-2. Batching (reduce draw calls)
-3. Pooling (avoid GC spikes)
-4. LOD (detail by distance)
-5. Culling (skip invisible)
+**Optimizasyon Önceliği:**
+1. Algoritma (O(n²) → O(n log n))
+2. Gruplama (Batching - çizim çağrılarını azaltma)
+3. Havuzlama (Pooling - bellek temizleme sıçramalarını önleme)
+4. LOD (Uzaklığa göre detay seviyesi ayarlama)
+5. Ayıklama (Culling - görünmeyenleri pas geçme)
 
 ---
 
-### 5. AI Selection by Complexity
+### 5. Karmaşıklığa Göre YZ Seçimi
 
-| AI Type | Complexity | Use When |
+| YZ Türü | Karmaşıklık | Ne Zaman Kullanılır |
 |---------|------------|----------|
-| **FSM** | Simple | 3-5 states, predictable behavior |
-| **Behavior Tree** | Medium | Modular, designer-friendly |
-| **GOAP** | High | Emergent, planning-based |
-| **Utility AI** | High | Scoring-based decisions |
+| **FSM (Durum Makinesi)**| Basit | 3-5 durum, tahmin edilebilir davranış |
+| **Davranış Ağacı** | Orta | Modüler, tasarımcı dostu |
+| **GOAP** | Yüksek | Ortaya çıkan (emergent), planlama tabanlı |
+| **Utility AI** | Yüksek | Puanlama tabanlı kararlar |
 
 ---
 
-### 6. Collision Strategy
+### 6. Çarpışma (Collision) Stratejisi
 
-| Type | Best For |
+| Tür | En Uygun Kullanım |
 |------|----------|
-| **AABB** | Rectangles, fast checks |
-| **Circle** | Round objects, cheap |
-| **Spatial Hash** | Many similar-sized objects |
-| **Quadtree** | Large worlds, varying sizes |
+| **AABB** | Dikdörtgenler, hızlı kontroller |
+| **Daire (Circle)** | Yuvarlak nesneler, maliyet düşük |
+| **Spatial Hash** | Çok sayıda benzer boyutlu nesne |
+| **Quadtree** | Büyük dünyalar, değişken boyutlar |
 
 ---
 
-## Anti-Patterns (Universal)
+## Anti-Desenler (Evrensel)
 
-| Don't | Do |
+| YAPMAYIN | YAPIN |
 |-------|-----|
-| Update everything every frame | Use events, dirty flags |
-| Create objects in hot loops | Object pooling |
-| Cache nothing | Cache references |
-| Optimize without profiling | Profile first |
-| Mix input with logic | Abstract input layer |
+| Her karede her şeyi güncelleyin | Olayları (events), kirli bayrakları (dirty flags) kullanın |
+| Sıcak döngülerde nesne yaratın | Nesne havuzlama (object pooling) kullanın |
+| Hiçbir şeyi önbelleğe almayın | Referansları önbelleğe alın |
+| Profil oluşturmadan optimize edin | Önce profil (profiling) oluşturun |
+| Girdiyi mantıkla karıştırın | Girdi katmanını soyutlayın |
 
 ---
 
-## Routing Examples
+## Yönlendirme Örnekleri
 
-### Example 1: "I want to make a browser-based 2D platformer"
-→ Start with `game-development/web-games` for framework selection
-→ Then `game-development/2d-games` for sprite/tilemap patterns
-→ Reference `game-development/game-design` for level design
+### Örnek 1: "Tarayıcı tabanlı 2B platform oyunu yapmak istiyorum"
+→ Framework seçimi için `game-development/web-games` ile başlayın.
+→ Ardından sprite/tilemap desenleri için `game-development/2d-games` yeteneğini kullanın.
+→ Bölüm tasarımı için `game-development/game-design` referansına bakın.
 
-### Example 2: "Mobile puzzle game for iOS and Android"
-→ Start with `game-development/mobile-games` for touch input and stores
-→ Use `game-development/game-design` for puzzle balancing
+### Örnek 2: "iOS ve Android için mobil bulmaca oyunu"
+→ Dokunma girdisi ve mağazalar için `game-development/mobile-games` ile başlayın.
+→ Bulmaca dengeleme için `game-development/game-design` kullanın.
 
-### Example 3: "Multiplayer VR shooter"
-→ `game-development/vr-ar` for comfort and immersion
-→ `game-development/3d-games` for rendering
-→ `game-development/multiplayer` for networking
+### Örnek 3: "Çok oyunculu VR shooter (nişancı)"
+→ Konfor ve daldırma (immersion) için `game-development/vr-ar`.
+→ Çizim için `game-development/3d-games`.
+→ Ağ iletişimi için `game-development/multiplayer`.
 
 ---
 
-> **Remember:** Great games come from iteration, not perfection. Prototype fast, then polish.
+> **Unutmayın:** Harika oyunlar mükemmellikten değil, yinelemeden (iteration) doğar. Hızlıca prototip üretin, sonra cilalayın.

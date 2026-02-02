@@ -1,190 +1,190 @@
 ---
 name: game-audio
-description: Game audio principles. Sound design, music integration, adaptive audio systems.
+description: Oyun ses (game audio) prensipleri. Ses tasarımı, müzik entegrasyonu, adaptif ses sistemleri.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Game Audio Principles
+# Oyun Ses (Game Audio) Prensipleri
 
-> Sound design and music integration for immersive game experiences.
+> Derinlikli oyun deneyimleri için ses tasarımı ve müzik entegrasyonu.
 
 ---
 
-## 1. Audio Category System
+## 1. Ses Kategori Sistemi
 
-### Category Definitions
+### Kategori Tanımları
 
-| Category | Behavior | Examples |
+| Kategori | Davranış | Örnekler |
 |----------|----------|----------|
-| **Music** | Looping, crossfade, ducking | BGM, combat music |
-| **SFX** | One-shot, 3D positioned | Footsteps, impacts |
-| **Ambient** | Looping, background layer | Wind, crowd, forest |
-| **UI** | Immediate, non-3D | Button clicks, notifications |
-| **Voice** | Priority, ducking trigger | Dialogue, announcer |
+| **Müzik** | Döngüye girer, crossfade, ducking | BGM, savaş müziği |
+| **SFX** | Tek seferlik (One-shot), 3B konumlandırılmış | Ayak sesleri, darbeler |
+| **Ambiyans** | Döngüye girer, arka plan katmanı | Rüzgar, kalabalık, orman |
+| **UI (Arayüz)** | Anlık, 3B olmayan | Buton tıklamaları, bildirimler |
+| **Voice (Ses)** | Öncelik, ducking tetikleyici | Diyaloglar, sunucu |
 
-### Priority Hierarchy
+### Öncelik Hiyerarşisi
 
 ```
-When sounds compete for channels:
+Sesler kanallar için yarıştığında:
 
-1. Voice (highest - always audible)
-2. Player SFX (feedback critical)
-3. Enemy SFX (gameplay important)
-4. Music (mood, but duckable)
-5. Ambient (lowest - can drop)
+1. Voice (Ses - En yüksek, her zaman duyulabilir)
+2. Player SFX (Oyuncu - Geri bildirim kritiktir)
+3. Enemy SFX (Düşman - Oynanış için gereklidir)
+4. Music (Müzik - Ruh hali verir ama sönümlenebilir)
+5. Ambient (Ambiyans - En düşük, kanal dolduğunda kesilebilir)
 ```
 
 ---
 
-## 2. Sound Design Decisions
+## 2. Ses Tasarımı Kararları
 
-### SFX Creation Approach
+### SFX Oluşturma Yaklaşımı
 
-| Approach | When to Use | Trade-offs |
+| Yaklaşım | Ne Zaman Kullanılır | Artıları/Eksileri |
 |----------|-------------|------------|
-| **Recording** | Realistic needs | High quality, time intensive |
-| **Synthesis** | Sci-fi, retro, UI | Unique, requires skill |
-| **Library samples** | Fast production | Common sounds, licensing |
-| **Layering** | Complex sounds | Best results, more work |
+| **Kayıt (Recording)** | Gerçekçi ihtiyaçlar | Yüksek kalite, zaman alır |
+| **Sentez (Synthesis)** | Bilim kurgu, retro, UI | Benzersiz, yetenek gerektirir |
+| **Kütüphane Örnekleri**| Hızlı üretim | Yaygın sesler, lisanslama |
+| **Katmanlama (Layering)**| Karmaşık sesler | En iyi sonuçlar, çok emek |
 
-### Layering Structure
+### Katmanlama Yapısı
 
-| Layer | Purpose | Example: Gunshot |
+| Katman | Amaç | Örnek: Silah Sesi |
 |-------|---------|------------------|
-| **Attack** | Initial transient | Click, snap |
-| **Body** | Main character | Boom, blast |
-| **Tail** | Decay, room | Reverb, echo |
-| **Sweetener** | Special sauce | Shell casing, mechanical |
+| **Attack (Atak)** | İlk geçiş anı (transient) | Tık, çıt sesi |
+| **Body (Gövde)** | Ana karakter | Güm, patlama |
+| **Tail (Kuyruk)** | Sönümlenme, oda tınısı | Reverb, eko |
+| **Sweetener** | "Gizli sos" | Boş kovan sesi, mekanik sesler |
 
 ---
 
-## 3. Music Integration
+## 3. Müzik Entegrasyonu
 
-### Music State System
+### Müzik Durum Sistemi
 
 ```
-Game State → Music Response
+Oyun Durumu → Müzik Tepkisi
 │
-├── Menu → Calm, loopable theme
-├── Exploration → Ambient, atmospheric
-├── Combat detected → Transition to tension
-├── Combat engaged → Full battle music
-├── Victory → Stinger + calm transition
-├── Defeat → Somber stinger
-└── Boss → Unique, multi-phase track
+├── Menü → Sakin, döngüsel tema
+├── Keşif → Ambiyans odaklı, atmosferik
+├── Tehlike Algılandı → Gerilime geçiş
+├── Çatışma Başladı → Tam savaş müziği
+├── Galibiyet → Kısa final sesi (stinger) + sakin geçiş
+├── Mağlubiyet → Hazin final sesi
+└── Boss → Benzersiz, çok aşamalı parça
 ```
 
-### Transition Techniques
+### Geçiş Teknikleri
 
-| Technique | Use When | Feel |
+| Teknik | Ne Zaman Kullanılır | Hissi |
 |-----------|----------|------|
-| **Crossfade** | Smooth mood shift | Gradual |
-| **Stinger** | Immediate event | Dramatic |
-| **Stem mixing** | Dynamic intensity | Seamless |
-| **Beat-synced** | Rhythmic gameplay | Musical |
-| **Queue point** | Next natural break | Clean |
+| **Crossfade** | Yumuşak ruh hali değişimi | Kademeli |
+| **Stinger** | Anlık olay | Dramatik |
+| **Stem mixing** | Dinamik yoğunluk | Kesintisiz |
+| **Beat-synced** | Ritmik oynanış | Müzikal |
+| **Queue point** | Bir sonraki doğal ara | Temiz |
 
 ---
 
-## 4. Adaptive Audio Decisions
+## 4. Adaptif Ses Kararları
 
-### Intensity Parameters
+### Yoğunluk Parametreleri
 
-| Parameter | Affects | Example |
+| Parametre | Neyi Etkiler | Örnek |
 |-----------|---------|---------|
-| **Threat level** | Music intensity | Enemy count |
-| **Health** | Filter, reverb | Low health = muffled |
-| **Speed** | Tempo, energy | Racing speed |
-| **Environment** | Reverb, EQ | Cave vs outdoor |
-| **Time of day** | Mood, volume | Night = quieter |
+| **Tehdit Seviyesi** | Müzik yoğunluğu | Düşman sayısı |
+| **Sağlık** | Filtre, reverb | Düşük sağlık = boğuk ses |
+| **Hız** | Tempo, enerji | Yarış hızı |
+| **Çevre** | Reverb, EQ | Mağara vs açık alan |
+| **Günün Saati** | Ruh hali, ses seviyesi | Gece = daha sessiz |
 
-### Vertical vs Horizontal
+### Dikey (Vertical) vs Yatay (Horizontal)
 
-| System | What Changes | Best For |
+| Sistem | Ne Değişir | En Uygun |
 |--------|--------------|----------|
-| **Vertical (layers)** | Add/remove instrument layers | Intensity scaling |
-| **Horizontal (segments)** | Different music sections | State changes |
-| **Combined** | Both | AAA adaptive scores |
+| **Dikey (katmanlar)** | Enstrüman katmanları ekle/çıkar | Yoğunluk ölçeklendirme |
+| **Yatay (segmentler)** | Farklı müzik bölümleri | Durum değişiklikleri |
+| **Birleşik** | Her ikisi | AAA adaptif müzikler |
 
 ---
 
-## 5. 3D Audio Decisions
+## 5. 3B Ses (3D Audio) Kararları
 
-### Spatialization
+### Uzamsallaştırma (Spatialization)
 
-| Element | 3D Positioned? | Reason |
+| Öğe | 3B Konumlandırılmış mı? | Neden? |
 |---------|----------------|--------|
-| Player footsteps | No (or subtle) | Always audible |
-| Enemy footsteps | Yes | Directional awareness |
-| Gunfire | Yes | Combat awareness |
-| Music | No | Mood, non-diegetic |
-| Ambient zone | Yes (area) | Environmental |
-| UI sounds | No | Interface feedback |
+| Oyuncu ayak sesleri | Hayır (veya çok hafif) | Her zaman duyulur |
+| Düşman ayak sesleri | Evet | Yönsel farkındalık |
+| Silah sesleri | Evet | Çatışma farkındalık |
+| Müzik | Hayır | Ruh hali, sahne dışı (non-diegetic) |
+| Ambiyans alanı | Evet (alan bazlı) | Çevresel etki |
+| UI sesleri | Hayır | Arayüz geri bildirimi |
 
-### Distance Behavior
+### Mesafe Davranışı
 
-| Distance | Sound Behavior |
+| Mesafe | Ses Davranışı |
 |----------|----------------|
-| **Near** | Full volume, full frequency |
-| **Medium** | Volume falloff, high-freq rolloff |
-| **Far** | Low volume, low-pass filter |
-| **Max** | Silent or ambient hint |
+| **Yakın** | Tam ses seviyesi, tam frekans |
+| **Orta** | Ses seviyesi azalır, yüksek frekanslar düşer |
+| **Uzak** | Düşük ses, low-pass filtre (bas odaklı) |
+| **Maksimum** | Sessiz veya çok hafif bir ipucu |
 
 ---
 
-## 6. Platform Considerations
+## 6. Platform Hususları
 
-### Format Selection
+### Format Seçimi
 
-| Platform | Recommended Format | Reason |
+| Platform | Önerilen Format | Neden? |
 |----------|-------------------|--------|
-| PC | OGG Vorbis, WAV | Quality, no licensing |
-| Console | Platform-specific | Certification |
-| Mobile | MP3, AAC | Size, compatibility |
-| Web | WebM/Opus, MP3 fallback | Browser support |
+| PC | OGG Vorbis, WAV | Kalite, lisanssız |
+| Konsol | Platforma özel | Sertifikasyon |
+| Mobil | MP3, AAC | Boyut, uyumluluk |
+| Web | WebM/Opus, MP3 yedek | Tarayıcı desteği |
 
-### Memory Budget
+### Bellek Bütçesi
 
-| Game Type | Audio Budget | Strategy |
+| Oyun Türü | Ses Bütçesi | Strateji |
 |-----------|--------------|----------|
-| Mobile casual | 10-50 MB | Compressed, fewer variants |
-| PC indie | 100-500 MB | Quality focus |
-| AAA | 1+ GB | Full quality, many variants |
+| Mobil (Casual) | 10-50 MB | Sıkıştırılmış, az varyasyon |
+| Bağımsız PC | 100-500 MB | Kalite odaklı |
+| AAA | 1+ GB | Tam kalite, çok sayıda varyasyon |
 
 ---
 
-## 7. Mix Hierarchy
+## 7. Miks Hiyerarşisi
 
-### Volume Balance Reference
+### Ses Seviyesi Dengesi Referansı
 
-| Category | Relative Level | Notes |
+| Kategori | Göreceli Seviye | Notlar |
 |----------|----------------|-------|
-| **Voice** | 0 dB (reference) | Always clear |
-| **Player SFX** | -3 to -6 dB | Prominent but not harsh |
-| **Music** | -6 to -12 dB | Foundation, ducks for voice |
-| **Enemy SFX** | -6 to -9 dB | Important but not dominant |
-| **Ambient** | -12 to -18 dB | Subtle background |
+| **Voice (Ses)** | 0 dB (referans) | Her zaman net |
+| **Player SFX** | -3 ile -6 dB arası | Belirgin ama sert değil |
+| **Music (Müzik)** | -6 ile -12 dB arası | Temel, ses girdiğinde sönümlenir |
+| **Enemy SFX** | -6 ile -9 dB arası | Önemli ama baskın değil |
+| **Ambiyans** | -12 ile -18 dB arası | Hafif arka plan |
 
-### Ducking Rules
+### Sönümleme (Ducking) Kuralları
 
-| When | Duck What | Amount |
+| Ne Zaman | Neyi Sönümle | Miktar |
 |------|-----------|--------|
-| Voice plays | Music, Ambient | -6 to -9 dB |
-| Explosion | All except explosion | Brief duck |
-| Menu open | Gameplay audio | -3 to -6 dB |
+| Ses (diyalog) çaldığında | Müzik, Ambiyans | -6 ile -9 dB arası |
+| Patlama olduğunda | Patlama dışındaki her şeyi | Kısa süreli sönümleme |
+| Menü açıldığında | Oynanış seslerini | -3 ile -6 dB arası |
 
 ---
 
-## 8. Anti-Patterns
+## 8. Anti-Desenler (Yapılmaması Gerekenler)
 
-| Don't | Do |
+| YAPMAYIN | YAPIN |
 |-------|-----|
-| Play same sound repeatedly | Use variations (3-5 per sound) |
-| Max volume everything | Use proper mix hierarchy |
-| Ignore silence | Silence creates contrast |
-| One music track loops forever | Provide variety, transitions |
-| Skip audio in prototype | Placeholder audio matters |
+| Aynı sesi defalarca çalmak | Varyasyon kullanın (ses başına 3-5 adet) |
+| Her şeyin sesini maksimize etmek| Doğru miks hiyerarşisi kullanın |
+| Sessizliği görmezden gelmek | Sessizlik kontrast yaratır |
+| Tek bir müzik parçasını sonsuza dek döndürmek | Çeşitlilik ve geçişler sunun |
+| Prototipte sesi es geçmek | Yer tutucu (placeholder) sesler bile önemlidir |
 
 ---
 
-> **Remember:** 50% of the game experience is audio. A muted game loses half its soul.
+> **Unutmayın:** Oyun deneyiminin %50'si sestir. Sessiz bir oyun ruhunun yarısını kaybeder.

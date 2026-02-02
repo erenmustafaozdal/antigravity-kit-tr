@@ -1,109 +1,109 @@
 ---
 name: code-review-checklist
-description: Code review guidelines covering code quality, security, and best practices.
+description: Kod kalitesi, güvenlik ve en iyi pratikleri kapsayan kod inceleme yönergeleri.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Code Review Checklist
+# Kod İnceleme Kontrol Listesi (Code Review Checklist)
 
-## Quick Review Checklist
+## Hızlı İnceleme Listesi
 
-### Correctness
-- [ ] Code does what it's supposed to do
-- [ ] Edge cases handled
-- [ ] Error handling in place
-- [ ] No obvious bugs
+### Doğruluk (Correctness)
+- [ ] Kod yapması gereken işi yapıyor mu?
+- [ ] Uç durumlar (edge cases) yönetildi mi?
+- [ ] Hata yönetimi (error handling) yerinde mi?
+- [ ] Belirgin bir hata (bug) var mı?
 
-### Security
-- [ ] Input validated and sanitized
-- [ ] No SQL/NoSQL injection vulnerabilities
-- [ ] No XSS or CSRF vulnerabilities
-- [ ] No hardcoded secrets or sensitive credentials
-- [ ] **AI-Specific:** Protection against Prompt Injection (if applicable)
-- [ ] **AI-Specific:** Outputs are sanitized before being used in critical sinks
+### Güvenlik (Security)
+- [ ] Girdiler doğrulandı ve temizlendi mi (validation & sanitization)?
+- [ ] SQL/NoSQL enjeksiyon açıklarına karşı önlem alındı mı?
+- [ ] XSS veya CSRF açıkları var mı?
+- [ ] Kod içinde hardcoded gizli bilgiler veya hassas veriler var mı?
+- [ ] **YZ'ye Özel:** Prompt Injection saldırılarına karşı koruma var mı (varsa)?
+- [ ] **YZ'ye Özel:** YZ çıktıları kritik işlemlerde kullanılmadan önce temizleniyor mu?
 
-### Performance
-- [ ] No N+1 queries
-- [ ] No unnecessary loops
-- [ ] Appropriate caching
-- [ ] Bundle size impact considered
+### Performans
+- [ ] N+1 sorgu problemi var mı?
+- [ ] Gereksiz döngülerden kaçınıldı mı?
+- [ ] Uygun önbellekleme (caching) yapıldı mı?
+- [ ] Paket boyutu (bundle size) üzerindeki etkisi değerlendirildi mi?
 
-### Code Quality
-- [ ] Clear naming
-- [ ] DRY - no duplicate code
-- [ ] SOLID principles followed
-- [ ] Appropriate abstraction level
+### Kod Kalitesi
+- [ ] İsimlendirmeler net mi?
+- [ ] DRY - kendini tekrar eden kod var mı?
+- [ ] SOLID prensiplerine uyulmuş mu?
+- [ ] Soyutlama seviyesi uygun mu?
 
-### Testing
-- [ ] Unit tests for new code
-- [ ] Edge cases tested
-- [ ] Tests readable and maintainable
+### Test Etme
+- [ ] Yeni kod için unit testler yazıldı mı?
+- [ ] Uç durumlar test edildi mi?
+- [ ] Testler okunabilir ve sürdürülebilir mi?
 
-### Documentation
-- [ ] Complex logic commented
-- [ ] Public APIs documented
-- [ ] README updated if needed
+### Dokümantasyon
+- [ ] Karmaşık mantık içeren kısımlar yorumlandı mı?
+- [ ] Genel (public) API'ler dökümante edildi mi?
+- [ ] Gerekiyorsa README güncellendi mi?
 
-## AI & LLM Review Patterns (2025)
+## YZ ve LLM İnceleme Desenleri (2025)
 
-### Logic & Hallucinations
-- [ ] **Chain of Thought:** Does the logic follow a verifiable path?
-- [ ] **Edge Cases:** Did the AI account for empty states, timeouts, and partial failures?
-- [ ] **External State:** Is the code making safe assumptions about file systems or networks?
+### Mantık ve Halüsinasyonlar
+- [ ] **Düşünce Zinciri (Chain of Thought):** Mantık doğrulanabilir bir yolu takip ediyor mu?
+- [ ] **Uç Durumlar:** YZ boş durumları, zaman aşımlarını ve kısmi hataları hesaba kattı mı?
+- [ ] **Harici Durum:** Kod, dosya sistemleri veya ağlar hakkında güvenli varsayımlarda bulunuyor mu?
 
-### Prompt Engineering Review
+### Prompt Mühendisliği İncelemesi
 ```markdown
-// ❌ Vague prompt in code
+// ❌ Kodda belirsiz prompt kullanımı
 const response = await ai.generate(userInput);
 
-// ✅ Structured & Safe prompt
+// ✅ Yapılandırılmış ve güvenli prompt kullanımı
 const response = await ai.generate({
-  system: "You are a specialized parser...",
+  system: "Özel bir çözümleyici (parser) rolündesiniz...",
   input: sanitize(userInput),
   schema: ResponseSchema
 });
 ```
 
-## Anti-Patterns to Flag
+## İşaretlenmesi Gereken Anti-Desenler
 
 ```typescript
-// ❌ Magic numbers
+// ❌ Sihirli sayılar (Magic numbers)
 if (status === 3) { ... }
 
-// ✅ Named constants
+// ✅ İsimlendirilmiş sabitler
 if (status === Status.ACTIVE) { ... }
 
-// ❌ Deep nesting
+// ❌ Derin iç içe yapılar
 if (a) { if (b) { if (c) { ... } } }
 
-// ✅ Early returns
+// ✅ Erken dönüşler (Early returns)
 if (!a) return;
 if (!b) return;
 if (!c) return;
-// do work
+// asıl işi yap
 
-// ❌ Long functions (100+ lines)
-// ✅ Small, focused functions
+// ❌ Uzun fonksiyonlar (100+ satır)
+// ✅ Küçük, odaklanmış fonksiyonlar
 
-// ❌ any type
+// ❌ any tipi kullanımı
 const data: any = ...
 
-// ✅ Proper types
+// ✅ Uygun tiplerin kullanımı
 const data: UserData = ...
 ```
 
-## Review Comments Guide
+## İnceleme Yorumları Rehberi
 
 ```
-// Blocking issues use 🔴
-🔴 BLOCKING: SQL injection vulnerability here
+// Engelleyici (blocking) sorunlar için 🔴 kullanın
+🔴 ENGELLEYİCİ: Burada SQL injection açığı var.
 
-// Important suggestions use 🟡
-🟡 SUGGESTION: Consider using useMemo for performance
+// Önemli öneriler için 🟡 kullanın
+🟡 ÖNERİ: Performans için useMemo kullanmayı değerlendirin.
 
-// Minor nits use 🟢
-🟢 NIT: Prefer const over let for immutable variable
+// Küçük düzeltmeler (nit) için 🟢 kullanın
+🟢 NOT: Değişmez değişkenler için let yerine const tercih edin.
 
-// Questions use ❓
-❓ QUESTION: What happens if user is null here?
+// Sorular için ❓ kullanın
+❓ SORU: Burada kullanıcı null gelirse ne olur?
 ```

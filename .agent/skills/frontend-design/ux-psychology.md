@@ -1,60 +1,60 @@
-# UX Psychology Reference
+# UX Psikolojisi Referansı
 
-> Deep dive into UX laws, emotional design, trust building, and behavioral psychology.
-
----
-
-## 1. Core UX Laws
-
-### Hick's Law
-
-**Principle:** The time to make a decision increases logarithmically with the number of choices.
-
-```
-Decision Time = a + b × log₂(n + 1)
-Where n = number of choices
-```
-
-**Application:**
-- Navigation: Max 5-7 top-level items
-- Forms: Break into steps (progressive disclosure)
-- Options: Default selections when possible
-- Filters: Prioritize most-used, hide advanced
-
-**Example:**
-```
-❌ Bad: 15 menu items in one nav
-✅ Good: 5 main categories + "More" 
-
-❌ Bad: 20 form fields at once
-✅ Good: 3-step wizard with 5-7 fields each
-```
+> UX yasaları, duygusal tasarım, güven inşası ve davranışsal psikoloji üzerine derinlemesine inceleme.
 
 ---
 
-### Fitts' Law
+## 1. Temel UX Yasaları
 
-**Principle:** Time to reach a target = function of distance and size.
+### Hick Yasası
+
+**Prensip:** Bir karar verme süresi, seçenek sayısıyla logaritmik olarak artar.
 
 ```
-MT = a + b × log₂(1 + D/W)
-Where D = distance, W = width
+Karar Süresi = a + b × log₂(n + 1)
+n = seçenek sayısı
 ```
 
-**Application:**
-- CTAs: Make primary buttons larger (min 44px height)
-- Touch targets: 44×44px minimum on mobile
-- Placement: Important actions near natural cursor position
-- Corners: "Magic corners" (infinite edge = easy to hit)
+**Uygulama:**
+- Navigasyon: En fazla 5-7 ana öğe bulundurun.
+- Formlar: Adımlara bölün (kademeli açıklama - progressive disclosure).
+- Seçenekler: Mümkünse varsayılan seçimler sunun.
+- Filtreler: En çok kullanılanlara öncelik verin, gelişmiş olanları gizleyin.
 
-**Button Sizing:**
+**Örnek:**
+```
+❌ Kötü: Tek bir menüde 15 öğe.
+✅ İyi: 5 ana kategori + "Daha Fazla" seçeneği.
+
+❌ Kötü: Aynı anda 20 form alanı göstermek.
+✅ İyi: Her biri 5-7 alan içeren 3 adımlı bir sihirbaz (wizard).
+```
+
+---
+
+### Fitts Yasası
+
+**Prensip:** Bir hedefe ulaşma süresi, mesafe ve boyutun bir fonksiyonudur.
+
+```
+Ulaşma Süresi = a + b × log₂(1 + D/W)
+D = mesafe, W = genişlik
+```
+
+**Uygulama:**
+- CTA'ler: Birincil butonları daha büyük yapın (en az 44px yükseklik).
+- Dokunma hedefleri: Mobilde minimum 44×44px alan sağlayın.
+- Yerleşim: Önemli eylemleri doğal imleç konumuna yakın tutun.
+- Köşeler: "Sihirli köşeler" (sonsuz kenar = vurması kolay).
+
+**Buton Boyutlandırma:**
 ```css
-/* Size by importance */
+/* Önem sırasına göre boyutlandırın */
 .btn-primary { height: 48px; padding: 0 24px; }
 .btn-secondary { height: 40px; padding: 0 16px; }
 .btn-tertiary { height: 36px; padding: 0 12px; }
 
-/* Mobile touch targets */
+/* Mobil dokunma hedefleri */
 @media (hover: none) {
   .btn { min-height: 44px; min-width: 44px; }
 }
@@ -62,46 +62,46 @@ Where D = distance, W = width
 
 ---
 
-### Miller's Law
+### Miller Yasası
 
-**Principle:** Average person can hold 7±2 chunks in working memory.
+**Prensip:** Ortalama bir insan, çalışma belleğinde 7±2 birim (chunk) bilgi tutabilir.
 
-**Application:**
-- Lists: Group into chunks of 5-7 items
-- Navigation: Max 7 menu items
-- Content: Break long content with headings
-- Phone numbers: 555-123-4567 (chunked)
+**Uygulama:**
+- Listeler: 5-7 öğelik gruplara (chunks) bölün.
+- Navigasyon: En fazla 7 menü öğesi kullanın.
+- İçerik: Uzun metinleri başlıklarla parçalara ayırın.
+- Telefon numaraları: 555-123-4567 şeklinde gruplandırın.
 
-**Chunking Example:**
+**Gruplandırma (Chunking) Örneği:**
 ```
 ❌ 5551234567
 ✅ 555-123-4567
 
-❌ Long paragraph of text without breaks
-✅ Short paragraphs
-   With bullet points
-   And subheadings
+❌ Ara vermeden yazılmış uzun bir paragraf.
+✅ Kısa paragraflar.
+   Madde işaretleri.
+   Ve alt başlıklar.
 ```
 
 ---
 
-### Von Restorff Effect (Isolation Effect)
+### Von Restorff Etkisi (İzolasyon Etkisi)
 
-**Principle:** An item that stands out is more likely to be remembered.
+**Prensip:** Diğerlerinden farklı duran bir öğenin hatırlanma olasılığı daha yüksektir.
 
-**Application:**
-- CTA buttons: Distinct color from other elements
-- Pricing: Highlight recommended plan
-- Important info: Visual differentiation
-- New features: Badge or callout
+**Uygulama:**
+- CTA butonları: Diğer öğelerden farklı, belirgin bir renk kullanın.
+- Fiyatlandırma: Önerilen/Popüler planı vurgulayın.
+- Kritik Bilgi: Görsel olarak ayrıştırın.
+- Yeni Özellikler: "Yeni" rozeti veya belirgin bir vurgu ekleyin.
 
-**Example:**
+**Örnek:**
 ```css
-/* All buttons gray, primary stands out */
+/* Tüm butonlar gri, birincil olan öne çıkıyor */
 .btn { background: #E5E7EB; }
 .btn-primary { background: #3B82F6; }
 
-/* Recommended plan highlighted */
+/* Önerilen planın vurgulanması */
 .pricing-card { border: 1px solid #E5E7EB; }
 .pricing-card.popular { 
   border: 2px solid #3B82F6;
@@ -111,1006 +111,1028 @@ Where D = distance, W = width
 
 ---
 
-### Serial Position Effect
+### Seri Konum (Serial Position) Etkisi
 
-**Principle:** Items at the beginning (primacy) and end (recency) of a list are remembered best.
+**Prensip:** Bir listenin başındaki (primacy) ve sonundaki (recency) öğeler en iyi hatırlananlardır.
 
-**Application:**
-- Navigation: Most important items first and last
-- Lists: Key info at top and bottom
-- Forms: Most critical fields at start
-- CTAs: Repeat at top and bottom of long pages
+**Uygulama:**
+- Navigasyon: En önemli öğeleri en başa ve en sona koyun.
+- Listeler: Kritik bilgiyi listenin başında veya sonunda verin.
+- Formlar: En kritik alanları başlangıca yerleştirin.
+- CTA'ler: Uzun sayfalarda hem üstte hem altta eylem butonu bulundurun.
 
-**Example:**
+**Örnek:**
 ```
-Navigation: Home | [key items] | Contact
+Navigasyon: Ana Sayfa | [diğer öğeler] | İletişim
 
-Long landing page:
-- CTA at hero (top)
-- Content sections
-- CTA repeated at bottom
-```
-
-### Jakob’s Law
-
-**Principle:** Users spend most of their time on other sites. They prefer your site to work the same way as all the other sites they already know.
-
-**Application:**
-- **Patterns:** Use standard placement for search bars and carts.
-- **Mental Models:** Leverage familiar icons (e.g., a magnifying glass).
-- **Vocabulary:** Use "Log In" instead of "Enter the Portal."
-- **Layout:** Keep the logo in the top-left for "Home" navigation.
-- **Interaction:** Swiping right to go back/next should feel native.
-- **Feedback:** Standard colors (Red = Error, Green = Success).
-
-**Example:**
-```
-❌ Bad: A website where clicking the logo takes you to an "About Us" page.
-✅ Good: Clicking the logo always returns the user to the Homepage.
-
-❌ Bad: Using a "Star" icon to represent "Delete."
-✅ Good: Using a "Trash Can" icon to represent "Delete."
+Uzun Açılış Sayfası:
+- Hero alanında CTA (üstte)
+- İçerik bölümleri
+- Sayfanın en altında tekrarlanan CTA
 ```
 
----
+### Jakob Yasası
 
-### Tesler’s Law (Conservation of Complexity)
+**Prensip:** Kullanıcılar zamanlarının çoğunu diğer sitelerde geçirirler. Sizin sitenizin de bildikleri ve alıştıkları diğer siteler gibi çalışmasını tercih ederler.
 
-**Principle:** For any system, there is a certain amount of complexity which cannot be reduced, only shifted from user to software.
+**Uygulama:**
+- **Desenler:** Arama çubuğu ve sepet gibi öğeler için standart yerleşimleri kullanın.
+- **Zihinsel Modeller:** Tanıdık ikonlar kullanın (örneğin arama için büyüteç).
+- **Kelime Seçimi:** "Portala Giriş Yap" yerine "Giriş Yap" kullanın.
+- **Düzen:** "Ana Sayfa" navigasyonu için logoyu sol üstte tutun.
+- **Etkileşim:** Geri/İleri gitmek için kaydırma (swipe) hareketi doğal hissettirmeli.
+- **Geri Bildirim:** Standart renkler kullanın (Kırmızı = Hata, Yeşil = Başarı).
 
-**Application:**
-- **Backend:** Let the system handle formatting (e.g., currency).
-- **Detection:** Auto-detect card type or city via ZIP code.
-- **Automation:** Pre-fill returning user data.
-- **Personalization:** Show only relevant fields based on previous answers.
-- **Defaults:** Smart defaults for common settings.
-- **Integration:** Use SSO (Social Logins) to offload registration friction.
-
-**Example:**
+**Örnek:**
 ```
-❌ Bad: Making users type "USD $" before every price field in a form.
-✅ Good: The app automatically prefixing the "$" based on the user's location.
+❌ Kötü: Logoya tıklandığında "Hakkımızda" sayfasına giden bir site.
+✅ İyi: Logoya tıklamak her zaman kullanıcıyı Ana Sayfaya döndürür.
 
-❌ Bad: Forcing users to manually select their "Card Type" (Visa/Mastercard).
-✅ Good: Detecting the card type automatically from the first four digits entered.
+❌ Kötü: "Silme" işlemini temsil etmek için "Yıldız" ikonu kullanmak.
+✅ İyi: "Silme" işlemi için "Çöp Kutusu" ikonu kullanmak.
 ```
 
 ---
 
-### Parkinson’s Law
+### Tesler Yasası (Karmaşıklığın Korunması)
 
-**Principle:** Any task will inflate until all available time is spent.
+**Prensip:** Her sistem için azaltılamayan, sadece kullanıcıdan yazılıma aktarılabilen belirli bir karmaşıklık miktarı vardır.
 
-**Application:**
-- **Efficiency:** Use "Auto-save" to reduce task completion time.
-- **Speed:** Limit the steps in a conversion funnel.
-- **Clarity:** Use clear labels to prevent "hover-poking" for meaning.
-- **Feedback:** Real-time validation to stop users from wasting time on errors.
-- **Onboarding:** Quick "Express" setup for power users.
-- **Constraints:** Set character limits on inputs to focus thoughts.
+**Uygulama:**
+- **Arka Plan:** Biçimlendirme işlemlerini sisteme bırakın (örneğin para birimi sembolü).
+- **Tespit:** Kart türünü veya posta kodundan şehri otomatik olarak algılayın.
+- **Otomasyon:** Geri dönen kullanıcı verilerini önceden doldurun.
+- **Kişiselleştirme:** Önceki yanıtlara göre sadece ilgili form alanlarını gösterin.
+- **Varsayılanlar:** Yaygın ayarlar için akıllı varsayılanlar sunun.
+- **Entegrasyon:** Kayıt zahmetini azaltmak için SSO (Sosyal Girişler) kullanın.
 
-**Example:**
+**Örnek:**
 ```
-❌ Bad: A 10-page registration form that allows users to browse away and lose data.
-✅ Good: A "One-Tap Sign In" using Google or Apple ID.
+❌ Kötü: Kullanıcıyı formdaki her fiyat alanına "TL" yazmaya zorlamak.
+✅ İyi: Uygulamanın, konum bilgisini alarak para birimi sembolünü otomatik eklemesi.
 
-❌ Bad: Giving a user an indefinite amount of time to fill out a bio.
-✅ Good: Providing a "Suggested Bios" feature to help them finish in seconds.
-```
-
----
-
-### Doherty Threshold
-
-**Principle:** Productivity skyrockets when a computer and its users interact at a pace (<400ms) that ensures neither has to wait on the other.
-
-**Application:**
-- **Feedback:** Use immediate visual cues for clicks.
-- **Loading:** Use skeleton screens for perceivable performance.
-- **Optimism:** Update UI before the server responds (Optimistic UI).
-- **Motion:** Use micro-animations to mask slight delays.
-- **Caching:** Pre-load next pages or assets in the background.
-- **Prioritization:** Load text content before heavy high-res images.
-
-**Example:**
-```
-❌ Bad: A button that does nothing for 2 seconds after being clicked.
-✅ Good: A button that immediately changes color and shows a "Loading" spinner.
-
-❌ Bad: A blank white screen that appears while data is fetching.
-✅ Good: A skeleton screen showing the gray outlines of where content will appear.
+❌ Kötü: Kullanıcıyı "Kart Türü"nü (Visa/Mastercard) manuel seçmeye zorlamak.
+✅ İyi: Kart numarasının ilk dört hanesinden kart türünü otomatik algılamak.
 ```
 
 ---
 
-### Postel’s Law (Robustness Principle)
+### Parkinson Yasası
 
-**Principle:** Be conservative in what you do, be liberal in what you accept from others.
+**Prensip:** Herhangi bir görev, mevcut olan tüm zamanı bitirene kadar genişler.
 
-**Application:**
-- **Error Handling:** Don't error out for a missing space or dash.
-- **Formatting:** Accept dates in DD/MM/YYYY or MM/DD/YYYY.
-- **Inputs:** Strip trailing/leading white space automatically.
-- **Fallbacks:** Use default avatars if a user hasn't uploaded a photo.
-- **Search:** Accept typos and provide "Did you mean...?" suggestions.
-- **Accessibility:** Ensure the site works across all browsers and devices.
+**Uygulama:**
+- **Verimlilik:** Görev tamamlama süresini azaltmak için "Otomatik Kaydet" kullanın.
+- **Hız:** Dönüşüm hunisindeki (conversion funnel) adım sayısını sınırlandırın.
+- **Netlik:** Anlamı çözmek için "üzerine gelip bekleme" zahmetini önlemek adına net etiketler kullanın.
+- **Geri Bildirim:** Kullanıcıların hatalarla vakit kaybetmesini önlemek için gerçek zamanlı doğrulama (validation) yapın.
+- **Onboarding:** Profesyonel kullanıcılar için hızlı "Ekspres" kurulum sunun.
+- **Kısıtlar:** Düşünceleri odaklamak için giriş alanlarına karakter sınırları koyun.
 
-**Example:**
+**Örnek:**
 ```
-❌ Bad: Rejecting a phone number because the user put a space in it.
-✅ Good: Accepting the input and stripping the spaces automatically.
+❌ Kötü: Kullanıcının sayfadan ayrılıp veri kaybetmesine izin veren 10 sayfalık bir kayıt formu.
+✅ İyi: Google veya Apple Kimliği ile "Tek Tıkla Kayıt".
 
-❌ Bad: Forcing users to type "January" instead of "01" or "Jan."
-✅ Good: A date field that understands all three formats.
-```
-
----
-
-### Occam’s Razor
-
-**Principle:** Among competing hypotheses that predict equally well, the one with the fewest assumptions should be selected. The simplest solution is usually the best.
-
-**Application:**
-- **Logic:** Remove unnecessary clicks.
-- **Visuals:** Use only as many fonts/colors as strictly necessary.
-- **Function:** If one field can do the work of two, combine them.
-- **Copy:** Use the shortest possible text to convey meaning.
-- **Layout:** Remove decorative elements that don't serve a goal.
-- **Flow:** Avoid branching paths unless absolutely required.
-
-**Example:**
-```
-❌ Bad: A "Login" button that opens a new page, then email, then password.
-✅ Good: A single login modal that asks for both on one screen.
-
-❌ Bad: Using 5 different font sizes and 4 colors on a single card.
-✅ Good: Using 2 font sizes and 1 accent color.
+❌ Kötü: Kullanıcıya biyografi yazması için sınırsız süre ve boş alan verme.
+✅ İyi: Saniyeler içinde bitirmelerine yardımcı olacak "Önerilen Biyografiler" özelliği sunma.
 ```
 
 ---
 
-## 2. Visual Perception (Gestalt Principles)
+### Doherty Eşiği
 
-### Law of Proximity
+**Prensip:** Bilgisayar ve kullanıcı arasındaki etkileşim hızı 400ms'nin altına düştüğünde, her iki tarafın da birbirini beklemediği bir tempoda verimlilik tavan yapar.
 
-**Principle:** Objects that are near, or proximate to each other, tend to be grouped together.
+**Uygulama:**
+- **Geri Bildirim:** Tıklamalar için anında görsel ipuçları kullanın.
+- **Yükleme:** Algılanan performansı artırmak için skeleton ekranlar kullanın.
+- **İyimserlik (Optimism):** Sunucu yanıt vermeden önce arayüzü güncelleyin (Optimistic UI).
+- **Hareket:** Hafif gecikmeleri maskelemek için mikro-animasyonlar kullanın.
+- **Önbelleğe Alma:** Sonraki sayfaları veya varlıkları arka planda önceden yükleyin.
+- **Önceliklendirme:** Ağır ve yüksek çözünürlüklü görsellerden önce metin içeriğini yükleyin.
 
-**Application:**
-- **Grouping:** Keep labels physically close to input fields.
-- **Spacing:** Larger margins between unrelated content blocks.
-- **Cards:** Text inside a card should be closer to its image than the border.
-- **Footers:** Cluster legal links together away from social links.
-- **Navigation:** Group "User" settings separate from "App" settings.
-- **Forms:** Group Address fields together, separate from Credit Card fields.
-
-**Example:**
+**Örnek:**
 ```
-❌ Bad: Large, equal gaps between every line of text in a form.
-✅ Good: Tight spacing between a label and its input, with larger gaps between pairs.
+❌ Kötü: Tıklandıktan sonra 2 saniye boyunca hiçbir şey yapmayan bir buton.
+✅ İyi: Tıklandığı an rengi değişen ve "Yükleniyor" ikonunu gösteren bir buton.
 
-❌ Bad: A "Submit" button floating in the middle of a page, far from the form.
-✅ Good: The "Submit" button placed directly under the last input field.
+❌ Kötü: Veri çekilirken görünen boş beyaz bir ekran.
+✅ İyi: İçeriğin nerede görüneceğini gri hatlarla gösteren bir skeleton ekran.
 ```
 
 ---
 
-### Law of Similarity
+### Postel Yasası (Sağlamlık Prensibi)
 
-**Principle:** The human eye tends to perceive similar elements in a design as a complete picture, shape, or group, even if those elements are separated.
+**Prensip:** Kendi yaptığınız işlerde muhafazakar, başkalarından kabul ettiğiniz girdilerde cömert olun.
 
-**Application:**
-- **Consistency:** Consistent colors for all clickable links.
-- **Iconography:** All icons in a set should have the same stroke weight.
-- **Buttons:** Same shape/size for buttons with the same importance.
-- **Typography:** Use the same H2 style for all section headers.
-- **Feedback:** All "Delete" actions should use the same color (e.g. Red).
-- **States:** Hover and Active states must be consistent across the app.
+**Uygulama:**
+- **Hata Yönetimi:** Eksik bir boşluk veya çizgi için hata vermeyin.
+- **Biçimlendirme:** Tarihleri GG/AA/YYYY veya AA/GG/YYYY formatlarında kabul edin.
+- **Girdiler:** Başta ve sondaki boşlukları otomatik olarak temizleyin (strip).
+- **Yedekler (Fallbacks):** Kullanıcı fotoğraf yüklemediyse varsayılan bir profil resmi (avatar) kullanın.
+- **Arama:** Yazım hatalarını kabul edin ve "Bunu mu demek istediniz?" önerileri sunun.
+- **Erişilebilirlik:** Sitenin tüm tarayıcılarda ve cihazlarda çalıştığından emin olun.
 
-**Example:**
+**Örnek:**
 ```
-❌ Bad: Some links are blue, some are green, and some are just bold black.
-✅ Good: Every clickable text element in the app is the same shade of Blue.
+❌ Kötü: Kullanıcı boşluk bıraktığı için telefon numarasını reddetmek.
+✅ İyi: Girdiyi kabul edip boşlukları sistem tarafında otomatik temizlemek.
 
-❌ Bad: Using a "Blue Button" for "Submit" and the same "Blue Button" for "Cancel."
-✅ Good: "Submit" is Solid Blue; "Cancel" is a Blue Outline (Ghost Button).
-```
-
----
-
-### Law of Common Region
-
-**Principle:** Elements tend to be perceived into groups if they are sharing an area with a clearly defined boundary.
-
-**Application:**
-- **Containerizing:** Use cards to group images and titles.
-- **Borders:** Use lines to separate the sidebar from the main feed.
-- **Backgrounds:** Use a different background color for the footer.
-- **Modals:** Use a distinct box to separate pop-ups from the page.
-- **Lists:** Alternating background colors (zebra striping) for rows.
-- **Header:** A solid bar across the top to group navigation items.
-
-**Example:**
-```
-❌ Bad: A list of news articles where the text and image of different stories overlap.
-✅ Good: Each article is contained within its own white card on a light gray background.
-
-❌ Bad: A footer that has the same background color as the main body.
-✅ Good: A dark-themed footer that clearly separates legal links from page content.
+❌ Kötü: Kullanıcıyı "01" veya "Oca" yerine "Ocak" yazmaya zorlamak.
+✅ İyi: Üç formatı da anlayan bir tarih alanı.
 ```
 
 ---
 
-### Law of Uniform Connectedness
+### Occam'ın Usturası (Occam’s Razor)
 
-**Principle:** Elements that are visually connected (e.g., via lines, arrows) are perceived as more related than elements with no connection.
+**Prensip:** Eşit derecede iyi tahmin yürüten hipotezler arasında, en az varsayım içeren seçilmelidir. En basit çözüm genellikle en iyisidir.
 
-**Application:**
-- **Flow:** Use lines to connect steps in a progress wizard.
-- **Menus:** Dropdowns that "touch" or connect to their parent button.
-- **Graphs:** Lines connecting data points in a chart.
-- **Relationship:** Connecting a toggle switch to the text it controls.
-- **Hierarchy:** Tree structures for file directories.
-- **Forms:** Connecting a "Credit Card" radio button to the fieldset below it.
+**Uygulama:**
+- **Mantık:** Gereksiz tıklamaları kaldırın.
+- **Görseller:** Sadece kesinlikle gerekli olan kadar font ve renk kullanın.
+- **Fonksiyon:** Eğer bir alan iki işi yapabiliyorsa, onları birleştirin.
+- **Metin:** Anlamı iletmek için mümkün olan en kısa metni kullanın.
+- **Düzen:** Bir amaca hizmet etmeyen dekoratif öğeleri çıkarın.
+- **Akış:** Kesinlikle gerekli olmadıkça dallanan yollardan kaçının.
 
-**Example:**
+**Örnek:**
 ```
-❌ Bad: A 3-step setup where the numbers "1", "2", and "3" are scattered.
-✅ Good: A horizontal line connecting "1", "2", and "3" to show a sequence.
+❌ Kötü: Önce yeni sayfa açan, sonra e-posta, sonra şifre soran bir "Giriş" butonu.
+✅ İyi: Tek bir ekran üzerinde her ikisini de soran tek bir giriş modülü.
 
-❌ Bad: Floating dropdown menus that don't touch the button that opened them.
-✅ Good: A dropdown menu that visually "attaches" to the parent button.
-```
-
----
-
-### Law of Prägnanz (Simplicity)
-
-**Principle:** People will perceive and interpret ambiguous or complex images as the simplest form possible, because it is the interpretation that requires the least cognitive effort.
-
-**Application:**
-- **Clarity:** Use clear, geometric icons for navigation.
-- **Reduction:** Remove unnecessary 3D textures or shadows.
-- **Shapes:** Prefer standard rectangles/circles over complex polygons.
-- **Focus:** Use high-contrast silhouettes for primary actions.
-- **Logos:** Simple brand marks that are recognizable at small sizes.
-- **UX:** One main goal per page to keep the "mental shape" simple.
-
-**Example:**
-```
-❌ Bad: A hyper-realistic 3D illustration of a file folder for the "Files" icon.
-✅ Good: A simple 2D outline of a folder.
-
-❌ Bad: A multi-colored, complex logo used as a loading spinner.
-✅ Good: A simple, single-color circular ring.
+❌ Kötü: Tek bir kart üzerinde 5 farklı font boyutu ve 4 renk kullanmak.
+✅ İyi: 2 font boyutu ve 1 vurgu rengi kullanmak.
 ```
 
 ---
 
-### Law of Figure/Ground
+## 2. Görsel Algı (Gestalt Prensipleri)
 
-**Principle:** The eye differentiates an object from its surrounding area. a form, silhouette, or shape is perceived as figure (object), while the surrounding area is perceived as ground (background).
+### Yakınlık Yasası (Law of Proximity)
 
-**Application:**
-- **Focus:** Use overlays (scrims) for modals to pop the content.
-- **Depth:** Drop shadows to imply the "figure" is sitting above the "ground."
-- **Contrast:** Light text on dark ground (or vice versa).
-- **Blur:** Use background blur to emphasize foreground text.
-- **Navigation:** Floating sticky headers that stay above the page content.
-- **Hover:** Elevate cards slightly on hover to define them as the figure.
+**Prensip:** Birbirine yakın olan nesneler, bir grup olarak algılanma eğilimindedir.
 
-**Example:**
+**Uygulama:**
+- **Gruplandırma:** Etiketleri (labels) giriş alanlarına fiziksel olarak yakın tutun.
+- **Boşluklandırma:** Birbiriyle ilgisiz içerik blokları arasında daha geniş marjlar bırakın.
+- **Kartlar:** Kart içindeki metin, görsele kenarlıktan daha yakın olmalıdır.
+- **Footer'lar:** Yasal linkleri, sosyal medya linklerinden ayrı bir yerde kümeleyin.
+- **Navigasyon:** "Kullanıcı" ayarlarını "Uygulama" ayarlarından ayrı gruplandırın.
+- **Formlar:** Adres alanlarını bir arada, Kredi Kartı alanlarını ayrı gruplandırın.
+
+**Örnek:**
 ```
-❌ Bad: A popup window that has no shadow or border, blending into the page.
-✅ Good: A modal with a drop shadow and a dimmed background overlay.
+❌ Kötü: Bir formdaki her satır arasında eşit ve geniş boşluklar bırakmak.
+✅ İyi: Etiket ile giriş alanı arasında dar boşluk, çiftler arasında ise geniş boşluk bırakmak.
 
-❌ Bad: White text placed directly over a busy, multi-colored photograph.
-✅ Good: White text placed over a dark semi-transparent "scrim."
-```
-
----
-
-### Law of Focal Point
-
-**Principle:** Whatever stands out visually will capture and hold the viewer’s attention first.
-
-**Application:**
-- **Entry:** Place the primary value proposition at the focal point.
-- **Color:** Use one high-vibrancy "Action Color" against a neutral UI.
-- **Movement:** Use subtle animation on the CTA to draw the eye.
-- **Size:** The most important statistic should be the largest font.
-- **Typography:** Use bold weights for headers and standard weights for body.
-- **Direction:** Use arrows or gaze (images of people looking at a button).
-
-**Example:**
-```
-❌ Bad: A homepage with 5 buttons of the same size and color.
-✅ Good: One large "Get Started" button in a bright color.
-
-❌ Bad: A dashboard where "Total Revenue" is the same size as "System Version."
-✅ Good: "Total Revenue" displayed in huge, bold numbers at the top center.
+❌ Kötü: Sayfanın ortasında, formdan çok uzakta duran bir "Gönder" butonu.
+✅ İyi: "Gönder" butonunun son giriş alanının hemen altına yerleştirilmesi.
 ```
 
 ---
 
-## 3. Cognitive Biases & Behavior
+### Benzerlik Yasası (Law of Similarity)
 
-### Zeigarnik Effect
+**Prensip:** İnsan gözü, tasarımdaki benzer öğeleri, birbirinden ayrı olsalar bile tek bir resim, şekil veya grup olarak algılama eğilimindedir.
 
-**Principle:** People remember uncompleted or interrupted tasks better than completed tasks.
+**Uygulama:**
+- **Tutarlılık:** Tüm tıklanabilir linkler için tutarlı renkler kullanın.
+- **İkonografi:** Bir setteki tüm ikonlar aynı çizgi kalınlığına (stroke weight) sahip olmalıdır.
+- **Butonlar:** Aynı öneme sahip butonlar için aynı şekil ve boyutu kullanın.
+- **Tipografi:** Tüm bölüm başlıkları için aynı H2 stilini kullanın.
+- **Geri Bildirim:** Tüm "Sil" işlemleri aynı rengi (örneğin Kırmızı) kullanmalıdır.
+- **Durumlar (States):** Hover (üzerine gelme) ve Active (basılma) durumları uygulama genelinde tutarlı olmalıdır.
 
-**Application:**
-- **Gamification:** Use "Profile 60% complete" bars.
-- **Engagement:** Tease the next module in a learning path.
-- **Retention:** Show a "To-Do" list of features yet to be explored.
-- **Feedback:** Persistent badges for unread messages.
-- **Momentum:** Show "Next" steps immediately after completing one.
-- **Shopping:** "Finish your order" reminders in the cart.
-
-**Example:**
+**Örnek:**
 ```
-❌ Bad: A silent onboarding process that gives no indication of what's left.
-✅ Good: A checklist that shows "3 of 5 steps finished."
+❌ Kötü: Bazı linklerin mavi, bazılarının yeşil, bazılarının ise sadece kalın siyah olması.
+✅ İyi: Uygulamadaki her tıklanabilir metin öğesinin aynı Mavi tonunda olması.
 
-❌ Bad: An e-learning app that shows a checkmark even if a video was half-watched.
-✅ Good: A progress ring that stays half-full until the video is finished.
-```
-
-### Goal Gradient Effect
-
-**Principle:** The tendency to approach a goal increases with proximity to the goal.
-
-**Application:**
-- **Momentum:** Give users "Artificial Advancement" (e.g. 2 free stamps).
-- **Progress:** Break a 10-field form into two 5-field steps.
-- **Feedback:** Celebrate milestones halfway through a task.
-- **Motivation:** Show the user how close they are to a reward/status.
-- **Navigation:** Use breadcrumbs to show how close they are to the end.
-- **Loading:** Speed up the loading animation as it nears 100%.
-
-**Example:**
-```
-❌ Bad: A progress bar that starts at 0% and feels like a long climb.
-✅ Good: A bar that starts at 20% because the user "started" by opening the app.
-
-❌ Bad: A checkout flow where the "Final Review" feels like a surprise 5th step.
-✅ Good: Clearly labeling the steps: "Shipping > Payment > Almost Done!"
-```
-
-### Peak-End Rule
-
-**Principle:** People judge an experience largely based on how they felt at its peak (the most intense point) and at its end, rather than the total sum or average of every moment.
-
-**Application:**
-- **Success:** Make the "Order Confirmed" screen memorable.
-- **Delight:** Add confetti or a unique animation at the point of value.
-- **Support:** Ensure the final interaction with a chat bot is helpful.
-- **Unboarding:** Even when a user leaves, make the final exit clean.
-- **Onboarding:** End the first session with a clear "Win."
-- **Error Handling:** Turn a 404 page into a fun, helpful interaction.
-
-**Example:**
-```
-❌ Bad: After a 20-minute tax filing process, the app just says "Submitted."
-✅ Good: A "Congratulations!" screen with a summary of the refund amount.
-
-❌ Bad: A game that ends with a simple "Game Over" text in plain font.
-✅ Good: A summary screen showing high scores with celebratory music.
-```
-
-### Aesthetic-Usability Effect
-
-**Principle:** Users often perceive aesthetically pleasing design as design that’s more usable.
-
-**Application:**
-- **Trust:** High-fidelity visuals buy "trust credit" for minor bugs.
-- **Branding:** Consistent high-quality imagery build professionalism.
-- **Engagement:** Beautiful interfaces keep users exploring longer.
-- **Patience:** Users are more forgiving of load times if the UI is pretty.
-- **Confidence:** Clean design makes complex tools feel more manageable.
-- **Loyalty:** People form emotional bonds with beautiful products.
-
-**Example:**
-```
-❌ Bad: A banking app with misaligned text and clashing 1990s colors.
-✅ Good: A sleek, modern banking app with smooth animations.
-
-❌ Bad: Using low-resolution, pixelated stock photos.
-✅ Good: Using high-definition, custom brand illustrations.
-```
-
-### Anchoring Bias
-
-**Principle:** Users rely heavily on the first piece of information offered (the "anchor") when making decisions.
-
-**Application:**
-- **Pricing:** Show the original price crossed out.
-- **Tiers:** Put the most expensive "Enterprise" plan on the far left.
-- **Sorting:** Highlight "Most Popular" as the first recommendation.
-- **Discounts:** State the "Save 20%" before showing the final price.
-- **Limits:** "Limit 12 per customer" anchors the idea that it's high value.
-- **Defaults:** Start with a high "Suggested Donation" amount.
-
-**Example:**
-```
-❌ Bad: Only showing the price "$49."
-✅ Good: Showing "~~$99~~ $49 (50% Off)."
-
-❌ Bad: Sorting a list of laptops from cheapest to most expensive.
-✅ Good: Showing a high-end "Pro" model first to make others seem cheap.
-```
-
-### Social Proof
-
-**Principle:** People copy the actions of others in an attempt to undertake behavior in a given situation.
-
-**Application:**
-- **Validation:** Display "Join 50,000+ others."
-- **Reviews:** Star ratings and verified customer testimonials.
-- **Logos:** "Trusted by" section showing partner brands.
-- **Live Feed:** "Sarah just bought this 5 mins ago" notifications.
-- **Activity:** "300 people are currently viewing this item."
-- **Certificates:** Industry awards and security badges.
-
-**Example:**
-```
-❌ Bad: A signup page with just a form.
-✅ Good: A signup page that says "Join 2 million designers."
-
-❌ Bad: Anonymous reviews with no names or photos.
-✅ Good: Reviews that include a face, a name, and a "Verified Buyer" tag.
-```
-
-### Scarcity Principle
-
-**Principle:** Humans place a higher value on an object that is scarce, and a lower value on those that are in abundance.
-
-**Application:**
-- **Urgency:** "Only 2 items left in stock."
-- **Time:** Ticking countdown timers for sales.
-- **Access:** "Invite-only" betas or exclusive tiers.
-- **Seasonality:** "Summer Edition" products.
-- **Low Stock:** "Back in stock soon - pre-order now."
-- **Demand:** "In high demand - 10 people have this in their cart."
-
-**Example:**
-```
-❌ Bad: A sale that never ends and has no countdown.
-✅ Good: A "Deal of the Day" with a ticking timer.
-
-❌ Bad: Showing a product is available with no stock count.
-✅ Good: "Only 3 left at this price!"
-```
-
-### Authority Bias
-
-**Principle:** The tendency to attribute greater accuracy to the opinion of an authority figure and be more influenced by that opinion.
-
-**Application:**
-- **Expertise:** Use "Expert-verified" or professional headshots.
-- **Certifications:** Trust seals (Norton, ISO, HIPAA).
-- **Media:** "As seen on TechCrunch/Forbes" logos.
-- **Endorsements:** Testimonials from industry leaders or influencers.
-- **Language:** Confident, professional, and accurate copy.
-- **History:** "Established in 1950" to imply longevity and trust.
-
-**Example:**
-```
-❌ Bad: A health blog written by "Admin."
-✅ Good: A health article "Reviewed by Dr. Jane Smith, Cardiologist."
-
-❌ Bad: A security app with no mentions of certifications.
-✅ Good: Displaying "ISO 27001 Certified" and "Norton Secured" logos.
-```
-
-### Loss Aversion
-
-**Principle:** People generally prefer avoiding losses to acquiring equivalent gains. It is better to not lose $5 than to find $5.
-
-**Application:**
-- **Messaging:** "Don't lose your discount."
-- **Trials:** "Your free trial is ending - keep your data now."
-- **Scarcity:** "Once it's gone, it's gone for good."
-- **Carts:** "Don't miss out on the items in your cart."
-- **Loyalty:** "You've earned 500 points - don't let them expire."
-- **Risk:** "30-day money-back guarantee" (reduces the "loss" of money).
-
-**Example:**
-```
-❌ Bad: "Click here to get a $10 coupon."
-✅ Good: "You have a $10 credit waiting. Use it before it expires tonight!"
-
-❌ Bad: "Cancel your subscription."
-✅ Good: "If you cancel, you will lose access to your 50 saved projects."
-```
-
-### False-Consensus Effect
-
-**Principle:** People tend to overestimate the extent to which their opinions, beliefs, preferences, values, and habits are normal and typical of those of others.
-
-**Application:**
-- **Testing:** You are not the user - test with real target audiences.
-- **Research:** Use qualitative data (interviews) and quantitative data (analytics).
-- **Bias:** Use "Blind Design Reviews" to avoid personal favoritism.
-- **Persona:** Stick to established User Personas over personal hunches.
-- **Variation:** Test with users from different demographics/abilities.
-- **Objectivity:** Use heatmaps to see actual user behavior.
-
-**Example:**
-```
-❌ Bad: A designer deciding a feature is "intuitive" without testing it.
-✅ Good: Running an A/B test to see which version users prefer.
-
-❌ Bad: Building an app entirely in English because "everyone knows English."
-✅ Good: Adding localization based on actual user location data.
-```
-
-### Curse of Knowledge
-
-**Principle:** A cognitive bias that occurs when an individual, communicating with other individuals, unknowingly assumes that the others have the background to understand.
-
-**Application:**
-- **Copy:** Avoid jargon and use plain language.
-- **Onboarding:** Tutorials that assume the user knows nothing.
-- **Tooltips:** Explain complex terms on hover.
-- **Structure:** Progressive disclosure (hide advanced settings).
-- **Labels:** Use icons + text labels for navigation (don't rely on icons alone).
-- **Support:** Comprehensive FAQs for first-time users.
-
-**Example:**
-```
-❌ Bad: An error message saying "Exception: Null Pointer at 0x0045."
-✅ Good: An error message saying "Something went wrong. Please try refreshing."
-
-❌ Bad: Navigating a cloud app using terms like "S3 Bucket Instances."
-✅ Good: Using simple terms like "File Storage."
-```
-
-### Stepping Stone Effect (Foot-in-the-Door)
-
-**Principle:** Users commit to large tasks if they start with small ones.
-
-**Application:**
-- **Funnel:** Ask for email before asking for credit card.
-- **Engagement:** Ask for one preference (e.g. "Dark Mode?") before registration.
-- **Onboarding:** Use a series of "Quick Yes/No" questions.
-- **Trust:** Offer a free PDF/tool before asking for a subscription.
-- **Profile:** Ask to upload a photo first, then fill out the bio later.
-- **Sales:** Offer a low-cost "tripwire" product before the main service.
-
-**Example:**
-```
-❌ Bad: A "Start Free Trial" button that immediately requires credit card info.
-✅ Good: Asking for an email and password first, then offering the trial.
-
-❌ Bad: A survey that shows all 50 questions on one page.
-✅ Good: A survey that starts with one easy "Yes/No" question.
+❌ Kötü: "Gönder" için "Mavi Buton", "İptal" için de yine aynı "Mavi Buton" kullanmak.
+✅ İyi: "Gönder" butonunun dolu Mavi, "İptal" butonunun ise Mavi Çerçeveli (Ghost Button) olması.
 ```
 
 ---
 
-## 2. Emotional Design (Don Norman)
+### Ortak Bölge Yasası (Law of Common Region)
 
-### Three Levels of Processing
+**Prensip:** Öğeler, net sınırları olan bir alanı paylaşıyorlarsa tek bir grup olarak algılanma eğilimindedir.
+
+**Uygulama:**
+- **Kapsayıcılar:** Görselleri ve başlıkları gruplandırmak için kartlar (cards) kullanın.
+- **Kenarlıklar:** Yan paneli (sidebar) ana akıştan ayırmak için çizgiler kullanın.
+- **Arka Planlar:** Sayfa alt bilgisi (footer) için farklı bir arka plan rengi kullanın.
+- **Modallar:** Açılır pencereleri sayfadan ayırmak için belirgin bir kutu kullanın.
+- **Listeler:** Satırlar için dönüşümlü arka plan renkleri (zebra striping) kullanın.
+- **Header:** Navigasyon öğelerini gruplandırmak için en üstte sabit bir çubuk kullanın.
+
+**Örnek:**
+```
+❌ Kötü: Farklı haberlerin metinlerinin ve görsellerinin iç içe geçtiği bir liste.
+✅ İyi: Her haberin hafif gri arka plan üzerinde kendi beyaz kartı içinde olması.
+
+❌ Kötü: Ana gövdeyle aynı arka plan rengine sahip bir footer.
+✅ İyi: Yasal linkleri sayfa içeriğinden net bir şekilde ayıran koyu temalı bir footer.
+```
+
+---
+
+### Üniform Bağlılık Yasası (Law of Uniform Connectedness)
+
+**Prensip:** Görsel olarak (çizgiler, oklar vb. ile) bağlı olan öğeler, bağlantısı olmayan öğelere göre daha ilişkili algılanırlar.
+
+**Uygulama:**
+- **Akış:** Bir ilerleme sihirbazındaki (wizard) adımları birbirine bağlamak için çizgiler kullanın.
+- **Menüler:** Ana butona "dokunan" veya ona bağlı olan açılır menüler (dropdowns).
+- **Grafikler:** Bir grafik üzerindeki veri noktalarını birleştiren çizgiler.
+- **İlişki:** Bir toggle (anahtar) butonunu kontrol ettiği metne bağlamak.
+- **Hiyerarşi:** Dosya dizinleri için ağaç yapıları.
+- **Formlar:** Bir "Kredi Kartı" radyo butonunu altındaki alan setine (fieldset) bağlamak.
+
+**Örnek:**
+```
+❌ Kötü: "1", "2" ve "3" rakamlarının dağınık durduğu bir kurulum süreci.
+✅ İyi: Bir sırayı göstermek için "1", "2" ve "3"ü birbirine bağlayan yatay bir çizgi.
+
+❌ Kötü: Kendisini açan butona dokunmayan, havada asılı duran açılır menüler.
+✅ İyi: Ana butona görsel olarak "yapışık" olan bir açılır menü.
+```
+
+---
+
+### Basitlik Yasası (Law of Prägnanz)
+
+**Prensip:** İnsanlar belirsiz veya karmaşık görüntüleri, mümkün olan en basit biçimde algılar ve yorumlar; çünkü en az bilişsel çabayı gerektiren yorum budur.
+
+**Uygulama:**
+- **Netlik:** Navigasyon için net, geometrik ikonlar kullanın.
+- **Arındırma:** Gereksiz 3B dokuları veya gölgeleri kaldırın.
+- **Şekiller:** Karmaşık çokgenler yerine standart dikdörtgen ve daireleri tercih edin.
+- **Odak:** Birincil eylemler için yüksek kontrastlı silüetler kullanın.
+- **Logolar:** Küçük boyutlarda bile tanınabilir, basit marka işaretleri tercih edin.
+- **UX:** "Zihinsel şekli" basit tutmak için sayfa başına tek bir ana hedef belirleyin.
+
+**Örnek:**
+```
+❌ Kötü: "Dosyalar" ikonu için hiper-gerçekçi 3B bir klasör çizimi.
+✅ İyi: Klasörün basit bir 2B ana hattı (outline).
+
+❌ Kötü: Yükleme (loading) ikonu olarak kullanılan çok renkli, karmaşık bir logo.
+✅ İyi: Basit, tek renkli dairesel bir halka.
+```
+
+---
+
+### Şekil/Zemin Yasası (Law of Figure/Ground)
+
+**Prensip:** Göz, bir nesneyi çevreleyen alandan ayırır. Bir form, silüet veya şekil "şekil" (nesne) olarak algılanırken, çevreleyen alan "zemin" (arka plan) olarak algılanır.
+
+**Uygulama:**
+- **Odak:** İçeriği öne çıkarmak için modallarda yarı saydam katmanlar (scrims) kullanın.
+- **Derinlik:** Bir nesnenin zeminden yukarıda olduğunu hissettirmek için gölgeler (drop shadows) kullanın.
+- **Kontrast:** Koyu zemin üzerine açık metin (veya tersi).
+- **Bulanıklık:** Öndeki metni vurgulamak için arka plan bulanıklığı (blur) kullanın.
+- **Navigasyon:** Sayfa içeriğinin üzerinde kalan sabit (sticky) header'lar.
+- **Hover:** Kartları hover durumunda hafifçe yükselterek onları nesne (figure) olarak tanımlayın.
+
+**Örnek:**
+```
+❌ Kötü: Hiçbir gölgesi veya kenarlığı olmayan, sayfayla bütünleşen bir açılır pencere.
+✅ İyi: Gölge efekti ve arkasında karartılmış bir katmanı olan bir modal.
+
+❌ Kötü: Karmaşık, çok renkli bir fotoğrafın üzerine doğrudan yerleştirilmiş beyaz metin.
+✅ İyi: Koyu, yarı saydam bir katman (scrim) üzerine yerleştirilmiş beyaz metin.
+```
+
+---
+
+### Odak Noktası Yasası (Law of Focal Point)
+
+**Prensip:** Görsel olarak öne çıkan her şey, izleyicinin dikkatini ilk önce çeker ve orada tutar.
+
+**Uygulama:**
+- **Giriş:** Temel değer önerisini (value proposition) odak noktasına yerleştirin.
+- **Renk:** Nötr bir arayüzde yüksek canlılıkta tek bir "Eylem Rengi" kullanın.
+- **Hareket:** Gözü çekmek için CTA üzerinde hafif bir animasyon kullanın.
+- **Boyut:** En önemli istatistik en büyük fontla yazılmalıdır.
+- **Tipografi:** Başlıklar için kalın (bold), gövde metni için standart ağırlık kullanın.
+- **Yönlendirme:** Oklar veya bakış yönü (bir butona bakan insan fotoğrafları) kullanın.
+
+**Örnek:**
+```
+❌ Kötü: Aynı boyut ve renkte 5 butonun olduğu bir ana sayfa.
+✅ İyi: Parlak renkte tek bir büyük "Hemen Başla" butonu.
+
+❌ Kötü: Dashboard'da "Toplam Gelir" ile "Sistem Versiyonu"nun aynı boyutta olması.
+✅ İyi: "Toplam Gelir"in en üste, en ortaya, devasa ve kalın rakamlarla yazılması.
+```
+
+---
+
+## 3. Bilişsel Önyargılar ve Davranış
+
+### Zeigarnik Etkisi
+
+**Prensip:** İnsanlar tamamlanmamış veya kesintiye uğramış görevleri, tamamlanmış görevlerden daha iyi hatırlarlar.
+
+**Uygulama:**
+- **Oyunlaştırma:** "Profil %60 tamamlandı" gibi ilerleme çubukları kullanın.
+- **Etkileşim:** Bir öğrenme yolunda bir sonraki modülü merak uyandıracak şekilde gösterin.
+- **Elde Tutma:** Henüz keşfedilmemiş özelliklerin bir "Yapılacaklar" listesini sunun.
+- **Geri Bildirim:** Okunmamış mesajlar için kalıcı bildirim rozetleri kullanın.
+- **Momentum:** Bir görevi bitirir bitirmez "Sıradaki" adımı gösterin.
+- **Alışveriş:** Sepetteki "Siparişi Tamamla" hatırlatıcıları.
+
+**Örnek:**
+```
+❌ Kötü: Nelerin kaldığına dair hiçbir belirti vermeyen sessiz bir onboarding süreci.
+✅ İyi: "5 adımdan 3'ü tamamlandı" bilgisini veren bir kontrol listesi.
+
+❌ Kötü: Video yarıda kesilse bile onay işareti gösteren bir eğitim uygulaması.
+✅ İyi: Video bitene kadar yarım kalan bir ilerleme halkası.
+```
+
+---
+
+### Hedef Gradyanı Etkisi (Goal Gradient Effect)
+
+**Prensip:** Bir hedefe yaklaşma eğilimi, hedefe olan yakınlıkla birlikte artar.
+
+**Uygulama:**
+- **Momentum:** Kullanıcılara "Yapay İlerleme" verin (örneğin 2 adet hediye mühür içeren sadakat kartı).
+- **İlerleme:** 10 alanlık bir formu, 5'er alanlık iki adıma bölün.
+- **Geri Bildirim:** Bir görevin yarısında ulaşılan kilometre taşlarını kutlayın.
+- **Motivasyon:** Kullanıcıya bir ödüle/statüye ne kadar yakın olduğunu gösterin.
+- **Navigasyon:** Sona ne kadar yaklaştıklarını göstermek için breadcrumb (ekmek kırıntıları) kullanın.
+- **Yükleme:** Yükleme animasyonunu %100'e yaklaştıkça hızlandırın.
+
+**Örnek:**
+```
+❌ Kötü: %0'dan başlayan ve uzun bir yol gibi hissettiren bir ilerleme çubuğu.
+✅ İyi: Uygulamayı açtığı için %20'den başlatılan bir ilerleme çubuğu.
+
+❌ Kötü: "Son İnceleme" ekranının sürpriz bir 5. adım gibi hissettirdiği bir ödeme akışı.
+✅ İyi: Adımların net isimlendirilmesi: "Kargo > Ödeme > Neredeyse Bitti!"
+```
+
+---
+
+### Doruk-Son Kuralı (Peak-End Rule)
+
+**Prensip:** İnsanlar bir deneyimi, her anın toplamı veya ortalamasından ziyade, en yoğun olduğu an (doruk) ve nasıl bittiği (son) üzerinden yargılarlar.
+
+**Uygulama:**
+- **Başarı:** "Sipariş Onaylandı" ekranını unutulmaz kılın.
+- **Keyif:** Değerin sunulduğu noktada konfeti veya benzersiz bir animasyon ekleyin.
+- **Destek:** Bir chat bot ile yapılan son etkileşimin yardımcı olduğundan emin olun.
+- **Ayrılma (Unboarding):** Bir kullanıcı ayrıldığında bile son çıkışı temiz yapın.
+- **Onboarding:** İlk oturumu net bir "Kazanç" ile bitirin.
+- **Hata Yönetimi:** Bir 404 sayfasını eğlenceli ve yardımcı bir etkileşime dönüştürün.
+
+**Örnek:**
+```
+❌ Kötü: 20 dakikalık bir vergi beyanı sürecinden sonra sadece "Gönderildi" yazan uygulama.
+✅ İyi: Geri iade miktarının özetiyle birlikte gelen bir "Tebrikler!" ekranı.
+
+❌ Kötü: Düz bir fontla sadece "Oyun Bitti" yazan bir oyun.
+✅ İyi: Kutlama müziği eşliğinde yüksek skorları gösteren bir özet ekranı.
+```
+
+---
+
+### Estetik-Kullanılabilirlik Etkisi (Aesthetic-Usability Effect)
+
+**Prensip:** Kullanıcılar estetik olarak hoş buldukları bir tasarımı genellikle daha kullanışlı olarak algılarlar.
+
+**Uygulama:**
+- **Güven:** Yüksek kaliteli görseller, küçük hatalar için size "güven kredisi" kazandırır.
+- **Marka:** Tutarlı ve yüksek kaliteli görseller profesyonellik inşa eder.
+- **Etkileşim:** Güzel arayüzler kullanıcıların daha uzun süre keşif yapmasını sağlar.
+- **Sabır:** Arayüz güzelse kullanıcılar yükleme süreleri konusunda daha bağışlayıcı olurlar.
+- **Özgüven:** Temiz bir tasarım, karmaşık araçların bile daha yönetilebilir hissedilmesini sağlar.
+- **Sadakat:** İnsanlar güzel ürünlerle duygusal bağ kurarlar.
+
+**Örnek:**
+```
+❌ Kötü: Hizalanmamış metinler ve 90'lardan kalma uyumsuz renklerin olduğu bir bankacılık uygulaması.
+✅ İyi: Yumuşak animasyonlara sahip, şık ve modern bir bankacılık uygulaması.
+
+❌ Kötü: Düşük çözünürlüklü, pikselleşmiş stok fotoğraflar kullanmak.
+✅ İyi: Yüksek çözünürlüklü, özel marka illüstrasyonları kullanmak.
+```
+
+---
+
+### Çapalama Önyargısı (Anchoring Bias)
+
+**Prensip:** Kullanıcılar karar verirken sunulan ilk bilgiye ("çapa") fazlasıyla güvenirler.
+
+**Uygulama:**
+- **Fiyatlandırma:** Eski fiyatın üzerini çizerek gösterin.
+- **Katmanlar:** En pahalı olan "Enterprise" planını en sola koyun.
+- **Sıralama:** "En Popüler" seçeneğini ilk öneri olarak öne çıkarın.
+- **İndirimler:** Son fiyatı göstermeden önce "%20 Tasarruf Edin" ibaresini belirtin.
+- **Limitler:** "Müşteri başına limit 12 adet" ibaresi, ürünün değerli olduğu fikrini çapalar.
+- **Varsayılanlar:** Yüksek bir "Önerilen Bağış" miktarı ile başlayın.
+
+**Örnek:**
+```
+❌ Kötü: Sadece fiyatı "$49" olarak göstermek.
+✅ İyi: "~~$99~~ $49 (%50 İndirim)" şeklinde göstermek.
+
+❌ Kötü: Laptop listesini en ucuzdan en pahalıya doğru sıralamak.
+✅ İyi: Diğerlerinin ucuz görünmesi için en başta üst düzey bir "Pro" modeli göstermek.
+```
+
+---
+
+### Sosyal Kanıt (Social Proof)
+
+**Prensip:** İnsanlar bir durumda nasıl davranacaklarına karar verirken başkalarının eylemlerini kopyalarlar.
+
+**Uygulama:**
+- **Doğrulama:** "Bize katılan 50.000+ kişiden biri olun" gibi ifadeler.
+- **Yorumlar:** Yıldız derecelendirmeleri ve doğrulanmış müşteri yorumları.
+- **Logolar:** İş ortağı markaları gösteren "Güvenenler" bölümü.
+- **Canlı Akış:** "Elif 5 dakika önce bu ürünü satın aldı" bildirimleri.
+- **Aktivite:** "Şu an 300 kişi bu ürünü inceliyor."
+- **Sertifikalar:** Sektörel ödüller ve güvenlik rozetleri.
+
+**Örnek:**
+```
+❌ Kötü: Sadece bir formdan oluşan kayıt sayfası.
+✅ İyi: "2 milyon tasarımcıya katılın" diyen bir kayıt sayfası.
+
+❌ Kötü: İsimsiz ve fotoğrafsız anonim yorumlar.
+✅ İyi: Yüz, isim ve "Doğrulanmış Alıcı" etiketi içeren yorumlar.
+```
+
+---
+
+### Kıtlık Prensibi (Scarcity Principle)
+
+**Prensip:** İnsanlar kıt olan bir nesneye daha yüksek, bol olanlara ise daha düşük değer biçerler.
+
+**Uygulama:**
+- **Aciliyet:** "Stokta sadece 2 ürün kaldı."
+- **Zaman:** İndirimler için geri sayım sayaçları.
+- **Erişim:** "Sadece davetiye ile" girilen betalar veya özel üyelikler.
+- **Mevsimsellik:** "Yaz Özel" ürünleri.
+- **Düşük Stok:** "Yakında tekrar stokta - şimdi ön sipariş verin."
+- **Talep:** "Yoğun talep var - 10 kişinin sepetinde bu ürün var."
+
+**Örnek:**
+```
+❌ Kötü: Hiç bitmeyen ve geri sayımı olmayan bir indirim.
+✅ İyi: Saat işleyen bir "Günün Fırsatı."
+
+❌ Kötü: Stok adedi belirtmeden sadece "Mevcut" yazmak.
+✅ İyi: "Bu fiyata sadece son 3 adet!"
+```
+
+---
+
+### Otorite Önyargısı (Authority Bias)
+
+**Prensip:** Bir otorite figürünün görüşüne daha fazla doğruluk atfetme ve bu görüşten daha fazla etkilenme eğilimidir.
+
+**Uygulama:**
+- **Uzmanlık:** "Uzman onaylı" ibaresi veya profesyonel portre fotoğrafları kullanın.
+- **Sertifikalar:** Güven mühürleri (Norton, ISO, HIPAA).
+- **Medya:** "TechCrunch/Forbes'ta görüldüğü gibi" logoları.
+- **Onaylar:** Sektör liderlerinden veya influencer'lardan gelen referanslar.
+- **Dil:** Kendinden emin, profesyonel ve doğru metinler (copy).
+- **Geçmiş:** Uzun ömür ve güven telkin etmek için "1950'den beri" gibi ifadeler.
+
+**Örnek:**
+```
+❌ Kötü: "Admin" tarafından yazılmış bir sağlık blogu.
+✅ İyi: "Kardiyolog Dr. Canan Yılmaz tarafından incelendi" ibareli sağlık makalesi.
+
+❌ Kötü: Sertifikalardan hiç bahsetmeyen bir güvenlik uygulaması.
+✅ İyi: "ISO 27001 Sertifikalı" ve "Norton Secured" logolarını sergilemek.
+```
+
+---
+
+### Kayıptan Kaçınma (Loss Aversion)
+
+**Prensip:** İnsanlar genellikle elde edilecek kazançtan ziyade, eşdeğer bir kayıptan kaçınmayı tercih ederler. 5 TL bulmaktansa 5 TL kaybetmemek daha önemlidir.
+
+**Uygulama:**
+- **Mesajlaşma:** "İndiriminizi kaybetmeyin."
+- **Deneme Süreleri:** "Deneme süreniz bitiyor - verilerinizi şimdi koruyun."
+- **Kıtlık:** "Bir kez gitti mi, temelli gider."
+- **Sepetler:** "Sepetinizdeki ürünleri kaçırmayın."
+- **Sadakat:** "500 puan kazandınız - sürelerinin dolmasına izin vermeyin."
+- **Risk:** "30 günlük iade garantisi" (paranın "kayıp" riskini azaltır).
+
+**Örnek:**
+```
+❌ Kötü: "10 TL kupon almak için buraya tıklayın."
+✅ İyi: "Bekleyen 10 TL krediniz var. Bu gece süresi dolmadan kullanın!"
+
+❌ Kötü: "Aboneliğinizi iptal edin."
+✅ İyi: "İptal ederseniz, kaydettiğiniz 50 projeye erişiminizi kaybedeceksiniz."
+```
+
+---
+
+### Sahte Konsensüs Etkisi (False-Consensus Effect)
+
+**Prensip:** İnsanlar kendi fikir, inanç, tercih ve alışkanlıklarının normal olduğunu ve diğerleri tarafından da paylaşıldığını abartma eğilimindedirler.
+
+**Uygulama:**
+- **Test Etme:** Siz kullanıcı değilsiniz - gerçek hedef kitlelerle test yapın.
+- **Araştırma:** Nitel (mülakatlar) ve nicel (analizler) verileri birlikte kullanın.
+- **Önyargı:** Kişisel favorilerden kaçınmak için "Blind Design Reviews" (kör tasarım incelemeleri) yapın.
+- **Persona:** Kişisel tahminler yerine oluşturulmuş Kullanıcı Personalarına sadık kalın.
+- **Varyasyon:** Farklı demografik gruplardan ve yeteneklerden kullanıcılarla test yapın.
+- **Nesnellik:** Gerçek kullanıcı davranışını görmek için ısı haritaları (heatmaps) kullanın.
+
+**Örnek:**
+```
+❌ Kötü: Bir tasarımcının bir özelliği test etmeden "sezgisel" olduğuna karar vermesi.
+✅ İyi: Hangi versiyonun daha çok tercih edildiğini görmek için A/B testi yapmak.
+
+❌ Kötü: "Herkes İngilizce bilir" diyerek bir uygulamayı sadece İngilizce inşa etmek.
+✅ İyi: Gerçek kullanıcı konum verilerine göre yerelleştirme (localization) eklemek.
+```
+
+---
+
+### Bilgi Laneti (Curse of Knowledge)
+
+**Prensip:** Bir şahıs başkalarıyla iletişim kurarken, diğerlerinin de konuyu anlamak için gerekli temel bilgiye sahip olduğunu farkında olmadan varsaydığında ortaya çıkan bilişsel bir önyargıdır.
+
+**Uygulama:**
+- **Metinler:** Teknik terimlerden (jargon) kaçının ve sade bir dil kullanın.
+- **Onboarding:** Kullanıcının hiçbir şey bilmediğini varsayan öğreticiler.
+- **Tooltip'ler:** Üzerine gelince karmaşık terimleri açıklayan ipuçları.
+- **Yapı:** Kademeli açıklama (gelişmiş ayarları gizleyin).
+- **Etiketler:** Navigasyon için sadece ikonlara güvenmeyin, ikon + metin etiketi kullanın.
+- **Destek:** Yeni başlayanlar için kapsamlı SSS bölümleri.
+
+**Örnek:**
+```
+❌ Kötü: "Exception: Null Pointer at 0x0045" diyen bir hata mesajı.
+✅ İyi: "Bir şeyler yanlış gitti. Lütfen sayfayı yenilemeyi deneyin" mesajı.
+
+❌ Kötü: Bir bulut uygulamasını "S3 Bucket Instance" gibi terimlerle yönetmek.
+✅ İyi: "Dosya Depolama" gibi basit terimler kullanmak.
+```
+
+---
+
+### Atlama Taşı Etkisi (Foot-in-the-Door)
+
+**Prensip:** Kullanıcılar küçük görevlere evet dediklerinde, büyük görevlere de bağlılık gösterme olasılıkları artar.
+
+**Uygulama:**
+- **Dönüşüm Hunisi:** Kredi kartı istemeden önce sadece e-posta isteyin.
+- **Etkileşim:** Kayıttan önce sadece bir tercih (örneğin "Karanlık Mod?") sorun.
+- **Onboarding:** "Hızlı Evet/Hayır" sorularından oluşan bir seri kullanın.
+- **Güven:** Abonelik istemeden önce ücretsiz bir PDF/araç sunun.
+- **Profil:** Önce bir fotoğraf yüklemesini isteyin, biyografiyi sonra doldurtabilirsiniz.
+- **Satış:** Ana hizmetten önce düşük maliyetli bir "eşik" (tripwire) ürün sunun.
+
+**Örnek:**
+```
+❌ Kötü: Hemen kredi kartı bilgisi gerektiren bir "Ücretsiz Denemeyi Başlat" butonu.
+✅ İyi: Önce e-posta ve şifre isteyip, sonra denemeyi teklif etmek.
+
+❌ Kötü: 50 sorunun tamamını tek sayfada gösteren bir anket.
+✅ İyi: Tek bir kolay "Evet/Hayır" sorusuyla başlayan bir anket.
+```
+
+---
+
+## 2. Duygusal Tasarım (Don Norman)
+
+### Üç İşleme Seviyesi
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  VISCERAL (Lizard Brain)                                    │
+│  VİSERAL (İlkel Beyin)                                      │
 │  ─────────────────────                                      │
-│  • Immediate, automatic reaction                            │
-│  • First impressions (first 50ms)                          │
-│  • Aesthetics: colors, shapes, imagery                      │
-│  • "Wow, this looks beautiful!"                            │
+│  • Anlık, otomatik tepki                                     │
+│  • İlk izlenimler (ilk 50ms)                                 │
+│  • Estetik: renkler, şekiller, görseller                    │
+│  • "Vay canına, bu harika görünüyor!"                       │
 ├─────────────────────────────────────────────────────────────┤
-│  BEHAVIORAL (Functional Brain)                              │
+│  DAVRANIŞSAL (Fonksiyonel Beyin)                            │
 │  ─────────────────────────────                              │
-│  • Usability and function                                   │
-│  • Pleasure from effective use                              │
-│  • Performance, reliability, ease                           │
-│  • "This works exactly how I expected!"                    │
+│  • Kullanılabilirlik ve fonksiyon                            │
+│  • Etkili kullanımdan alınan keyif                          │
+│  • Performans, güvenilirlik, kolaylık                       │
+│  • "Bu tam beklediğim gibi çalışıyor!"                      │
 ├─────────────────────────────────────────────────────────────┤
-│  REFLECTIVE (Conscious Brain)                               │
+│  REFLEKTİF (Bilinçli Beyin)                                  │
 │  ─────────────────────────────                              │
-│  • Conscious thought and meaning                            │
-│  • Personal identity and values                             │
-│  • Long-term memory and loyalty                             │
-│  • "This brand represents who I am"                        │
+│  • Bilinçli düşünce ve anlam                                 │
+│  • Kişisel kimlik ve değerler                                │
+│  • Uzun vadeli hafıza ve sadakat                            │
+│  • "Bu marka benim kim olduğumu temsil ediyor"              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Designing for Each Level
+### Her Seviye İçin Tasarım Yapmak
 
-**Visceral:**
+**Viseral:**
 ```css
-/* Beautiful first impression */
+/* Etkileyici ilk izlenim */
 .hero {
   background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
   color: white;
 }
 
-/* Pleasing microinteractions */
+/* Keyif veren mikro-etkileşimler */
 .button:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 ```
 
-**Behavioral:**
+**Davranışsal:**
 ```javascript
-// Instant feedback
+// Anlık geri bildirim
 button.onclick = () => {
   button.disabled = true;
-  button.textContent = 'Saving...';
+  button.textContent = 'Kaydediliyor...';
   
   save().then(() => {
-    showSuccess('Saved!');  // Immediate confirmation
+    showSuccess('Kaydedildi!');  // Anında onay
   });
 };
 ```
 
-**Reflective:**
+**Reflektif:**
 ```html
-<!-- Brand story and values -->
+<!-- Marka hikayesi ve değerleri -->
 <section class="about">
-  <h2>Why We Exist</h2>
-  <p>We believe technology should empower, not complicate...</p>
+  <h2>Neden Varız?</h2>
+  <p>Teknolojinin hayatı zorlaştırmak değil, kolaylaştırmak gerektiğine inanıyoruz...</p>
 </section>
 
-<!-- Social proof connecting to identity -->
+<!-- Kimlikle bağ kuran sosyal kanıt -->
 <blockquote>
-  "This tool helped me become the designer I wanted to be."
+  "Bu araç olmak istediğim tasarımcı olmama yardımcı oldu."
 </blockquote>
 ```
 
 ---
 
-## 3. Trust Building System
+## 3. Güven İnşa Sistemi
 
-### Trust Signal Categories
+### Güven Sinyali Kategorileri
 
-| Category | Elements | Implementation |
+| Kategori | Öğeler | Uygulama |
 |----------|----------|----------------|
-| **Security** | SSL, badges, encryption | Visible padlock, security logos on forms |
-| **Social Proof** | Reviews, testimonials, logos | Star ratings, customer photos, brand logos |
-| **Transparency** | Policies, pricing, contact | Clear links, no hidden fees, real address |
-| **Professional** | Design quality, consistency | No broken elements, consistent branding |
-| **Authority** | Certifications, awards, media | "As seen in...", industry certifications |
+| **Güvenlik** | SSL, rozetler, şifreleme | Görünür asma kilit, formlarda güvenlik logoları |
+| **Sosyal Kanıt** | Yorumlar, referanslar, logolar| Yıldız puanları, müşteri fotoları, marka logoları |
+| **Şeffaflık** | Politikalar, fiyatlandırma, iletişim | Net linkler, gizli ücret yok, gerçek adres |
+| **Profesyonellik** | Tasarım kalitesi, tutarlılık | Kırık öğe yok, tutarlı markalama |
+| **Otorite** | Sertifikalar, ödüller, medya | "İçerik çekilen mecralar...", sektör sertifikaları |
 
-### Trust Signal Placement
+### Güven Sinyali Yerleşimi
 
 ```
 ┌────────────────────────────────────────────────────┐
-│  HEADER: Trust banner ("Free shipping | 30-day    │
-│          returns | Secure checkout")               │
+│  HEADER: Güven bandı ("Ücretsiz kargo | 30 gün    │
+│          iade | Güvenli ödeme")                    │
 ├────────────────────────────────────────────────────┤
-│  HERO: Social proof ("Trusted by 10,000+")        │
+│  HERO: Sosyal kanıt ("10.000+ kullanıcı")          │
 ├────────────────────────────────────────────────────┤
-│  PRODUCT: Reviews visible, security badges         │
+│  PRODUCT: Görünür yorumlar, güvenlik rozetleri     │
 ├────────────────────────────────────────────────────┤
-│  CHECKOUT: Payment icons, SSL badge, guarantee     │
+│  CHECKOUT: Ödeme ikonları, SSL rozeti, garanti     │
 ├────────────────────────────────────────────────────┤
-│  FOOTER: Contact info, policies, certifications    │
+│  FOOTER: İletişim bilgisi, politikalar, sertifikalar│
 └────────────────────────────────────────────────────┘
 ```
 
-### Trust-Building CSS Patterns
+### Güven İnşası CSS Desenleri
 
 ```css
-/* Trust badge styling */
+/* Güven rozeti tasarımı */
 .trust-badge {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: #F0FDF4;  /* Light green = security */
-  border-radius: 2px; /* Sharp for trust = precision feel */
+  background: #F0FDF4;  /* Hafif yeşil = güvenlik */
+  border-radius: 2px; /* Keskin köşeler = hassasiyet ve güven hissi */
   font-size: 14px;
   color: #166534;
 }
 
-/* Secure form indicator */
+/* Güvenli form göstergesi */
 .secure-form::before {
-  content: '🔒 Secure form';
+  content: '🔒 Güvenli form';
   display: block;
   font-size: 12px;
   color: #166534;
   margin-bottom: 8px;
 }
 
-/* Testimonial card */
+/* Referans/Yorum kartı */
 .testimonial {
   display: flex;
   gap: 16px;
   padding: 24px;
   background: white;
-  border-radius: 16px; /* Friendly = larger radius */
+  border-radius: 16px; /* Sıcak/Cana yakın = daha büyük yarıçap */
   box-shadow: var(--shadow-sm);
 }
 
 .testimonial-avatar {
   width: 48px;
   height: 48px;
-  border-radius: 50%;  /* Real photos > initials */
+  border-radius: 50%;  /* Gerçek fotolar > sadece baş harfler */
 }
 ```
 
 ---
 
-## 4. Cognitive Load Management
+## 4. Bilişsel Yük Yönetimi (Cognitive Load Management)
 
-### Three Types of Cognitive Load
+### Üç Tip Bilişsel Yük
 
-| Type | Definition | Designer's Role |
+| Tür | Tanım | Tasarımcının Rolü |
 |------|------------|-----------------|
-| **Intrinsic** | Inherent complexity of task | Break into smaller steps |
-| **Extraneous** | Load from poor design | Eliminate this! |
-| **Germane** | Effort for learning | Support and encourage |
+| **İçsel (Intrinsic)** | Görevin özündeki karmaşıklık | Daha küçük adımlara bölmek |
+| **Yabancı (Extraneous)**| Kötü tasarımdan gelen yük | Bunu tamamen ortadan kaldırmak! |
+| **İlgili (Germane)** | Öğrenme için harcanan çaba | Desteklemek ve teşvik etmek |
 
-### Reduction Strategies
+### Azaltma Stratejileri
 
-**1. Simplify (Reduce Extraneous)**
+**1. Basitleştirin (Yabancı Yükü Azaltın)**
 ```css
-/* Visual noise → Clean */
+/* Görsel gürültüden → Temizliğe */
 .card-busy {
   border: 2px solid red;
   background: linear-gradient(...);
   box-shadow: 0 0 20px ...;
-  /* Too much! */
+  /* Çok fazla! */
 }
 
 .card-clean {
   background: white;
   border-radius: 16px;
   box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-  /* Calm, focused */
+  /* Sakin, odaklanmış */
 }
 ```
 
-**2. Chunk Information**
+**2. Bilgiyi Parçalara Bölün (Chunking)**
 ```html
-<!-- Overwhelming -->
+<!-- Boğucu -->
 <form>
-  <!-- 15 fields at once -->
+  <!-- Aynı anda 15 alan -->
 </form>
 
-<!-- Chunked -->
+<!-- Parçalanmış -->
 <form>
   <fieldset>
-    <legend>Step 1: Personal Info</legend>
-    <!-- 3-4 fields -->
+    <legend>Adım 1: Kişisel Bilgiler</legend>
+    <!-- 3-4 alan -->
   </fieldset>
   <fieldset>
-    <legend>Step 2: Shipping</legend>
-    <!-- 3-4 fields -->
+    <legend>Adım 2: Kargo Bilgileri</legend>
+    <!-- 3-4 alan -->
   </fieldset>
 </form>
 ```
 
-**3. Progressive Disclosure**
+**3. Kademeli Açıklama (Progressive Disclosure)**
 ```html
-<!-- Hide complexity until needed -->
+<!-- Karmaşıklığı ihtiyaç duyulana kadar gizleyin -->
 <div class="filters">
   <div class="filters-basic">
-    <!-- Common filters visible -->
+    <!-- Yaygın filtreler görünür -->
   </div>
   <button onclick="toggleAdvanced()">
-    Advanced Options ▼
+    Gelişmiş Seçenekler ▼
   </button>
   <div class="filters-advanced" hidden>
-    <!-- Complex filters hidden -->
+    <!-- Karmaşık filtreler gizli -->
   </div>
 </div>
 ```
 
-**4. Use Familiar Patterns**
+**4. Tanıdık Desenler Kullanın**
 ```
-✅ Standard navigation placement
-✅ Expected icon meanings (🔍 = search)
-✅ Conventional form layouts
-✅ Common gesture patterns (swipe, pinch)
+✅ Standart navigasyon yerleşimi
+✅ Beklenen ikon anlamları (🔍 = arama)
+✅ Geleneksel form düzenleri
+✅ Yaygın jest desenleri (kaydırma, kıstırma)
 ```
 
-**5. Offload Information**
+**5. Bilgiyi Dışsallaştırın (Zihinden Sisteme Aktarın)**
 ```html
-<!-- Don't make users remember -->
+<!-- Kullanıcıyı hatırlamaya zorlamayın -->
 <label>
-  Card Number
+  Kart Numarası
   <input type="text" inputmode="numeric" 
          autocomplete="cc-number" 
          placeholder="1234 5678 9012 3456">
 </label>
 
-<!-- Show what they entered -->
+<!-- Ne girdiklerini gösterin -->
 <div class="order-summary">
-  <p>Shipping to: <strong>John Doe, 123 Main St...</strong></p>
-  <a href="#">Edit</a>
+  <p>Şuraya gönderiliyor: <strong>Mehmet Yılmaz, Taksim Mah...</strong></p>
+  <a href="#">Düzenle</a>
 </div>
 ```
 
 ---
 
-## 5. Persuasive Design (Ethical)
+## 5. İkna Edici Tasarım (Persuasive Design - Etik)
 
-### Ethical Persuasion Techniques
+### Etik İkna Teknikleri
 
-| Technique | Ethical Use | Dark Pattern (Avoid) |
+| Teknik | Etik Kullanım | Karanlık Desen (Kaçının) |
 |-----------|-------------|----------------------|
-| **Scarcity** | Real stock levels | Fake countdown timers |
-| **Social Proof** | Genuine reviews | Fake testimonials |
-| **Authority** | Real credentials | Misleading badges |
-| **Urgency** | Real deadlines | Manufactured FOMO |
-| **Commitment** | Progress saving | Guilt-tripping |
+| **Kıtlık** | Gerçek stok seviyeleri | Sahte geri sayım sayaçları |
+| **Sosyal Kanıt** | Gerçek kullanıcı yorumları | Sahte referanslar |
+| **Otorite** | Gerçek sertifikalar | Yanıltıcı rozetler |
+| **Aciliyet** | Gerçek son tarihler | Yapay FOMO (kaybetme korkusu) |
+| **Bağlılık** | İlerlemenin kaydedilmesi | Kullanıcıyı suçlu hissettirme |
 
-### Nudge Patterns
+### Dürtme (Nudge) Desenleri
 
-**Smart Defaults:**
+**Akıllı Varsayılanlar:**
 ```html
-<!-- Pre-select the recommended option -->
+<!-- Önerilen seçeneği önceden seçin -->
 <input type="radio" name="plan" value="monthly">
 <input type="radio" name="plan" value="annual" checked>
-  Annual (Save 20%)
+  Yıllık (%20 Tasarruf Edin)
 ```
 
-**Anchoring:**
+**Çapalama (Anchoring):**
 ```html
-<!-- Show original price to frame discount -->
+<!-- İndirimi vurgulamak için orijinal fiyatı gösterin -->
 <div class="price">
-  <span class="original">$99</span>
-  <span class="current">$79</span>
-  <span class="savings">Save 20%</span>
+  <span class="original">99 TL</span>
+  <span class="current">79 TL</span>
+  <span class="savings">%20 İndirim</span>
 </div>
 ```
 
-**Social Proof:**
+**Sosyal Kanıt:**
 ```html
-<!-- Real-time activity -->
+<!-- Gerçek zamanlı aktivite -->
 <div class="activity">
   <span class="avatar">👤</span>
-  <span>Sarah from NYC just purchased</span>
+  <span>İstanbul'dan Meryem az önce satın aldı</span>
 </div>
 
-<!-- Aggregate proof -->
-<p>Join 50,000+ designers who use our tool</p>
+<!-- Toplu kanıt -->
+<p>Aracımızı kullanan 50.000+ tasarımcıya katılın</p>
 ```
 
-**Progress & Commitment:**
+**İlerleme ve Bağlılık:**
 ```html
-<!-- Show progress to encourage completion -->
+<!-- Tamamlamayı teşvik etmek için ilerlemeyi gösterin -->
 <div class="progress">
   <div class="progress-bar" style="width: 60%"></div>
-  <span>60% complete - almost there!</span>
+  <span>%60 tamamlandı - neredeyse bitti!</span>
 </div>
 ```
 
 ---
 
-## 6. User Persona Quick Reference
+## 6. Kullanıcı Persona Hızlı Referansı
 
-### Gen Z (Born 1997-2012)
-
-```
-CHARACTERISTICS:
-- Digital natives, mobile-first
-- Value authenticity, diversity
-- Short attention spans
-- Visual learners
-
-DESIGN APPROACH:
-├── Colors: Vibrant, hypercolor, bold gradients
-├── Typography: Large, variable, experimental
-├── Layout: Vertical scroll, mobile-native
-├── Interactions: Fast, gamified, gesture-based
-├── Content: Short-form video, memes, stories
-└── Trust: Peer reviews > authority
-```
-
-### Millennials (Born 1981-1996)
+### Z Kuşağı (1997-2012 Doğumlular)
 
 ```
-CHARACTERISTICS:
-- Value experiences over things
-- Research before buying
-- Socially conscious
-- Price-sensitive but quality-aware
+ÖZELLİKLER:
+- Dijital yerli, mobil öncelikli
+- Otantikliğe ve çeşitliliğe değer verir
+- Kısa dikkat süreleri
+- Görsel odaklı öğrenme
 
-DESIGN APPROACH:
-├── Colors: Muted pastels, earth tones
-├── Typography: Clean, readable sans-serif
-├── Layout: Responsive, card-based
-├── Interactions: Smooth, purposeful animations
-├── Content: Value-driven, transparent
-└── Trust: Reviews, sustainability, values
+TASARIM YAKLAŞIMI:
+├── Renkler: Canlı, hiper-renkli, cesur gradyanlar
+├── Tipografi: Büyük, değişken, deneysel
+├── Düzen: Dikey kaydırma, mobil-yerel yapı
+├── Etkileşimler: Hızlı, oyunlaştırılmış, jest tabanlı
+├── İçerik: Kısa video, meme'ler, hikayeler
+└── Güven: Akran yorumları > resmi otorite
 ```
 
-### Gen X (Born 1965-1980)
+### Y Kuşağı (1981-1996 Doğumlular)
 
 ```
-CHARACTERISTICS:
-- Independent, self-reliant
-- Value efficiency
-- Skeptical of marketing
-- Balanced tech comfort
+ÖZELLİKLER:
+- Deneyime sahip olmaktan daha çok değer verir
+- Satın almadan önce araştırır
+- Sosyal sorumluluk bilinci yüksektir
+- Fiyat hassasiyeti olsa da kalite arar
 
-DESIGN APPROACH:
-├── Colors: Professional, trustworthy
-├── Typography: Familiar, conservative
-├── Layout: Clear hierarchy, traditional
-├── Interactions: Functional, not flashy
-├── Content: Direct, fact-based
-└── Trust: Expertise, track record
+TASARIM YAKLAŞIMI:
+├── Renkler: Mat pasteller, toprak tonları
+├── Tipografi: Temiz, okunaklı sans-serif
+├── Düzen: Responsive, kart tabanlı
+├── Etkileşimler: Yumuşak, amaca hizmet eden animasyonlar
+├── İçerik: Değer odaklı, şeffaf
+└── Trust: Yorumlar, sürdürülebilirlik, değerler
 ```
 
-### Baby Boomers (Born 1946-1964)
+### X Kuşağı (1965-1980 Doğumlular)
 
 ```
-CHARACTERISTICS:
-- Detail-oriented
-- Loyal when trusted
-- Value personal service
-- Less tech-confident
+ÖZELLİKLER:
+- Bağımsız, kendine güvenen
+- Verimliliğe önem veren
+- Pazarlama söylemlerine şüpheyle yaklaşan
+- Dengeli teknoloji kullanımı
 
-DESIGN APPROACH:
-├── Colors: High contrast, simple palette
-├── Typography: Large (18px+), high contrast
-├── Layout: Simple, linear, spacious
-├── Interactions: Minimal, clear feedback
-├── Content: Comprehensive, detailed
-└── Trust: Phone numbers, real people
+TASARIM YAKLAŞIMI:
+├── Renkler: Profesyonel, güven telkin eden
+├── Tipografi: Tanıdık, muhafazakar
+├── Düzen: Net hiyerarşi, geleneksel yapı
+├── Etkileşimler: Fonksiyonel, gösterişsiz
+├── İçerik: Doğrudan, gerçeklere dayalı
+└── Güven: Uzmanlık, geçmiş başarılar
+```
+
+### Baby Boomer'lar (1946-1964 Doğumlular)
+
+```
+ÖZELLİKLER:
+- Detay odaklı
+- Güvendiklerinde sadık
+- Kişisel hizmete değer verir
+- Teknolojide daha az özgüvenli
+
+TASARIM YAKLAŞIMI:
+├── Renkler: Yüksek kontrastlı, basit palet
+├── Tipografi: Büyük (18px+), yüksek kontrast
+├── Düzen: Basit, doğrusal, ferah
+├── Etkileşimler: Minimal, net geri bildirim
+├── İçerik: Kapsamlı, detaylı
+└── Güven: Telefon numaraları, gerçek insanlar
 ```
 
 ---
 
-## 7. Emotion Color Mapping
+## 7. Duygu-Renk Eşleşmesi
 
 ```
 ┌────────────────────────────────────────────────────┐
-│  EMOTION          │  COLORS           │  USE       │
+│  DUYGU            │  RENKLER          │  KULLANIM  │
 ├───────────────────┼───────────────────┼────────────┤
-│  Trust            │  Blue, Green      │  Finance   │
-│  Excitement       │  Red, Orange      │  Sales     │
-│  Calm             │  Blue, Soft green │  Wellness  │
-│  Luxury           │  Black, Gold      │  Premium   │
-│  Creativity       │  Teal, Pink       │  Art       │
-│  Energy           │  Yellow, Orange   │  Sports    │
-│  Nature           │  Green, Brown     │  Eco       │
-│  Happiness        │  Yellow, Orange   │  Kids      │
-│  Sophistication   │  Gray, Navy       │  Corporate │
-│  Urgency          │  Red              │  Errors    │
+│  Güven            │  Mavi, Yeşil      │  Finans    │
+│  Heyecan          │  Kırmızı, Turuncu │  Satış     │
+│  Sakinlik         │  Mavi, Açık yeşil │  Wellness  │
+│  Lüks             │  Siyah, Altın     │  Premium   │
+│  Yaratıcılık      │  Turkuaz, Pembe   │  Sanat     │
+│  Enerji           │  Sarı, Turuncu    │  Spor      │
+│  Doğa             │  Yeşil, Kahverengi│  Eko       │
+│  Mutluluk         │  Sarı, Turuncu    │  Çocuk     │
+│  Sofistike        │  Gri, Lacivert    │  Kurumsal  │
+│  Aciliyet         │  Kırmızı          │  Hatalar   │
 └───────────────────┴───────────────────┴────────────┘
 ```
 
 ---
 
-## 8. Psychology Checklist
+## 8. Psikoloji Kontrol Listesi
 
-### Before Launch
+### Yayından Önce
 
-- [ ] **Hick's Law:** No more than 7 choices in navigation. Have choices been narrowed to reduce decision fatigue?
-- [ ] **Fitts' Law:** Primary CTAs are large and reachable. Are the most important buttons easy to hit on mobile?
-- [ ] **Miller's Law:** Content is chunked appropriately. Is information grouped into digestible units of 5-7?
-- [ ] **Jakob's Law:** Does the site follow standard web conventions that users already understand?
-- [ ] **Doherty Threshold:** Does the system provide feedback within 400ms? Are skeleton screens in place?
-- [ ] **Tesler's Law:** Has complexity been moved from the user to the system where possible?
-- [ ] **Parkinson’s Law:** Are there features like "One-Click Checkout" to minimize task completion time?
-- [ ] **Von Restorff:** Does the primary CTA visually stand out from all other elements?
-- [ ] **Serial Position:** Is the most critical information at the very beginning or end of lists?
-- [ ] **Gestalt Laws:** Are related items physically grouped together (Proximity) or within a Card (Common Region)?
-- [ ] **Zeigarnik Effect:** Are there visual indicators (like progress bars) for incomplete tasks?
-- [ ] **Goal Gradient:** Is the user given a "head start" (e.g., 20% progress) to encourage completion?
-- [ ] **Peak-End Rule:** Does the final "Success" screen create a moment of delight?
-- [ ] **Occam’s Razor:** Have unnecessary visual or functional elements been removed?
-- [ ] **Aesthetic-Usability:** Is the UI high-fidelity enough to build initial user trust?
-- [ ] **Trust & Authority:** Are security badges, reviews, and expert certifications visible?
-- [ ] **Social Proof:** Are real user numbers or testimonials visible at decision points?
-- [ ] **Scarcity & Urgency:** If used, is the scarcity real and ethical (e.g., actual low stock)?
-- [ ] **Loss Aversion:** Does the copy emphasize what the user stands to keep rather than just gain?
-- [ ] **Anchoring:** Is the pricing presented in a way that frames the desired choice as a great value?
-- [ ] **Postel’s Law:** Is the system flexible enough to accept various input formats without errors?
-- [ ] **False-Consensus:** Has the design been tested with real users rather than just the internal team?
-- [ ] **Curse of Knowledge:** Is the copy free of technical jargon and easy for a beginner to understand?
-- [ ] **Stepping Stone:** Does the funnel start with low-friction tasks (e.g., email only)?
-- [ ] **Cognitive Load:** Is extraneous visual noise minimized to keep the interface clean?
-- [ ] **Emotional Design:** Does the color palette and imagery evoke the intended visceral reaction?
-- [ ] **Feedback:** Do all interactive elements have immediate hover, active, and success states?
-- [ ] **Accessibility:** Is the contrast ratio sufficient, and is the site navigable via keyboard/screen reader?
-- [ ] **Prägnanz:** Are icons and shapes simple enough to be recognized at a glance?
-- [ ] **Figure/Ground:** Is it clear which element is in focus (e.g., using shadows or scrims for modals)?
+- [ ] **Hick Yasası:** Navigasyonda 7'den fazla seçenek yok. Karar yorgunluğunu azaltmak için seçenekler daraltıldı mı?
+- [ ] **Fitts Yasası:** Birincil CTA'ler büyük ve ulaşılabilir. En önemli butonlara mobilde basmak kolay mı?
+- [ ] **Miller Yasası:** İçerik uygun şekilde gruplandırıldı. Bilgiler 5-7'lik sindirilebilir birimler halinde mi?
+- [ ] **Jakob Yasası:** Site, kullanıcıların zaten bildiği standart web kurallarına uyuyor mu?
+- [ ] **Doherty Eşiği:** Sistem 400ms içinde geri bildirim veriyor mu? Skeleton ekranlar hazır mı?
+- [ ] **Tesler Yasası:** Karmaşıklık, mümkün olan yerlerde kullanıcıdan sisteme aktarıldı mı?
+- [ ] **Parkinson Yasası:** Görev süresini en aza indirmek için "Tek Tıkla Ödeme" gibi özellikler var mı?
+- [ ] **Von Restorff:** Birincil CTA, diğer tüm öğelerden görsel olarak ayrışıyor mu?
+- [ ] **Seri Konum:** En kritik bilgiler listelerin başında veya sonunda mı?
+- [ ] **Gestalt Yasaları:** İlgili öğeler fiziksel olarak gruplandırıldı mı (Yakınlık) veya bir kart içinde mi (Ortak Bölge)?
+- [ ] **Zeigarnik Etkisi:** Tamamlanmamış görevler için ilerleme çubuğu gibi göstergeler var mı?
+- [ ] **Hedef Gradyanı:** Kullanıcıya tamamlamayı teşvik etmek için bir "başlangıç avantajı" (%20 ilerleme gibi) verildi mi?
+- [ ] **Doruk-Son Kuralı:** Finaldeki "Başarı" ekranı keyifli bir an yaratıyor mu?
+- [ ] **Occam'ın Usturası:** Gereksiz görsel veya fonksiyonel öğeler ayıklandı mı?
+- [ ] **Estetik-Kullanılabilirlik:** Arayüz, ilk güveni sağlamak için yeterince yüksek kaliteli mi?
+- [ ] **Güven & Otorite:** Güvenlik rozetleri, yorumlar ve uzman sertifikaları görünür mü?
+- [ ] **Sosyal Kanıt:** Karar noktalarında gerçek kullanıcı sayıları veya referansları var mı?
+- [ ] **Kıtlık & Aciliyet:** Kullanılıyorsa, kıtlık gerçek ve etik mi (örneğin gerçek düşük stok)?
+- [ ] **Kayıptan Kaçınma:** Metinler, kazanılacak ektense elde tutulacak değere vurgu yapıyor mu?
+- [ ] **Çapalama:** Fiyatlandırma, istenen seçeneği avantajlı gösterecek şekilde kurgulandı mı?
+- [ ] **Postel Yasası:** Sistem, farklı girdi formatlarını hata vermeden kabul edecek kadar esnek mi?
+- [ ] **Sahte Konsensüs:** Tasarım, sadece iç ekip tarafından değil, gerçek kullanıcılar tarafından test edildi mi?
+- [ ] **Bilgi Laneti:** Metinler teknik jargondan arındırılmış ve yeni başlayanlar için anlaşılır mı?
+- [ ] **Atlama Taşı:** Dönüşüm hunisi düşük sürtünmeli (örneğin sadece e-posta) görevlerle mi başlıyor?
+- [ ] **Bilişsel Yük:** Arayüzü temiz tutmak için yabancı görsel gürültü en aza indirildi mi?
+- [ ] **Duygusal Tasarım:** Renk paleti ve görseller hedeflenen viseral tepkiyi uyandırıyor mu?
+- [ ] **Geri Bildirim:** Tüm etkileşimli öğelerin anında hover, active ve başarı durumları var mı?
+- [ ] **Erişilebilirlik:** Kontrast oranları yeterli mi ve site klavye/ekran okuyucu ile gezilebiliyor mu?
+- [ ] **Prägnanz:** İkonlar ve şekiller bir bakışta tanınacak kadar basit mi?
+- [ ] **Şekil/Zemin:** Hangi öğenin odakta olduğu (örneğin gölgeler veya katmanlar ile) net mi?

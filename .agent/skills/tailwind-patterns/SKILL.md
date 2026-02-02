@@ -1,269 +1,269 @@
 ---
 name: tailwind-patterns
-description: Tailwind CSS v4 principles. CSS-first configuration, container queries, modern patterns, design token architecture.
+description: Tailwind CSS v4 prensipleri. CSS-öncelikli yapılandırma, container sorguları, modern desenler, tasarım token mimarisi.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Tailwind CSS Patterns (v4 - 2025)
+# Tailwind CSS Desenleri (v4 - 2025)
 
-> Modern utility-first CSS with CSS-native configuration.
-
----
-
-## 1. Tailwind v4 Architecture
-
-### What Changed from v3
-
-| v3 (Legacy) | v4 (Current) |
-|-------------|--------------|
-| `tailwind.config.js` | CSS-based `@theme` directive |
-| PostCSS plugin | Oxide engine (10x faster) |
-| JIT mode | Native, always-on |
-| Plugin system | CSS-native features |
-| `@apply` directive | Still works, discouraged |
-
-### v4 Core Concepts
-
-| Concept | Description |
-|---------|-------------|
-| **CSS-first** | Configuration in CSS, not JavaScript |
-| **Oxide Engine** | Rust-based compiler, much faster |
-| **Native Nesting** | CSS nesting without PostCSS |
-| **CSS Variables** | All tokens exposed as `--*` vars |
+> CSS-native yapılandırma ile modern utility-first CSS.
 
 ---
 
-## 2. CSS-Based Configuration
+## 1. Tailwind v4 Mimarisi
 
-### Theme Definition
+### v3'ten Ne Değişti
+
+| v3 (Eski) | v4 (Güncel) |
+|-----------|-------------|
+| `tailwind.config.js` | CSS-tabanlı `@theme` direktifi |
+| PostCSS eklentisi | Oxide motoru (10x daha hızlı) |
+| JIT modu | Native, her zaman açık |
+| Plugin sistemi | CSS-native özellikler |
+| `@apply` direktifi | Hala çalışır, önerilmez |
+
+### v4 Temel Kavramlar
+
+| Kavram | Açıklama |
+|--------|----------|
+| **CSS-öncelikli** | JavaScript değil CSS'de yapılandırma |
+| **Oxide Motoru** | Rust-tabanlı derleyici, çok daha hızlı |
+| **Native İç içe Geçme** | PostCSS olmadan CSS nesting |
+| **CSS Değişkenleri** | Tüm tokenler `--*` değişkenleri olarak açığa çıkar |
+
+---
+
+## 2. CSS-Tabanlı Yapılandırma
+
+### Theme Tanımı
 
 ```
 @theme {
-  /* Colors - use semantic names */
+  /* Renkler - anlam yüklü isimler kullan */
   --color-primary: oklch(0.7 0.15 250);
   --color-surface: oklch(0.98 0 0);
   --color-surface-dark: oklch(0.15 0 0);
   
-  /* Spacing scale */
+  /* Spacing ölçeği */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
   
-  /* Typography */
+  /* Tipografi */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 ```
 
-### When to Extend vs Override
+### Ne Zaman Genişletmeli vs Üzerine Yazmalı
 
-| Action | Use When |
-|--------|----------|
-| **Extend** | Adding new values alongside defaults |
-| **Override** | Replacing default scale entirely |
-| **Semantic tokens** | Project-specific naming (primary, surface) |
+| Eylem | Ne Zaman Kullanılır |
+|-------|---------------------|
+| **Genişlet** | Varsayılanlarla birlikte yeni değerler eklerken |
+| **Üzerine Yaz** | Varsayılan ölçeği tamamen değiştirirken |
+| **Anlam yüklü tokenler** | Projeye özgü isimlendirme (primary, surface) |
 
 ---
 
-## 3. Container Queries (v4 Native)
+## 3. Container Sorguları (v4 Native)
 
 ### Breakpoint vs Container
 
-| Type | Responds To |
-|------|-------------|
-| **Breakpoint** (`md:`) | Viewport width |
-| **Container** (`@container`) | Parent element width |
+| Tip | Neye Yanıt Verir |
+|-----|------------------|
+| **Breakpoint** (`md:`) | Viewport genişliği |
+| **Container** (`@container`) | Ebeveyn element genişliği |
 
-### Container Query Usage
+### Container Sorgusu Kullanımı
 
-| Pattern | Classes |
-|---------|---------|
-| Define container | `@container` on parent |
-| Container breakpoint | `@sm:`, `@md:`, `@lg:` on children |
-| Named containers | `@container/card` for specificity |
+| Desen | Sınıflar |
+|-------|----------|
+| Container tanımla | Ebeveyne `@container` |
+| Container breakpoint | Çocuklara `@sm:`, `@md:`, `@lg:` |
+| İsimlendirilmiş containerlar | Özellik için `@container/card` |
 
-### When to Use
+### Ne Zaman Kullanılır
 
-| Scenario | Use |
-|----------|-----|
-| Page-level layouts | Viewport breakpoints |
-| Component-level responsive | Container queries |
-| Reusable components | Container queries (context-independent) |
+| Senaryo | Kullanım |
+|---------|----------|
+| Sayfa düzeyi düzenler | Viewport breakpointleri |
+| Component düzeyi responsive | Container sorguları |
+| Yeniden kullanılabilir componentler | Container sorguları (bağlamdan bağımsız) |
 
 ---
 
-## 4. Responsive Design
+## 4. Responsive Tasarım
 
-### Breakpoint System
+### Breakpoint Sistemi
 
-| Prefix | Min Width | Target |
-|--------|-----------|--------|
-| (none) | 0px | Mobile-first base |
-| `sm:` | 640px | Large phone / small tablet |
+| Prefix | Min Genişlik | Hedef |
+|--------|--------------|-------|
+| (yok) | 0px | Mobil-öncelikli temel |
+| `sm:` | 640px | Büyük telefon / küçük tablet |
 | `md:` | 768px | Tablet |
 | `lg:` | 1024px | Laptop |
-| `xl:` | 1280px | Desktop |
-| `2xl:` | 1536px | Large desktop |
+| `xl:` | 1280px | Masaüstü |
+| `2xl:` | 1536px | Büyük masaüstü |
 
-### Mobile-First Principle
+### Mobil-Öncelikli Prensip
 
-1. Write mobile styles first (no prefix)
-2. Add larger screen overrides with prefixes
-3. Example: `w-full md:w-1/2 lg:w-1/3`
+1. Önce mobil stilleri yaz (prefix yok)
+2. Daha büyük ekranlar için prefix'li geçersiz kılmalar ekle
+3. Örnek: `w-full md:w-1/2 lg:w-1/3`
 
 ---
 
 ## 5. Dark Mode
 
-### Configuration Strategies
+### Yapılandırma Stratejileri
 
-| Method | Behavior | Use When |
-|--------|----------|----------|
-| `class` | `.dark` class toggles | Manual theme switcher |
-| `media` | Follows system preference | No user control |
-| `selector` | Custom selector (v4) | Complex theming |
+| Metod | Davranış | Ne Zaman Kullanılır |
+|-------|----------|---------------------|
+| `class` | `.dark` sınıfı açıp kapatır | Manuel tema değiştiricisi |
+| `media` | Sistem tercihini takip eder | Kullanıcı kontrolü yok |
+| `selector` | Özel seçici (v4) | Karmaşık temalama |
 
-### Dark Mode Pattern
+### Dark Mode Deseni
 
-| Element | Light | Dark |
-|---------|-------|------|
-| Background | `bg-white` | `dark:bg-zinc-900` |
-| Text | `text-zinc-900` | `dark:text-zinc-100` |
-| Borders | `border-zinc-200` | `dark:border-zinc-700` |
-
----
-
-## 6. Modern Layout Patterns
-
-### Flexbox Patterns
-
-| Pattern | Classes |
-|---------|---------|
-| Center (both axes) | `flex items-center justify-center` |
-| Vertical stack | `flex flex-col gap-4` |
-| Horizontal row | `flex gap-4` |
-| Space between | `flex justify-between items-center` |
-| Wrap grid | `flex flex-wrap gap-4` |
-
-### Grid Patterns
-
-| Pattern | Classes |
-|---------|---------|
-| Auto-fit responsive | `grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))]` |
-| Asymmetric (Bento) | `grid grid-cols-3 grid-rows-2` with spans |
-| Sidebar layout | `grid grid-cols-[auto_1fr]` |
-
-> **Note:** Prefer asymmetric/Bento layouts over symmetric 3-column grids.
+| Element | Açık | Koyu |
+|---------|------|------|
+| Arka plan | `bg-white` | `dark:bg-zinc-900` |
+| Metin | `text-zinc-900` | `dark:text-zinc-100` |
+| Kenarlıklar | `border-zinc-200` | `dark:border-zinc-700` |
 
 ---
 
-## 7. Modern Color System
+## 6. Modern Düzen Desenleri
+
+### Flexbox Desenleri
+
+| Desen | Sınıflar |
+|-------|----------|
+| Merkez (her iki eksen) | `flex items-center justify-center` |
+| Dikey yığın | `flex flex-col gap-4` |
+| Yatay sıra | `flex gap-4` |
+| Aralarında boşluk | `flex justify-between items-center` |
+| Sarmalayan grid | `flex flex-wrap gap-4` |
+
+### Grid Desenleri
+
+| Desen | Sınıflar |
+|-------|----------|
+| Otomatik sığdırma responsive | `grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))]` |
+| Asimetrik (Bento) | `grid grid-cols-3 grid-rows-2` with spans |
+| Kenar çubuğu düzeni | `grid grid-cols-[auto_1fr]` |
+
+> **Not:** Simetrik 3 sütunlu gridlerden ziyade asimetrik/Bento düzenleri tercih edin.
+
+---
+
+## 7. Modern Renk Sistemi
 
 ### OKLCH vs RGB/HSL
 
-| Format | Advantage |
-|--------|-----------|
-| **OKLCH** | Perceptually uniform, better for design |
-| **HSL** | Intuitive hue/saturation |
-| **RGB** | Legacy compatibility |
+| Format | Avantaj |
+|--------|---------|
+| **OKLCH** | Algısal olarak düzgün, tasarım için daha iyi |
+| **HSL** | Sezgisel ton/doygunluk |
+| **RGB** | Eski uyumluluk |
 
-### Color Token Architecture
+### Renk Token Mimarisi
 
-| Layer | Example | Purpose |
-|-------|---------|---------|
-| **Primitive** | `--blue-500` | Raw color values |
-| **Semantic** | `--color-primary` | Purpose-based naming |
-| **Component** | `--button-bg` | Component-specific |
+| Katman | Örnek | Amaç |
+|--------|-------|------|
+| **İlkel** | `--blue-500` | Ham renk değerleri |
+| **Anlam yüklü** | `--color-primary` | Amaca dayalı isimlendirme |
+| **Component** | `--button-bg` | Component'e özgü |
 
 ---
 
-## 8. Typography System
+## 8. Tipografi Sistemi
 
-### Font Stack Pattern
+### Font Stack Deseni
 
-| Type | Recommended |
-|------|-------------|
+| Tip | Önerilen |
+|-----|----------|
 | Sans | `'Inter', 'SF Pro', system-ui, sans-serif` |
 | Mono | `'JetBrains Mono', 'Fira Code', monospace` |
 | Display | `'Outfit', 'Poppins', sans-serif` |
 
-### Type Scale
+### Tip Ölçeği
 
-| Class | Size | Use |
-|-------|------|-----|
-| `text-xs` | 0.75rem | Labels, captions |
-| `text-sm` | 0.875rem | Secondary text |
-| `text-base` | 1rem | Body text |
-| `text-lg` | 1.125rem | Lead text |
-| `text-xl`+ | 1.25rem+ | Headings |
-
----
-
-## 9. Animation & Transitions
-
-### Built-in Animations
-
-| Class | Effect |
-|-------|--------|
-| `animate-spin` | Continuous rotation |
-| `animate-ping` | Attention pulse |
-| `animate-pulse` | Subtle opacity pulse |
-| `animate-bounce` | Bouncing effect |
-
-### Transition Patterns
-
-| Pattern | Classes |
-|---------|---------|
-| All properties | `transition-all duration-200` |
-| Specific | `transition-colors duration-150` |
-| With easing | `ease-out` or `ease-in-out` |
-| Hover effect | `hover:scale-105 transition-transform` |
+| Sınıf | Boyut | Kullanım |
+|-------|-------|----------|
+| `text-xs` | 0.75rem | Etiketler, açıklamalar |
+| `text-sm` | 0.875rem | İkincil metin |
+| `text-base` | 1rem | Gövde metni |
+| `text-lg` | 1.125rem | Öne çıkan metin |
+| `text-xl`+ | 1.25rem+ | Başlıklar |
 
 ---
 
-## 10. Component Extraction
+## 9. Animasyon & Geçişler
 
-### When to Extract
+### Yerleşik Animasyonlar
 
-| Signal | Action |
-|--------|--------|
-| Same class combo 3+ times | Extract component |
-| Complex state variants | Extract component |
-| Design system element | Extract + document |
+| Sınıf | Efekt |
+|-------|-------|
+| `animate-spin` | Sürekli dönüş |
+| `animate-ping` | Dikkat nabzı |
+| `animate-pulse` | Hafif opaklık nabzı |
+| `animate-bounce` | Zıplama efekti |
 
-### Extraction Methods
+### Geçiş Desenleri
 
-| Method | Use When |
-|--------|----------|
-| **React/Vue component** | Dynamic, JS needed |
-| **@apply in CSS** | Static, no JS needed |
-| **Design tokens** | Reusable values |
+| Desen | Sınıflar |
+|-------|----------|
+| Tüm özellikler | `transition-all duration-200` |
+| Belirli | `transition-colors duration-150` |
+| Easing ile | `ease-out` veya `ease-in-out` |
+| Hover efekti | `hover:scale-105 transition-transform` |
 
 ---
 
-## 11. Anti-Patterns
+## 10. Component Çıkarma
 
-| Don't | Do |
+### Ne Zaman Çıkarmalı
+
+| Sinyal | Eylem |
+|--------|-------|
+| Aynı sınıf kombinasyonu 3+ kez | Component çıkar |
+| Karmaşık durum varyantları | Component çıkar |
+| Tasarım sistemi elementi | Çıkar + belgele |
+
+### Çıkarma Metodları
+
+| Metod | Ne Zaman Kullanılır |
+|-------|---------------------|
+| **React/Vue component** | Dinamik, JS gerekli |
+| **CSS'de @apply** | Statik, JS gerekmiyor |
+| **Tasarım tokenları** | Yeniden kullanılabilir değerler |
+
+---
+
+## 11. Anti-Desenler
+
+| Yapma | Yap |
 |-------|-----|
-| Arbitrary values everywhere | Use design system scale |
-| `!important` | Fix specificity properly |
-| Inline `style=` | Use utilities |
-| Duplicate long class lists | Extract component |
-| Mix v3 config with v4 | Migrate fully to CSS-first |
-| Use `@apply` heavily | Prefer components |
+| Her yerde keyfi değerler | Tasarım sistemi ölçeği kullan |
+| `!important` | Specificity'yi düzgün düzelt |
+| Inline `style=` | Utility'leri kullan |
+| Uzun sınıf listelerini kopyala | Component çıkar |
+| v3 config'i v4 ile karıştır | Tamamen CSS-öncelikli'ye geç |
+| `@apply`'ı yoğun kullan | Componentleri tercih et |
 
 ---
 
-## 12. Performance Principles
+## 12. Performans Prensipleri
 
-| Principle | Implementation |
-|-----------|----------------|
-| **Purge unused** | Automatic in v4 |
-| **Avoid dynamism** | No template string classes |
-| **Use Oxide** | Default in v4, 10x faster |
-| **Cache builds** | CI/CD caching |
+| Prensip | Implementasyon |
+|---------|----------------|
+| **Kullanılmayanları temizle** | v4'te otomatik |
+| **Dinamizmden kaçın** | Template string sınıflar yok |
+| **Oxide Kullan** | v4'te varsayılan, 10x daha hızlı |
+| **Build'leri önbelleğe al** | CI/CD önbellekleme |
 
 ---
 
-> **Remember:** Tailwind v4 is CSS-first. Embrace CSS variables, container queries, and native features. The config file is now optional.
+> **Unutma:** Tailwind v4 CSS-önceliklidir. CSS değişkenlerini, container sorgularını ve native özellikleri benimseyin. Config dosyası artık opsiyonel.

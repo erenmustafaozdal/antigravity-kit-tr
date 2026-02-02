@@ -1,208 +1,208 @@
 ---
 name: mobile-design
-description: Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React Native, Flutter, or native mobile apps.
+description: iOS ve Android uygulamaları için mobil öncelikli tasarım düşüncesi ve karar verme. Dokunmatik etkileşim, performans desenleri, platform kuralları. Sabit değerler yerine prensipleri öğretir. React Native, Flutter veya yerel (native) mobil uygulamalar oluştururken kullanın.
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
-# Mobile Design System
+# Mobil Tasarım Sistemi
 
-> **Philosophy:** Touch-first. Battery-conscious. Platform-respectful. Offline-capable.
-> **Core Principle:** Mobile is NOT a small desktop. THINK mobile constraints, ASK platform choice.
+> **Felsefe:** Önce dokunmatik. Pil bilincinde. Platforma saygılı. Çevrimdışı çalışabilen.
+> **Temel Prensip:** Mobil, küçük bir masaüstü DEĞİLDİR. Mobil kısıtlamaları DÜŞÜNÜN, platform seçimini SORUN.
 
 ---
 
-## 🔧 Runtime Scripts
+## 🔧 Çalışma Zamanı Scriptleri
 
-**Execute these for validation (don't read, just run):**
+**Doğrulama için bunları çalıştırın (okumayın, sadece çalıştırın):**
 
-| Script | Purpose | Usage |
+| Script | Amaç | Kullanım |
 |--------|---------|-------|
-| `scripts/mobile_audit.py` | Mobile UX & Touch Audit | `python scripts/mobile_audit.py <project_path>` |
+| `scripts/mobile_audit.py` | Mobil UX ve Dokunmatik Denetimi | `python scripts/mobile_audit.py <proje_yolu>` |
 
 ---
 
-## 🔴 MANDATORY: Read Reference Files Before Working!
+## 🔴 ZORUNLU: Çalışmaya Başlamadan Önce Referans Dosyaları Okuyun!
 
-**⛔ DO NOT start development until you read the relevant files:**
+**⛔ İlgili dosyaları okumadan geliştirmeye BAŞLAMAYIN:**
 
-### Universal (Always Read)
+### Evrensel (Her Zaman Okunmalı)
 
-| File | Content | Status |
+| Dosya | İçerik | Durum |
 |------|---------|--------|
-| **[mobile-design-thinking.md](mobile-design-thinking.md)** | **⚠️ ANTI-MEMORIZATION: Forces thinking, prevents AI defaults** | **⬜ CRITICAL FIRST** |
-| **[touch-psychology.md](touch-psychology.md)** | **Fitts' Law, gestures, haptics, thumb zone** | **⬜ CRITICAL** |
-| **[mobile-performance.md](mobile-performance.md)** | **RN/Flutter performance, 60fps, memory** | **⬜ CRITICAL** |
-| **[mobile-backend.md](mobile-backend.md)** | **Push notifications, offline sync, mobile API** | **⬜ CRITICAL** |
-| **[mobile-testing.md](mobile-testing.md)** | **Testing pyramid, E2E, platform-specific** | **⬜ CRITICAL** |
-| **[mobile-debugging.md](mobile-debugging.md)** | **Native vs JS debugging, Flipper, Logcat** | **⬜ CRITICAL** |
-| [mobile-navigation.md](mobile-navigation.md) | Tab/Stack/Drawer, deep linking | ⬜ Read |
-| [mobile-typography.md](mobile-typography.md) | System fonts, Dynamic Type, a11y | ⬜ Read |
-| [mobile-color-system.md](mobile-color-system.md) | OLED, dark mode, battery-aware | ⬜ Read |
-| [decision-trees.md](decision-trees.md) | Framework/state/storage selection | ⬜ Read |
+| **[mobile-design-thinking.md](mobile-design-thinking.md)** | **⚠️ EZBERLEME KARŞITI: Düşünmeye zorlar, YZ varsayılanlarını engeller** | **⬜ ÖNCELİKLİ KRİTİK** |
+| **[touch-psychology.md](touch-psychology.md)** | **Fitts Yasası, jestler, haptik, başparmak bölgesi** | **⬜ KRİTİK** |
+| **[mobile-performance.md](mobile-performance.md)** | **RN/Flutter performansı, 60fps, bellek** | **⬜ KRİTİK** |
+| **[mobile-backend.md](mobile-backend.md)** | **Push bildirimleri, çevrimdışı senkronizasyon, mobil API** | **⬜ KRİTİK** |
+| **[mobile-testing.md](mobile-testing.md)** | **Test piramidi, E2E, platforma özgü** | **⬜ KRİTİK** |
+| **[mobile-debugging.md](mobile-debugging.md)** | **Native vs JS hata ayıklama, Flipper, Logcat** | **⬜ KRİTİK** |
+| [mobile-navigation.md](mobile-navigation.md) | Tab/Stack/Drawer, derin linkleme (deep linking) | ⬜ Oku |
+| [mobile-typography.md](mobile-typography.md) | Sistem fontları, Dinamik Tip, a11y | ⬜ Oku |
+| [mobile-color-system.md](mobile-color-system.md) | OLED, karanlık mod, pil duyarlılığı | ⬜ Oku |
+| [decision-trees.md](decision-trees.md) | Framework/state/storage seçimi | ⬜ Oku |
 
-> 🧠 **mobile-design-thinking.md is PRIORITY!** This file ensures AI thinks instead of using memorized patterns.
+> 🧠 **mobile-design-thinking.md EN ÖNCELİKLİDİR!** Bu dosya, YZ'nin ezberlenmiş desenleri kullanmak yerine düşünmesini sağlar.
 
-### Platform-Specific (Read Based on Target)
+### Platforma Özgü (Hedefe Göre Okunmalı)
 
-| Platform | File | Content | When to Read |
+| Platform | Dosya | İçerik | Ne Zaman Okunmalı |
 |----------|------|---------|--------------|
-| **iOS** | [platform-ios.md](platform-ios.md) | Human Interface Guidelines, SF Pro, SwiftUI patterns | Building for iPhone/iPad |
-| **Android** | [platform-android.md](platform-android.md) | Material Design 3, Roboto, Compose patterns | Building for Android |
-| **Cross-Platform** | Both above | Platform divergence points | React Native / Flutter |
+| **iOS** | [platform-ios.md](platform-ios.md) | İnsan Arayüzü Yönergeleri (HIG), SF Pro, SwiftUI desenleri | iPhone/iPad için geliştirme yaparken |
+| **Android** | [platform-android.md](platform-android.md) | Material Design 3, Roboto, Compose desenleri | Android için geliştirme yaparken |
+| **Cross-Platform** | Yukarıdakilerin her ikisi | Platform farklılık noktaları | React Native / Flutter |
 
-> 🔴 **If building for iOS → Read platform-ios.md FIRST!**
-> 🔴 **If building for Android → Read platform-android.md FIRST!**
-> 🔴 **If cross-platform → Read BOTH and apply conditional platform logic!**
+> 🔴 **iOS için geliştirme yapıyorsanız → ÖNCE platform-ios.md dosyasını okuyun!**
+> 🔴 **Android için geliştirme yapıyorsanız → ÖNCE platform-android.md dosyasını okuyun!**
+> 🔴 **Cross-platform ise → HER İKİSİNİ de okuyun ve koşullu platform mantığını uygulayın!**
 
 ---
 
-## ⚠️ CRITICAL: ASK BEFORE ASSUMING (MANDATORY)
+## ⚠️ KRİTİK: VARSAYIMDA BULUNMADAN ÖNCE SORUN (ZORUNLU)
 
-> **STOP! If the user's request is open-ended, DO NOT default to your favorites.**
+> **DUR! Kullanıcının isteği ucu açıksa, kendi favorilerinize varsayılan olarak dönmeyin.**
 
-### You MUST Ask If Not Specified:
+### Belirtilmemişse Şunları SORMALSINIZ:
 
-| Aspect | Ask | Why |
+| Konu | Ne Sorulmalı? | Neden? |
 |--------|-----|-----|
-| **Platform** | "iOS, Android, or both?" | Affects EVERY design decision |
-| **Framework** | "React Native, Flutter, or native?" | Determines patterns and tools |
-| **Navigation** | "Tab bar, drawer, or stack-based?" | Core UX decision |
-| **State** | "What state management? (Zustand/Redux/Riverpod/BLoC?)" | Architecture foundation |
-| **Offline** | "Does this need to work offline?" | Affects data strategy |
-| **Target devices** | "Phone only, or tablet support?" | Layout complexity |
+| **Platform** | "iOS, Android mi yoksa her ikisi mi?" | HER tasarım kararını etkiler |
+| **Framework** | "React Native, Flutter mı yoksa native mi?" | Desenleri ve araçları belirler |
+| **Navigasyon** | "Tab bar, drawer mı yoksa stack tabanlı mı?" | Temel UX kararıdır |
+| **State** | "Hangi state yönetimi? (Zustand/Redux/Riverpod/BLoC?)" | Mimari temelidir |
+| **Çevrimdışı** | "Çevrimdışı (offline) çalışma gereksinimi var mı?" | Veri stratejisini etkiler |
+| **Hedef Cihazlar** | "Sadece telefon mu, yoksa tablet desteği de var mı?" | Düzen (layout) karmaşıklığı |
 
-### ⛔ AI MOBILE ANTI-PATTERNS (YASAK LİSTESİ)
+### ⛔ YZ MOBİL ANTİ-DESENLERİ (YASAK LİSTESİ)
 
-> 🚫 **These are AI default tendencies that MUST be avoided!**
+> 🚫 **Bunlar, YZ'nin kaçınılması gereken varsayılan eğilimleridir!**
 
-#### Performance Sins
+#### Performans Günahları
 
-| ❌ NEVER DO | Why It's Wrong | ✅ ALWAYS DO |
+| ❌ ASLA YAPMA | Neden Yanlış? | ✅ HER ZAMAN YAP |
 |-------------|----------------|--------------|
-| **ScrollView for long lists** | Renders ALL items, memory explodes | Use `FlatList` / `FlashList` / `ListView.builder` |
-| **Inline renderItem function** | New function every render, all items re-render | `useCallback` + `React.memo` |
-| **Missing keyExtractor** | Index-based keys cause bugs on reorder | Unique, stable ID from data |
-| **Skip getItemLayout** | Async layout = janky scroll | Provide when items have fixed height |
-| **setState() everywhere** | Unnecessary widget rebuilds | Targeted state, `const` constructors |
-| **Native driver: false** | Animations blocked by JS thread | `useNativeDriver: true` always |
-| **console.log in production** | Blocks JS thread severely | Remove before release build |
-| **Skip React.memo/const** | Every item re-renders on any change | Memoize list items ALWAYS |
+| **Uzun listeler için ScrollView** | TÜM öğeleri render eder, bellek patlar | `FlatList` / `FlashList` / `ListView.builder` kullan |
+| **Inline renderItem fonksiyonu** | Her render'da yeni fonksiyon, tüm öğeler re-render olur | `useCallback` + `React.memo` |
+| **Eksik keyExtractor** | İndis tabanlı keyler sıralamada hatalara neden olur | Veriden gelen benzersiz, kararlı bir ID |
+| **getItemLayout'u atlamak** | Asenkron düzen = takılan (janky) kaydırma | Öğeler sabit yükseklikteyse bunu sağlayın |
+| **Her yerde setState()** | Gereksiz widget yeniden oluşturma | Hedeflenmiş state, `const` constructor'lar |
+| **Native driver: false** | Animasyonlar JS thread tarafından engellenir | Her zaman `useNativeDriver: true` |
+| **Prodüksiyonda console.log** | JS thread'ini ciddi şekilde engeller | Release build almadan önce kaldırın |
+| **React.memo/const atlamak** | Herhangi bir değişiklikte her öğe re-render olur | Liste öğelerini HER ZAMAN memoize edin |
 
-#### Touch/UX Sins
+#### Dokunmatik/UX Günahları
 
-| ❌ NEVER DO | Why It's Wrong | ✅ ALWAYS DO |
+| ❌ ASLA YAPMA | Neden Yanlış? | ✅ HER ZAMAN YAP |
 |-------------|----------------|--------------|
-| **Touch target < 44px** | Impossible to tap accurately, frustrating | Minimum 44pt (iOS) / 48dp (Android) |
-| **Spacing < 8px between targets** | Accidental taps on neighbors | Minimum 8-12px gap |
-| **Gesture-only interactions** | Motor impaired users excluded | Always provide button alternative |
-| **No loading state** | User thinks app crashed | ALWAYS show loading feedback |
-| **No error state** | User stuck, no recovery path | Show error with retry option |
-| **No offline handling** | Crash/block when network lost | Graceful degradation, cached data |
-| **Ignore platform conventions** | Users confused, muscle memory broken | iOS feels iOS, Android feels Android |
+| **Dokunmatik hedef < 44px** | İsabetli dokunmak imkansızdır, sinir bozucudur | Minimum 44pt (iOS) / 48dp (Android) |
+| **Hedefler arası boşluk < 8px** | Yanındaki öğeye yanlışlıkla dokunma | Minimum 8-12px boşluk |
+| **Sadece jestle etkileşim** | Motor becerisi kısıtlı kullanıcılar dışlanır | Her zaman buton alternatifi sunun |
+| **Yükleme durumu yok** | Kullanıcı uygulamanın çöktüğünü düşünür | HER ZAMAN yükleme (loading) geri bildirimi gösterin |
+| **Hata durumu yok** | Kullanıcı tıkanır, kurtarma yolu yoktur | Yeniden deneme seçeneğiyle hatayı gösterin |
+| **Çevrimdışı yönetimi yok** | Ağ kesildiğinde çökme/donma | Kademeli bozulma (graceful degradation), önbelleğe alınmış veri |
+| **Platform kurallarını yoksay** | Kullanıcıların kafası karışır, kas hafızası bozulur | iOS, iOS gibi; Android, Android gibi hissettirmeli |
 
-#### Security Sins
+#### Güvenlik Günahları
 
-| ❌ NEVER DO | Why It's Wrong | ✅ ALWAYS DO |
+| ❌ ASLA YAPMA | Neden Yanlış? | ✅ HER ZAMAN YAP |
 |-------------|----------------|--------------|
-| **Token in AsyncStorage** | Easily accessible, stolen on rooted device | `SecureStore` / `Keychain` / `EncryptedSharedPreferences` |
-| **Hardcode API keys** | Reverse engineered from APK/IPA | Environment variables, secure storage |
-| **Skip SSL pinning** | MITM attacks possible | Pin certificates in production |
-| **Log sensitive data** | Logs can be extracted | Never log tokens, passwords, PII |
+| **AsyncStorage'da Token** | Kolayca erişilebilir, root'lu cihazda çalınabilir | `SecureStore` / `Keychain` / `EncryptedSharedPreferences` |
+| **API Anahtarını Hardcode et** | APK/IPA'dan tersine mühendislik yapılabilir | Ortam değişkenleri, güvenli depolama |
+| **SSL pinning atlamak** | MITM saldırıları mümkün olabilir | Prodüksiyonda sertifikaları pinleyin |
+| **Hassas veri kaydetme (log)** | Loglar dışarı çekilebilir | Tokenları, şifreleri, PII verilerini asla loglamayın |
 
-#### Architecture Sins
+#### Mimari Günahları
 
-| ❌ NEVER DO | Why It's Wrong | ✅ ALWAYS DO |
+| ❌ ASLA YAPMA | Neden Yanlış? | ✅ HER ZAMAN YAP |
 |-------------|----------------|--------------|
-| **Business logic in UI** | Untestable, unmaintainable | Service layer separation |
-| **Global state for everything** | Unnecessary re-renders, complexity | Local state default, lift when needed |
-| **Deep linking as afterthought** | Notifications, shares broken | Plan deep links from day one |
-| **Skip dispose/cleanup** | Memory leaks, zombie listeners | Clean up subscriptions, timers |
+| **UI içinde iş mantığı** | Test edilemez, bakımı yapılamaz | Servis katmanı ayrımı |
+| **Her şey için global state** | Gereksiz re-render'lar, karmaşıklık | Varsayılan yerel state, gerekirse yukarı taşı |
+| **Deep linking'i sona bırak** | Bildirimler, paylaşımlar bozulur | İlk günden deep link'leri planlayın |
+| **Dispose/Cleanup atlamak** | Bellek sızıntıları, zombi listener'lar | Abonelikleri, zamanlayıcıları temizleyin |
 
 ---
 
-## 📱 Platform Decision Matrix
+## 📱 Platform Karar Matrisi
 
-### When to Unify vs Diverge
+### Ne Zaman Birleştirilmeli vs Ne Zaman Ayrılmalı
 
 ```
-                    UNIFY (same on both)          DIVERGE (platform-specific)
-                    ───────────────────           ──────────────────────────
-Business Logic      ✅ Always                     -
-Data Layer          ✅ Always                     -
-Core Features       ✅ Always                     -
+                      BİRLEŞTİR (her ikisinde aynı)  AYIR (platforma özgü)
+                      ───────────────────           ──────────────────────────
+İş Mantığı            ✅ Her zaman                  -
+Veri Katmanı          ✅ Her zaman                  -
+Temel Özellikler      ✅ Her zaman                  -
                     
-Navigation          -                             ✅ iOS: edge swipe, Android: back button
-Gestures            -                             ✅ Platform-native feel
-Icons               -                             ✅ SF Symbols vs Material Icons
-Date Pickers        -                             ✅ Native pickers feel right
-Modals/Sheets       -                             ✅ iOS: bottom sheet vs Android: dialog
-Typography          -                             ✅ SF Pro vs Roboto (or custom)
-Error Dialogs       -                             ✅ Platform conventions for alerts
+Navigasyon            -                             ✅ iOS: kenar kaydırma, Android: geri butonu
+Jestler                -                             ✅ Platform-native hissi
+İkonlar               -                             ✅ SF Symbols vs Material Icons
+Tarih Seçiciler       -                             ✅ Yerel seçiciler (picker) daha iyi hissettirir
+Modallar/Sayfalar     -                             ✅ iOS: bottom sheet vs Android: dialog
+Tipografi             -                             ✅ SF Pro vs Roboto (veya özel)
+Hata Diyalogları      -                             ✅ Alertler için platform kuralları
 ```
 
-### Quick Reference: Platform Defaults
+### Hızlı Referans: Platform Varsayılanları
 
-| Element | iOS | Android |
+| Öğe | iOS | Android |
 |---------|-----|---------|
-| **Primary Font** | SF Pro / SF Compact | Roboto |
-| **Min Touch Target** | 44pt × 44pt | 48dp × 48dp |
-| **Back Navigation** | Edge swipe left | System back button/gesture |
-| **Bottom Tab Icons** | SF Symbols | Material Symbols |
-| **Action Sheet** | UIActionSheet from bottom | Bottom Sheet / Dialog |
-| **Progress** | Spinner | Linear progress (Material) |
-| **Pull to Refresh** | Native UIRefreshControl | SwipeRefreshLayout |
+| **Birincil Yazı Tipi** | SF Pro / SF Compact | Roboto |
+| **Min. Dokunmatik Hedef** | 44pt × 44pt | 48dp × 48dp |
+| **Geri Navigasyon** | Sol kenardan kaydırma | Sistem geri butonu/jest |
+| **Tab Bar İkonları** | SF Symbols | Material Symbols |
+| **Aksiyon Sayfası** | Alttan UIActionSheet | Bottom Sheet / Dialog |
+| **İlerleme (Progress)** | Spinner (Dönerge) | Çizgisel ilerleme (Material) |
+| **Çek-Yenile** | Native UIRefreshControl | SwipeRefreshLayout |
 
 ---
 
-## 🧠 Mobile UX Psychology (Quick Reference)
+## 🧠 Mobil UX Psikolojisi (Hızlı Referans)
 
-### Fitts' Law for Touch
+### Dokunmatik İçin Fitts Yasası
 
 ```
-Desktop: Cursor is precise (1px)
-Mobile:  Finger is imprecise (~7mm contact area)
+Masaüstü: İmleç hassastır (1px)
+Mobil:    Parmak hassas değildir (~7mm temas alanı)
 
-→ Touch targets MUST be 44-48px minimum
-→ Important actions in THUMB ZONE (bottom of screen)
-→ Destructive actions AWAY from easy reach
+→ Dokunmatik hedefler minimum 44-48px OLMALI
+→ Önemli eylemler BAŞPARMAK BÖLGESİNDE (ekranın altı) olmalı
+→ Yıkıcı eylemler kolay erişimden UZAKTA olmalı
 ```
 
-### Thumb Zone (One-Handed Usage)
+### Başparmak Bölgesi (Tek El Kullanımı)
 
 ```
 ┌─────────────────────────────┐
-│      HARD TO REACH          │ ← Navigation, menu, back
-│        (stretch)            │
+│      ERİŞİMİ ZOR            │ ← Navigasyon, menü, geri
+│        (uzanma)             │
 ├─────────────────────────────┤
-│      OK TO REACH            │ ← Secondary actions
-│       (natural)             │
+│      ERİŞİMİ NORMAL         │ ← İkincil eylemler
+│        (doğal)              │
 ├─────────────────────────────┤
-│      EASY TO REACH          │ ← PRIMARY CTAs, tab bar
-│    (thumb's natural arc)    │ ← Main content interaction
+│      ERİŞİMİ KOLAY          │ ← BİRİNCİL CTA'lar, tab bar
+│  (başparmağın doğal yayı)    │ ← Ana içerik etkileşimi
 └─────────────────────────────┘
-        [  HOME  ]
+         [  ANA EKRAN  ]
 ```
 
-### Mobile-Specific Cognitive Load
+### Mobil-Özel Bilişsel Yük
 
-| Desktop | Mobile Difference |
+| Masaüstü | Mobil Farkı |
 |---------|-------------------|
-| Multiple windows | ONE task at a time |
-| Keyboard shortcuts | Touch gestures |
-| Hover states | NO hover (tap or nothing) |
-| Large viewport | Limited space, scroll vertical |
-| Stable attention | Interrupted constantly |
+| Çoklu pencere | Bir seferde TEK görev |
+| Klavye kısayolları | Dokunma jestleri |
+| Hover durumları | Hover YOK (dokun ya da dokunma) |
+| Geniş ekran | Sınırlı alan, dikey kaydırma |
+| Kararlı dikkat | Sürekli kesintiye uğrar |
 
-For deep dive: [touch-psychology.md](touch-psychology.md)
+Detaylı inceleme için: [touch-psychology.md](touch-psychology.md)
 
 ---
 
-## ⚡ Performance Principles (Quick Reference)
+## ⚡ Performans Prensipleri (Hızlı Referans)
 
-### React Native Critical Rules
+### React Native Kritik Kuralları
 
 ```typescript
-// ✅ CORRECT: Memoized renderItem + React.memo wrapper
+// ✅ DOĞRU: Memoize edilmiş renderItem + React.memo sarmalayıcısı
 const ListItem = React.memo(({ item }: { item: Item }) => (
   <View style={styles.item}>
     <Text>{item.title}</Text>
@@ -214,11 +214,11 @@ const renderItem = useCallback(
   []
 );
 
-// ✅ CORRECT: FlatList with all optimizations
+// ✅ DOĞRU: Tüm optimizasyonlarla birlikte FlatList
 <FlatList
   data={items}
   renderItem={renderItem}
-  keyExtractor={(item) => item.id}  // Stable ID, NOT index
+  keyExtractor={(item) => item.id}  // Kararlı ID, indis DEĞİL
   getItemLayout={(data, index) => ({
     length: ITEM_HEIGHT,
     offset: ITEM_HEIGHT * index,
@@ -230,10 +230,10 @@ const renderItem = useCallback(
 />
 ```
 
-### Flutter Critical Rules
+### Flutter Kritik Kuralları
 
 ```dart
-// ✅ CORRECT: const constructors prevent rebuilds
+// ✅ DOĞRU: const constructor'lar yeniden oluşturmayı engeller
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key}); // CONST!
 
@@ -241,154 +241,154 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column( // CONST!
       children: [
-        Text('Static content'),
+        Text('Statik içerik'),
         MyConstantWidget(),
       ],
     );
   }
 }
 
-// ✅ CORRECT: Targeted state with ValueListenableBuilder
+// ✅ DOĞRU: ValueListenableBuilder ile hedeflenmiş state
 ValueListenableBuilder<int>(
   valueListenable: counter,
   builder: (context, value, child) => Text('$value'),
-  child: const ExpensiveWidget(), // Won't rebuild!
+  child: const ExpensiveWidget(), // Yeniden oluşmaz!
 )
 ```
 
-### Animation Performance
+### Animasyon Performansı
 
 ```
-GPU-accelerated (FAST):     CPU-bound (SLOW):
-├── transform               ├── width, height
-├── opacity                 ├── top, left, right, bottom
-└── (use these ONLY)        ├── margin, padding
-                            └── (AVOID animating these)
+GPU hızlandırmalı (HIZLI):   CPU bağımlı (YAVAŞ):
+├── transform                ├── width, height
+├── opacity                  ├── top, left, right, bottom
+└── (SADECE bunları kullan)  ├── margin, padding
+                             └── (Bunları anime etmekten KAÇIN)
 ```
 
-For complete guide: [mobile-performance.md](mobile-performance.md)
+Tam kılavuz için: [mobile-performance.md](mobile-performance.md)
 
 ---
 
-## 📝 CHECKPOINT (MANDATORY Before Any Mobile Work)
+## 📝 KONTROL NOKTASI (Herhangi Bir Mobil İşten Önce ZORUNLU)
 
-> **Before writing ANY mobile code, you MUST complete this checkpoint:**
+> **HERHANGİ bir mobil kod yazmadan önce, bu kontrol noktasını tamamlamalısınız:**
 
 ```
-🧠 CHECKPOINT:
+🧠 KONTROL NOKTASI:
 
-Platform:   [ iOS / Android / Both ]
-Framework:  [ React Native / Flutter / SwiftUI / Kotlin ]
-Files Read: [ List the skill files you've read ]
+Platform:    [ iOS / Android / Her İkisi ]
+Framework:   [ React Native / Flutter / SwiftUI / Kotlin ]
+Okunan Dosyalar: [ Okuduğunuz yetenek dosyalarını listeleyin ]
 
-3 Principles I Will Apply:
+Uygulayacağım 3 Prensip:
 1. _______________
 2. _______________
 3. _______________
 
-Anti-Patterns I Will Avoid:
+Kaçınacağım 3 Anti-Desen:
 1. _______________
 2. _______________
 ```
 
-**Example:**
+**Örnek:**
 ```
-🧠 CHECKPOINT:
+🧠 KONTROL NOKTASI:
 
-Platform:   iOS + Android (Cross-platform)
-Framework:  React Native + Expo
-Files Read: touch-psychology.md, mobile-performance.md, platform-ios.md, platform-android.md
+Platform:    iOS + Android (Cross-platform)
+Framework:   React Native + Expo
+Okunan Dosyalar: touch-psychology.md, mobile-performance.md, platform-ios.md, platform-android.md
 
-3 Principles I Will Apply:
-1. FlatList with React.memo + useCallback for all lists
-2. 48px touch targets, thumb zone for primary CTAs
-3. Platform-specific navigation (edge swipe iOS, back button Android)
+Uygulayacağım 3 Prensip:
+1. Tüm listeler için React.memo + useCallback ile FlatList
+2. 48px dokunmatik hedefler, birincil CTA'lar için başparmak bölgesi
+3. Platforma özgü navigasyon (iOS kenar kaydırma, Android geri butonu)
 
-Anti-Patterns I Will Avoid:
-1. ScrollView for lists → FlatList
+Kaçınacağım Anti-Desenler:
+1. Listeler için ScrollView → FlatList
 2. Inline renderItem → Memoized
-3. AsyncStorage for tokens → SecureStore
+3. Tokenlar için AsyncStorage → SecureStore
 ```
 
-> 🔴 **Can't fill the checkpoint? → GO BACK AND READ THE SKILL FILES.**
+> 🔴 **Kontrol noktasını dolduramıyor musunuz? → GERİ DÖNÜN VE YETENEK DOSYALARINI OKUYUN.**
 
 ---
 
-## 🔧 Framework Decision Tree
+## 🔧 Framework Karar Ağacı
 
 ```
-WHAT ARE YOU BUILDING?
+NE İNŞA EDİYORSUNUZ?
         │
-        ├── Need OTA updates + rapid iteration + web team
+        ├── OTA güncellemeleri + hızlı yineleme + web ekibi ihtiyacı
         │   └── ✅ React Native + Expo
         │
-        ├── Need pixel-perfect custom UI + performance critical
+        ├── Pixel-perfect özel UI + kritik performans ihtiyacı
         │   └── ✅ Flutter
         │
-        ├── Deep native features + single platform focus
-        │   ├── iOS only → SwiftUI
-        │   └── Android only → Kotlin + Jetpack Compose
+        ├── Derin native özellikler + tek platform odaklı
+        │   ├── Sadece iOS → SwiftUI
+        │   └── Sadece Android → Kotlin + Jetpack Compose
         │
-        ├── Existing RN codebase + new features
+        ├── Mevcut RN kod tabanı + yeni özellikler
         │   └── ✅ React Native (bare workflow)
         │
-        └── Enterprise + existing Flutter codebase
+        └── Kurumsal + mevcut Flutter kod tabanı
             └── ✅ Flutter
 ```
 
-For complete decision trees: [decision-trees.md](decision-trees.md)
+Tam karar ağaçları için: [decision-trees.md](decision-trees.md)
 
 ---
 
-## 📋 Pre-Development Checklist
+## 📋 Geliştirme Öncesi Kontrol Listesi
 
-### Before Starting ANY Mobile Project
+### HERHANGİ Bir Mobil Projeye Başlamadan Önce
 
-- [ ] **Platform confirmed?** (iOS / Android / Both)
-- [ ] **Framework chosen?** (RN / Flutter / Native)
-- [ ] **Navigation pattern decided?** (Tabs / Stack / Drawer)
-- [ ] **State management selected?** (Zustand / Redux / Riverpod / BLoC)
-- [ ] **Offline requirements known?**
-- [ ] **Deep linking planned from day one?**
-- [ ] **Target devices defined?** (Phone / Tablet / Both)
+- [ ] **Platform doğrulandı mı?** (iOS / Android / Her İkisi)
+- [ ] **Framework seçildi mi?** (RN / Flutter / Native)
+- [ ] **Navigasyon deseni kararlaştırıldı mı?** (Tabs / Stack / Drawer)
+- [ ] **State yönetimi seçildi mi?** (Zustand / Redux / Riverpod / BLoC)
+- [ ] **Çevrimdışı gereksinimler biliniyor mu?**
+- [ ] **Deep linking ilk günden planlandı mı?**
+- [ ] **Hedef cihazlar tanımlandı mı?** (Telefon / Tablet / Her İkisi)
 
-### Before Every Screen
+### Her Ekrandan Önce
 
-- [ ] **Touch targets ≥ 44-48px?**
-- [ ] **Primary CTA in thumb zone?**
-- [ ] **Loading state exists?**
-- [ ] **Error state with retry exists?**
-- [ ] **Offline handling considered?**
-- [ ] **Platform conventions followed?**
+- [ ] **Dokunmatik hedefler ≥ 44-48px mi?**
+- [ ] **Birincil CTA başparmak bölgesinde mi?**
+- [ ] **Yükleme (loading) durumu mevcut mu?**
+- [ ] **Yeniden deneme içeren hata durumu mevcut mu?**
+- [ ] **Çevrimdışı yönetimi düşünüldü mü?**
+- [ ] **Platform kurallarına uyuldu mu?**
 
-### Before Release
+### Yayından (Release) Önce
 
-- [ ] **console.log removed?**
-- [ ] **SecureStore for sensitive data?**
-- [ ] **SSL pinning enabled?**
-- [ ] **Lists optimized (memo, keyExtractor)?**
-- [ ] **Memory cleanup on unmount?**
-- [ ] **Tested on low-end devices?**
-- [ ] **Accessibility labels on all interactive elements?**
+- [ ] **console.log'lar kaldırıldı mı?**
+- [ ] **Hassas veriler için SecureStore kullanıldı mı?**
+- [ ] **SSL pinning etkinleştirildi mi?**
+- [ ] **Listeler optimize edildi mi (memo, keyExtractor)?**
+- [ ] **Unmount anında bellek temizliği yapılıyor mu?**
+- [ ] **Düşük donanımlı cihazlarda test edildi mi?**
+- [ ] **Tüm etkileşimli öğelerde erişilebilirlik etiketleri (labels) var mı?**
 
 ---
 
-## 📚 Reference Files
+## 📚 Referans Dosyaları
 
-For deeper guidance on specific areas:
+Belirli alanlarda daha derin rehberlik için:
 
-| File | When to Use |
+| Dosya | Ne Zaman Kullanılır |
 |------|-------------|
-| [mobile-design-thinking.md](mobile-design-thinking.md) | **FIRST! Anti-memorization, forces context-based thinking** |
-| [touch-psychology.md](touch-psychology.md) | Understanding touch interaction, Fitts' Law, gesture design |
-| [mobile-performance.md](mobile-performance.md) | Optimizing RN/Flutter, 60fps, memory/battery |
-| [platform-ios.md](platform-ios.md) | iOS-specific design, HIG compliance |
-| [platform-android.md](platform-android.md) | Android-specific design, Material Design 3 |
-| [mobile-navigation.md](mobile-navigation.md) | Navigation patterns, deep linking |
-| [mobile-typography.md](mobile-typography.md) | Type scale, system fonts, accessibility |
-| [mobile-color-system.md](mobile-color-system.md) | OLED optimization, dark mode, battery |
-| [decision-trees.md](decision-trees.md) | Framework, state, storage decisions |
+| [mobile-design-thinking.md](mobile-design-thinking.md) | **ÖNCE! Ezberleme karşıtı, bağlam tabanlı düşünmeye zorlar** |
+| [touch-psychology.md](touch-psychology.md) | Dokunmatik etkileşimi, Fitts Yasasını, jest tasarımını anlama |
+| [mobile-performance.md](mobile-performance.md) | RN/Flutter optimizasyonu, 60fps, bellek/pil |
+| [platform-ios.md](platform-ios.md) | iOS'e özgü tasarım, HIG uyumluluğu |
+| [platform-android.md](platform-android.md) | Android'e özgü tasarım, Material Design 3 |
+| [mobile-navigation.md](mobile-navigation.md) | Navigasyon desenleri, deep linking |
+| [mobile-typography.md](mobile-typography.md) | Yazı tipi ölçeği, sistem fontları, erişilebilirlik |
+| [mobile-color-system.md](mobile-color-system.md) | OLED optimizasyonu, karanlık mod, pil |
+| [decision-trees.md](decision-trees.md) | Framework, state, depolama kararları |
 
 ---
 
-> **Remember:** Mobile users are impatient, interrupted, and using imprecise fingers on small screens. Design for the WORST conditions: bad network, one hand, bright sun, low battery. If it works there, it works everywhere.
+> **Unutma:** Mobil kullanıcılar sabırsızdır, sürekli kesintiye uğrarlar ve küçük ekranlarda hassas olmayan parmaklar kullanırlar. EN KÖTÜ koşullar için tasarım yapın: kötü ağ, tek el, parlak güneş, düşük pil. Orada çalışıyorsa, her yerde çalışır.

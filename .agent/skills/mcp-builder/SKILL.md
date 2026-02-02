@@ -1,176 +1,176 @@
 ---
 name: mcp-builder
-description: MCP (Model Context Protocol) server building principles. Tool design, resource patterns, best practices.
+description: MCP (Model Context Protocol) sunucu oluşturma prensipleri. Araç tasarımı, kaynak desenleri, en iyi uygulamalar.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# MCP Builder
+# MCP Oluşturucu (MCP Builder)
 
-> Principles for building MCP servers.
-
----
-
-## 1. MCP Overview
-
-### What is MCP?
-
-Model Context Protocol - standard for connecting AI systems with external tools and data sources.
-
-### Core Concepts
-
-| Concept | Purpose |
-|---------|---------|
-| **Tools** | Functions AI can call |
-| **Resources** | Data AI can read |
-| **Prompts** | Pre-defined prompt templates |
+> MCP sunucuları oluşturmak için prensipler.
 
 ---
 
-## 2. Server Architecture
+## 1. MCP Genel Bakış
 
-### Project Structure
+### MCP Nedir?
+
+Model Context Protocol - AI sistemlerini harici araçlar ve veri kaynaklarıyla bağlamak için standart.
+
+### Temel Kavramlar
+
+| Kavram | Amaç |
+|--------|------|
+| **Tools** | AI'ın çağırabileceği fonksiyonlar |
+| **Resources** | AI'ın okuyabileceği veriler |
+| **Prompts** | Önceden tanımlanmış prompt şablonları |
+
+---
+
+## 2. Sunucu Mimarisi
+
+### Proje Yapısı
 
 ```
 my-mcp-server/
 ├── src/
-│   └── index.ts      # Main entry
+│   └── index.ts      # Ana giriş
 ├── package.json
 └── tsconfig.json
 ```
 
-### Transport Types
+### Transport Tipleri
 
-| Type | Use |
-|------|-----|
-| **Stdio** | Local, CLI-based |
-| **SSE** | Web-based, streaming |
-| **WebSocket** | Real-time, bidirectional |
-
----
-
-## 3. Tool Design Principles
-
-### Good Tool Design
-
-| Principle | Description |
-|-----------|-------------|
-| Clear name | Action-oriented (get_weather, create_user) |
-| Single purpose | One thing well |
-| Validated input | Schema with types and descriptions |
-| Structured output | Predictable response format |
-
-### Input Schema Design
-
-| Field | Required? |
-|-------|-----------|
-| Type | Yes - object |
-| Properties | Define each param |
-| Required | List mandatory params |
-| Description | Human-readable |
+| Tip | Kullanım |
+|-----|----------|
+| **Stdio** | Yerel, CLI-tabanlı |
+| **SSE** | Web-tabanlı, streaming |
+| **WebSocket** | Gerçek zamanlı, çift yönlü |
 
 ---
 
-## 4. Resource Patterns
+## 3. Araç Tasarım Prensipleri
 
-### Resource Types
+### İyi Araç Tasarımı
 
-| Type | Use |
-|------|-----|
-| Static | Fixed data (config, docs) |
-| Dynamic | Generated on request |
-| Template | URI with parameters |
+| Prensip | Açıklama |
+|---------|----------|
+| Açık isim | Eylem odaklı (get_weather, create_user) |
+| Tek amaç | Tek bir şeyi iyi yap |
+| Doğrulanmış girdi | Tipler ve açıklamalarla şema |
+| Yapılandırılmış çıktı | Öngörülebilir yanıt formatı |
 
-### URI Patterns
+### Girdi Şema Tasarımı
 
-| Pattern | Example |
-|---------|---------|
-| Fixed | `docs://readme` |
-| Parameterized | `users://{userId}` |
-| Collection | `files://project/*` |
-
----
-
-## 5. Error Handling
-
-### Error Types
-
-| Situation | Response |
-|-----------|----------|
-| Invalid params | Validation error message |
-| Not found | Clear "not found" |
-| Server error | Generic error, log details |
-
-### Best Practices
-
-- Return structured errors
-- Don't expose internal details
-- Log for debugging
-- Provide actionable messages
+| Alan | Gerekli mi? |
+|------|-------------|
+| Type | Evet - object |
+| Properties | Her parametreyi tanımla |
+| Required | Zorunlu parametreleri listele |
+| Description | İnsan tarafından okunabilir |
 
 ---
 
-## 6. Multimodal Handling
+## 4. Kaynak Desenleri
 
-### Supported Types
+### Kaynak Tipleri
 
-| Type | Encoding |
-|------|----------|
-| Text | Plain text |
-| Images | Base64 + MIME type |
-| Files | Base64 + MIME type |
+| Tip | Kullanım |
+|-----|----------|
+| Static | Sabit veri (config, docs) |
+| Dynamic | İstek üzerine oluşturulur |
+| Template | Parametreli URI |
 
----
+### URI Desenleri
 
-## 7. Security Principles
-
-### Input Validation
-
-- Validate all tool inputs
-- Sanitize user-provided data
-- Limit resource access
-
-### API Keys
-
-- Use environment variables
-- Don't log secrets
-- Validate permissions
+| Desen | Örnek |
+|-------|-------|
+| Sabit | `docs://readme` |
+| Parametreli | `users://{userId}` |
+| Koleksiyon | `files://project/*` |
 
 ---
 
-## 8. Configuration
+## 5. Hata Yönetimi
+
+### Hata Tipleri
+
+| Durum | Yanıt |
+|-------|-------|
+| Geçersiz parametreler | Doğrulama hata mesajı |
+| Bulunamadı | Açık "bulunamadı" |
+| Sunucu hatası | Genel hata, detayları logla |
+
+### En İyi Uygulamalar
+
+- Yapılandırılmış hatalar döndür
+- Dahili detayları açığa çıkarma
+- Hata ayıklama için logla
+- Eylem yapılabilir mesajlar sağla
+
+---
+
+## 6. Multimodal İşleme
+
+### Desteklenen Tipler
+
+| Tip | Kodlama |
+|-----|----------|
+| Metin | Düz metin |
+| Görseller | Base64 + MIME tipi |
+| Dosyalar | Base64 + MIME tipi |
+
+---
+
+## 7. Güvenlik Prensipleri
+
+### Girdi Doğrulama
+
+- Tüm araç girdilerini doğrula
+- Kullanıcı tarafından sağlanan verileri temizle
+- Kaynak erişimini sınırla
+
+### API Anahtarları
+
+- Ortam değişkenlerini kullan
+- Sırları loglama
+- İzinleri doğrula
+
+---
+
+## 8. Yapılandırma
 
 ### Claude Desktop Config
 
-| Field | Purpose |
-|-------|---------|
-| command | Executable to run |
-| args | Command arguments |
-| env | Environment variables |
+| Alan | Amaç |
+|------|------|
+| command | Çalıştırılacak yürütülebilir |
+| args | Komut argümanları |
+| env | Ortam değişkenleri |
 
 ---
 
-## 9. Testing
+## 9. Test Etme
 
-### Test Categories
+### Test Kategorileri
 
-| Type | Focus |
-|------|-------|
-| Unit | Tool logic |
-| Integration | Full server |
-| Contract | Schema validation |
-
----
-
-## 10. Best Practices Checklist
-
-- [ ] Clear, action-oriented tool names
-- [ ] Complete input schemas with descriptions
-- [ ] Structured JSON output
-- [ ] Error handling for all cases
-- [ ] Input validation
-- [ ] Environment-based configuration
-- [ ] Logging for debugging
+| Tip | Odak |
+|-----|------|
+| Unit | Araç mantığı |
+| Integration | Tam sunucu |
+| Contract | Şema doğrulama |
 
 ---
 
-> **Remember:** MCP tools should be simple, focused, and well-documented. The AI relies on descriptions to use them correctly.
+## 10. En İyi Uygulamalar Kontrol Listesi
+
+- [ ] Açık, eylem odaklı araç isimleri
+- [ ] Açıklamalı eksiksiz girdi şemaları
+- [ ] Yapılandırılmış JSON çıktısı
+- [ ] Tüm durumlar için hata yönetimi
+- [ ] Girdi doğrulama
+- [ ] Ortam tabanlı yapılandırma
+- [ ] Hata ayıklama için loglama
+
+---
+
+> **Unutma:** MCP araçları basit, odaklı ve iyi belgelenmiş olmalıdır. AI, onları doğru kullanmak için açıklamalara güvenir.

@@ -1,175 +1,175 @@
 ---
 name: parallel-agents
-description: Multi-agent orchestration patterns. Use when multiple independent tasks can run with different domain expertise or when comprehensive analysis requires multiple perspectives.
+description: Çoklu-agent orkestrasyon desenleri. Bağımsız görevler farklı alan uzmanlığı ile çalışabildiğinde veya kapsamlı analiz birden fazla perspektif gerektirdiğinde kullan.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Native Parallel Agents
+# Native Paralel Agentler
 
-> Orchestration through Antigravity's built-in Agent Tool
+> Antigravity'nin yerleşik Agent Aracı ile orkestrasyon
 
-## Overview
+## Genel Bakış
 
-This skill enables coordinating multiple specialized agents through Antigravity's native agent system. Unlike external scripts, this approach keeps all orchestration within Antigravity's control.
+Bu yetenek, Antigravity'nin yerel agent sistemi aracılığıyla birden fazla özelleşmiş agent'ı koordine etmeyi sağlar. Harici script'lerin aksine, bu yaklaşım tüm orkestrasyonu Antigravity'nin kontrolü altında tutar.
 
-## When to Use Orchestration
+## Orkestrasyonu Ne Zaman Kullanmalı
 
-✅ **Good for:**
-- Complex tasks requiring multiple expertise domains
-- Code analysis from security, performance, and quality perspectives
-- Comprehensive reviews (architecture + security + testing)
-- Feature implementation needing backend + frontend + database work
+✅ **İyi:**
+- Birden fazla uzmanlık alanı gerektiren karmaşık görevler
+- Güvenlik, performans ve kalite perspektiflerinden kod analizi
+- Kapsamlı incelemeler (mimari + güvenlik + test)
+- Backend + frontend + veritabanı işi gerektiren özellik implementasyonu
 
-❌ **Not for:**
-- Simple, single-domain tasks
-- Quick fixes or small changes
-- Tasks where one agent suffices
-
----
-
-## Native Agent Invocation
-
-### Single Agent
-```
-Use the security-auditor agent to review authentication
-```
-
-### Sequential Chain
-```
-First, use the explorer-agent to discover project structure.
-Then, use the backend-specialist to review API endpoints.
-Finally, use the test-engineer to identify test gaps.
-```
-
-### With Context Passing
-```
-Use the frontend-specialist to analyze React components.
-Based on those findings, have the test-engineer generate component tests.
-```
-
-### Resume Previous Work
-```
-Resume agent [agentId] and continue with additional requirements.
-```
+❌ **Uygun değil:**
+- Basit, tek alanlı görevler
+- Hız lı düzeltmeler veya küçük değişiklikler
+- Bir agent'ın yeterli olduğu görevler
 
 ---
 
-## Orchestration Patterns
+## Native Agent Çağırma
 
-### Pattern 1: Comprehensive Analysis
+### Tek Agent
 ```
-Agents: explorer-agent → [domain-agents] → synthesis
-
-1. explorer-agent: Map codebase structure
-2. security-auditor: Security posture
-3. backend-specialist: API quality
-4. frontend-specialist: UI/UX patterns
-5. test-engineer: Test coverage
-6. Synthesize all findings
+Kimlik doğrulama incelemesi için security-auditor agent'ını kullan
 ```
 
-### Pattern 2: Feature Review
+### Sıralı Zincir
 ```
-Agents: affected-domain-agents → test-engineer
-
-1. Identify affected domains (backend? frontend? both?)
-2. Invoke relevant domain agents
-3. test-engineer verifies changes
-4. Synthesize recommendations
+Önce, proje yapısını keşfetmek için explorer-agent'ı kullan.
+Sonra, API uç noktalarını incelemek için backend-specialist kullan.
+Son olarak, test açıklarını tanımlamak için test-engineer kullan.
 ```
 
-### Pattern 3: Security Audit
+### Bağlam Aktarma ile
 ```
-Agents: security-auditor → penetration-tester → synthesis
+React componentlerini analiz etmek için frontend-specialist kullan.
+Bu bulgulara dayanarak, test-engineer'ın component testleri oluşturmasını sağla.
+```
 
-1. security-auditor: Configuration and code review
-2. penetration-tester: Active vulnerability testing
-3. Synthesize with prioritized remediation
+### Önceki İşi Devam Ettir
+```
+Agent [agentId]'yi devam ettir ve ek gereksinimlerle devam et.
 ```
 
 ---
 
-## Available Agents
+## Orkestrasyon Desenleri
 
-| Agent | Expertise | Trigger Phrases |
-|-------|-----------|-----------------|
-| `orchestrator` | Coordination | "comprehensive", "multi-perspective" |
-| `security-auditor` | Security | "security", "auth", "vulnerabilities" |
-| `penetration-tester` | Security Testing | "pentest", "red team", "exploit" |
-| `backend-specialist` | Backend | "API", "server", "Node.js", "Express" |
-| `frontend-specialist` | Frontend | "React", "UI", "components", "Next.js" |
-| `test-engineer` | Testing | "tests", "coverage", "TDD" |
-| `devops-engineer` | DevOps | "deploy", "CI/CD", "infrastructure" |
-| `database-architect` | Database | "schema", "Prisma", "migrations" |
-| `mobile-developer` | Mobile | "React Native", "Flutter", "mobile" |
-| `api-designer` | API Design | "REST", "GraphQL", "OpenAPI" |
-| `debugger` | Debugging | "bug", "error", "not working" |
-| `explorer-agent` | Discovery | "explore", "map", "structure" |
-| `documentation-writer` | Documentation | "write docs", "create README", "generate API docs" |
-| `performance-optimizer` | Performance | "slow", "optimize", "profiling" |
-| `project-planner` | Planning | "plan", "roadmap", "milestones" |
-| `seo-specialist` | SEO | "SEO", "meta tags", "search ranking" |
-| `game-developer` | Game Development | "game", "Unity", "Godot", "Phaser" |
+### Desen 1: Kapsamlı Analiz
+```
+Agentler: explorer-agent → [domain-agents] → sentez
 
----
+1. explorer-agent: Kod tabanı yapısını haritalama
+2. security-auditor: Güvenlik duruşu
+3. backend-specialist: API kalitesi
+4. frontend-specialist: UI/UX desenleri
+5. test-engineer: Test kapsamı
+6. Tüm bulguları sentezle
+```
 
-## Antigravity Built-in Agents
+### Desen 2: Özellik İncelemesi
+```
+Agentler: etkilenen-domain-agentleri → test-engineer
 
-These work alongside custom agents:
+1. Etkilenen alanları tanımla (backend? frontend? ikisi?)
+2. İlgili domain agentlerini çağır
+3. test-engineer değişiklikleri doğrular
+4. Önerileri sentezle
+```
 
-| Agent | Model | Purpose |
-|-------|-------|---------|
-| **Explore** | Haiku | Fast read-only codebase search |
-| **Plan** | Sonnet | Research during plan mode |
-| **General-purpose** | Sonnet | Complex multi-step modifications |
+### Desen 3: Güvenlik Denetimi
+```
+Agentler: security-auditor → penetration-tester → sentez
 
-Use **Explore** for quick searches, **custom agents** for domain expertise.
+1. security-auditor: Yapılandırma ve kod incelemesi
+2. penetration-tester: Aktif güvenlik açığı testi
+3. Önceliklendirilmiş düzeltme ile sentezle
+```
 
 ---
 
-## Synthesis Protocol
+## Mevcut Agentler
 
-After all agents complete, synthesize:
+| Agent | Uzmanlık | Tetikleyici İfadeler |
+|-------|----------|----------------------|
+| `orchestrator` | Koordinasyon | "kapsamlı", "çoklu-perspektif" |
+| `security-auditor` | Güvenlik | "güvenlik", "auth", "güvenlik açıkları" |
+| `penetration-tester` | Güvenlik Testi | "pentest", "red team", "exploit" |
+| `backend-specialist` | Backend | "API", "sunucu", "Node.js", "Express" |
+| `frontend-specialist` | Frontend | "React", "UI", "componentler", "Next.js" |
+| `test-engineer` | Test Etme | "testler", "kapsam", "TDD" |
+| `devops-engineer` | DevOps | "deploy", "CI/CD", "altyapı" |
+| `database-architect` | Veritabanı | "şema", "Prisma", "migrasyonlar" |
+| `mobile-developer` | Mobil | "React Native", "Flutter", "mobil" |
+| `api-designer` | API Tasarımı | "REST", "GraphQL", "OpenAPI" |
+| `debugger` | Hata Ayıklama | "hata", "bug", "çalışmıyor" |
+| `explorer-agent` | Keşif | "keşfet", "haritalama", "yapı" |
+| `documentation-writer` | Dokümantasyon | "doküman yaz", "README oluştur", "API dokümanı üret" |
+| `performance-optimizer` | Performans | "yavaş", "optimize et", "profilleme" |
+| `project-planner` | Planlama | "plan", "yol haritası", "kilometre taşları" |
+| `seo-specialist` | SEO | "SEO", "meta etiketleri", "arama sıralaması" |
+| `game-developer` | Oyun Geliştirme | "oyun", "Unity", "Godot", "Phaser" |
+
+---
+
+## Antigravity Yerleşik Agentleri
+
+Bunlar özel agentlerle birlikte çalışır:
+
+| Agent | Model | Amaç |
+|-------|-------|------|
+| **Explore** | Haiku | Hızlı salt-okunur kod tabanı arama |
+| **Plan** | Sonnet | Plan modunda araştırma |
+| **General-purpose** | Sonnet | Karmaşık çok adımlı değişiklikler |
+
+Hızlı aramalar için **Explore**, alan uzmanlığı için **özel agentler** kullan.
+
+---
+
+## Sentez Protokolü
+
+Tüm agentler tamamlandıktan sonra, sentezle:
 
 ```markdown
-## Orchestration Synthesis
+## Orkestrasyon Sentezi
 
-### Task Summary
-[What was accomplished]
+### Görev Özeti
+[Başarılan şeyler]
 
-### Agent Contributions
-| Agent | Finding |
-|-------|---------|
-| security-auditor | Found X |
-| backend-specialist | Identified Y |
+### Agent Katkıları
+| Agent | Bulgu |
+|-------|-------|
+| security-auditor | X bulundu |
+| backend-specialist | Y tanımlandı |
 
-### Consolidated Recommendations
-1. **Critical**: [Issue from Agent A]
-2. **Important**: [Issue from Agent B]
-3. **Nice-to-have**: [Enhancement from Agent C]
+### Konsolide Öneriler
+1. **Kritik**: [Agent A'dan Sorun]
+2. **Önemli**: [Agent B'den Sorun]
+3. **İyi olur**: [Agent C'den İyileştirme]
 
-### Action Items
-- [ ] Fix critical security issue
-- [ ] Refactor API endpoint
-- [ ] Add missing tests
+### Eylem Öğeleri
+- [ ] Kritik güvenlik sorununu düzelt
+- [ ] API uç noktasını refactor et
+- [ ] Eksik testleri ekle
 ```
 
 ---
 
-## Best Practices
+## En İyi Uygulamalar
 
-1. **Available agents** - 17 specialized agents can be orchestrated
-2. **Logical order** - Discovery → Analysis → Implementation → Testing
-3. **Share context** - Pass relevant findings to subsequent agents
-4. **Single synthesis** - One unified report, not separate outputs
-5. **Verify changes** - Always include test-engineer for code modifications
+1. **Mevcut agentler** - 17 özelleşmiş agent orkestre edilebilir
+2. **Mantıksal sıra** - Keşif → Analiz → İmplementasyon → Test
+3. **Bağlam paylaş** - İlgili bulguları sonraki agentlere aktar
+4. **Tek sentez** - Ayrı çıktılar değil, birleşik bir rapor
+5. **Değişiklikleri doğrula** - Kod değişiklikleri için her zaman test-engineer dahil et
 
 ---
 
-## Key Benefits
+## Ana Faydalar
 
-- ✅ **Single session** - All agents share context
-- ✅ **AI-controlled** - Claude orchestrates autonomously
-- ✅ **Native integration** - Works with built-in Explore, Plan agents
-- ✅ **Resume support** - Can continue previous agent work
-- ✅ **Context passing** - Findings flow between agents
+- ✅ **Tek oturum** - Tüm agentler bağlamı paylaşır
+- ✅ **AI-kontrollü** - Claude özerk olarak orkestre eder
+- ✅ **Yerel entegrasyon** - Yerleşik Explore, Plan agentleri ile çalışır
+- ✅ **Devam ettirme desteği** - Önceki agent işine devam edebilir
+- ✅ **Bağlam aktarma** - Bulgular agentler arasında akar

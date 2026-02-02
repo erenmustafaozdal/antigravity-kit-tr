@@ -1,561 +1,189 @@
-# iOS Platform Guidelines
+# iOS Platform Yönergeleri
 
-> Human Interface Guidelines (HIG) essentials, iOS design conventions, SF Pro typography, and native patterns.
-> **Read this file when building for iPhone/iPad.**
+> İnsan Arayüzü Yönergeleri (HIG) temelleri, iOS tasarım kuralları, SF Pro tipografisi ve yerel (native) desenler.
+> **iPhone/iPad için geliştirme yaparken bu dosyayı okuyun.**
 
 ---
 
-## 1. Human Interface Guidelines Philosophy
+## 1. İnsan Arayüzü Yönergeleri (HIG) Felsefesi
 
-### Core Apple Design Principles
+### Temel Apple Tasarım Prensipleri
 
 ```
-CLARITY:
-├── Text is legible at every size
-├── Icons are precise and lucid
-├── Adornments are subtle and appropriate
-└── Focus on functionality drives design
+NETLİK (CLARITY):
+├── Metin her boyutta okunabilir
+├── İkonlar kesin ve anlaşılır
+├── Süslemeler ölçülü ve amaca uygun
+└── Tasarımı işlevsellik odağı yönlendirir
 
-DEFERENCE:
-├── UI helps people understand and interact
-├── Content fills the screen
-├── UI never competes with content
-└── Translucency hints at more content
+SAYGI (DEFERENCE):
+├── UI, insanların anlamasına ve etkileşime girmesine yardımcı olur
+├── İçerik ekranı doldurur
+├── UI asla içerikle rekabet etmez
+└── Geçirgenlik (translucency), daha fazla içeriğe dair ipucu verir
 
-DEPTH:
-├── Distinct visual layers convey hierarchy
-├── Transitions provide sense of depth
-├── Touch reveals functionality
-└── Content is elevated over UI
+DERİNLİK (DEPTH):
+├── Belirgin görsel katmanlar hiyerarşiyi iletir
+├── Geçişler derinlik hissi sağlar
+├── Dokunma, işlevselliği ortaya çıkarır
+└── İçerik, UI'dan daha ön plandadır
 ```
 
-### iOS Design Values
+### iOS Tasarım Değerleri
 
-| Value | Implementation |
+| Değer | Uygulama |
 |-------|----------------|
-| **Aesthetic Integrity** | Design matches function (game ≠ productivity) |
-| **Consistency** | Use system controls, familiar patterns |
-| **Direct Manipulation** | Touch directly affects content |
-| **Feedback** | Actions are acknowledged |
-| **Metaphors** | Real-world comparisons aid understanding |
-| **User Control** | User initiates actions, can cancel |
+| **Estetik Bütünlük** | Tasarım işleviyle örtüşür (oyun ≠ verimlilik) |
+| **Tutarlılık** | Sistem kontrollerini ve tanıdık desenleri kullanın |
+| **Doğrudan Manipülasyon** | Dokunma, içeriği doğrudan etkiler |
+| **Geri Bildirim** | Eylemler onaylanır ve yanıtlanır |
+| **Metaforlar** | Gerçek dünya benzetmeleri anlamayı kolaylaştırır |
+| **Kullanıcı Kontrolü** | Eylemleri kullanıcı başlatır ve iptal edebilir |
 
 ---
 
-## 2. iOS Typography
+## 2. iOS Tipografisi
 
-### SF Pro Font Family
+### SF Pro Yazı Tipi Ailesi
 
 ```
-iOS System Fonts:
-├── SF Pro Text: Body text (< 20pt)
-├── SF Pro Display: Large titles (≥ 20pt)
-├── SF Pro Rounded: Friendly contexts
-├── SF Mono: Code, tabular data
-└── SF Compact: Apple Watch, smaller screens
+iOS Sistem Yazı Tipleri:
+├── SF Pro Text: Gövde metni (< 20pt)
+├── SF Pro Display: Büyük başlıklar (≥ 20pt)
+├── SF Pro Rounded: Arkadaş canlısı bağlamlar
+├── SF Mono: Kod, tablosal veriler
+└── SF Compact: Apple Watch, küçük ekranlar
 ```
 
-### iOS Type Scale (Dynamic Type)
+### iOS Yazı Tipi Ölçeği (Dynamic Type)
 
-| Style | Default Size | Weight | Usage |
+| Stil | Varsayılan Boyut | Kalınlık | Kullanım |
 |-------|--------------|--------|-------|
-| **Large Title** | 34pt | Bold | Navigation bar (scroll collapse) |
-| **Title 1** | 28pt | Bold | Page titles |
-| **Title 2** | 22pt | Bold | Section headers |
-| **Title 3** | 20pt | Semibold | Subsection headers |
-| **Headline** | 17pt | Semibold | Emphasized body |
-| **Body** | 17pt | Regular | Primary content |
-| **Callout** | 16pt | Regular | Secondary content |
-| **Subhead** | 15pt | Regular | Tertiary content |
-| **Footnote** | 13pt | Regular | Caption, timestamps |
-| **Caption 1** | 12pt | Regular | Annotations |
-| **Caption 2** | 11pt | Regular | Fine print |
+| **Large Title** | 34pt | Bold | Navigasyon çubuğu (kaydırınca küçülen) |
+| **Title 1** | 28pt | Bold | Sayfa başlıkları |
+| **Title 2** | 22pt | Bold | Bölüm başlıkları |
+| **Title 3** | 20pt | Semibold | Alt bölüm başlıkları |
+| **Headline** | 17pt | Semibold | Vurgulanmış gövde metni |
+| **Body** | 17pt | Regular | Birincil içerik |
+| **Callout** | 16pt | Regular | İkincil içerik |
+| **Subhead** | 15pt | Regular | Üçüncül içerik |
 
-### Dynamic Type Support (MANDATORY)
-
-```swift
-// ❌ WRONG: Fixed font size
-Text("Hello")
-    .font(.system(size: 17))
-
-// ✅ CORRECT: Dynamic Type
-Text("Hello")
-    .font(.body) // Scales with user settings
-
-// React Native equivalent
-<Text style={{ fontSize: 17 }}> // ❌ Fixed
-<Text style={styles.body}> // Use a dynamic scale system
-```
-
-### Font Weight Usage
-
-| Weight | iOS Constant | Use Case |
-|--------|--------------|----------|
-| Regular (400) | `.regular` | Body text |
-| Medium (500) | `.medium` | Buttons, emphasis |
-| Semibold (600) | `.semibold` | Subheadings |
-| Bold (700) | `.bold` | Titles, key info |
-| Heavy (800) | `.heavy` | Rarely, marketing |
+> 🔴 **ZORUNLU:** Kullanıcı yazı tipi ayarına göre ölçeklenen Dynamic Type desteğini HER ZAMAN sağlayın.
 
 ---
 
-## 3. iOS Color System
+## 3. iOS Renk Sistemi
 
-### System Colors (Semantic)
-
-```
-Use semantic colors for automatic dark mode:
-
-Primary:
-├── .label → Primary text
-├── .secondaryLabel → Secondary text
-├── .tertiaryLabel → Tertiary text
-├── .quaternaryLabel → Watermarks
-
-Backgrounds:
-├── .systemBackground → Main background
-├── .secondarySystemBackground → Grouped content
-├── .tertiarySystemBackground → Elevated content
-
-Fills:
-├── .systemFill → Large shapes
-├── .secondarySystemFill → Medium shapes
-├── .tertiarySystemFill → Small shapes
-├── .quaternarySystemFill → Subtle shapes
-```
-
-### System Accent Colors
-
-| Color | Light Mode | Dark Mode | Usage |
-|-------|------------|-----------|-------|
-| Blue | #007AFF | #0A84FF | Links, highlights, default tint |
-| Green | #34C759 | #30D158 | Success, positive |
-| Red | #FF3B30 | #FF453A | Errors, destructive |
-| Orange | #FF9500 | #FF9F0A | Warnings |
-| Yellow | #FFCC00 | #FFD60A | Attention |
-| Purple | #AF52DE | #BF5AF2 | Special features |
-| Pink | #FF2D55 | #FF375F | Affection, favorites |
-| Teal | #5AC8FA | #64D2FF | Information |
-
-### Dark Mode Considerations
+### Semantik (Anlamsal) Renkler
 
 ```
-iOS Dark Mode is not inverted light mode:
+Karanlık mod için semantik renkleri kullanın:
 
-LIGHT MODE:              DARK MODE:
-├── White backgrounds    ├── True black (#000) or near-black
-├── High saturation      ├── Desaturated colors
-├── Black text           ├── White/light gray text
-└── Drop shadows         └── Glows or no shadows
+Birincil:
+├── .label → Birincil metin
+├── .secondaryLabel → İkincil metin
+├── .tertiaryLabel → Üçüncül metin
 
-RULE: Always use semantic colors for automatic adaptation.
+Arka Planlar:
+├── .systemBackground → Ana arka plan
+├── .secondarySystemBackground → Gruplanmış içerik
+├── .tertiarySystemBackground → Yükseltilmiş içerik
 ```
 
 ---
 
-## 4. iOS Layout & Spacing
+## 4. iOS Düzen ve Boşluklar (Layout & Spacing)
 
-### Safe Areas
+### Güvenli Alanlar (Safe Areas)
 
 ```
 ┌─────────────────────────────────────┐
-│░░░░░░░░░░░ Status Bar ░░░░░░░░░░░░░│ ← Top safe area inset
+│░░░░░░░░░░ Durum Çubuğu ░░░░░░░░░░░░░│ ← Üst güvenli alan boşluğu
 ├─────────────────────────────────────┤
 │                                     │
-│                                     │
-│         Safe Content Area           │
-│                                     │
+│         Güvenli İçerik Alanı        │
 │                                     │
 ├─────────────────────────────────────┤
-│░░░░░░░░░ Home Indicator ░░░░░░░░░░░│ ← Bottom safe area inset
+│░░░░░░░░ Ana Ekran Çubuğu ░░░░░░░░░░│ ← Alt güvenli alan boşluğu
 └─────────────────────────────────────┘
 
-RULE: Never place interactive content in unsafe areas.
+KURAL: Etkileşimli içeriği asla güvensiz alanlara yerleştirmeyin.
 ```
 
-### Standard Margins & Padding
-
-| Element | Margin | Notes |
+| Öğe | Boşluk | Notlar |
 |---------|--------|-------|
-| Screen edge → content | 16pt | Standard horizontal margin |
-| Grouped table sections | 16pt top/bottom | Breathing room |
-| List item padding | 16pt horizontal | Standard cell padding |
-| Card internal padding | 16pt | Content within cards |
-| Button internal padding | 12pt vertical, 16pt horizontal | Minimum |
-
-### iOS Grid System
-
-```
-iPhone Grid (Standard):
-├── 16pt margins (left/right)
-├── 8pt minimum spacing
-├── Content in 8pt multiples
-
-iPhone Grid (Compact):
-├── 8pt margins (when needed)
-├── 4pt minimum spacing
-
-iPad Grid:
-├── 20pt margins (or more)
-├── Consider multi-column layouts
-```
+| Ekran kenarı → içerik | 16pt | Standart yatay kenar boşluğu |
+| Liste öğesi dolgusu | 16pt yatay | Standart hücre dolgusu |
+| Buton iç dolgusu | 12pt dikey, 16pt yatay | Minimum öneri |
 
 ---
 
-## 5. iOS Navigation Patterns
+## 5. iOS Navigasyon Desenleri
 
-### Navigation Types
+### Navigasyon Türleri
 
-| Pattern | Use Case | Implementation |
+| Desen | Kullanım Durumu | Uygulama |
 |---------|----------|----------------|
-| **Tab Bar** | 3-5 top-level sections | Bottom, always visible |
-| **Navigation Controller** | Hierarchical drill-down | Stack-based, back button |
-| **Modal** | Focused task, interruption | Sheet or full-screen |
-| **Sidebar** | iPad, multi-column | Left sidebar (iPad) |
+| **Tab Bar** | 3-5 ana bölüm | Alt kısım, her zaman görünür |
+| **Navigasyon Denetleyicisi**| Hiyerarşik derinleşme | Stack tabanlı, geri butonu |
+| **Modal** | Odaklanmış görev | Sayfa (sheet) veya tam ekran |
 
-### Tab Bar Guidelines
+### Tab Bar Kuralları
 
-```
-┌─────────────────────────────────────┐
-│                                     │
-│         Content Area                │
-│                                     │
-├─────────────────────────────────────┤
-│  🏠     🔍     ➕     ❤️     👤    │ ← Tab bar (49pt height)
-│ Home   Search  New   Saved  Profile │
-└─────────────────────────────────────┘
-
-Rules:
-├── 3-5 items maximum
-├── Icons: SF Symbols or custom (25×25pt)
-├── Labels: Always include (accessibility)
-├── Active state: Filled icon + tint color
-└── Tab bar always visible (don't hide on scroll)
-```
-
-### Navigation Bar Guidelines
-
-```
-┌─────────────────────────────────────┐
-│ < Back     Page Title      Edit    │ ← Navigation bar (44pt)
-├─────────────────────────────────────┤
-│                                     │
-│         Content Area                │
-│                                     │
-└─────────────────────────────────────┘
-
-Rules:
-├── Back button: System chevron + previous title (or "Back")
-├── Title: Centered, dynamic font
-├── Right actions: Max 2 items
-├── Large title: Collapses on scroll (optional)
-└── Prefer text buttons over icons (clarity)
-```
-
-### Modal Presentations
-
-| Style | Use Case | Appearance |
-|-------|----------|------------|
-| **Sheet (default)** | Secondary tasks | Card slides up, parent visible |
-| **Full Screen** | Immersive tasks | Covers entire screen |
-| **Popover** | iPad, quick info | Arrow-pointed bubble |
-| **Alert** | Critical interruption | Centered dialog |
-| **Action Sheet** | Choices from context | Bottom sheet with options |
-
-### Gestures
-
-| Gesture | iOS Convention |
-|---------|----------------|
-| **Edge swipe (left)** | Navigate back |
-| **Pull down (sheet)** | Dismiss modal |
-| **Long press** | Context menu |
-| **Deep press** | Peek/Pop (legacy) |
-| **Two-finger swipe** | Scroll in nested scroll |
+- **3-5 öğe** maksimum.
+- **İkonlar:** SF Symbols veya özel ikonlar (25x25pt).
+- **Etiketler:** Erişilebilirlik için her zaman ekleyin.
+- **Aktif Durum:** Dolgulu ikon + vurgu rengi.
 
 ---
 
-## 6. iOS Components
+## 6. iOS Bileşenleri
 
-### Buttons
+### Listeler ve Tablolar
 
-```
-Button Styles (UIKit/SwiftUI):
-
-┌──────────────────────────────┐
-│         Tinted               │ ← Primary action (filled)
-├──────────────────────────────┤
-│         Bordered             │ ← Secondary action (outline)
-├──────────────────────────────┤
-│         Plain                │ ← Tertiary action (text only)
-└──────────────────────────────┘
-
-Sizes:
-├── Mini: Tight spaces
-├── Small: Compact UI
-├── Medium: Inline actions
-├── Large: Primary CTAs (44pt minimum height)
-```
-
-### Lists & Tables
-
-```
-List Styles:
-
-.plain         → No separators, edge-to-edge
-.insetGrouped  → Rounded cards (default iOS 14+)
-.grouped       → Full-width sections
-.sidebar       → iPad sidebar navigation
-
-Cell Accessories:
-├── Disclosure indicator (>) → Navigates to detail
-├── Detail button (i) → Shows info without navigation
-├── Checkmark (✓) → Selection
-├── Reorder (≡) → Drag to reorder
-└── Delete (-) → Swipe/edit mode delete
-```
-
-### Text Fields
-
-```
-iOS Text Field Anatomy:
-
-┌─────────────────────────────────────┐
-│ 🔍 Search...                    ✕  │
-└─────────────────────────────────────┘
-  ↑                               ↑
-  Leading icon                   Clear button
-
-Borders: Rounded rectangle
-Height: 36pt minimum
-Placeholder: Secondary text color
-Clear button: Appears when has text
-```
-
-### Segmented Controls
-
-```
-When to Use:
-├── 2-5 related options
-├── Filter content
-├── Switch views
-
-┌───────┬───────┬───────┐
-│  All  │ Active│ Done  │
-└───────┴───────┴───────┘
-
-Rules:
-├── Equal width segments
-├── Text or icons (not both mixed)
-├── Max 5 segments
-└── Consider tabs if more complex
-```
+- **.insetGrouped:** Yuvarlatılmış kartlar (iOS 14+ varsayılanı).
+- ** Disclosure indicator (>):** Detay sayfasına gider.
+- ** Checkmark (✓):** Seçim durumu.
 
 ---
 
-## 7. iOS Specific Patterns
+## 7. iOS-Özgü Desenler
 
-### Pull to Refresh
+### Çek-Yenile (Pull to Refresh)
+SADECE yerel `UIRefreshControl` davranışını kullanın; özel yapılar inşa etmekten kaçının.
 
-```
-Native UIRefreshControl behavior:
-├── Pull beyond threshold → Spinner appears
-├── Release → Refresh action triggered
-├── Loading state → Spinner spins
-├── Complete → Spinner disappears
+### Kaydırma (Swipe) Eylemleri
+- **Soldan Sağa kaydırma:** Genellikle birincil eylemi (örneğin Pinleme) tetikler.
+- **Sağdan Sola kaydırma:** Silme, Arşivleme gibi eylemleri gösterir.
 
-RULE: Always use native UIRefreshControl (don't custom build).
-```
-
-### Swipe Actions
-
-```
-iOS swipe actions:
-
-← Swipe Left (Destructive)      Swipe Right (Constructive) →
-┌─────────────────────────────────────────────────────────────┐
-│                    List Item Content                        │
-└─────────────────────────────────────────────────────────────┘
-
-Left swipe reveals: Archive, Delete, Flag
-Right swipe reveals: Pin, Star, Mark as Read
-
-Full swipe: Triggers first action
-```
-
-### Context Menus
-
-```
-Long press → Context menu appears
-
-┌─────────────────────────────┐
-│       Preview Card          │
-├─────────────────────────────┤
-│  📋 Copy                    │
-│  📤 Share                   │
-│  ➕ Add to...               │
-├─────────────────────────────┤
-│  🗑️ Delete          (Red)   │
-└─────────────────────────────┘
-
-Rules:
-├── Preview: Show enlarged content
-├── Actions: Related to content
-├── Destructive: Last, in red
-└── Max ~8 actions (scrollable if more)
-```
-
-### Sheets & Half-Sheets
-
-```
-iOS 15+ Sheets:
-
-┌─────────────────────────────────────┐
-│                                     │
-│        Parent View (dimmed)          │
-│                                     │
-├─────────────────────────────────────┤
-│  ═══  (Grabber)                     │ ← Drag to resize
-│                                     │
-│        Sheet Content                │
-│                                     │
-│                                     │
-└─────────────────────────────────────┘
-
-Detents:
-├── .medium → Half screen
-├── .large → Full screen (with safe area)
-├── Custom → Specific height
-```
+### Bağlam Menüleri (Context Menus)
+Uzun basış ile açılan, içerikle ilgili eylemleri ve önizlemeyi içeren menülerdir.
 
 ---
 
 ## 8. SF Symbols
-
-### Usage Guidelines
-
-```
-SF Symbols: Apple's icon library (5000+ icons)
-
-Weights: Match text weight
-├── Ultralight / Thin / Light
-├── Regular / Medium / Semibold
-├── Bold / Heavy / Black
-
-Scales:
-├── .small → Inline with small text
-├── .medium → Standard UI
-├── .large → Emphasis, standalone
-```
-
-### Symbol Configurations
-
-```swift
-// SwiftUI
-Image(systemName: "star.fill")
-    .font(.title2)
-    .foregroundStyle(.yellow)
-
-// With rendering mode
-Image(systemName: "heart.fill")
-    .symbolRenderingMode(.multicolor)
-
-// Animated (iOS 17+)
-Image(systemName: "checkmark.circle")
-    .symbolEffect(.bounce)
-```
-
-### Symbol Best Practices
-
-| Guideline | Implementation |
-|-----------|----------------|
-| Match text weight | Symbol weight = font weight |
-| Use standard symbols | Users recognize them |
-| Multicolor when meaningful | Not just decoration |
-| Fallback for older iOS | Check availability |
+Apple'ın 5000'den fazla ikondan oluşan kütüphanesidir. Metin ağırlığı ile ikon ağırlığını her zaman eşleştirin (örneğin metin bold ise ikon da bold olmalı).
 
 ---
 
-## 9. iOS Accessibility
+## 9. iOS Erişilebilirlik (Accessibility)
 
-### VoiceOver Requirements
-
-```
-Every interactive element needs:
-├── Accessibility label (what it is)
-├── Accessibility hint (what it does) - optional
-├── Accessibility traits (button, link, etc.)
-└── Accessibility value (current state)
-
-SwiftUI:
-.accessibilityLabel("Play")
-.accessibilityHint("Plays the selected track")
-
-React Native:
-accessibilityLabel="Play"
-accessibilityHint="Plays the selected track"
-accessibilityRole="button"
-```
-
-### Dynamic Type Scaling
-
-```
-MANDATORY: Support Dynamic Type
-
-Users can set text size from:
-├── xSmall → 14pt body
-├── Small → 15pt body
-├── Medium → 16pt body
-├── Large (Default) → 17pt body
-├── xLarge → 19pt body
-├── xxLarge → 21pt body
-├── xxxLarge → 23pt body
-├── Accessibility sizes → up to 53pt
-
-Your app MUST scale gracefully at all sizes.
-```
-
-### Reduce Motion
-
-```
-Respect motion preferences:
-
-@Environment(\.accessibilityReduceMotion) var reduceMotion
-
-if reduceMotion {
-    // Use instant transitions
-} else {
-    // Use animations
-}
-
-React Native:
-import { AccessibilityInfo } from 'react-native';
-AccessibilityInfo.isReduceMotionEnabled()
-```
+- **VoiceOver:** Her etkileşimli öğeye `accessibilityLabel` ekleyin.
+- **Dynamic Type:** Yazı tipi boyutunun xSmall'dan xxxLarge'a (ve daha ötesine) kadar ölçeklenebildiğinden emin olun.
+- **Hareketi Azalt (Reduce Motion):** Kullanıcının sistem tercihlerine göre animasyonları optimize edin.
 
 ---
 
-## 10. iOS Checklist
+## 10. iOS Kontrol Listesi
 
-### Before Every iOS Screen
-
-- [ ] Using SF Pro or SF Symbols
-- [ ] Dynamic Type supported
-- [ ] Safe areas respected
-- [ ] Navigation follows HIG (back gesture works)
-- [ ] Tab bar items ≤ 5
-- [ ] Touch targets ≥ 44pt
-
-### Before iOS Release
-
-- [ ] Dark mode tested
-- [ ] All text sizes tested (Accessibility Inspector)
-- [ ] VoiceOver tested
-- [ ] Edge swipe back works everywhere
-- [ ] Keyboard avoidance implemented
-- [ ] Notch/Dynamic Island handled
-- [ ] Home indicator area respected
-- [ ] Native components used where possible
+- [ ] **SF Pro ve SF Symbols kullanılıyor mu?**
+- [ ] **Dynamic Type destekleniyor mu?**
+- [ ] **Güvenli alanlara (Safe Areas) uyuluyor mu?**
+- [ ] **Geri gitme jesti (edge swipe) çalışıyor mu?**
+- [ ] **Dokunmatik hedefler ≥ 44pt mi?**
+- [ ] **Karanlık mod test edildi mi?**
+- [ ] **Klavye kaçınma (keyboard avoidance) uygulandı mı?**
 
 ---
 
-> **Remember:** iOS users have strong expectations from other iOS apps. Deviating from HIG patterns feels "broken" to them. When in doubt, use the native component.
+> **Unutma:** iOS kullanıcılarının diğer iOS uygulamalarından gelen güçlü beklentileri vardır. HIG desenlerinden sapmak onlara "bozuk" hissettirir. Şüpheye düştüğünüzde, yerel bileşeni kullanın.

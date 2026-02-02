@@ -1,122 +1,103 @@
-# Mobile Debugging Guide
+# Mobil Hata Ayıklama (Debugging) Kılavuzu
 
-> **Stop console.log() debugging!**
-> Mobile apps have complex native layers. Text logs are not enough.
-> **This file teaches effective mobile debugging strategies.**
+> **console.log() ile hata ayıklamayı bırakın!**
+> Mobil uygulamaların karmaşık native katmanları vardır. Metin logları yeterli değildir.
+> **Bu dosya, etkili mobil hata ayıklama stratejilerini öğretir.**
 
 ---
 
-## 🧠 MOBILE DEBUGGING MINDSET
+## 🧠 MOBİL HATA AYIKLAMA ZİHNİYETİ
 
 ```
-Web Debugging:      Mobile Debugging:
+Web Hata Ayıklama:    Mobil Hata Ayıklama:
 ┌──────────────┐    ┌──────────────┐
-│  Browser     │    │  JS Bridge   │
+│  Tarayıcı    │    │  JS Köprüsü  │
 │  DevTools    │    │  Native UI   │
-│  Network Tab │    │  GPU/Memory  │
-└──────────────┘    │  Threads     │
-                    └──────────────┘
+│  Network Tab │    │  GPU/Bellek  │
+│  Thread'ler  │    │  Thread'ler  │
+└──────────────┘    └──────────────┘
 ```
 
-**Key Differences:**
-1.  **Native Layer:** JS code works, but app crashes? It's likely native (Java/Obj-C).
-2.  **Deployment:** You can't just "refresh". State gets lost or stuck.
-3.  **Network:** SSL Pinning, proxy settings are harder.
-4.  **Device Logs:** `adb logcat` and `Console.app` are your truth.
+**Temel Farklar:**
+1.  **Native Katmanı:** JS kodu çalışıyor ama uygulama çöküyor mu? Muhtemelen sorun native taraftadır (Java/Obj-C).
+2.  **Dağıtım:** Sadece "sayfayı yenileyemezsiniz". Durum (state) kaybolabilir veya takılı kalabilir.
+3.  **Ağ:** SSL Pinning ve proxy ayarları mobilde daha zordur.
+4.  **Cihaz Logları:** `adb logcat` ve `Console.app` gerçekleri söyler.
 
 ---
 
-## 🚫 AI DEBUGGING ANTI-PATTERNS
+## 🚫 YZ HATA AYIKLAMA ANTİ-DESENLERİ
 
-| ❌ Default | ✅ Mobile-Correct |
+| ❌ Varsayılan | ✅ Mobil-Doğru |
 |------------|-------------------|
-| "Add console.logs" | Use Flipper / Reactotron |
-| "Check network tab" | Use Charles Proxy / Proxyman |
-| "It works on simulator" | **Test on Real Device** (HW specific bugs) |
-| "Reinstall node_modules" | **Clean Native Build** (Gradle/Pod cache) |
-| Ignored native logs | Read `logcat` / Xcode logs |
+| "console.log ekle" | Flipper / Reactotron kullan |
+| "Network tab'ı kontrol et" | Charles Proxy / Proxyman kullan |
+| "Simülatörde çalışıyor" | **Gerçek Cihazda Test Et** (Donanıma özgü hatalar) |
+| "node_modules'e sil yükle" | **Native Build'i Temizle** (Gradle/Pod cache) |
+| Native logları yoksayma | `logcat` / Xcode loglarını oku |
 
 ---
 
-## 1. The Toolset
+## 1. Araç Seti
 
 ### ⚡ React Native & Expo
 
-| Tool | Purpose | Best For |
+| Araç | Amaç | En İyi Kullanım |
 |------|---------|----------|
-| **Reactotron** | State/API/Redux | JS side debugging |
-| **Flipper** | Layout/Network/db | Native + JS bridge |
-| **Expo Tools** | Element inspector | Quick UI checks |
+| **Reactotron** | State/API/Redux | JS tarafı hata ayıklama |
+| **Flipper** | Layout/Ağ/Veritabanı | Native + JS köprüsü |
+| **Expo Araçları** | Element denetçisi | Hızlı UI kontrolleri |
 
-### 🛠️ Native Layer (The Deep Dive)
+### 🛠️ Native Katmanı (Derin Dalış)
 
-| Tool | Platform | Command | Why Use? |
+| Araç | Platform | Komut | Neden Kullanılır? |
 |------|----------|---------|----------|
-| **Logcat** | Android | `adb logcat` | Native crashes, ANRs |
-| **Console** | iOS | via Xcode | Native exceptions, memory |
-| **Layout Insp.** | Android | Android Studio | UI hierarchy bugs |
-| **View Insp.** | iOS | Xcode | UI hierarchy bugs |
+| **Logcat** | Android | `adb logcat` | Native çökmeler, ANR'ler |
+| **Console** | iOS | Xcode üzerinden | Native istisnalar, bellek |
+| **Layout Insp.** | Android | Android Studio | UI hiyerarşi hataları |
+| **View Insp.** | iOS | Xcode | UI hiyerarşi hataları |
 
 ---
 
-## 2. Common Debugging Workflows
+## 2. Yaygın Hata Ayıklama İş Akışları
 
-### 🕵️ "The App Just Crashed" (Red Screen vs Crash to Home)
+### 🕵️ "Uygulama Az Önce Çöktü" (Kırmızı Ekran vs Ana Ekrana Atma)
 
-**Scenario A: Red Screen (JS Error)**
-- **Cause:** Undefined is not an object, import error.
-- **Fix:** Read the stack trace on screen. It's usually clear.
+**Senaryo A: Kırmızı Ekran (JS Hatası)**
+- **Neden:** `undefined is not an object`, import hatası vb.
+- **Çözüm:** Ekrandaki stack trace'i (hata izini) okuyun. Genellikle nettir.
 
-**Scenario B: Crash to Home Screen (Native Crash)**
-- **Cause:** Native module failure, memory OOM, permission usage without declaration.
-- **Tools:**
-    - **Android:** `adb logcat *:E` (Filter for Errors)
-    - **iOS:** Open Xcode → Window → Devices → View Device Logs
+**Senaryo B: Ana Ekrana Atma (Native Çökme)**
+- **Neden:** Native modül hatası, bellek yetersizliği (OOM), izinsiz özellik kullanımı.
+- **Araçlar:**
+    - **Android:** `adb logcat *:E` (Hataları filtrele)
+    - **iOS:** Xcode → Window → Devices → View Device Logs
 
-> **💡 Pro Tip:** If app crashes immediately on launch, it's almost 100% a native configuration issue (Info.plist, AndroidManifest.xml).
-
-### 🌐 "API Request Failed" (Network)
-
-**Web:** Open Chrome DevTools → Network.
-**Mobile:** *You usually can't see this easily.*
-
-**Solution 1: Reactotron/Flipper**
-- View network requests in the monitoring app.
-
-**Solution 2: Proxy (Charles/Proxyman)**
-- **Hard but powerful.** See ALL traffic even from native SDKs.
-- Requires installing SSL cert on device.
-
-### 🐢 "The UI is Laggy" (Performance)
-
-**Don't guess.** measure.
-- **React Native:** Performance Monitor (Shake menu).
-- **Android:** "Profile GPU Rendering" in Developer Options.
-- **Issues:**
-    - **JS FPS drop:** Heavy calculation in JS thread.
-    - **UI FPS drop:** Too many views, intricate hierarchy, heavy images.
+> **💡 İpucu:** Eğer uygulama açılır açılmaz çöküyorsa, %100 bir native yapılandırma sorunudur (Info.plist, AndroidManifest.xml).
 
 ---
 
-## 3. Platform-Specific Nightmares
+## 3. Platforma Özgü Kabuslar
 
 ### Android
-- **Gradle Sync Fail:** Usually Java version mismatch or duplicate classes.
-- **Emulator Network:** Emulator `localhost` is `10.0.2.2`, NOT `127.0.0.1`.
-- **Cached Builds:** `./gradlew clean` is your best friend.
+- **Gradle Senkronizasyon Hatası:** Genellikle Java versiyon uyumsuzluğu veya mükerrer sınıflar.
+- **Emülatör Ağı:** Emülatör için `localhost` adresi `127.0.0.1` DEĞİL, `10.0.2.2`'dir.
+- **Önbelleğe Alınmış Build'ler:** `./gradlew clean` komutu en iyi dostunuzdur.
 
 ### iOS
-- **Pod Issues:** `pod deintegrate && pod install`.
-- **Signing Errors:** Check Team ID and Bundle Identifier.
-- **Cache:** Xcode → Product → Clean Build Folder.
+- **Pod Sorunları:** `pod deintegrate && pod install`.
+- **İmzalama (Signing) Hataları:** Team ID ve Bundle Identifier'ı kontrol edin.
+- **Önbellek:** Xcode → Product → Clean Build Folder.
 
 ---
 
-## 📝 DEBUGGING CHECKLIST
+## 📝 HATA AYIKLAMA KONTROL LİSTESİ
 
-- [ ] **Is it a JS or Native crash?** (Red screen or home screen?)
-- [ ] **Did you clean build?** (Native caches are aggressive)
-- [ ] **Are you on a real device?** (Simulators hide concurrency bugs)
-- [ ] **Did you check the native logs?** (Not just terminal output)
+- [ ] **JS mi yoksa Native bir çökme mi?** (Kırmızı ekran mı yoksa ana ekran mı?)
+- [ ] **Build'i temizlediniz mi?** (Native önbellekler çok agresiftir)
+- [ ] **Gerçek bir cihazda mısınız?** (Simülatörler eşzamanlılık hatalarını gizler)
+- [ ] **Native logları kontrol ettiniz mi?** (Sadece terminal çıktısına bakmayın)
 
-> **Remember:** If JavaScript looks perfect but the app fails, look closer at the Native side.
+---
+
+> **Unutma:** Eğer JavaScript mükemmel görünüyorsa ama uygulama hala hata veriyorsa, Native tarafa daha yakından bakın.

@@ -1,22 +1,22 @@
-# Versioning Strategies
+# Versiyonlama Stratejileri
 
-> Plan for API evolution from day one.
+> API'nizin gelecekteki evrimi için ilk günden planlama yapın.
 
-## Decision Factors
+## Karar Faktörleri
 
-| Strategy | Implementation | Trade-offs |
+| Strateji | Uygulama | Avantaj/Dezavantaj |
 |----------|---------------|------------|
-| **URI** | /v1/users | Clear, easy caching |
-| **Header** | Accept-Version: 1 | Cleaner URLs, harder discovery |
-| **Query** | ?version=1 | Easy to add, messy |
-| **None** | Evolve carefully | Best for internal, risky for public |
+| **URI** | /v1/users | Net, kolay önbelleğe alma |
+| **Header** | Accept-Version: 1 | Temiz URL'ler, zor keşfedilebilirlik |
+| **Query Parameter** | ?version=1 | Eklenmesi kolay, URL'yi karmaşıklaştırır |
+| **Hiçbiri (None)** | Dikkatli evrim | Dahili API'ler için uygun, genel API'ler için riskli |
 
-## Versioning Philosophy
+## Versiyonlama Felsefesi
 
 ```
-Consider:
-├── Public API? → Version in URI
-├── Internal only? → May not need versioning
-├── GraphQL? → Typically no versions (evolve schema)
-├── tRPC? → Types enforce compatibility
+Şunları değerlendirin:
+├── Herkese açık (Public) API? → Versiyonlama URI içinde olmalı
+├── Sadece dahili (Internal) kullanım? → Versiyonlamaya gerek olmayabilir
+├── GraphQL? → Genellikle versiyonlanmaz (şema evrilir)
+├── tRPC? → Tipler (TS) uyumluluğu zorunlu kılar
 ```

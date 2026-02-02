@@ -1,59 +1,59 @@
 ---
-description: Create new application command. Triggers App Builder skill and starts interactive dialogue with user.
+description: Yeni uygulama oluşturma komutu. App Builder yeteneğini tetikler ve kullanıcıyla etkileşimli bir diyalog başlatır.
 ---
 
-# /create - Create Application
+# /create - Uygulama Oluştur
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Görev
 
-This command starts a new application creation process.
+Bu komut, yeni bir uygulama oluşturma sürecini başlatır.
 
-### Steps:
+### Adımlar:
 
-1. **Request Analysis**
-   - Understand what the user wants
-   - If information is missing, use `conversation-manager` skill to ask
+1. **İstek Analizi**
+   - Kullanıcının ne istediğini anla
+   - Eksik bilgi varsa, sormak için `conversation-manager` yeteneğini kullan
 
-2. **Project Planning**
-   - Use `project-planner` agent for task breakdown
-   - Determine tech stack
-   - Plan file structure
-   - Create plan file and proceed to building
+2. **Proje Planlama**
+   - Görev kırılımı için `project-planner` ajanını kullan
+   - Teknoloji yığınını belirle
+   - Dosya yapısını planla
+   - Plan dosyasını oluştur ve oluşturma aşamasına geç
 
-3. **Application Building (After Approval)**
-   - Orchestrate with `app-builder` skill
-   - Coordinate expert agents:
-     - `database-architect` → Schema
+3. **Uygulama Oluşturma (Onaydan Sonra)**
+   - `app-builder` yeteneği ile orkestre et
+   - Uzman ajanları koordine et:
+     - `database-architect` → Şema
      - `backend-specialist` → API
      - `frontend-specialist` → UI
 
-4. **Preview**
-   - Start with `auto_preview.py` when complete
-   - Present URL to user
+4. **Önizleme**
+   - Tamamlandığında `auto_preview.py` ile başlat
+   - URL'yi kullanıcıya sun
 
 ---
 
-## Usage Examples
+## Kullanım Örnekleri
 
 ```
-/create blog site
-/create e-commerce app with product listing and cart
-/create todo app
-/create Instagram clone
-/create crm system with customer management
+/create blog sitesi
+/create ürün listeleme ve sepet içeren e-ticaret uygulaması
+/create yapılacaklar (todo) uygulaması
+/create Instagram klonu
+/create müşteri yönetimi içeren crm sistemi
 ```
 
 ---
 
-## Before Starting
+## Başlamadan Önce
 
-If request is unclear, ask these questions:
-- What type of application?
-- What are the basic features?
-- Who will use it?
+İstek net değilse şu soruları sor:
+- Ne tür bir uygulama?
+- Temel özellikler nelerdir?
+- Kimler kullanacak?
 
-Use defaults, add details later.
+Varsayılanları kullan, ayrıntıları daha sonra ekle.

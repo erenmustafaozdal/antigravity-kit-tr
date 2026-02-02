@@ -1,81 +1,80 @@
 ---
-description: Preview server start, stop, and status check. Local development server management.
+description: Önizleme sunucusunu başlatma, durdurma ve durum kontrolü. Yerel geliştirme sunucusu yönetimi.
 ---
 
-# /preview - Preview Management
+# /preview - Önizleme Yönetimi
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Görev
 
-Manage preview server: start, stop, status check.
+Önizleme sunucusunu yönetin: başlatma, durdurma, durum kontrolü.
 
-### Commands
+### Komutlar
 
 ```
-/preview           - Show current status
-/preview start     - Start server
-/preview stop      - Stop server
-/preview restart   - Restart
-/preview check     - Health check
+/preview           - Mevcut durumu göster
+/preview start     - Sunucuyu başlat
+/preview stop      - Sunucuyu durdur
+/preview restart   - Yeniden başlat
+/preview check     - Sağlık kontrolü
 ```
 
 ---
 
-## Usage Examples
+## Kullanım Örnekleri
 
-### Start Server
+### Sunucuyu Başlat
 ```
 /preview start
 
-Response:
-🚀 Starting preview...
+Yanıt:
+🚀 Önizleme başlatılıyor...
    Port: 3000
-   Type: Next.js
+   Tür: Next.js
 
-✅ Preview ready!
+✅ Önizleme hazır!
    URL: http://localhost:3000
 ```
 
-### Status Check
+### Durum Kontrolü
 ```
 /preview
 
-Response:
-=== Preview Status ===
+Yanıt:
+=== Önizleme Durumu ===
 
 🌐 URL: http://localhost:3000
-📁 Project: C:/projects/my-app
-🏷️ Type: nextjs
-💚 Health: OK
+📁 Proje: C:/projects/my-app
+🏷️ Tür: nextjs
+💚 Sağlık: TAMAM (OK)
 ```
 
-### Port Conflict
+### Port Çakışması
 ```
 /preview start
 
-Response:
-⚠️ Port 3000 is in use.
+Yanıt:
+⚠️ Port 3000 kullanımda.
 
-Options:
-1. Start on port 3001
-2. Close app on 3000
-3. Specify different port
+Seçenekler:
+1. 3001 portunda başlat
+2. 3000 portundaki uygulamayı kapat
+3. Farklı bir port belirt
 
-Which one? (default: 1)
+Hangisi? (varsayılan: 1)
 ```
 
 ---
 
-## Technical
+## Teknik Bilgi
 
-Auto preview uses `auto_preview.py` script:
+Otomatik önizleme `auto_preview.py` scriptini kullanır:
 
 ```bash
 python .agent/scripts/auto_preview.py start [port]
 python .agent/scripts/auto_preview.py stop
 python .agent/scripts/auto_preview.py status
 ```
-

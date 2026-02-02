@@ -1,50 +1,50 @@
-# Architecture Patterns Reference
+# Mimari Desenler Referansı
 
-> Quick reference for common patterns with usage guidance.
+> Yaygın desenler için kullanım rehberi ve hızlı referans.
 
-## Data Access Patterns
+## Veri Erişim Desenleri
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Desen | Ne Zaman Kullanılmalı | Ne Zaman Kullanılmamalı | Karmaşıklık |
 |---------|-------------|-----------------|------------|
-| **Active Record** | Simple CRUD, rapid prototyping | Complex queries, multiple sources | Low |
-| **Repository** | Testing needed, multiple sources | Simple CRUD, single database | Medium |
-| **Unit of Work** | Complex transactions | Simple operations | High |
-| **Data Mapper** | Complex domain, performance | Simple CRUD, rapid dev | High |
+| **Active Record** | Basit CRUD, hızlı prototipleme | Karmaşık sorgular, çoklu kaynaklar | Düşük |
+| **Repository** | Test ihtiyacı, çoklu kaynaklar | Basit CRUD, tek veritabanı | Orta |
+| **Unit of Work** | Karmaşık işlemler (transactions) | Basit operasyonlar | Yüksek |
+| **Data Mapper** | Karmaşık alan (domain), performans | Basit CRUD, hızlı geliştirme | Yüksek |
 
-## Domain Logic Patterns
+## Alan Mantığı (Domain Logic) Desenleri
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Desen | Ne Zaman Kullanılmalı | Ne Zaman Kullanılmamalı | Karmaşıklık |
 |---------|-------------|-----------------|------------|
-| **Transaction Script** | Simple CRUD, procedural | Complex business rules | Low |
-| **Table Module** | Record-based logic | Rich behavior needed | Low |
-| **Domain Model** | Complex business logic | Simple CRUD | Medium |
-| **DDD (Full)** | Complex domain, domain experts | Simple domain, no experts | High |
+| **Transaction Script** | Basit CRUD, prosedürel yapı | Karmaşık iş kuralları | Düşük |
+| **Table Module** | Kayıt tabanlı mantık | Zengin davranış ihtiyacı | Düşük |
+| **Domain Model** | Karmaşık iş mantığı | Basit CRUD | Orta |
+| **DDD (Tam)** | Karmaşık alan, alan uzmanları varlığı | Basit alanlar, uzman yokluğu | Yüksek |
 
-## Distributed System Patterns
+## Dağıtık Sistem Desenleri
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Desen | Ne Zaman Kullanılmalı | Ne Zaman Kullanılmamalı | Karmaşıklık |
 |---------|-------------|-----------------|------------|
-| **Modular Monolith** | Small teams, unclear boundaries | Clear contexts, different scales | Medium |
-| **Microservices** | Different scales, large teams | Small teams, simple domain | Very High |
-| **Event-Driven** | Real-time, loose coupling | Simple workflows, strong consistency | High |
-| **CQRS** | Read/write performance diverges | Simple CRUD, same model | High |
-| **Saga** | Distributed transactions | Single database, simple ACID | High |
+| **Modüler Monolit** | Küçük ekipler, belirsiz sınırlar | Net bağlamlar, farklı ölçekler | Orta |
+| **Mikroservisler** | Farklı ölçekler, büyük ekipler | Küçük ekipler, basit alanlar | Çok Yüksek |
+| **Olay Güdümlü** | Gerçek zamanlı, gevşek bağlılık | Basit iş akışları, güçlü tutarlılık | Yüksek |
+| **CQRS** | Yazma/okuma performansı ayrımları | Basit CRUD, aynı model | Yüksek |
+| **Saga** | Dağıtık işlemler (transactions) | Tek veritabanı, basit ACID | Yüksek |
 
-## API Patterns
+## API Desenleri
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Desen | Ne Zaman Kullanılmalı | Ne Zaman Kullanılmamalı | Karmaşıklık |
 |---------|-------------|-----------------|------------|
-| **REST** | Standard CRUD, resources | Real-time, complex queries | Low |
-| **GraphQL** | Flexible queries, multiple clients | Simple CRUD, caching needs | Medium |
-| **gRPC** | Internal services, performance | Public APIs, browser clients | Medium |
-| **WebSocket** | Real-time updates | Simple request/response | Medium |
+| **REST** | Standart CRUD, kaynaklar | Gerçek zamanlı, karmaşık sorgular | Düşük |
+| **GraphQL** | Esnek sorgular, çoklu istemciler | Basit CRUD, önbellek ihtiyacı | Orta |
+| **gRPC** | Dahili servisler, performans | Genel API'ler, tarayıcı istemcileri | Orta |
+| **WebSocket** | Gerçek zamanlı güncellemeler | Basit istek/yanıt yapısı | Orta |
 
 ---
 
-## Simplicity Principle
+## Basitlik Prensibi
 
-**"Start simple, add complexity only when proven necessary."**
+**"Basit başlayın, karmaşıklığı sadece gerekli olduğu kanıtlandığında ekleyin."**
 
-- You can always add patterns later
-- Removing complexity is MUCH harder than adding it
-- When in doubt, choose simpler option
+- Desenleri daha sonra her zaman ekleyebilirsiniz.
+- Karmaşıklığı kaldırmak, eklemekten ÇOK daha zordur.
+- Kararsız kaldığınızda, daha basit olan seçeneği tercih edin.

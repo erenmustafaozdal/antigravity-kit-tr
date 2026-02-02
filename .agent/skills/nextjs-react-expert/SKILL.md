@@ -1,286 +1,288 @@
 ---
 name: react-best-practices
-description: React and Next.js performance optimization from Vercel Engineering. Use when building React components, optimizing performance, eliminating waterfalls, reducing bundle size, reviewing code for performance issues, or implementing server/client-side optimizations.
+description: Vercel Mühendisliğinden React ve Next.js performans optimizasyonu. React componentleri oluştururken, performansı optimize ederken, şelaleleri ortadan kaldırırken, paket boyutunu küçültürken, performans sorunları için kod incelerken veya sunucu/istemci tarafı optimizasyonları uygularken kullanın.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Next.js & React Performance Expert
+# Next.js ve React Performans Uzmanı
 
-> **From Vercel Engineering** - 57 optimization rules prioritized by impact
-> **Philosophy:** Eliminate waterfalls first, optimize bundles second, then micro-optimize.
-
----
-
-## 🎯 Selective Reading Rule (MANDATORY)
-
-**Read ONLY sections relevant to your task!** Check the content map below and load what you need.
-
-> 🔴 **For performance reviews: Start with CRITICAL sections (1-2), then move to HIGH/MEDIUM.**
+> **Vercel Mühendisliğinden** - Etkiye göre önceliklendirilmiş 57 optimizasyon kuralı
+> **Felsefe:** Önce şelaleleri ortadan kaldırın, sonra paketleri optimize edin, ardından mikro-optimizasyon yapın.
 
 ---
 
-## 📑 Content Map
+## 🎯 Seçici Okuma Kuralı (ZORUNLU)
 
-| File                                    | Impact             | Rules    | When to Read                                                    |
-| --------------------------------------- | ------------------ | -------- | --------------------------------------------------------------- |
-| `1-async-eliminating-waterfalls.md`     | 🔴 **CRITICAL**    | 5 rules  | Slow page loads, sequential API calls, data fetching waterfalls |
-| `2-bundle-bundle-size-optimization.md`  | 🔴 **CRITICAL**    | 5 rules  | Large bundle size, slow Time to Interactive, First Load issues  |
-| `3-server-server-side-performance.md`   | 🟠 **HIGH**        | 7 rules  | Slow SSR, API route optimization, server-side waterfalls        |
-| `4-client-client-side-data-fetching.md` | 🟡 **MEDIUM-HIGH** | 4 rules  | Client data management, SWR patterns, deduplication             |
-| `5-rerender-re-render-optimization.md`  | 🟡 **MEDIUM**      | 12 rules | Excessive re-renders, React performance, memoization            |
-| `6-rendering-rendering-performance.md`  | 🟡 **MEDIUM**      | 9 rules  | Rendering bottlenecks, virtualization, image optimization       |
-| `7-js-javascript-performance.md`        | ⚪ **LOW-MEDIUM**  | 12 rules | Micro-optimizations, caching, loop performance                  |
-| `8-advanced-advanced-patterns.md`       | 🔵 **VARIABLE**    | 3 rules  | Advanced React patterns, useLatest, init-once                   |
+**SADECE görevinizle ilgili bölümleri okuyun!** Aşağıdaki içerik haritasını kontrol edin ve ihtiyacınız olanı yükleyin.
 
-**Total: 57 rules across 8 categories**
+> 🔴 **Performans incelemeleri için: Önce KRİTİK bölümlerle (1-2) başlayın, sonra YÜKSEK/ORTA'ya geçin.**
 
 ---
 
-## 🚀 Quick Decision Tree
+## 📑 İçerik Haritası
 
-**What's your performance issue?**
+| Dosya | Etki | Kural Sayısı | Ne Zaman Okunmalı? |
+|-------|------|--------------|---------------------|
+| `1-async-eliminating-waterfalls.md` | 🔴 **KRİTİK** | 5 kural | Yavaş sayfa yüklemeleri, ardışık API çağrıları, veri çekme şelaleleri |
+| `2-bundle-bundle-size-optimization.md` | 🔴 **KRİTİK** | 5 kural | Büyük paket boyutu, yavaş Time to Interactive, First Load sorunları |
+| `3-server-server-side-performance.md` | 🟠 **YÜKSEK** | 7 kural | Yavaş SSR, API route optimizasyonu, sunucu tarafı şelaleler |
+| `4-client-client-side-data-fetching.md` | 🟡 **ORTA-YÜKSEK** | 4 kural | İstemci veri yönetimi, SWR desenleri, tekilleştirme |
+| `5-rerender-re-render-optimization.md` | 🟡 **ORTA** | 12 kural | Aşırı yeniden render'lar, React performansı, memoization |
+| `6-rendering-rendering-performance.md` | 🟡 **ORTA** | 9 kural | Rendering darboğazları, sanallaştırma, görüntü optimizasyonu |
+| `7-js-javascript-performance.md` | ⚪ **DÜŞÜK-ORTA** | 12 kural | Mikro-optimizasyonlar, önbellekleme, döngü performansı |
+| `8-advanced-advanced-patterns.md` | 🔵 **DEĞİŞKEN** | 3 kural | Gelişmiş React desenleri, useLatest, init-once |
+
+**Toplam: 8 kategoride 57 kural**
+
+---
+
+## 🚀 Hızlı Karar Ağacı
+
+**Performans sorununuz nedir?**
 
 ```
-🐌 Slow page loads / Long Time to Interactive
-  → Read Section 1: Eliminating Waterfalls
-  → Read Section 2: Bundle Size Optimization
+🐌 Yavaş sayfa
 
-📦 Large bundle size (> 200KB)
-  → Read Section 2: Bundle Size Optimization
-  → Check: Dynamic imports, barrel imports, tree-shaking
+ yüklemeleri / Uzun Time to Interactive
+  → Bölüm 1 okuyun: Şelaleleri Ortadan Kaldırma
+  → Bölüm 2 okuyun: Paket Boyutu Optimizasyonu
 
-🖥️ Slow Server-Side Rendering
-  → Read Section 3: Server-Side Performance
-  → Check: Parallel data fetching, streaming
+📦 Büyük paket boyutu (> 200KB)
+  → Bölüm 2 okuyun: Paket Boyutu Optimizasyonu
+  → Kontrol edin: Dinamik import'lar, barrel import'lar, tree-shaking
 
-🔄 Too many re-renders / UI lag
-  → Read Section 5: Re-render Optimization
-  → Check: React.memo, useMemo, useCallback
+🖥️ Yavaş Sunucu Tarafı Rendering
+  → Bölüm 3 okuyun: Sunucu Tarafı Performans
+  → Kontrol edin: Paralel veri çekme, streaming
 
-🎨 Rendering performance issues
-  → Read Section 6: Rendering Performance
-  → Check: Virtualization, layout thrashing
+🔄 Çok fazla yeniden render / UI gecikmesi
+  → Bölüm 5 okuyun: Yeniden Render Optimizasyonu
+  → Kontrol edin: React.memo, useMemo, useCallback
 
-🌐 Client-side data fetching problems
-  → Read Section 4: Client-Side Data Fetching
-  → Check: SWR deduplication, localStorage
+🎨 Rendering performans sorunları
+  → Bölüm 6 okuyun: Rendering Performansı
+  → Kontrol edin: Sanallaştırma, layout thrashing
 
-✨ Need advanced patterns
-  → Read Section 8: Advanced Patterns
-```
+🌐 İstemci tarafı veri çekme sorunları
+  → Bölüm 4 okuyun: İstemci Tarafı Veri Çekme
+  → Kontrol edin: SWR tekilleştirme, localStorage
 
----
-
-## 📊 Impact Priority Guide
-
-**Use this order when doing comprehensive optimization:**
-
-```
-1️⃣ CRITICAL (Biggest Gains - Do First):
-   ├─ Section 1: Eliminating Waterfalls
-   │  └─ Each waterfall adds full network latency (100-500ms+)
-   └─ Section 2: Bundle Size Optimization
-      └─ Affects Time to Interactive and Largest Contentful Paint
-
-2️⃣ HIGH (Significant Impact - Do Second):
-   └─ Section 3: Server-Side Performance
-      └─ Eliminates server-side waterfalls, faster response times
-
-3️⃣ MEDIUM (Moderate Gains - Do Third):
-   ├─ Section 4: Client-Side Data Fetching
-   ├─ Section 5: Re-render Optimization
-   └─ Section 6: Rendering Performance
-
-4️⃣ LOW (Polish - Do Last):
-   ├─ Section 7: JavaScript Performance
-   └─ Section 8: Advanced Patterns
+✨ Gelişmiş desenler gerekli
+  → Bölüm 8 okuyun: Gelişmiş Desenler
 ```
 
 ---
 
-## 🔗 Related Skills
+## 📊 Etki Öncelik Rehberi
 
-| Need                    | Skill                             |
-| ----------------------- | --------------------------------- |
-| API design patterns     | `@[skills/api-patterns]`          |
-| Database optimization   | `@[skills/database-design]`       |
-| Testing strategies      | `@[skills/testing-patterns]`      |
-| UI/UX design principles | `@[skills/frontend-design]`       |
-| TypeScript patterns     | `@[skills/typescript-expert]`     |
-| Deployment & DevOps     | `@[skills/deployment-procedures]` |
+**Kapsamlı optimizasyon yaparken bu sırayı kullanın:**
 
----
+```
+1️⃣ KRİTİK (En Büyük Kazançlar - Önce Yapın):
+   ├─ Bölüm 1: Şelaleleri Ortadan Kaldırma
+   │  └─ Her şelale tam ağ gecikmesi ekler (100-500ms+)
+   └─ Bölüm 2: Paket Boyutu Optimizasyonu
+      └─ Time to Interactive ve Largest Contentful Paint'i etkiler
 
-## ✅ Performance Review Checklist
+2️⃣ YÜKSEK (Önemli Etki - İkinci Yapın):
+   └─ Bölüm 3: Sunucu Taraflı Performans
+      └─ Sunucu tarafı şelaleleri ortadan kaldırır, daha hızlı yanıt süreleri
 
-Before shipping to production:
+3️⃣ ORTA (Orta Kazançlar - Üçüncü Yapın):
+   ├─ Bölüm 4: İstemci Tarafı Veri Çekme
+   ├─ Bölüm 5: Yeniden Render Optimizasyonu
+   └─ Bölüm 6: Rendering Performansı
 
-**Critical (Must Fix):**
-
-- [ ] No sequential data fetching (waterfalls eliminated)
-- [ ] Bundle size < 200KB for main bundle
-- [ ] No barrel imports in app code
-- [ ] Dynamic imports used for large components
-- [ ] Parallel data fetching where possible
-
-**High Priority:**
-
-- [ ] Server components used where appropriate
-- [ ] API routes optimized (no N+1 queries)
-- [ ] Suspense boundaries for data fetching
-- [ ] Static generation used where possible
-
-**Medium Priority:**
-
-- [ ] Expensive computations memoized
-- [ ] List rendering virtualized (if > 100 items)
-- [ ] Images optimized with next/image
-- [ ] No unnecessary re-renders
-
-**Low Priority (Polish):**
-
-- [ ] Hot path loops optimized
-- [ ] RegExp patterns hoisted
-- [ ] Property access cached in loops
+4️⃣ DÜŞÜK (Cila - En Son Yapın):
+   ├─ Bölüm 7: JavaScript Performansı
+   └─ Bölüm 8: Gelişmiş Desenler
+```
 
 ---
 
-## ❌ Anti-Patterns (Common Mistakes)
+## 🔗 İlgili Yetenekler
 
-**DON'T:**
-
-- ❌ Use sequential `await` for independent operations
-- ❌ Import entire libraries when you need one function
-- ❌ Use barrel exports (`index.ts` re-exports) in app code
-- ❌ Skip dynamic imports for large components/libraries
-- ❌ Fetch data in useEffect without deduplication
-- ❌ Forget to memoize expensive computations
-- ❌ Use client components when server components work
-
-**DO:**
-
-- ✅ Fetch data in parallel with `Promise.all()`
-- ✅ Use dynamic imports: `const Comp = dynamic(() => import('./Heavy'))`
-- ✅ Import directly: `import { specific } from 'library/specific'`
-- ✅ Use Suspense boundaries for better UX
-- ✅ Leverage React Server Components
-- ✅ Measure performance before optimizing
-- ✅ Use Next.js built-in optimizations (next/image, next/font)
+| İhtiyaç | Yetenek |
+|---------|---------|
+| API tasarım desenleri | `@[skills/api-patterns]` |
+| Veritabanı optimizasyonu | `@[skills/database-design]` |
+| Test stratejileri | `@[skills/testing-patterns]` |
+| UI/UX tasarım prensipleri | `@[skills/frontend-design]` |
+| TypeScript desenleri | `@[skills/typescript-expert]` |
+| Dağıtım ve DevOps | `@[skills/deployment-procedures]` |
 
 ---
 
-## 🎯 How to Use This Skill
+## ✅ Performans İnceleme Kontrol Listesi
 
-### For New Features:
+Üretimfiye göndermeden önce:
 
-1. Check **Section 1 & 2** while building (prevent waterfalls, keep bundle small)
-2. Use server components by default (Section 3)
-3. Apply memoization for expensive operations (Section 5)
+**Kritik (Mutlaka Düzeltilmeli):**
 
-### For Performance Reviews:
+- [ ] Ardışık veri çekme yok (şelaleler ortadan kaldırıldı)
+- [ ] Ana paket için paket boyutu < 200KB
+- [ ] Uygulama kodunda barrel import'lar yok
+- [ ] Büyük componentler için dinamik import'lar kullanılıyor
+- [ ] Mümkün olduğunda paralel veri çekme
 
-1. Start with **Section 1** (waterfalls = biggest impact)
-2. Then **Section 2** (bundle size)
-3. Then **Section 3** (server-side)
-4. Finally other sections as needed
+**Yüksek Öncelik:**
 
-### For Debugging Slow Performance:
+- [ ] Uygun yerlerde sunucu componentleri kullanıldı
+- [ ] API route'lar optimize edildi (N+1 sorgusu yok)
+- [ ] Veri çekme için Suspense sınırları
+- [ ] Mümkün olduğunda statik oluşturma kullanıldı
 
-1. Identify the symptom (slow load, lag, etc.)
-2. Use Quick Decision Tree above
-3. Read relevant section
-4. Apply fixes in priority order
+**Orta Öncelik:**
 
----
+- [ ] Pahalı hesaplamalar memoize edildi
+- [ ] Liste rendering sanallaştırıldı (> 100 öğe ise)
+- [ ] Görseller next/image ile optimize edildi
+- [ ] Gereksiz yeniden render yok
 
-## 📚 Learning Path
+**Düşük Öncelik (Cila):**
 
-**Beginner (Focus on Critical):**
-→ Section 1: Eliminating Waterfalls
-→ Section 2: Bundle Size Optimization
-
-**Intermediate (Add High Priority):**
-→ Section 3: Server-Side Performance
-→ Section 5: Re-render Optimization
-
-**Advanced (Full Optimization):**
-→ All sections + Section 8: Advanced Patterns
+- [ ] Sık kullanılan yol (hot path) döngüleri optimize edildi
+- [ ] RegExp desenleri yukarı taşındı (hoisted)
+- [ ] Döngülerde özellik erişimi önbelleğe alındı
 
 ---
 
-## 🔍 Validation Script
+## ❌ Anti-Desenler (Yaygın Hatalar)
 
-| Script                                 | Purpose                     | Command                                                      |
-| -------------------------------------- | --------------------------- | ------------------------------------------------------------ |
-| `scripts/react_performance_checker.py` | Automated performance audit | `python scripts/react_performance_checker.py <project_path>` |
+**YAPMAYIN:**
 
----
+- ❌ Bağımsız işlemler için ardışık `await` kullanmak
+- ❌ Bir fonksiyona ihtiyacınız varken tüm kütüphaneyi import etmek
+- ❌ Uygulama kodunda barrel export'lar (`index.ts` re-export'ları) kullanmak
+- ❌ Büyük componentler/kütüphaneler için dinamik import'ları atlamak
+- ❌ useEffect'te tekilleştirme olmadan veri çekmek
+- ❌ Pahalı hesaplamaları memoize etmeyi unutmak
+- ❌ Sunucu componentleri işe yararken istemci componentleri kullanmak
 
-## 📖 Section Details
+**YAPIN:**
 
-### Section 1: Eliminating Waterfalls (CRITICAL)
-
-**Impact:** Each waterfall adds 100-500ms+ latency
-**Key Concepts:** Parallel fetching, Promise.all(), Suspense boundaries, preloading
-
-### Section 2: Bundle Size Optimization (CRITICAL)
-
-**Impact:** Directly affects Time to Interactive, Largest Contentful Paint
-**Key Concepts:** Dynamic imports, tree-shaking, barrel import avoidance
-
-### Section 3: Server-Side Performance (HIGH)
-
-**Impact:** Faster server responses, better SEO
-**Key Concepts:** Parallel server fetching, streaming, API route optimization
-
-### Section 4: Client-Side Data Fetching (MEDIUM-HIGH)
-
-**Impact:** Reduces redundant requests, better UX
-**Key Concepts:** SWR deduplication, localStorage caching, event listeners
-
-### Section 5: Re-render Optimization (MEDIUM)
-
-**Impact:** Smoother UI, less wasted computation
-**Key Concepts:** React.memo, useMemo, useCallback, component structure
-
-### Section 6: Rendering Performance (MEDIUM)
-
-**Impact:** Better rendering efficiency
-**Key Concepts:** Virtualization, image optimization, layout thrashing
-
-### Section 7: JavaScript Performance (LOW-MEDIUM)
-
-**Impact:** Incremental improvements in hot paths
-**Key Concepts:** Loop optimization, caching, RegExp hoisting
-
-### Section 8: Advanced Patterns (VARIABLE)
-
-**Impact:** Specific use cases
-**Key Concepts:** useLatest hook, init-once patterns, event handler refs
+- ✅ `Promise.all()` ile paralel veri çekin
+- ✅ Dinamik import'lar kullanın: `const Comp = dynamic(() => import('./Heavy'))`
+- ✅ Doğrudan import edin: `import { specific } from 'library/specific'`
+- ✅ Daha iyi UX için Suspense sınırları kullanın
+- ✅ React Server Components'ten yararlanın
+- ✅ Optimize etmeden önce performansı ölçün
+- ✅ Next.js yerleşik optimizasyonlarını kullanın (next/image, next/font)
 
 ---
 
-## 🎓 Best Practices Summary
+## 🎯 Bu Yetenek Nasıl Kullanılır
 
-**Golden Rules:**
+### Yeni Özellikler İçin:
 
-1. **Measure first** - Use React DevTools Profiler, Chrome DevTools
-2. **Biggest impact first** - Waterfalls → Bundle → Server → Micro
-3. **Don't over-optimize** - Focus on real bottlenecks
-4. **Use platform features** - Next.js has optimizations built-in
-5. **Think about users** - Real-world conditions matter
+1. İnşa ederken **Bölüm 1 ve 2'yi** kontrol edin (şelaleleri önleyin, paketi küçük tutun)
+2. Varsayılan olarak sunucu componentlerini kullanın (Bölüm 3)
+3. Pahalı işlemler için memoization uygulayın (Bölüm 5)
 
-**Performance Mindset:**
+### Performans İncelemeleri İçin:
 
-- Every `await` in sequence = potential waterfall
-- Every `import` = potential bundle bloat
-- Every re-render = wasted computation (if unnecessary)
-- Server components = less JavaScript to ship
-- Measure, don't guess
+1. **Bölüm 1** ile başlayın (şelaleler = en büyük etki)
+2. Sonra **Bölüm 2** (paket boyutu)
+3. Sonra **Bölüm 3** (sunucu tarafı)
+4. Son olarak gerektiğinde diğer bölümler
+
+### Yavaş Performansı Debug Etmek İçin:
+
+1. Semptom tanımlayın (yavaş yükleme, gecikme, vb.)
+2. Yukarıdaki Hızlı Karar Ağacı'nı kullanın
+3. İlgili bölümü okuyun
+4. Düzeltmeleri öncelik sırasına göre uygulayın
 
 ---
 
-**Source:** Vercel Engineering
-**Date:** January 2026
-**Version:** 1.0.0
-**Total Rules:** 57 across 8 categories
+## 📚 Öğrenme Yolu
+
+**Başlangıç (Kritik'e Odaklanın):**
+→ Bölüm 1: Şelaleleri Ortadan Kaldırma
+→ Bölüm 2: Paket Boyutu Optimizasyonu
+
+**Orta Seviye (Yüksek Öncelik Ekleyin):**
+→ Bölüm 3: Sunucu Tarafı Performans
+→ Bölüm 5: Yeniden Render Optimizasyonu
+
+**İleri Seviye (Tam Optimizasyon):**
+→ Tüm bölümler + Bölüm 8: Gelişmiş Desenler
+
+---
+
+## 🔍 Doğrulama Scripti
+
+| Script | Amaç | Komut |
+|--------|------|-------|
+| `scripts/react_performance_checker.py` | Otomatik performans denetimi | `python scripts/react_performance_checker.py <proje_yolu>` |
+
+---
+
+## 📖 Bölüm Detayları
+
+### Bölüm 1: Şelaleleri Ortadan Kaldırma (KRİTİK)
+
+**Etki:** Her şelale 100-500ms+ gecikme ekler
+**Temel Kavramlar:** Paralel çekme, Promise.all(), Suspense sınırları, preloading
+
+### Bölüm 2: Paket Boyutu Optimizasyonu (KRİTİK)
+
+**Etki:** Time to Interactive, Largest Contentful Paint'i doğrudan etkiler
+**Temel Kavramlar:** Dinamik import'lar, tree-shaking, barrel import'tan kaçınma
+
+### Bölüm 3: Sunucu Tarafı Performans (YÜKSEK)
+
+**Etki:** Daha hızlı sunucu yanıtları, daha iyi SEO
+**Temel Kavramlar:** Paralel sunucu çekme, streaming, API route optimizasyonu
+
+### Bölüm 4: İstemci Tarafı Veri Çekme (ORTA-YÜKSEK)
+
+**Etki:** Gereksiz istekleri azaltır, daha iyi UX
+**Temel Kavramlar:** SWR tekilleştirme, localStorage önbellekleme, event listener'lar
+
+### Bölüm 5: Yeniden Render Optimizasyonu (ORTA)
+
+**Etki:** Daha akıcı UI, daha az boşa giden hesaplama
+**Temel Kavramlar:** React.memo, useMemo, useCallback, component yapısı
+
+### Bölüm 6: Rendering Performansı (ORTA)
+
+**Etki:** Daha iyi rendering verimliliği
+**Temel Kavramlar:** Sanallaştırma, görüntü optimizasyonu, layout thrashing
+
+### Bölüm 7: JavaScript Performansı (DÜŞÜK-ORTA)
+
+**Etki:** Sık kullanılan yollarda (hot paths) kademeli iyileştirmeler
+**Temel Kavramlar:** Döngü optimizasyonu, önbellekleme, RegExp yukarı taşıma
+
+### Bölüm 8: Gelişmiş Desenler (DEĞİŞKEN)
+
+**Etki:** Özel kullanım durumları
+**Temel Kavramlar:** useLatest hook, init-once desenleri, event handler ref'ler
+
+---
+
+## 🎓 En İyi Pratikler Özeti
+
+**Altın Kurallar:**
+
+1. **Önce ölçün** - React DevTools Profiler, Chrome DevTools kullanın
+2. **En büyük etki önce** - Şelaleler → Paket → Sunucu → Mikro
+3. **Aşırı optimize etmeyin** - Gerçek darboğazlara odaklanın
+4. **Platform özelliklerini kullanın** - Next.js'te yerleşik optimizasyonlar var
+5. **Kullanıcıları düşünün** - Gerçek dünya koşulları önemlidir
+
+**Performans Zihniyeti:**
+
+- Ardışıktaki her `await` = potansiyel şelale
+- Her `import` = potansiyel paket şişmesi
+- Her yeniden render = (gereksizse) boşa giden hesaplama
+- Sunucu componentleri = daha az gönderilecek JavaScript
+- Tahmin etmeyin, ölçün
+
+---
+
+**Kaynak:** Vercel Mühendisliği
+**Tarih:** Ocak 2026
+**Versiyon:** 1.0.0
+**Toplam Kural:** 8 kategoride 57 kural

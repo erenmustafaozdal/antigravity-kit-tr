@@ -1,40 +1,40 @@
-# REST Principles
+# REST Prensipleri
 
-> Resource-based API design - nouns not verbs.
+> Kaynak tabanlı API tasarımı - fiiller değil, isimler.
 
-## Resource Naming Rules
+## Kaynak İsimlendirme Kuralları
 
 ```
-Principles:
-├── Use NOUNS, not verbs (resources, not actions)
-├── Use PLURAL forms (/users not /user)
-├── Use lowercase with hyphens (/user-profiles)
-├── Nest for relationships (/users/123/posts)
-└── Keep shallow (max 3 levels deep)
+Prensipler:
+├── Fiil değil, İSİMLERİ kullanın (eylemler değil, kaynaklar)
+├── ÇOĞUL formlar kullanın (/user değil, /users)
+├── Küçük harf ve kısa çizgi kullanın (/user-profiles)
+├── İlişkiler için iç içe yapı kullanın (/users/123/posts)
+└── Derinliği sınırlı tutun (maksimum 3 seviye)
 ```
 
-## HTTP Method Selection
+## HTTP Metot Seçimi
 
-| Method | Purpose | Idempotent? | Body? |
+| Metot | Amaç | Idempotent (Eşgüçlü)? | Body? |
 |--------|---------|-------------|-------|
-| **GET** | Read resource(s) | Yes | No |
-| **POST** | Create new resource | No | Yes |
-| **PUT** | Replace entire resource | Yes | Yes |
-| **PATCH** | Partial update | No | Yes |
-| **DELETE** | Remove resource | Yes | No |
+| **GET** | Kaynak(ları) oku | Evet | Hayır |
+| **POST** | Yeni kaynak oluştur | Hayır | Evet |
+| **PUT** | Kaynağı tamamen değiştir | Evet | Evet |
+| **PATCH** | Kısmi güncelleme | Hayır | Evet |
+| **DELETE** | Kaynağı sil | Evet | Hayır |
 
-## Status Code Selection
+## Durum Kodu (Status Code) Seçimi
 
-| Situation | Code | Why |
+| Durum | Kod | Neden |
 |-----------|------|-----|
-| Success (read) | 200 | Standard success |
-| Created | 201 | New resource created |
-| No content | 204 | Success, nothing to return |
-| Bad request | 400 | Malformed request |
-| Unauthorized | 401 | Missing/invalid auth |
-| Forbidden | 403 | Valid auth, no permission |
-| Not found | 404 | Resource doesn't exist |
-| Conflict | 409 | State conflict (duplicate) |
-| Validation error | 422 | Valid syntax, invalid data |
-| Rate limited | 429 | Too many requests |
-| Server error | 500 | Our fault |
+| Başarılı (okuma) | 200 | Standart başarı |
+| Oluşturuldu | 201 | Yeni kaynak başarıyla oluşturuldu |
+| İçerik yok | 204 | Başarılı, ancak dönecek içerik yok |
+| Hatalı istek | 400 | Biçimi bozuk veya geçersiz istek |
+| Yetkisiz | 401 | Eksik veya geçersiz kimlik bilgisi (Auth) |
+| Yasaklandı | 403 | Geçerli auth, ancak işlem yetkisi yok |
+| Bulunamadı | 404 | Kaynak mevcut değil |
+| Çakışma | 409 | Durum çakışması (örneğin mükerrer kayıt) |
+| Doğrulama hatası | 422 | Geçerli sözdizimi, ancak geçersiz veri |
+| İstek sınırı | 429 | Çok fazla istek (Rate limited) |
+| Sunucu hatası | 500 | Sunucu taraflı bir hata oluştu |

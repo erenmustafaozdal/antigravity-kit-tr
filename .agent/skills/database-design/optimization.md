@@ -1,36 +1,36 @@
-# Query Optimization
+# Sorgu Optimizasyonu
 
-> N+1 problem, EXPLAIN ANALYZE, optimization priorities.
+> N+1 problemi, EXPLAIN ANALYZE ve optimizasyon öncelikleri.
 
-## N+1 Problem
-
-```
-What is N+1?
-├── 1 query to get parent records
-├── N queries to get related records
-└── Very slow!
-
-Solutions:
-├── JOIN → Single query with all data
-├── Eager loading → ORM handles JOIN
-├── DataLoader → Batch and cache (GraphQL)
-└── Subquery → Fetch related in one query
-```
-
-## Query Analysis Mindset
+## N+1 Problemi
 
 ```
-Before optimizing:
-├── EXPLAIN ANALYZE the query
-├── Look for Seq Scan (full table scan)
-├── Check actual vs estimated rows
-└── Identify missing indexes
+N+1 Nedir?
+├── Ebeveyn kayıtları almak için 1 sorgu
+├── İlişkili kayıtları almak için N adet sorgu
+└── Çok yavaştır!
+
+Çözümler:
+├── JOIN → Tüm veriyi tek sorgu ile getir
+├── Eager loading → ORM'in JOIN yapmasını sağla
+├── DataLoader → Toplu (batch) ve önbellekli çekim (GraphQL)
+├── Alt Sorgu (Subquery) → İlişkili verileri tek bir toplu sorguyla çek
 ```
 
-## Optimization Priorities
+## Sorgu Analizi Bakış Açısı
 
-1. **Add missing indexes** (most common issue)
-2. **Select only needed columns** (not SELECT *)
-3. **Use proper JOINs** (avoid subqueries when possible)
-4. **Limit early** (pagination at database level)
-5. **Cache** (when appropriate)
+```
+Optimize etmeden önce:
+├── Sorguyu EXPLAIN ANALYZE ile çalıştır
+├── "Seq Scan" (tam tablo taraması) var mı bak
+├── Gerçek vs tahmini satır sayılarını kontrol et
+├── Eksik indeksleri tespit et
+```
+
+## Optimizasyon Öncelikleri
+
+1. **Eksik indeksleri ekleyin** (en yaygın sorun)
+2. **Sadece gereken sütunları seçin** (SELECT * yerine)
+3. **Uygun JOIN'leri kullanın** (mümkünse alt sorgulardan kaçının)
+4. **Erken limitleyin** (sayfalamayı veritabanı seviyesinde yapın)
+5. **Önbelleğe alın** (uygun görüldüğünde)

@@ -1,40 +1,40 @@
-# Tech Stack Selection (2026)
+# Teknoloji Yığını Seçimi (2026)
 
-> Default and alternative technology choices for web applications.
+> Web uygulamaları için varsayılan ve alternatif teknoloji seçenekleri.
 
-## Default Stack (Web App - 2026)
+## Varsayılan Yığın (Web Uygulaması - 2026)
 
 ```yaml
-Frontend:
-  framework: Next.js 16 (Stable)
-  language: TypeScript 5.7+
-  styling: Tailwind CSS v4
-  state: React 19 Actions / Server Components
-  bundler: Turbopack (Stable for Dev)
+Ön Yüz (Frontend):
+  framework: Next.js 16 (Kararlı)
+  dil: TypeScript 5.7+
+  stil: Tailwind CSS v4
+  durum yönetimi: React 19 Actions / Server Components
+  paketleyici: Turbopack (Geliştirme için Kararlı)
 
-Backend:
-  runtime: Node.js 23
-  framework: Next.js API Routes / Hono (for Edge)
-  validation: Zod / TypeBox
+Arka Yüz (Backend):
+  çalışma ortamı: Node.js 23
+  framework: Next.js API Rotaları / Hono (Edge için)
+  doğrulama: Zod / TypeBox
 
-Database:
-  primary: PostgreSQL
+Veritabanı:
+  birincil: PostgreSQL
   orm: Prisma / Drizzle
-  hosting: Supabase / Neon
+  barındırma: Supabase / Neon
 
-Auth:
-  provider: Auth.js (v5) / Clerk
+Kimlik Doğrulama (Auth):
+  sağlayıcı: Auth.js (v5) / Clerk
 
 Monorepo:
-  tool: Turborepo 2.0
+  araç: Turborepo 2.0
 ```
 
-## Alternative Options
+## Alternatif Seçenekler
 
-| Need | Default | Alternative |
+| İhtiyaç | Varsayılan | Alternatif |
 |------|---------|-------------|
-| Real-time | - | Supabase Realtime, Socket.io |
-| File storage | - | Cloudinary, S3 |
-| Payment | Stripe | LemonSqueezy, Paddle |
-| Email | - | Resend, SendGrid |
-| Search | - | Algolia, Typesense |
+| Gerçek zamanlı | - | Supabase Realtime, Socket.io |
+| Dosya depolama | - | Cloudinary, S3 |
+| Ödeme | Stripe | LemonSqueezy, Paddle |
+| E-posta | - | Resend, SendGrid |
+| Arama | - | Algolia, Typesense |

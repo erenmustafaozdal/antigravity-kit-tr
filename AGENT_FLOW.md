@@ -1,36 +1,36 @@
-# 🔄 Agent Flow Architecture
+# 🔄 Ajan Akış Mimarisi
 
-> **Antigravity Kit** - Comprehensive AI Agent Workflow Documentation
+> **Antigravity Kit** - Kapsamlı YZ Ajan İş Akışı Dokümantasyonu
 
 ---
 
-## 📊 Overview Flow Diagram
+## 📊 Genel Akış Şeması
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         USER REQUEST                             │
+│                        KULLANICI İSTEĞİ                          │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    REQUEST CLASSIFICATION                        │
-│  • Analyze intent (build, debug, test, deploy, etc.)           │
-│  • Identify domain (frontend, backend, mobile, etc.)           │
-│  • Detect complexity (simple, medium, complex)                  │
+│                    İSTEK SINIFLANDIRMA                           │
+│  • Niyeti analiz et (inşa et, hata ayıkla, test et, yayınla vb.)│
+│  • Alanı belirle (frontend, backend, mobil, vb.)                │
+│  • Karmaşıklığı tespit et (basit, orta, karmaşık)               │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                 ┌────────────┴────────────┐
                 │                         │
                 ▼                         ▼
     ┌───────────────────┐      ┌──────────────────┐
-    │ WORKFLOW COMMAND  │      │  DIRECT AGENT    │
-    │  (Slash Command)  │      │  ASSIGNMENT      │
+    │  İŞ AKIŞI KOMUTU  │      │  DOĞRUDAN AJAN   │
+    │   (Slash Komutu)  │      │     ATAMASI      │
     └─────────┬─────────┘      └────────┬─────────┘
               │                         │
               ▼                         ▼
     ┌───────────────────┐      ┌──────────────────┐
-    │ /brainstorm       │      │ Agent Selection  │
-    │ /create           │      │ Based on Domain  │
+    │ /brainstorm       │      │ Alan Bazlı       │
+    │ /create           │      │ Ajan Seçimi      │
     │ /debug            │      │                  │
     │ /deploy           │      │ • frontend-*     │
     │ /enhance          │      │ • backend-*      │
@@ -46,379 +46,378 @@
                            │
                            ▼
          ┌─────────────────────────────────────┐
-         │       AGENT INITIALIZATION          │
-         │  • Load agent persona/role          │
-         │  • Load required skills             │
-         │  • Set behavioral mode              │
+         │          AJAN BAŞLATMA              │
+         │  • Ajan personasını/rolünü yükle    │
+         │  • Gerekli yetenekleri yükle        │
+         │  • Davranış modunu ayarla           │
          └──────────────┬──────────────────────┘
                         │
                         ▼
          ┌─────────────────────────────────────┐
-         │      SKILL LOADING PROTOCOL         │
-         │                                      │
-         │  1. Read SKILL.md metadata          │
-         │  2. Load references/ (if needed)    │
-         │  3. Execute scripts/ (if needed)    │
-         │  4. Apply rules and patterns        │
+         │      YETENEK YÜKLEME PROTOKOLÜ      │
+         │                                     │
+         │  1. SKILL.md üst verisini oku       │
+         │  2. referansları yükle (gerekirse)  │
+         │  3. scriptleri çalıştır (gerekirse) │
+         │  4. Kural ve desenleri uygula       │
          └──────────────┬──────────────────────┘
                         │
                         ▼
          ┌─────────────────────────────────────┐
-         │         TASK EXECUTION              │
-         │                                      │
-         │  • Analyze codebase                 │
-         │  • Apply best practices             │
-         │  • Generate/modify code             │
-         │  • Run validations                  │
-         │  • Execute tests                    │
+         │          GÖREV YÜRÜTME              │
+         │                                     │
+         │  • Kod tabanını analiz et           │
+         │  • En iyi uygulamaları uygula       │
+         │  • Kod üret/değiştir                │
+         │  • Doğrulamaları çalıştır           │
+         │  • Testleri çalıştır                │
          └──────────────┬──────────────────────┘
                         │
                         ▼
          ┌─────────────────────────────────────┐
-         │      VALIDATION LAYER               │
-         │                                      │
-         │  Quick Check (checklist.py):        │
-         │  • Security scan                    │
-         │  • Code quality (lint/types)        │
-         │  • Schema validation                │
-         │  • Test suite                       │
-         │  • UX audit                         │
-         │  • SEO check                        │
-         │                                      │
-         │  Full Check (verify_all.py):        │
-         │  • All above + Lighthouse           │
-         │  • E2E tests (Playwright)           │
-         │  • Bundle analysis                  │
-         │  • Mobile audit                     │
-         │  • i18n check                       │
+         │         DOĞRULAMA KATMANI           │
+         │                                     │
+         │  Hızlı Kontrol (checklist.py):      │
+         │  • Güvenlik taraması                │
+         │  • Kod kalitesi (lint/türler)       │
+         │  • Şema doğrulama                   │
+         │  • Test paketi                      │
+         │  • UX denetimi                      │
+         │  • SEO kontrolü                     │
+         │                                     │
+         │  Tam Kontrol (verify_all.py):       │
+         │  • Yukarıdakilerin hepsi + Lighthouse│
+         │  • Uçtan Uca (E2E) testler          │
+         │  • Bundle analizi                   │
+         │  • Mobil denetimi                   │
+         │  • i18n kontrolü                    │
          └──────────────┬──────────────────────┘
                         │
                         ▼
          ┌─────────────────────────────────────┐
-         │         RESULT DELIVERY             │
-         │  • Present changes to user          │
-         │  • Provide explanations             │
-         │  • Suggest next steps               │
+         │           SONUÇ TESLİMİ             │
+         │  • Değişiklikleri kullanıcıya sun   │
+         │  • Açıklamalar sağla                │
+         │  • Sonraki adımları öner            │
          └─────────────────────────────────────┘
 ```
 
 ---
 
-## 🎯 Detailed Agent Workflow
+## 🎯 Detaylı Ajan İş Akışı
 
-### 1️⃣ **Request Entry Points**
+### 1️⃣ **İstek Giriş Noktaları**
 
 ```
-User Input Types:
+Kullanıcı Girdi Tipleri:
 ┌─────────────────────────────────────────────────────────────┐
-│ A. Natural Language Request                                 │
-│    "Build a React dashboard with charts"                    │
-│                                                              │
-│ B. Slash Command                                            │
-│    "/create feature: user authentication"                   │
-│                                                              │
-│ C. Domain-Specific Request                                  │
-│    "Optimize database queries" → database-architect         │
-│    "Fix security vulnerability" → security-auditor          │
-│    "Deploy to AWS" → devops-engineer                        │
+│ A. Doğal Dil İsteği                                         │
+│    "Grafikli bir React paneli oluştur"                      │
+│                                                             │
+│ B. Slash Komutu                                             │
+│    "/create özellik: kullanıcı kimlik doğrulama"            │
+│                                                             │
+│ C. Alan Bazlı İstek                                         │
+│    "Veritabanı sorgularını optimize et" → database-architect│
+│    "Güvenlik açığını düzelt" → security-auditor             │
+│    "AWS'ye dağıt" → devops-engineer                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### Socratic Gate Protocol
+#### Sokratik Kapı Protokolü
 
-Before implementation, verify:
+Uygulamadan önce doğrulayın:
 
-- **New Feature** → ASK 3 strategic questions
-- **Bug Fix** → Confirm understanding + ask impact
-- **Vague request** → Ask Purpose, Users, Scope
+- **Yeni Özellik** → 3 stratejik soru SOR
+- **Hata Düzeltme** → Anlayışı doğrula + etkiyi sor
+- **Belirsiz İstek** → Amaç, Kullanıcılar ve Kapsamı sor
 
-### 2️⃣ **Agent Selection Matrix**
+### 2️⃣ **Ajan Seçim Matrisi**
 
-#### Agent Routing Checklist (Mandatory)
+#### Ajan Yönlendirme Kontrol Listesi (Zorunlu)
 
-Before ANY code/design work:
+HERHANGİ bir kod/tasarım işinden önce:
 
-| Step | Check                        | If Unchecked                             |
+| Adım | Kontrol                      | İşaretlenmemişse                         |
 | ---- | ---------------------------- | ---------------------------------------- |
-| 1    | Identify correct agent       | → Analyze request domain                 |
-| 2    | Read agent's .md file        | → Open `.agent/agents/{agent}.md`        |
-| 3    | Announce agent               | → `🤖 Applying knowledge of @[agent]...` |
-| 4    | Load skills from frontmatter | → Check `skills:` field                  |
+| 1    | Doğru ajanı belirle          | → İstek alanını analiz et                |
+| 2    | Ajanın .md dosyasını oku     | → `.agent/agents/{agent}.md` dosyasını aç|
+| 3    | Ajanı duyur                  | → `🤖 @[agent] bilgisi uygulanıyor...`   |
+| 4    | Frontmatter'dan yetenek yükle| → `skills:` alanını kontrol et           |
 
 ```
-Request Domain → Agent Mapping:
+İstek Alanı → Ajan Eşleşmesi:
 
 ┌──────────────────────┬─────────────────────┬──────────────────────────┐
-│ Domain               │ Primary Agent       │ Skills Loaded            │
+│ Alan                 │ Birincil Ajan       │ Yüklenen Yetenekler      │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ UI/UX Design         │ frontend-specialist │ react-best-practices      │
+│ UI/UX Tasarım        │ frontend-specialist │ react-best-practices      │
 │                      │                     │ frontend-design          │
 │                      │                     │ tailwind-patterns        │
-|                      │                     │ web-design-guidelines    │
-│                      │                     │ frontend-design          │
+│                      │                     │ web-design-guidelines    │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ API Development      │ backend-specialist  │ api-patterns             │
+│ API Geliştirme       │ backend-specialist  │ api-patterns             │
 │                      │                     │ nodejs-best-practices    │
 │                      │                     │ nestjs-expert            │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Database Design      │ database-architect  │ database-design          │
+│ Veritabanı Tasarımı  │ database-architect  │ database-design          │
 │                      │                     │ prisma-expert            │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Mobile App           │ mobile-developer    │ mobile-design            │
+│ Mobil Uygulama       │ mobile-developer    │ mobile-design            │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Game Development     │ game-developer      │ game-development         │
+│ Oyun Geliştirme      │ game-developer      │ game-development         │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ DevOps/Deployment    │ devops-engineer     │ docker-expert            │
+│ DevOps/Dağıtım       │ devops-engineer     │ docker-expert            │
 │                      │                     │ deployment-procedures    │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Security Audit       │ security-auditor    │ vulnerability-scanner    │
+│ Güvenlik Denetimi    │ security-auditor    │ vulnerability-scanner    │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Penetration Testing  │ penetration-tester  │ red-team-tactics         │
+│ Sızma Testi          │ penetration-tester  │ red-team-tactics         │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Testing              │ test-engineer       │ testing-patterns         │
+│ Test Etme            │ test-engineer       │ testing-patterns         │
 │                      │                     │ webapp-testing           │
 │                      │                     │ tdd-workflow             │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Debugging            │ debugger            │ systematic-debugging     │
+│ Hata Ayıklama        │ debugger            │ systematic-debugging     │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Performance          │ performance-        │ performance-profiling    │
+│ Performans           │ performance-        │ performance-profiling    │
 │                      │ optimizer           │                          │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
 │ SEO                  │ seo-specialist      │ seo-fundamentals         │
 │                      │                     │ geo-fundamentals         │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Documentation        │ documentation-      │ documentation-templates  │
+│ Dokümantasyon        │ documentation-      │ documentation-templates  │
 │                      │ writer              │                          │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Planning/Discovery   │ project-planner     │ brainstorming            │
+│ Planlama/Keşif       │ project-planner     │ brainstorming            │
 │                      │                     │ plan-writing             │
 │                      │                     │ architecture             │
 ├──────────────────────┼─────────────────────┼──────────────────────────┤
-│ Multi-Agent Tasks    │ orchestrator        │ parallel-agents          │
+│ Çoklu-Ajan Görevleri │ orchestrator        │ parallel-agents          │
 │                      │                     │ behavioral-modes         │
 └──────────────────────┴─────────────────────┴──────────────────────────┘
 ```
 
-### 3️⃣ **Skill Loading Protocol**
+### 3️⃣ **Yetenek Yükleme Protokolü**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    SKILL LOADING FLOW                        │
+│                   YETENEK YÜKLEME AKIŞI                      │
 └─────────────────────────────────────────────────────────────┘
 
-Step 1: Match Request to Skill
+Adım 1: İsteği Yetenekle Eşleştir
 ┌──────────────────────────────────────────┐
-│ User: "Build a REST API"                 │
-│   ↓                                       │
-│ Keyword Match: "API" → api-patterns      │
+│ Kullanıcı: "Bir REST API oluştur"        │
+│   ↓                                      │
+│ Anahtar Kelime: "API" → api-patterns     │
 └──────────────────────────────────────────┘
                     ↓
-Step 2: Load Skill Metadata
+Adım 2: Yetenek Üst Verisini Yükle
 ┌──────────────────────────────────────────┐
-│ Read: .agent/skills/api-patterns/        │
-│       └── SKILL.md (main instructions)   │
+│ Oku: .agent/skills/api-patterns/         │
+│       └── SKILL.md (ana talimatlar)      │
 └──────────────────────────────────────────┘
                     ↓
-Step 3: Load References (if needed)
+Adım 3: Referansları Yükle (gerekirse)
 ┌──────────────────────────────────────────┐
-│ Read: api-patterns/rest.md               │
+│ Oku: api-patterns/rest.md                │
 │       api-patterns/graphql.md            │
 │       api-patterns/auth.md               │
 │       api-patterns/documentation.md      │
 └──────────────────────────────────────────┘
                     ↓
-Step 4: Execute Scripts (if needed)
+Adım 4: Scriptleri Çalıştır (gerekirse)
 ┌──────────────────────────────────────────┐
-│ Run: scripts/api_validator.py            │
-│      (validates API design)              │
+│ Çalıştır: scripts/api_validator.py       │
+│           (API tasarımını doğrular)      │
 └──────────────────────────────────────────┘
                     ↓
-Step 5: Apply Knowledge
+Adım 5: Bilgiyi Uygula
 ┌──────────────────────────────────────────┐
-│ Agent now has:                           │
-│ • API design patterns                    │
-│ • Authentication strategies              │
-│ • Documentation templates                │
-│ • Validation scripts                     │
+│ Ajan artık şunlara sahip:                │
+│ • API tasarım desenleri                  │
+│ • Kimlik doğrulama stratejileri          │
+│ • Dokümantasyon şablonları               │
+│ • Doğrulama scriptleri                   │
 └──────────────────────────────────────────┘
 
-### Related Skills Pattern
+### İlişkili Yetenekler Deseni
 
-Skills now link to each other:
-- `frontend-design` → `web-design-guidelines` (after coding)
-- `web-design-guidelines` → `frontend-design` (before coding)
+Yetenekler artık birbirine link verir:
+- `frontend-design` → `web-design-guidelines` (kodlamadan sonra)
+- `web-design-guidelines` → `frontend-design` (kodlamadan önce)
 
-> **Note**: Scripts are NOT auto-executed. AI suggests running them, user approves.
+> **Not**: Scriptler otomatik çalıştırılmaz. YZ çalıştırılmasını önerir, kullanıcı onaylar.
 ```
 
-### 4️⃣ **Workflow Command Execution**
+### 4️⃣ **İş Akışı Komut Yürütme**
 
 ```
-Slash Command Flow:
+Slash Komut Akışı:
 
 /brainstorm
     ↓
-    1. Load: brainstorming skill
-    2. Apply: Socratic questioning
-    3. Output: Structured discovery document
+    1. Yükle: brainstorming yeteneği
+    2. Uygula: Sokratik sorgulama
+    3. Çıktı: Yapılandırılmış keşif belgesi
 
 /create
     ↓
-    1. Detect: Project type (web/mobile/api/game)
-    2. Load: app-builder skill + domain-specific skills
-    3. Select: Template from app-builder/templates/
-    4. Scaffold: Generate project structure
-    5. Validate: Run checklist.py
+    1. Tespit Et: Proje tipi (web/mobil/api/oyun)
+    2. Yükle: app-builder yeteneği + alan-bazlı yetenekler
+    3. Seç: app-builder/templates/ içinden şablon
+    4. İskelet: Proje yapısını oluştur
+    5. Doğrula: checklist.py çalıştır
 
 /debug
     ↓
-    1. Load: systematic-debugging skill
-    2. Analyze: Error logs, stack traces
-    3. Apply: Root cause analysis
-    4. Suggest: Fix with code examples
-    5. Test: Verify fix works
+    1. Yükle: systematic-debugging yeteneği
+    2. Analiz Et: Hata logları, stack trace'ler
+    3. Uygula: Kök neden analizi
+    4. Öner: Kod örnekleriyle düzeltme
+    5. Test Et: Düzeltmenin çalıştığını doğrula
 
 /deploy
     ↓
-    1. Load: deployment-procedures skill
-    2. Detect: Platform (Vercel, AWS, Docker, etc.)
-    3. Prepare: Build artifacts
-    4. Execute: Deployment scripts
-    5. Verify: Health checks
-    6. Output: Deployment URL
+    1. Yükle: deployment-procedures yeteneği
+    2. Tespit Et: Platform (Vercel, AWS, Docker, vb.)
+    3. Hazırla: Derleme çıktıları (artifacts)
+    4. Yürüt: Dağıtım scriptleri
+    5. Doğrula: Sağlık kontrolleri
+    6. Çıktı: Dağıtım URL'si
 
 /test
     ↓
-    1. Load: testing-patterns + webapp-testing skills
-    2. Detect: Test framework (Jest, Vitest, Playwright)
-    3. Generate: Test cases
-    4. Execute: Run tests
-    5. Report: Coverage + results
+    1. Yükle: testing-patterns + webapp-testing yetenekleri
+    2. Tespit Et: Test framework'ü (Jest, Vitest, Playwright)
+    3. Üret: Test senaryoları
+    4. Yürüt: Testleri çalıştır
+    5. Raporla: Kapsam + sonuçlar
 
 /orchestrate
     ↓
-    1. Load: parallel-agents skill
-    2. Decompose: Task into subtasks
-    3. Assign: Each subtask to specialist agent
-    4. Coordinate: Parallel execution
-    5. Merge: Combine results
-    6. Validate: Run full verification
+    1. Yükle: parallel-agents yeteneği
+    2. Parçala: Görevi alt görevlere böl
+    3. Ata: Her alt görevi uzman ajana ata
+    4. Koordine Et: Paralel yürütme
+    5. Birleştir: Sonuçları bir araya getir
+    6. Doğrula: Tam doğrulama çalıştır
 
 /plan
     ↓
-    1. Load: plan-writing + architecture skills
-    2. Analyze: Requirements
-    3. Break down: Tasks with estimates
-    4. Output: Structured plan with milestones
+    1. Yükle: plan-writing + architecture yetenekleri
+    2. Analiz Et: Gereksinimler
+    3. Kırılım: Tahminlerle birlikte görevler
+    4. Çıktı: Kilometre taşları içeren yapılandırılmış plan
 
 /ui-ux-pro-max
     ↓
-    1. Load: ui-ux-pro-max skill
-    2. Access: 50 design styles
-    3. Access: 21 color palettes
-    4. Access: 50 font combinations
-    5. Generate: Professional UI with selected style
+    1. Yükle: ui-ux-pro-max yeteneği
+    2. Erişim: 50 tasarım stili
+    3. Erişim: 21 renk paleti
+    4. Erişim: 50 yazı tipi kombinasyonu
+    5. Üret: Seçilen stille profesyonel UI
 ```
 
-### 5️⃣ **Multi-Agent Orchestration**
+### 5️⃣ **Çoklu Ajan Orkestrasyonu**
 
 ```
-Complex Task → /orchestrate → Multiple Specialist Personas
+Karmaşık Görev → /orchestrate → Çoklu Uzman Personalar
 
-Example: "Build a full-stack e-commerce app"
+Örnek: "Full-stack bir e-ticaret uygulaması oluştur"
 
 ┌─────────────────────────────────────────────────────────────┐
-│                     ORCHESTRATOR AGENT                       │
-│  Decomposes task into sequential workstreams                │
+│                     ORKESTRATÖR AJAN                         │
+│  Görevi sıralı iş akışlarına böler                          │
 └─────────────────────────────────────────────────────────────┘
                               │
         ┌─────────────────────┼─────────────────────┐
         │                     │                     │
         ▼                     ▼                     ▼
 ┌───────────────┐   ┌───────────────┐   ┌───────────────┐
-│ FRONTEND      │   │ BACKEND       │   │ DATABASE      │
-│ SPECIALIST    │   │ SPECIALIST    │   │ ARCHITECT     │
+│ FRONTEND      │   │ BACKEND       │   │ VERİTABANI    │
+│ UZMANI        │   │ UZMANI        │   │ MİMARI        │
 │               │   │               │   │               │
-│ Skills:       │   │ Skills:       │   │ Skills:       │
+│ Yetenekler:   │   │ Yetenekler:   │   │ Yetenekler:   │
 │ • react-*     │   │ • api-*       │   │ • database-*  │
 │ • nextjs-*    │   │ • nodejs-*    │   │ • prisma-*    │
 │ • tailwind-*  │   │ • nestjs-*    │   │               │
 │               │   │               │   │               │
-│ Builds:       │   │ Builds:       │   │ Builds:       │
-│ • UI/UX       │   │ • REST API    │   │ • Schema      │
-│ • Components  │   │ • Auth        │   │ • Migrations  │
-│ • Pages       │   │ • Business    │   │ • Indexes     │
+│ İnşa Eder:    │   │ İnşa Eder:    │   │ İnşa Eder:    │
+│ • UI/UX       │   │ • REST API    │   │ • Şema        │
+│ • Bileşenler  │   │ • Auth        │   │ • Migrasyonlar│
+│ • Sayfalar    │   │ • İş Mantığı  │   │ • İndeksler   │
 └───────┬───────┘   └───────┬───────┘   └───────┬───────┘
         │                   │                   │
         └─────────────────┬─┴───────────────────┘
                           │
                           ▼
         ┌─────────────────────────────────────┐
-        │      CODE COHERENCE                 │
-        │  • AI maintains consistency         │
-        │  • Sequential context switching     │
-        │  • Ensure API contracts match       │
+        │          KOD TUTARLILIĞI            │
+        │  • YZ tutarlılığı korur             │
+        │  • Sıralı bağlam geçişi             │
+        │  • API kontratlarının eşleşmesi     │
         └──────────────┬──────────────────────┘
                        │
                        ▼
         ┌─────────────────────────────────────┐
-        │    VALIDATION (All Agents)          │
-        │  • test-engineer → Tests            │
-        │  • security-auditor → Security      │
+        │       DOĞRULAMA (Tüm Ajanlar)       │
+        │  • test-engineer → Testler          │
+        │  • security-auditor → Güvenlik      │
         │  • performance-optimizer → Perf     │
         └──────────────┬──────────────────────┘
                        │
                        ▼
         ┌─────────────────────────────────────┐
-        │    DEPLOYMENT                       │
-        │  • devops-engineer → Deploy         │
+        │             DAĞITIM                 │
+        │  • devops-engineer → Yayınla        │
         └─────────────────────────────────────┘
 ```
 
-### 6️⃣ **Validation & Quality Gates**
+### 6️⃣ **Doğrulama & Kalite Kapıları**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 VALIDATION PIPELINE                          │
+│                  DOĞRULAMA HATTI                             │
 └─────────────────────────────────────────────────────────────┘
 
-During Development (Quick Checks):
+Geliştirme Sırasında (Hızlı Kontroller):
 ┌──────────────────────────────────────────┐
 │ python .agent/scripts/checklist.py .     │
 ├──────────────────────────────────────────┤
-│ ✓ Security Scan (vulnerabilities)        │
-│ ✓ Code Quality (ESLint, TypeScript)      │
-│ ✓ Schema Validation (Prisma/DB)          │
-│ ✓ Test Suite (Unit tests)                │
-│ ✓ UX Audit (Accessibility)               │
-│ ✓ SEO Check (Meta tags, performance)     │
+│ ✓ Güvenlik Taraması (zafiyetler)         │
+│ ✓ Kod Kalitesi (ESLint, TypeScript)      │
+│ ✓ Şema Doğrulama (Prisma/DB)             │
+│ ✓ Test Paketi (Birim testleri)           │
+│ ✓ UX Denetimi (Erişilebilirlik)          │
+│ ✓ SEO Kontrolü (Meta etiketler, perf)    │
 └──────────────────────────────────────────┘
-        Time: ~30 seconds
+        Süre: ~30 saniye
 
-Pre-Deployment (Full Verification):
+Dağıtım Öncesi (Tam Doğrulama):
 ┌──────────────────────────────────────────────────────┐
 │ python .agent/scripts/verify_all.py .                │
 │        --url http://localhost:3000                   │
 ├──────────────────────────────────────────────────────┤
-│ ✓ All Quick Checks                                   │
-│ ✓ Lighthouse Audit (Core Web Vitals)                 │
-│ ✓ Playwright E2E Tests                               │
-│ ✓ Bundle Analysis (Size, tree-shaking)               │
-│ ✓ Mobile Audit (Responsive, touch targets)           │
-│ ✓ i18n Check (Translations, locale)                  │
+│ ✓ Tüm Hızlı Kontroller                               │
+│ ✓ Lighthouse Denetimi (Core Web Vitals)              │
+│ ✓ Playwright E2E Testleri                            │
+│ ✓ Bundle Analizi (Boyut, tree-shaking)               │
+│ ✓ Mobil Denetimi (Responsive, dokunma hedefleri)     │
+│ ✓ i18n Kontrolü (Çeviriler, yerel ayar)              │
 └──────────────────────────────────────────────────────┘
-        Time: ~3-5 minutes
+        Süre: ~3-5 dakika
 ```
 
 ---
 
-## 🧩 Skill-to-Script Mapping
+## 🧩 Yetenek-Script Eşleşmesi
 
 ```
-Skills with Automated Scripts:
+Otomatik Scriptlere Sahip Yetenekler:
 
 ┌─────────────────────────┬──────────────────────────────────┐
-│ Skill                   │ Script                           │
+│ Yetenek                 │ Script                           │
 ├─────────────────────────┼──────────────────────────────────┤
 │ api-patterns            │ scripts/api_validator.py         │
 │ database-design         │ scripts/schema_validator.py      │
@@ -440,164 +439,164 @@ Skills with Automated Scripts:
 
 ---
 
-## 🔄 Complete Request Lifecycle Example
+## 🔄 Tam İstek Yaşam Döngüsü Örneği
 
 ```
-User Request: "Build a Next.js dashboard with authentication"
+Kullanıcı İsteği: "Dashboard'u olan ve kimlik doğrulama içeren bir Next.js uygulaması yap"
 
-1. REQUEST CLASSIFICATION
-   ├─ Type: Build new feature
-   ├─ Domain: Frontend + Backend
-   ├─ Complexity: Medium-High
-   └─ Suggested: /create or /orchestrate
+1. İSTEK SINIFLANDIRMA
+   ├─ Tip: Yeni özellik inşa et
+   ├─ Alan: Frontend + Backend
+   ├─ Karmaşıklık: Orta-Yüksek
+   └─ Önerilen: /create veya /orchestrate
 
-2. WORKFLOW SELECTION
-   └─ User chooses: /orchestrate (multi-agent approach)
+2. İŞ AKIŞI SEÇİMİ
+   └─ Kullanıcı seçimi: /orchestrate (çoklu-ajan yaklaşımı)
 
-3. ORCHESTRATOR DECOMPOSITION
-   ├─ Frontend: Dashboard UI (React components)
-   ├─ Backend: Auth API (JWT, session management)
-   ├─ Database: User schema (Prisma)
-   └─ Testing: E2E auth flow
+3. ORKESTRATÖR KIRILIMI
+   ├─ Frontend: Panel Arayüzü (React bileşenleri)
+   ├─ Backend: Auth API (JWT, oturum yönetimi)
+   ├─ Veritabanı: Kullanıcı şeması (Prisma)
+   └─ Test: E2E auth akışı
 
-4. AGENT ASSIGNMENT
+4. AJAN ATAMASI
    ├─ frontend-specialist
-   │   └─ Skills: react-best-practices, tailwind-patterns, frontend-design
+   │   └─ Yetenekler: react-best-practices, tailwind-patterns, frontend-design
    ├─ backend-specialist
-   │   └─ Skills: api-patterns, nodejs-best-practices
+   │   └─ Yetenekler: api-patterns, nodejs-best-practices
    ├─ database-architect
-   │   └─ Skills: database-design, prisma-expert
+   │   └─ Yetenekler: database-design, prisma-expert
    └─ test-engineer
-       └─ Skills: testing-patterns, webapp-testing
+       └─ Yetenekler: testing-patterns, webapp-testing
 
-5. SEQUENTIAL MULTI-DOMAIN EXECUTION
-   Note: AI processes each domain sequentially, switching context between specialist "personas."
-   This is NOT true parallel execution but simulated multi-agent behavior.
+5. SIRALI ÇOKLU ALAN YÜRÜTME
+   Not: YZ her alanı sıralı işler ve uzman "personalar" arasında bağlam değiştirir.
+   Bu gerçek bir paralel yürütme değil, simüle edilmiş çoklu ajan davranışıdır.
 
-   ├─ Frontend builds:
+   ├─ Frontend inşası:
    │   ├─ app/dashboard/page.tsx (Server Component)
    │   ├─ components/DashboardLayout.tsx
    │   ├─ components/LoginForm.tsx
    │   └─ lib/auth-client.ts
-   ├─ Backend builds:
+   ├─ Backend inşası:
    │   ├─ app/api/auth/login/route.ts
    │   ├─ app/api/auth/logout/route.ts
    │   ├─ lib/jwt.ts
    │   └─ middleware.ts
-   ├─ Database builds:
-   │   ├─ prisma/schema.prisma (User, Session models)
+   ├─ Veritabanı inşası:
+   │   ├─ prisma/schema.prisma (Kullanıcı, Oturum modelleri)
    │   └─ prisma/migrations/
-   └─ Testing builds:
+   └─ Test inşası:
        ├─ tests/auth.spec.ts (Playwright)
        └─ tests/dashboard.spec.ts
 
-6. CODE INTEGRATION
-   Reality Note: AI writes code as a continuous stream, maintaining consistency.
-   There is no "merge" step - it's all generated coherently from the start.
+6. KOD ENTEGRASYONU
+   Gerçeklik Notu: YZ kodu sürekli bir akış olarak yazar, tutarlılığı korur.
+   Bir "merge" adımı yoktur - her şey baştan uyumlu olarak üretilir.
 
-   └─ AI maintains coherence across domains
-       ├─ Resolves import paths
-       ├─ Ensures type safety
-       └─ Connects API routes to UI
+   └─ YZ alanlar arası tutarlılığı korur
+       ├─ İçe aktarma (import) yollarını çözer
+       ├─ Tip güvenliğini (Type safety) sağlar
+       └─ API rotalarını arayüze bağlar
 
-7. VALIDATION
+7. DOĞRULAMA
    ├─ checklist.py
-   │   ✓ Security: No leaked secrets
-   │   ✓ Lint: No ESLint errors
-   │   ✓ Types: TypeScript passes
-   │   ✓ Tests: Auth flow passes
+   │   ✓ Güvenlik: Sızdırılan gizli bilgi yok
+   │   ✓ Lint: ESLint hatası yok
+   │   ✓ Tipler: TypeScript başarılı
+   │   ✓ Testler: Auth akışı başarılı
    └─ verify_all.py
-       ✓ E2E: Login → Dashboard → Logout works
-       ✓ Accessibility: WCAG AA compliant
-       ✓ Performance: Lighthouse score > 90
+       ✓ E2E: Giriş → Panel → Çıkış çalışıyor
+       ✓ Erişilebilirlik: WCAG AA uyumlu
+       ✓ Performans: Lighthouse skoru > 90
 
-8. RESULT DELIVERY
-   └─ User receives:
-       ├─ Complete codebase
-       ├─ Documentation (how to run)
-       ├─ Test reports
-       └─ Deployment instructions
+8. SONUÇ TESLİMİ
+   └─ Kullanıcı şunları alır:
+       ├─ Tam kod tabanı
+       ├─ Dokümantasyon (nasıl çalıştırılır)
+       ├─ Test raporları
+       └─ Dağıtım talimatları
 ```
 
 ---
 
-## 📈 Statistics & Metrics
+## 📈 İstatistikler & Metrikler
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                    SYSTEM CAPABILITIES                    │
+│                    SİSTEM YETENEKLERİ                     │
 ├──────────────────────────────────────────────────────────┤
-│ Total Agents:              20                            │
-│ Total Skills:              36                            │
-│ Total Workflows:           11                            │
-│ Master Scripts:            2 (checklist, verify_all)     │
-│ Skill-Level Scripts:       18                            │
-│ Coverage:                  ~90% web/mobile development   │
+│ Toplam Ajan:               20                            │
+│ Toplam Yetenek:            36                            │
+│ Toplam İş Akışı:           11                            │
+│ Ana Scriptler:             2 (checklist, verify_all)     │
+│ Yetenek Düzeyi Scriptler:  18                            │
+│ Kapsam:                    ~%90 web/mobil gelişim        │
 │                                                          │
-│ Supported Frameworks:                                    │
-│ ├─ Frontend: React, Next.js, Vue, Nuxt, Astro          │
-│ ├─ Backend: Node.js, NestJS, FastAPI, Express          │
-│ ├─ Mobile: React Native, Flutter                        │
-│ ├─ Database: Prisma, TypeORM, Sequelize                │
-│ ├─ Testing: Jest, Vitest, Playwright, Cypress          │
-│ └─ DevOps: Docker, Vercel, AWS, GitHub Actions         │
+│ Desteklenen Framework'ler:                               │
+│ ├─ Frontend: React, Next.js, Vue, Nuxt, Astro            │
+│ ├─ Backend: Node.js, NestJS, FastAPI, Express            │
+│ ├─ Mobil: React Native, Flutter                          │
+│ ├─ Veritabanı: Prisma, TypeORM, Sequelize                │
+│ ├─ Test: Jest, Vitest, Playwright, Cypress               │
+│ └─ DevOps: Docker, Vercel, AWS, GitHub Actions           │
 └──────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🎓 Best Practices
+## 🎓 En İyi Uygulamalar
 
-### When to Use Each Workflow
+### Hangi İş Akışı Ne Zaman Kullanılır?
 
 ```
 /brainstorm
-  ✓ Unclear requirements
-  ✓ Need to explore options
-  ✓ Complex problem needs breaking down
+  ✓ Belirsiz gereksinimler
+  ✓ Seçenekleri keşfetme ihtiyacı
+  ✓ Karmaşık problemin bölünmesi
 
 /create
-  ✓ New feature in existing project
-  ✓ Small-to-medium complexity
-  ✓ Single domain (frontend OR backend)
+  ✓ Mevcut projede yeni özellik
+  ✓ Küçük-orta karmaşıklık
+  ✓ Tek alan (frontend VEYA backend)
 
 /orchestrate
-  ✓ Full-stack features
-  ✓ Complex multi-step tasks
-  ✓ Need multiple specialist agents
+  ✓ Full-stack özellikler
+  ✓ Karmaşık çok adımlı görevler
+  ✓ Birden fazla uzman ajana ihtiyaç duyulması
 
 /debug
-  ✓ Bug reports
-  ✓ Unexpected behavior
-  ✓ Performance issues
+  ✓ Hata raporları
+  ✓ Beklenmedik davranış
+  ✓ Performans sorunları
 
 /test
-  ✓ Need test coverage
-  ✓ Before deployment
-  ✓ After major changes
+  ✓ Test kapsamı ihtiyacı
+  ✓ Dağıtım öncesi
+  ✓ Büyük değişikliklerden sonra
 
 /deploy
-  ✓ Ready to ship
-  ✓ After all tests pass
-  ✓ Need production URL
+  ✓ Yayına hazır
+  ✓ Tüm testler geçtikten sonra
+  ✓ Prodüksiyon URL'sine ihtiyaç var
 
 /plan
-  ✓ Large projects
-  ✓ Need time estimates
-  ✓ Team coordination needed
+  ✓ Büyük projeler
+  ✓ Zaman tahminleri gerekliliği
+  ✓ Takım koordinasyonu gerekliliği
 ```
 
 ---
 
-## 🔗 Quick Reference Links
+## 🔗 Hızlı Referans Bağlantıları
 
-- **Architecture**: `.agent/ARCHITECTURE.md`
-- **Agents**: `.agent/agents/`
-- **Skills**: `.agent/skills/`
-- **Workflows**: `.agent/workflows/`
-- **Scripts**: `.agent/scripts/`
+- **Mimari**: `.agent/ARCHITECTURE.md`
+- **Ajanlar**: `.agent/agents/`
+- **Yetenekler**: `.agent/skills/`
+- **İş Akışları**: `.agent/workflows/`
+- **Scriptler**: `.agent/scripts/`
 
 ---
 
-**Last Updated**: 2026-01-26
-**Version**: 2.0.1
+**Son Güncelleme**: 2026-02-02
+**Versiyon**: 2.0.1

@@ -1,123 +1,123 @@
 ---
 name: vr-ar
-description: VR/AR development principles. Comfort, interaction, performance requirements.
+description: VR/AR geliştirme prensipleri. Konfor, etkileşim, performans gereksinimleri.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# VR/AR Development
+# VR/AR Geliştirme (VR/AR Development)
 
-> Immersive experience principles.
-
----
-
-## 1. Platform Selection
-
-### VR Platforms
-
-| Platform | Use Case |
-|----------|----------|
-| **Quest** | Standalone, wireless |
-| **PCVR** | High fidelity |
-| **PSVR** | Console market |
-| **WebXR** | Browser-based |
-
-### AR Platforms
-
-| Platform | Use Case |
-|----------|----------|
-| **ARKit** | iOS devices |
-| **ARCore** | Android devices |
-| **WebXR** | Browser AR |
-| **HoloLens** | Enterprise |
+> Derinlikli (Immersive) deneyim prensipleri.
 
 ---
 
-## 2. Comfort Principles
+## 1. Platform Seçimi
 
-### Motion Sickness Prevention
+### VR Platformları
 
-| Cause | Solution |
+| Platform | Kullanım Durumu |
+|----------|----------|
+| **Quest** | Bağımsız (Standalone), kablosuz |
+| **PCVR** | Yüksek sadakat (High fidelity) |
+| **PSVR** | Konsol pazarı |
+| **WebXR** | Tarayıcı tabanlı |
+
+### AR Platformları
+
+| Platform | Kullanım Durumu |
+|----------|----------|
+| **ARKit** | iOS cihazlar |
+| **ARCore** | Android cihazlar |
+| **WebXR** | Tarayıcı AR |
+| **HoloLens** | Kurumsal çözümler |
+
+---
+
+## 2. Konfor Prensipleri
+
+### Hareket Hastalığını (Motion Sickness) Önleme
+
+| Neden | Çözüm |
 |-------|----------|
-| **Locomotion** | Teleport, snap turn |
-| **Low FPS** | Maintain 90 FPS |
-| **Camera shake** | Avoid or minimize |
-| **Rapid acceleration** | Gradual movement |
+| **Yer Değiştirme (Locomotion)** | Teleport (ışınlanma), ani dönüş |
+| **Düşük FPS** | Sabit 90 FPS koru |
+| **Kamera Sarsıntısı** | Kaçın veya minimuma indir |
+| **Hızlı İvmelenme** | Kademeli hareket |
 
-### Comfort Settings
+### Konfor Ayarları
 
-- Vignette during movement
-- Snap vs smooth turning
-- Seated vs standing modes
-- Height calibration
+- Hareket sırasında kenar karartma (Vignette).
+- Ani (Snap) vs yumuşak (Smooth) dönüş seçenekleri.
+- Oturarak vs ayakta oynama modları.
+- Boy kalibrasyonu.
 
 ---
 
-## 3. Performance Requirements
+## 3. Performans Gereksinimleri
 
-### Target Metrics
+### Hedef Metrikler
 
-| Platform | FPS | Resolution |
+| Platform | FPS | Çözünürlük |
 |----------|-----|------------|
 | Quest 2 | 72-90 | 1832x1920 |
 | Quest 3 | 90-120 | 2064x2208 |
 | PCVR | 90 | 2160x2160+ |
 | PSVR2 | 90-120 | 2000x2040 |
 
-### Frame Budget
+### Kare Bütçesi
 
-- VR requires consistent frame times
-- Single dropped frame = visible judder
-- 90 FPS = 11.11ms budget
+- VR, tutarlı kare süreleri (consistent frame times) gerektirir.
+- Tek bir düşen kare = görünür sarsıntı (judder).
+- 90 FPS = 11.11ms işlem bütçesi.
 
 ---
 
-## 4. Interaction Principles
+## 4. Etkileşim Prensipleri
 
-### Controller Interaction
+### Kontrolcü Etkileşimi
 
-| Type | Use |
+| Tür | Kullanım |
 |------|-----|
-| **Point + click** | UI, distant objects |
-| **Grab** | Manipulation |
-| **Gesture** | Magic, special actions |
-| **Physical** | Throwing, swinging |
+| **İşaretle + Tıkla** | Arayüz (UI), uzak nesneler |
+| **Tutma (Grab)** | Nesne manipülasyonu |
+| **Jest (Gesture)** | Büyü, özel eylemler |
+| **Fiziksel** | Fırlatma, savurma |
 
-### Hand Tracking
+### El Takibi (Hand Tracking)
 
-- More immersive but less precise
-- Good for: social, casual
-- Challenging for: action, precision
+- Daha derin hissettirir ama daha az hassastır.
+- Uygun olduğu alanlar: Sosyal etkileşim, gündelik oyunlar.
+- Zorlayıcı olduğu alanlar: Aksiyon, yüksek hassasiyet gerektiren işler.
 
 ---
 
-## 5. Spatial Design
+## 5. Mekansal Tasarım (Spatial Design)
 
-### World Scale
+### Dünya Ölçeği
 
-- 1 unit = 1 meter (critical)
-- Objects must feel right size
-- Test with real measurements
+- 1 birim = 1 metre (kritiktir).
+- Nesneler doğru boyutta hissettirmelidir.
+- Gerçek dünya ölçüleriyle test edin.
 
-### Depth Cues
+### Derinlik İpuçları (Depth Cues)
 
-| Cue | Importance |
+| İpucu | Önem Derecesi |
 |-----|------------|
-| Stereo | Primary depth |
-| Motion parallax | Secondary |
-| Shadows | Grounding |
-| Occlusion | Layering |
+| Stereo (Çift Göz) | Birincil derinlik |
+| Hareket Parallaxı | İkincil |
+| Gölgeler | Konum sabitleme (Grounding) |
+| Örtme (Occlusion) | Katmanlama |
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Move camera without player | Player controls camera |
-| Drop below 90 FPS | Maintain frame rate |
-| Use tiny UI text | Large, readable text |
-| Ignore arm length | Scale to player reach |
+| Kamerayı oyuncudan bağımsız hareket ettirmek | Kamera kontrolü oyuncuda olmalı |
+| 90 FPS'in altına düşmek | Kare hızını sabit tutun |
+| Çok küçük arayüz metinleri kullanmak | Büyük ve okunabilir metinler kullanın |
+| Kol mesafesini görmezden gelmek | Oyuncunun erişim alanına göre ölçekleyin |
 
 ---
 
-> **Remember:** Comfort is not optional. Sick players don't play.
+> **Unutmayın:** Konfor isteğe bağlı değildir. Midesi bulanan oyuncu oynamaz.

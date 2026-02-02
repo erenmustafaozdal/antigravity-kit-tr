@@ -1,42 +1,42 @@
-# API Style Selection (2025)
+# API Stili Seçimi (2025)
 
-> REST vs GraphQL vs tRPC - Hangi durumda hangisi?
+> REST vs GraphQL vs tRPC - Hangi durumda hangisi seçilmeli?
 
-## Decision Tree
+## Karar Ağacı
 
 ```
-Who are the API consumers?
+API tüketicileri (istemciler) kim?
 │
-├── Public API / Multiple platforms
-│   └── REST + OpenAPI (widest compatibility)
+├── Herkese Açık (Public) API / Çoklu Platformlar
+│   └── REST + OpenAPI (en geniş uyumluluk)
 │
-├── Complex data needs / Multiple frontends
-│   └── GraphQL (flexible queries)
+├── Karmaşık veri ihtiyaçları / Çoklu ön yüzler (frontends)
+│   └── GraphQL (esnek sorgular)
 │
-├── TypeScript frontend + backend (monorepo)
-│   └── tRPC (end-to-end type safety)
+├── TypeScript ön yüz + arka yüz (Monorepo)
+│   └── tRPC (uçtan uca tip güvenliği)
 │
-├── Real-time / Event-driven
+├── Gerçek zamanlı (Real-time) / Olay güdümlü (Event-driven)
 │   └── WebSocket + AsyncAPI
 │
-└── Internal microservices
-    └── gRPC (performance) or REST (simplicity)
+└── Dahili mikro servisler
+    └── gRPC (performans) veya REST (basitlik)
 ```
 
-## Comparison
+## Karşılaştırma Matrisi
 
-| Factor | REST | GraphQL | tRPC |
+| Faktör | REST | GraphQL | tRPC |
 |--------|------|---------|------|
-| **Best for** | Public APIs | Complex apps | TS monorepos |
-| **Learning curve** | Low | Medium | Low (if TS) |
-| **Over/under fetching** | Common | Solved | Solved |
-| **Type safety** | Manual (OpenAPI) | Schema-based | Automatic |
-| **Caching** | HTTP native | Complex | Client-based |
+| **En İyi Kullanım** | Herkese Açık API'ler | Karmaşık Uygulamalar | TS Monorepo projeleri |
+| **Öğrenme Eğrisi** | Düşük | Orta | Düşük (TS biliyorsanız) |
+| **Gereksiz/Eksik Veri Çekme** | Yaygın | Çözülmüş | Çözülmüş |
+| **Tip Güvenliği** | Manuel (OpenAPI) | Şema tabanlı | Otomatik |
+| **Önbelleğe Alma** | HTTP yerel | Karmaşık | İstemci tabanlı |
 
-## Selection Questions
+## Seçim Soruları
 
-1. Who are the API consumers?
-2. Is the frontend TypeScript?
-3. How complex are the data relationships?
-4. Is caching critical?
-5. Public or internal API?
+1. API tüketicileri (istemciler) kimler olacak?
+2. Ön yüzde (frontend) TypeScript kullanılıyor mu?
+3. Veri ilişkileri ne kadar karmaşık?
+4. HTTP seviyesinde önbelleğe alma (caching) kritik mi?
+5. API herkese açık mı olacak yoksa sadece dahili kullanım için mi?

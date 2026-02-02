@@ -1,48 +1,48 @@
-# Migration Principles
+# Migrasyon Prensipleri
 
-> Safe migration strategy for zero-downtime changes.
+> Sıfır kesinti (zero-downtime) ile güvenli şema değişikliği stratejisi.
 
-## Safe Migration Strategy
+## Güvenli Migrasyon Stratejisi
 
 ```
-For zero-downtime changes:
+Kesintisiz değişiklikler için:
 │
-├── Adding column
-│   └── Add as nullable → backfill → add NOT NULL
+├── Sütun ekleme
+│   └── Nullable olarak ekle → verileri doldur → NOT NULL ekle
 │
-├── Removing column
-│   └── Stop using → deploy → remove column
+├── Sütun silme
+│   └── Kullanmayı bırak → yayına al → sütunu sil
 │
-├── Adding index
-│   └── CREATE INDEX CONCURRENTLY (non-blocking)
+├── İndeks ekleme
+│   └── CREATE INDEX CONCURRENTLY (diğer işlemleri engellemez)
 │
-└── Renaming column
-    └── Add new → migrate data → deploy → drop old
+└── Sütun adını değiştirme (Rename)
+    └── Yeni sütun ekle → veriyi taşı → yayına al → eskiyi sil
 ```
 
-## Migration Philosophy
+## Migrasyon Felsefesi
 
-- Never make breaking changes in one step
-- Test migrations on data copy first
-- Have rollback plan
-- Run in transaction when possible
+- Kırılmaya yol açacak (breaking changes) değişiklikleri asla tek adımda yapmayın.
+- Migrasyonları önce verinin bir kopyasında test edin.
+- Her zaman geri alma (rollback) planınız olsun.
+- Mümkünse işlemlerinizi TRANSACTION bloğu içinde çalıştırın.
 
-## Serverless Databases
+## Sunucusuz (Serverless) Veritabanları
 
 ### Neon (Serverless PostgreSQL)
 
-| Feature | Benefit |
+| Özellik | Fayda |
 |---------|---------|
-| Scale to zero | Cost savings |
-| Instant branching | Dev/preview |
-| Full PostgreSQL | Compatibility |
-| Autoscaling | Traffic handling |
+| Scale to zero | Maliyet tasarrufu |
+| Anlık dallanma (Instant branching) | Geliştirme/önizleme ortamları |
+| Tam PostgreSQL desteği | Uyumluluk |
+| Otomatik ölçeklendirme | Trafik yönetimi |
 
 ### Turso (Edge SQLite)
 
-| Feature | Benefit |
+| Özellik | Fayda |
 |---------|---------|
-| Edge locations | Ultra-low latency |
-| SQLite compatible | Simple |
-| Generous free tier | Cost |
-| Global distribution | Performance |
+| Edge lokasyonları | Çok düşük gecikme süresi |
+| SQLite uyumlu | Basitlik |
+| Cömert ücretsiz katman | Düşük maliyet |
+| Küresel dağıtım | Performans |

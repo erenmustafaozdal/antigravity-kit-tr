@@ -1,57 +1,57 @@
-# Mobile Performance Reference
+# Mobil Performans Referansı
 
-> Deep dive into React Native and Flutter performance optimization, 60fps animations, memory management, and battery considerations.
-> **This file covers the #1 area where AI-generated code FAILS.**
-
----
-
-## 1. The Mobile Performance Mindset
-
-### Why Mobile Performance is Different
-
-```
-DESKTOP:                          MOBILE:
-├── Unlimited power               ├── Battery matters
-├── Abundant RAM                  ├── RAM is shared, limited
-├── Stable network                ├── Network is unreliable
-├── CPU always available          ├── CPU throttles when hot
-└── User expects fast anyway      └── User expects INSTANT
-```
-
-### Performance Budget Concept
-
-```
-Every frame must complete in:
-├── 60fps → 16.67ms per frame
-├── 120fps (ProMotion) → 8.33ms per frame
-
-If your code takes longer:
-├── Frame drops → Janky scroll/animation
-├── User perceives as "slow" or "broken"
-└── They WILL uninstall your app
-```
+> React Native ve Flutter performans optimizasyonu, 60fps animasyonlar, bellek yönetimi ve pil değerlendirmeleri üzerine derin dalış.
+> **Bu dosya, YZ tarafından üretilen kodların BAŞARISIZ olduğu en önemli konuyu kapsar.**
 
 ---
 
-## 2. React Native Performance
+## 1. Mobil Performans Zihniyeti
 
-### 🚫 The #1 AI Mistake: ScrollView for Lists
+### Mobil Performansı Neden Farklıdır?
+
+```
+MASAÜSTÜ:                          MOBİL:
+├── Sınırsız güç                  ├── Pil önemlidir
+├── Bol miktarda RAM              ├── RAM paylaşımlıdır, sınırlıdır
+├── Kararlı ağ                    ├── Ağ güvenilmezdir
+├── CPU her zaman kullanılabilir  ├── CPU ısındığında hızı düşürür (throttle)
+└── Kullanıcı zaten hızlı bekler  └── Kullanıcı ANINDA yanıt bekler
+```
+
+### Performans Bütçesi Kavramı
+
+```
+Her kare (frame) şu sürede tamamlanmalıdır:
+├── 60fps → Kare başına 16.67ms
+├── 120fps (ProMotion) → Kare başına 8.33ms
+
+Kodunuz daha uzun sürerse:
+├── Kare düşmesi → Takılan (janky) kaydırma/animasyon
+├── Kullanıcı "yavaş" veya "bozuk" olarak algılar
+└── Uygulamanızı SİLECEKLERDİR
+```
+
+---
+
+## 2. React Native Performansı
+
+### 🚫 1 Numaralı YZ Hatası: Listeler İçin ScrollView
 
 ```javascript
-// ❌ NEVER DO THIS - AI's favorite mistake
+// ❌ ASLA YAPMAYIN - YZ'lerin en sevdiği hata
 <ScrollView>
   {items.map(item => (
     <ItemComponent key={item.id} item={item} />
   ))}
 </ScrollView>
 
-// Why it's catastrophic:
-// ├── Renders ALL items immediately (1000 items = 1000 renders)
-// ├── Memory explodes
-// ├── Initial render takes seconds
-// └── Scroll becomes janky
+// Neden felakettir:
+// ├── TÜM öğeleri anında render eder (1000 öğe = 1000 render)
+// ├── Bellek patlar
+// ├── İlk render saniyeler sürer
+// └── Kaydırma takılmaya başlar
 
-// ✅ ALWAYS USE FlatList
+// ✅ HER ZAMAN FlatList KULLANIN
 <FlatList
   data={items}
   renderItem={renderItem}
@@ -59,12 +59,12 @@ If your code takes longer:
 />
 ```
 
-### FlatList Optimization Checklist
+### FlatList Optimizasyon Kontrol Listesi
 
 ```javascript
-// ✅ CORRECT: All optimizations applied
+// ✅ DOĞRU: Tüm optimizasyonlar uygulanmış
 
-// 1. Memoize the item component
+// 1. Öğe bileşenini memoize edin
 const ListItem = React.memo(({ item }: { item: Item }) => {
   return (
     <Pressable style={styles.item}>
@@ -73,56 +73,58 @@ const ListItem = React.memo(({ item }: { item: Item }) => {
   );
 });
 
-// 2. Memoize renderItem with useCallback
+// 2. renderItem'ı useCallback ile memoize edin
 const renderItem = useCallback(
   ({ item }: { item: Item }) => <ListItem item={item} />,
-  [] // Empty deps = never recreated
+  [] // Boş deps = asla yeniden oluşturulmaz
 );
 
-// 3. Stable keyExtractor (NEVER use index!)
+// 3. Kararlı keyExtractor (ASLA indis kullanmayın!)
 const keyExtractor = useCallback((item: Item) => item.id, []);
 
-// 4. Provide getItemLayout for fixed-height items
+// 4. Sabit yükseklikteki öğeler için getItemLayout sağlayın
 const getItemLayout = useCallback(
   (data: Item[] | null, index: number) => ({
-    length: ITEM_HEIGHT, // Fixed height
+    length: ITEM_HEIGHT, // Sabit yükseklik
     offset: ITEM_HEIGHT * index,
     index,
   }),
   []
 );
 
-// 5. Apply to FlatList
+// 5. FlatList'e uygulayın
 <FlatList
   data={items}
   renderItem={renderItem}
   keyExtractor={keyExtractor}
   getItemLayout={getItemLayout}
-  // Performance props
-  removeClippedSubviews={true} // Android: detach off-screen
-  maxToRenderPerBatch={10} // Items per batch
-  windowSize={5} // Render window (5 = 2 screens each side)
-  initialNumToRender={10} // Initial items
-  updateCellsBatchingPeriod={50} // Batching delay
+  // Performans propları
+  removeClippedSubviews={true} // Android: ekran dışını ayır
+  maxToRenderPerBatch={10} // Batch başına öğe
+  windowSize={5} // Render penceresi (5 = her iki yanda 2 ekran)
+  initialNumToRender={10} // Başlangıç öğe sayısı
+  updateCellsBatchingPeriod={50} // Batchleme gecikmesi
 />
 ```
 
-### Why Each Optimization Matters
+### Her Optimizasyon Neden Önemlidir?
 
-| Optimization | What It Prevents | Impact |
+| Optimizasyon | Neyi Önler? | Etki |
 |--------------|------------------|--------|
-| `React.memo` | Re-render on parent change | 🔴 Critical |
-| `useCallback renderItem` | New function every render | 🔴 Critical |
-| Stable `keyExtractor` | Wrong item recycling | 🔴 Critical |
-| `getItemLayout` | Async layout calculation | 🟡 High |
-| `removeClippedSubviews` | Memory from off-screen | 🟡 High |
-| `maxToRenderPerBatch` | Blocking main thread | 🟢 Medium |
-| `windowSize` | Memory usage | 🟢 Medium |
+| `React.memo` | Üst bileşen değişiminde re-render | 🔴 Kritik |
+| `useCallback renderItem` | Her render'da yeni fonksiyon | 🔴 Kritik |
+| Kararlı `keyExtractor` | Yanlış öğe geri dönüşümü (recycling) | 🔴 Kritik |
+| `getItemLayout` | Asenkron layout hesaplaması | 🟡 Yüksek |
+| `removeClippedSubviews` | Ekran dışı öğelerin bellek yükü | 🟡 Yüksek |
+| `maxToRenderPerBatch` | Ana thread'in bloklanması | 🟢 Orta |
+| `windowSize` | Bellek kullanımı | 🟢 Orta |
 
-### FlashList: The Better Option
+---
+
+### FlashList: Daha İyi Bir Seçenek
 
 ```javascript
-// Consider FlashList for better performance
+// Daha iyi performans için FlashList'i değerlendirin
 import { FlashList } from "@shopify/flash-list";
 
 <FlashList
@@ -132,128 +134,49 @@ import { FlashList } from "@shopify/flash-list";
   keyExtractor={keyExtractor}
 />
 
-// Benefits over FlatList:
-// ├── Faster recycling
-// ├── Better memory management
-// ├── Simpler API
-// └── Fewer optimization props needed
+// FlatList'e göre avantajları:
+// ├── Daha hızlı geri dönüşüm (recycling)
+// ├── Daha iyi bellek yönetimi
+// ├── Daha basit API
+// └── Daha az optimizasyon prop'una ihtiyaç duyması
 ```
 
-### Animation Performance
+### Animasyon Performansı
 
 ```javascript
-// ❌ JS-driven animation (blocks JS thread)
+// ❌ JS tabanlı animasyon (JS thread'ini bloklar)
 Animated.timing(value, {
   toValue: 1,
   duration: 300,
-  useNativeDriver: false, // BAD!
+  useNativeDriver: false, // KÖTÜ!
 }).start();
 
-// ✅ Native-driver animation (runs on UI thread)
+// ✅ Native-driver animasyon (UI thread'inde çalışır)
 Animated.timing(value, {
   toValue: 1,
   duration: 300,
-  useNativeDriver: true, // GOOD!
+  useNativeDriver: true, // İYİ!
 }).start();
 
-// Native driver supports ONLY:
+// Native driver SADECE şunları destekler:
 // ├── transform (translate, scale, rotate)
 // └── opacity
 // 
-// Does NOT support:
+// Şunları DESTEKLEMEZ:
 // ├── width, height
 // ├── backgroundColor
-// ├── borderRadius changes
+// ├── borderRadius değişiklikleri
 // └── margin, padding
-```
-
-### Reanimated for Complex Animations
-
-```javascript
-// For animations native driver can't handle, use Reanimated 3
-
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
-
-const Component = () => {
-  const offset = useSharedValue(0);
-
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ translateX: withSpring(offset.value) }],
-  }));
-
-  return <Animated.View style={animatedStyles} />;
-};
-
-// Benefits:
-// ├── Runs on UI thread (60fps guaranteed)
-// ├── Can animate any property
-// ├── Gesture-driven animations
-// └── Worklets for complex logic
-```
-
-### Memory Leak Prevention
-
-```javascript
-// ❌ Memory leak: uncleared interval
-useEffect(() => {
-  const interval = setInterval(() => {
-    fetchData();
-  }, 5000);
-  // Missing cleanup!
-}, []);
-
-// ✅ Proper cleanup
-useEffect(() => {
-  const interval = setInterval(() => {
-    fetchData();
-  }, 5000);
-  
-  return () => clearInterval(interval); // CLEANUP!
-}, []);
-
-// Common memory leak sources:
-// ├── Timers (setInterval, setTimeout)
-// ├── Event listeners
-// ├── Subscriptions (WebSocket, PubSub)
-// ├── Async operations that update state after unmount
-// └── Image caching without limits
-```
-
-### React Native Performance Checklist
-
-```markdown
-## Before Every List
-- [ ] Using FlatList or FlashList (NOT ScrollView)
-- [ ] renderItem is useCallback memoized
-- [ ] List items are React.memo wrapped
-- [ ] keyExtractor uses stable ID (NOT index)
-- [ ] getItemLayout provided (if fixed height)
-
-## Before Every Animation
-- [ ] useNativeDriver: true (if possible)
-- [ ] Using Reanimated for complex animations
-- [ ] Only animating transform/opacity
-- [ ] Tested on low-end Android device
-
-## Before Any Release
-- [ ] console.log statements removed
-- [ ] Cleanup functions in all useEffects
-- [ ] No memory leaks (test with profiler)
-- [ ] Tested in release build (not dev)
 ```
 
 ---
 
-## 3. Flutter Performance
+## 3. Flutter Performansı
 
-### 🚫 The #1 AI Mistake: setState Overuse
+### 🚫 1 Numaralı YZ Hatası: setState'in Aşırı Kullanımı
 
 ```dart
-// ❌ WRONG: setState rebuilds ENTIRE widget tree
+// ❌ YANLIŞ: setState TÜM widget ağacını yeniden oluşturur
 class BadCounter extends StatefulWidget {
   @override
   State<BadCounter> createState() => _BadCounterState();
@@ -264,7 +187,7 @@ class _BadCounterState extends State<BadCounter> {
   
   void _increment() {
     setState(() {
-      _counter++; // This rebuilds EVERYTHING below!
+      _counter++; // Bu, altındaki HER ŞEYİ yeniden oluşturur!
     });
   }
   
@@ -272,19 +195,19 @@ class _BadCounterState extends State<BadCounter> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Counter: $_counter'),
-        ExpensiveWidget(), // Rebuilds unnecessarily!
-        AnotherExpensiveWidget(), // Rebuilds unnecessarily!
+        Text('Sayaç: $_counter'),
+        ExpensiveWidget(), // Gereksiz yere yeniden oluşur!
+        AnotherExpensiveWidget(), // Gereksiz yere yeniden oluşur!
       ],
     );
   }
 }
 ```
 
-### The `const` Constructor Revolution
+### `const` Constructor Devrimi
 
 ```dart
-// ✅ CORRECT: const prevents rebuilds
+// ✅ DOĞRU: const yeniden oluşturmayı (rebuild) engeller
 
 class GoodCounter extends StatefulWidget {
   const GoodCounter({super.key}); // CONST constructor!
@@ -300,24 +223,24 @@ class _GoodCounterState extends State<GoodCounter> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Counter: $_counter'),
-        const ExpensiveWidget(), // Won't rebuild!
-        const AnotherExpensiveWidget(), // Won't rebuild!
+        Text('Sayaç: $_counter'),
+        const ExpensiveWidget(), // Yeniden oluşmaz!
+        const AnotherExpensiveWidget(), // Yeniden oluşmaz!
       ],
     );
   }
 }
 
-// RULE: Add `const` to EVERY widget that doesn't depend on state
+// KURAL: State'e bağlı olmayan HER widget'a `const` ekleyin
 ```
 
-### Targeted State Management
+### Hedeflenmiş State Yönetimi
 
 ```dart
-// ❌ setState rebuilds whole tree
+// ❌ setState tüm ağacı yeniden oluşturur
 setState(() => _value = newValue);
 
-// ✅ ValueListenableBuilder: surgical rebuilds
+// ✅ ValueListenableBuilder: cerrahi müdahale ile yeniden oluşturma
 class TargetedState extends StatelessWidget {
   final ValueNotifier<int> counter = ValueNotifier(0);
   
@@ -325,443 +248,137 @@ class TargetedState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Only this rebuilds when counter changes
+        // Sayaç değiştiğinde sadece burası yeniden oluşur
         ValueListenableBuilder<int>(
           valueListenable: counter,
           builder: (context, value, child) => Text('$value'),
-          child: const Icon(Icons.star), // Won't rebuild!
+          child: const Icon(Icons.star), // Yeniden oluşmaz!
         ),
-        const ExpensiveWidget(), // Never rebuilds
+        const ExpensiveWidget(), // Asla yeniden oluşmaz
       ],
     );
   }
 }
 ```
 
-### Riverpod/Provider Best Practices
-
-```dart
-// ❌ WRONG: Reading entire provider in build
-Widget build(BuildContext context) {
-  final state = ref.watch(myProvider); // Rebuilds on ANY change
-  return Text(state.name);
-}
-
-// ✅ CORRECT: Select only what you need
-Widget build(BuildContext context) {
-  final name = ref.watch(myProvider.select((s) => s.name));
-  return Text(name); // Only rebuilds when name changes
-}
-```
-
-### ListView Optimization
-
-```dart
-// ❌ WRONG: ListView without builder (renders all)
-ListView(
-  children: items.map((item) => ItemWidget(item)).toList(),
-)
-
-// ✅ CORRECT: ListView.builder (lazy rendering)
-ListView.builder(
-  itemCount: items.length,
-  itemBuilder: (context, index) => ItemWidget(items[index]),
-  // Additional optimizations:
-  itemExtent: 56, // Fixed height = faster layout
-  cacheExtent: 100, // Pre-render distance
-)
-
-// ✅ EVEN BETTER: ListView.separated for dividers
-ListView.separated(
-  itemCount: items.length,
-  itemBuilder: (context, index) => ItemWidget(items[index]),
-  separatorBuilder: (context, index) => const Divider(),
-)
-```
-
-### Image Optimization
-
-```dart
-// ❌ WRONG: No caching, full resolution
-Image.network(url)
-
-// ✅ CORRECT: Cached with proper sizing
-CachedNetworkImage(
-  imageUrl: url,
-  width: 100,
-  height: 100,
-  fit: BoxFit.cover,
-  memCacheWidth: 200, // Cache at 2x for retina
-  memCacheHeight: 200,
-  placeholder: (context, url) => const Skeleton(),
-  errorWidget: (context, url, error) => const Icon(Icons.error),
-)
-```
-
-### Dispose Pattern
-
-```dart
-class MyWidget extends StatefulWidget {
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  late final StreamSubscription _subscription;
-  late final AnimationController _controller;
-  late final TextEditingController _textController;
-  
-  @override
-  void initState() {
-    super.initState();
-    _subscription = stream.listen((_) {});
-    _controller = AnimationController(vsync: this);
-    _textController = TextEditingController();
-  }
-  
-  @override
-  void dispose() {
-    // ALWAYS dispose in reverse order of creation
-    _textController.dispose();
-    _controller.dispose();
-    _subscription.cancel();
-    super.dispose();
-  }
-  
-  @override
-  Widget build(BuildContext context) => Container();
-}
-```
-
-### Flutter Performance Checklist
-
-```markdown
-## Before Every Widget
-- [ ] const constructor added (if no runtime args)
-- [ ] const keywords on static children
-- [ ] Minimal setState scope
-- [ ] Using selectors for provider watches
-
-## Before Every List
-- [ ] Using ListView.builder (NOT ListView with children)
-- [ ] itemExtent provided (if fixed height)
-- [ ] Image caching with size limits
-
-## Before Any Animation
-- [ ] Using Impeller (Flutter 3.16+)
-- [ ] Avoiding Opacity widget (use FadeTransition)
-- [ ] TickerProviderStateMixin for AnimationController
-
-## Before Any Release
-- [ ] All dispose() methods implemented
-- [ ] No print() in production
-- [ ] Tested in profile/release mode
-- [ ] DevTools performance overlay checked
-```
-
 ---
 
-## 4. Animation Performance (Both Platforms)
+## 4. Animasyon Performansı (Her İki Platform)
 
-### The 60fps Imperative
-
-```
-Human eye detects:
-├── < 24 fps → "Slideshow" (broken)
-├── 24-30 fps → "Choppy" (uncomfortable)
-├── 30-45 fps → "Noticeably not smooth"
-├── 45-60 fps → "Smooth" (acceptable)
-├── 60 fps → "Buttery" (target)
-└── 120 fps → "Premium" (ProMotion devices)
-
-NEVER ship < 60fps animations.
-```
-
-### GPU vs CPU Animation
+### 60fps Zorunluluğu
 
 ```
-GPU-ACCELERATED (FAST):          CPU-BOUND (SLOW):
+İnsan gözü şunu algılar:
+├── < 24 fps → "Slayt gösterisi" (bozuk)
+├── 24-30 fps → "Takılan" (rahatsız edici)
+├── 30-45 fps → "Gözle görülür şekilde akıcı değil"
+├── 45-60 fps → "Akıcı" (kabul edilebilir)
+├── 60 fps → "Kaymak gibi" (hedef)
+└── 120 fps → "Premium" (ProMotion cihazlar)
+
+ASLA 60fps altı animasyon yayınlamayın.
+```
+
+### GPU vs CPU Animasyonu
+
+```
+GPU HIZLANDIRMALI (HIZLI):        CPU BAĞIMLI (YAVAŞ):
 ├── transform: translate          ├── width, height
 ├── transform: scale              ├── top, left, right, bottom
 ├── transform: rotate             ├── margin, padding
-├── opacity                       ├── border-radius (animated)
-└── (Composited, off main)        └── box-shadow (animated)
+├── opacity                       ├── border-radius (animasyonlu)
+└── (Composited, ana thread dışı) └── box-shadow (animasyonlu)
 
-RULE: Only animate transform and opacity.
-Everything else causes layout recalculation.
-```
-
-### Animation Timing Guide
-
-| Animation Type | Duration | Easing |
-|----------------|----------|--------|
-| Micro-interaction | 100-200ms | ease-out |
-| Standard transition | 200-300ms | ease-out |
-| Page transition | 300-400ms | ease-in-out |
-| Complex/dramatic | 400-600ms | ease-in-out |
-| Loading skeletons | 1000-1500ms | linear (loop) |
-
-### Spring Physics
-
-```javascript
-// React Native Reanimated
-withSpring(targetValue, {
-  damping: 15,      // How quickly it settles (higher = faster stop)
-  stiffness: 150,   // How "tight" the spring (higher = faster)
-  mass: 1,          // Weight of the object
-})
-
-// Flutter
-SpringSimulation(
-  SpringDescription(
-    mass: 1,
-    stiffness: 150,
-    damping: 15,
-  ),
-  start,
-  end,
-  velocity,
-)
-
-// Natural feel ranges:
-// Damping: 10-20 (bouncy to settled)
-// Stiffness: 100-200 (loose to tight)
-// Mass: 0.5-2 (light to heavy)
+KURAL: Sadece transform ve opacity'yi anime edin.
+Diğer her şey düzen (layout) hesaplamasına neden olur.
 ```
 
 ---
 
-## 5. Memory Management
+## 5. Bellek Yönetimi
 
-### Common Memory Leaks
+### Yaygın Bellek Sızıntıları (Memory Leaks)
 
-| Source | Platform | Solution |
+| Kaynak | Platform | Çözüm |
 |--------|----------|----------|
-| Timers | Both | Clear in cleanup/dispose |
-| Event listeners | Both | Remove in cleanup/dispose |
-| Subscriptions | Both | Cancel in cleanup/dispose |
-| Large images | Both | Limit cache, resize |
-| Async after unmount | RN | isMounted check or AbortController |
-| Animation controllers | Flutter | Dispose controllers |
-
-### Image Memory
-
-```
-Image memory = width × height × 4 bytes (RGBA)
-
-1080p image = 1920 × 1080 × 4 = 8.3 MB
-4K image = 3840 × 2160 × 4 = 33.2 MB
-
-10 4K images = 332 MB → App crash!
-
-RULE: Always resize images to display size (or 2-3x for retina).
-```
-
-### Memory Profiling
-
-```
-React Native:
-├── Flipper → Memory tab
-├── Xcode Instruments (iOS)
-└── Android Studio Profiler
-
-Flutter:
-├── DevTools → Memory tab
-├── Observatory
-└── flutter run --profile
-```
+| Zamanlayıcılar | Her ikisi | cleanup/dispose içinde temizle |
+| Event listener'lar | Her ikisi | cleanup/dispose içinde kaldır |
+| Abonelikler | Her ikisi | cleanup/dispose içinde iptal et |
+| Büyük görseller | Her ikisi | Önbelleği sınırla, yeniden boyutlandır |
+| Unmount sonrası asenkron | RN | isMounted kontrolü veya AbortController |
+| Animasyon controller | Flutter | Controller'ı dispose et |
 
 ---
 
-## 6. Battery Optimization
+## 6. Pil Optimizasyonu
 
-### Battery Drain Sources
+### Pil Tüketim Kaynakları
 
-| Source | Impact | Mitigation |
+| Kaynak | Etki | İyileştirme |
 |--------|--------|------------|
-| **Screen on** | 🔴 Highest | Dark mode on OLED |
-| **GPS continuous** | 🔴 Very high | Use significant change |
-| **Network requests** | 🟡 High | Batch, cache aggressively |
-| **Animations** | 🟡 Medium | Reduce when low battery |
-| **Background work** | 🟡 Medium | Defer non-critical |
-| **CPU computation** | 🟢 Lower | Offload to backend |
-
-### OLED Battery Saving
-
-```
-OLED screens: Black pixels = OFF = 0 power
-
-Dark mode savings:
-├── True black (#000000) → Maximum savings
-├── Dark gray (#1a1a1a) → Slight savings
-├── Any color → Some power
-└── White (#FFFFFF) → Maximum power
-
-RULE: On dark mode, use true black for backgrounds.
-```
-
-### Background Task Guidelines
-
-```
-iOS:
-├── Background refresh: Limited, system-scheduled
-├── Push notifications: Use for important updates
-├── Background modes: Location, audio, VoIP only
-└── Background tasks: Max ~30 seconds
-
-Android:
-├── WorkManager: System-scheduled, battery-aware
-├── Foreground service: Visible to user, continuous
-├── JobScheduler: Batch network operations
-└── Doze mode: Respect it, batch operations
-```
+| **Ekran açık** | 🔴 En yüksek | OLED'de karanlık mod |
+| **Sürekli GPS** | 🔴 Çok yüksek | "Önemli değişiklik" (significant change) kullan |
+| **Ağ istekleri** | 🟡 Yüksek | Gruplandır (batch), agresif önbellekle |
+| **Animasyonlar** | 🟡 Orta | Düşük pilde azalt |
+| **Arka plan işleri** | 🟡 Orta | Kritik olmayanı ertele |
+| **CPU hesaplaması**| 🟢 Düşük | Backend'e devret |
 
 ---
 
-## 7. Network Performance
+## 7. Ağ Performansı
 
-### Offline-First Architecture
+### Önce-Çevrimdışı (Offline-First) Mimarisi
 
 ```
                     ┌──────────────┐
-                    │     UI       │
+                    │      UI      │
                     └──────┬───────┘
                            │
                     ┌──────▼───────┐
-                    │   Cache      │ ← Read from cache FIRST
+                    │  Önbellek    │ ← ÖNCE önbellekten oku
                     └──────┬───────┘
                            │
                     ┌──────▼───────┐
-                    │   Network    │ ← Update cache from network
+                    │      Ağ      │ ← Önbelleği ağdan güncelle
                     └──────────────┘
 
-Benefits:
-├── Instant UI (no loading spinner for cached data)
-├── Works offline
-├── Reduces data usage
-└── Better UX on slow networks
-```
-
-### Request Optimization
-
-```
-BATCH: Combine multiple requests into one
-├── 10 small requests → 1 batch request
-├── Reduces connection overhead
-└── Better for battery (radio on once)
-
-CACHE: Don't re-fetch unchanged data
-├── ETag/If-None-Match headers
-├── Cache-Control headers
-└── Stale-while-revalidate pattern
-
-COMPRESS: Reduce payload size
-├── gzip/brotli compression
-├── Request only needed fields (GraphQL)
-└── Paginate large lists
+Avantajları:
+├── Anında UI (önbellekteki veri için yükleme spinner'ı yok)
+├── Çevrimdışı çalışır
+├── Veri kullanımını azaltır
+├── Yavaş ağlarda daha iyi UX sunar
 ```
 
 ---
 
-## 8. Performance Testing
+## 8. Performans Testi
 
-### What to Test
+### Neyi Test Etmeli?
 
-| Metric | Target | Tool |
+| Metrik | Hedef | Araç |
 |--------|--------|------|
-| **Frame rate** | ≥ 60fps | Performance overlay |
-| **Memory** | Stable, no growth | Profiler |
-| **Cold start** | < 2s | Manual timing |
-| **TTI (Time to Interactive)** | < 3s | Lighthouse |
-| **List scroll** | No jank | Manual feel |
-| **Animation smoothness** | No drops | Performance monitor |
+| **Kare hızı** | ≥ 60fps | Performance overlay |
+| **Bellek** | Kararlı, artış yok | Profiler |
+| **Cold start** | < 2s | Manuel zamanlama |
+| **TTI (Etkileşim Süresi)** | < 3s | Lighthouse |
+| **Liste kaydırma** | Takılma yok | Manuel his |
+| **Animasyon akıcılığı** | Kare düşmesi yok | Performance monitor |
 
-### Test on Real Devices
+### Gerçek Cihazlarda Test Edin
 
 ```
-⚠️ NEVER trust only:
-├── Simulator/emulator (faster than real)
-├── Dev mode (slower than release)
-├── High-end devices only
+⚠️ ASLA sadece şunlara güvenmeyin:
+├── Simülatör/emülatör (gerçekten daha hızlıdır)
+├── Dev mod (release'den daha yavaştır)
+├── Sadece yüksek segment cihazlar
 
-✅ ALWAYS test on:
-├── Low-end Android (< $200 phone)
-├── Older iOS device (iPhone 8 or SE)
+✅ HER ZAMAN şunlarda test edin:
+├── Düşük segment Android (< 7000 TL telefon)
+├── Eski iOS cihazı (iPhone 8 veya SE)
 ├── Release/profile build
-└── With real data (not 10 items)
-```
-
-### Performance Monitoring Checklist
-
-```markdown
-## During Development
-- [ ] Performance overlay enabled
-- [ ] Watching for dropped frames
-- [ ] Memory usage stable
-- [ ] No console warnings about performance
-
-## Before Release
-- [ ] Tested on low-end device
-- [ ] Profiled memory over extended use
-- [ ] Cold start time measured
-- [ ] List scroll tested with 1000+ items
-- [ ] Animations tested at 60fps
-- [ ] Network tested on slow 3G
+└── Gerçek verilerle (10 öğeyle değil)
 ```
 
 ---
 
-## 9. Quick Reference Card
-
-### React Native Essentials
-
-```javascript
-// List: Always use
-<FlatList
-  data={data}
-  renderItem={useCallback(({item}) => <MemoItem item={item} />, [])}
-  keyExtractor={useCallback(item => item.id, [])}
-  getItemLayout={useCallback((_, i) => ({length: H, offset: H*i, index: i}), [])}
-/>
-
-// Animation: Always native
-useNativeDriver: true
-
-// Cleanup: Always present
-useEffect(() => {
-  return () => cleanup();
-}, []);
-```
-
-### Flutter Essentials
-
-```dart
-// Widgets: Always const
-const MyWidget()
-
-// Lists: Always builder
-ListView.builder(itemBuilder: ...)
-
-// State: Always targeted
-ValueListenableBuilder() or ref.watch(provider.select(...))
-
-// Dispose: Always cleanup
-@override
-void dispose() {
-  controller.dispose();
-  super.dispose();
-}
-```
-
-### Animation Targets
-
-```
-Transform/Opacity only ← What to animate
-16.67ms per frame ← Time budget
-60fps minimum ← Target
-Low-end Android ← Test device
-```
-
----
-
-> **Remember:** Performance is not optimization—it's baseline quality. A slow app is a broken app. Test on the worst device your users have, not the best device you have.
+> **Unutma:** Performans bir optimizasyon değil, temel kalitedir. Yavaş bir uygulama bozuk bir uygulamadır. Elinizdeki en iyi cihazda değil, kullanıcılarınızın elindeki en kötü cihazda test edin.

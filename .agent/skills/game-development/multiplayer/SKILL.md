@@ -1,132 +1,132 @@
 ---
 name: multiplayer
-description: Multiplayer game development principles. Architecture, networking, synchronization.
+description: Çok oyunculu (Multiplayer) oyun geliştirme prensipleri. Mimari, ağ iletişimi, senkronizasyon.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Multiplayer Game Development
+# Çok Oyunculu Oyun Geliştirme (Multiplayer Game Development)
 
-> Networking architecture and synchronization principles.
+> Ağ mimarisi ve senkronizasyon prensipleri.
 
 ---
 
-## 1. Architecture Selection
+## 1. Mimari Seçimi
 
-### Decision Tree
+### Karar Ağacı
 
 ```
-What type of multiplayer?
+Ne tür bir çok oyunculu deneyim?
 │
-├── Competitive / Real-time
-│   └── Dedicated Server (authoritative)
+├── Rekabetçi / Gerçek Zamanlı
+│   └── Dedicated Server (Yetkili Sunucu)
 │
-├── Cooperative / Casual
-│   └── Host-based (one player is server)
+├── İşbirlikçi (Co-op) / Gündelik (Casual)
+│   └── Host-tabanlı (Bir oyuncu sunucu olur)
 │
-├── Turn-based
-│   └── Client-server (simple)
+├── Sıra Tabanlı
+│   └── Client-server (Basit yapı)
 │
-└── Massive (MMO)
-    └── Distributed servers
+└── Devasa (MMO)
+    └── Dağıtık sunucular (Distributed)
 ```
 
-### Comparison
+### Karşılaştırma
 
-| Architecture | Latency | Cost | Security |
+| Mimari | Gecikme (Latency) | Maliyet | Güvenlik |
 |--------------|---------|------|----------|
-| **Dedicated** | Low | High | Strong |
-| **P2P** | Variable | Low | Weak |
-| **Host-based** | Medium | Low | Medium |
+| **Dedicated** | Düşük | Yüksek | Güçlü |
+| **P2P** | Değişken | Düşük | Zayıf |
+| **Host-tabanlı** | Orta | Düşük | Orta |
 
 ---
 
-## 2. Synchronization Principles
+## 2. Senkronizasyon Prensipleri
 
-### State vs Input
+### Durum (State) vs Girdi (Input)
 
-| Approach | Sync What | Best For |
+| Yaklaşım | Ne Senkronize Edilir? | En Uygun |
 |----------|-----------|----------|
-| **State Sync** | Game state | Simple, few objects |
-| **Input Sync** | Player inputs | Action games |
-| **Hybrid** | Both | Most games |
+| **Durum Senkronizasyonu** | Oyun durumu | Basit, az nesneli oyunlar |
+| **Girdi Senkronizasyonu** | Oyuncu girdileri | Aksiyon oyunları |
+| **Hibrit** | Her ikisi | Çoğu modern oyun |
 
-### Lag Compensation
+### Gecikme Telafisi (Lag Compensation)
 
-| Technique | Purpose |
+| Teknik | Amaç |
 |-----------|---------|
-| **Prediction** | Client predicts server |
-| **Interpolation** | Smooth remote players |
-| **Reconciliation** | Fix mispredictions |
-| **Lag compensation** | Rewind for hit detection |
+| **Tahmin (Prediction)** | İstemci sunucuyu tahmin eder |
+| **Interpolasyon** | Uzaktaki oyuncuları akıcı gösterir |
+| **Uzlaşma (Reconciliation)** | Hatalı tahminleri düzeltir |
+| **Gecikme Telafisi** | Vuruş tespiti için zamanı geri sarar |
 
 ---
 
-## 3. Network Optimization
+## 3. Ağ Optimizasyonu
 
-### Bandwidth Reduction
+### Bant Genişliğini Azaltma
 
-| Technique | Savings |
+| Teknik | Kazanç |
 |-----------|---------|
-| **Delta compression** | Send only changes |
-| **Quantization** | Reduce precision |
-| **Priority** | Important data first |
-| **Area of interest** | Only nearby entities |
+| **Delta sıkıştırma** | Sadece değişiklikleri gönder |
+| **Kuantizasyon** | Hassasiyeti (precision) azalt |
+| **Önceliklendirme** | Önce önemli verileri gönder |
+| **İlgi Alanı (AOI)** | Sadece yakındaki varlıkları gönder |
 
-### Update Rates
+### Güncelleme Hızları (Update Rates)
 
-| Type | Rate |
+| Tür | Hız |
 |------|------|
-| Position | 20-60 Hz |
-| Health | On change |
-| Inventory | On change |
-| Chat | On send |
+| Konum | 20-60 Hz |
+| Sağlık | Değiştiğinde |
+| Envanter | Değiştiğinde |
+| Sohbet | Gönderildiğinde |
 
 ---
 
-## 4. Security Principles
+## 4. Güvenlik Prensipleri
 
-### Server Authority
+### Sunucu Otoritesi (Server Authority)
 
 ```
-Client: "I hit the enemy"
-Server: Validate → did projectile actually hit?
-         → was player in valid state?
-         → was timing possible?
+İstemci: "Düşmana vurdum"
+Sunucu: Doğrula → Mermi gerçekten değdi mi?
+         → Oyuncu geçerli bir durumda mıydı?
+         → Bu zamanlamayla bu hareket mümkün mü?
 ```
 
-### Anti-Cheat
+### Anti-Hile (Anti-Cheat)
 
-| Cheat | Prevention |
+| Hile Türü | Önleme Yöntemi |
 |-------|------------|
-| Speed hack | Server validates movement |
-| Aimbot | Server validates sight line |
-| Item dupe | Server owns inventory |
-| Wall hack | Don't send hidden data |
+| Hız hilesi (Speed hack) | Sunucu hareketi doğrular |
+| Aimbot | Sunucu görüş hattını doğrular |
+| Eşya kopyalama | Envanter sunucu kontrolündedir |
+| Duvar hilesi (Wall hack) | Görünmeyen veriyi gönderilmez |
 
 ---
 
-## 5. Matchmaking
+## 5. Eşleştirme (Matchmaking)
 
-### Considerations
+### Hususlar
 
-| Factor | Impact |
+| Faktör | Etki |
 |--------|--------|
-| **Skill** | Fair matches |
-| **Latency** | Playable connection |
-| **Wait time** | Player patience |
-| **Party size** | Group play |
+| **Yetenek (Skill)** | Adil maçlar |
+| **Gecikme (Latency)** | Oynanabilir bağlantı |
+| **Bekleme Süresi** | Oyuncu sabrı |
+| **Grup Boyutu** | Ekip halinde oynama |
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Trust the client | Server is authority |
-| Send everything | Send only necessary |
-| Ignore latency | Design for 100-200ms |
-| Sync exact positions | Interpolate/predict |
+| İstemciye güvenmek | Otorite her zaman sunucudur |
+| Her şeyi göndermek | Sadece gerekli olanı gönderin |
+| Gecikmeyi yok saymak | 100-200ms gecikmeyi hesaba katın |
+| Tam konumları eşitlemek | Tahmin/Interpolasyon kullanın |
 
 ---
 
-> **Remember:** Never trust the client. The server is the source of truth.
+> **Unutmayın:** İstemciye (client) asla güvenmeyin. Gerçeğin tek kaynağı sunucudur.

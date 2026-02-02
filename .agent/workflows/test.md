@@ -1,132 +1,132 @@
 ---
-description: Test generation and test running command. Creates and executes tests for code.
+description: Test oluşturma ve test çalıştırma komutu. Kod için testler oluşturur ve yürütür.
 ---
 
-# /test - Test Generation and Execution
+# /test - Test Oluşturma ve Yürütme
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Amaç
 
-This command generates tests, runs existing tests, or checks test coverage.
+Bu komut; testler oluşturur, mevcut testleri çalıştırır veya test kapsamını (coverage) kontrol eder.
 
 ---
 
-## Sub-commands
+## Alt Komutlar
 
 ```
-/test                - Run all tests
-/test [file/feature] - Generate tests for specific target
-/test coverage       - Show test coverage report
-/test watch          - Run tests in watch mode
+/test                - Tüm testleri çalıştır
+/test [dosya/özellik] - Belirli bir hedef için testler oluştur
+/test coverage       - Test kapsam raporunu göster
+/test watch          - Testleri izleme (watch) modunda çalıştır
 ```
 
 ---
 
-## Behavior
+## Davranış
 
-### Generate Tests
+### Test Oluşturma
 
-When asked to test a file or feature:
+Bir dosya veya özellik için test istendiğinde:
 
-1. **Analyze the code**
-   - Identify functions and methods
-   - Find edge cases
-   - Detect dependencies to mock
+1. **Kodu Analiz Et**
+   - Fonksiyonları ve metotları belirle
+   - Uç durumları (edge cases) bul
+   - Mock'lanacak bağımlılıkları tespit et
 
-2. **Generate test cases**
-   - Happy path tests
-   - Error cases
-   - Edge cases
-   - Integration tests (if needed)
+2. **Test Senaryoları Oluştur**
+   - Başarılı durum (happy path) testleri
+   - Hata durumları
+   - Uç durumlar
+   - Entegrasyon testleri (gerekirse)
 
-3. **Write tests**
-   - Use project's test framework (Jest, Vitest, etc.)
-   - Follow existing test patterns
-   - Mock external dependencies
+3. **Testleri Yaz**
+   - Projenin test framework'ünü (Jest, Vitest vb.) kullan
+   - Mevcut test desenlerini takip et
+   - Harici bağımlılıkları mock'la
 
 ---
 
-## Output Format
+## Çıktı Formatı
 
-### For Test Generation
+### Test Oluşturma İçin
 
 ```markdown
-## 🧪 Tests: [Target]
+## 🧪 Testler: [Hedef]
 
-### Test Plan
-| Test Case | Type | Coverage |
+### Test Planı
+| Test Senaryosu | Tür | Kapsam |
 |-----------|------|----------|
-| Should create user | Unit | Happy path |
-| Should reject invalid email | Unit | Validation |
-| Should handle db error | Unit | Error case |
+| Kullanıcı oluşturulmalı | Unit | Happy path |
+| Geçersiz e-posta reddedilmeli | Unit | Validation |
+| Veritabanı hatası yönetilmeli | Unit | Error case |
 
-### Generated Tests
+### Oluşturulan Testler
 
-`tests/[file].test.ts`
+`tests/[dosya].test.ts`
 
-[Code block with tests]
+[Testleri içeren kod bloğu]
 
 ---
 
-Run with: `npm test`
+Çalıştırmak için: `npm test`
 ```
 
-### For Test Execution
+### Test Yürütme İçin
 
 ```
-🧪 Running tests...
+🧪 Testler çalıştırılıyor...
 
-✅ auth.test.ts (5 passed)
-✅ user.test.ts (8 passed)
-❌ order.test.ts (2 passed, 1 failed)
+✅ auth.test.ts (5 geçti)
+✅ user.test.ts (8 geçti)
+❌ order.test.ts (2 geçti, 1 kaldı)
 
-Failed:
+Başarısız:
   ✗ should calculate total with discount
-    Expected: 90
-    Received: 100
+    Beklenen: 90
+    Gelen: 100
 
-Total: 15 tests (14 passed, 1 failed)
+Toplam: 15 test (14 geçti, 1 kaldı)
 ```
 
 ---
 
-## Examples
+## Örnekler
 
 ```
 /test src/services/auth.service.ts
-/test user registration flow
+/test kullanıcı kayıt akışı
 /test coverage
 /test fix failed tests
 ```
 
 ---
 
-## Test Patterns
+## Test Desenleri
 
-### Unit Test Structure
+### Unit Test Yapısı
 
 ```typescript
 describe('AuthService', () => {
   describe('login', () => {
-    it('should return token for valid credentials', async () => {
-      // Arrange
+    it('geçerli bilgilerle token döndürmeli', async () => {
+      // Arrange (Düzenle)
       const credentials = { email: 'test@test.com', password: 'pass123' };
       
-      // Act
+      // Act (Çalıştır)
       const result = await authService.login(credentials);
       
-      // Assert
+      // Assert (Doğrula)
       expect(result.token).toBeDefined();
     });
 
-    it('should throw for invalid password', async () => {
-      // Arrange
+    it('geçersiz şifre için hata fırlatmalı', async () => {
+      // Arrange (Düzenle)
       const credentials = { email: 'test@test.com', password: 'wrong' };
       
-      // Act & Assert
+      // Act & Assert (Çalıştır ve Doğrula)
       await expect(authService.login(credentials)).rejects.toThrow('Invalid credentials');
     });
   });
@@ -135,10 +135,10 @@ describe('AuthService', () => {
 
 ---
 
-## Key Principles
+## Temel Prensipler
 
-- **Test behavior not implementation**
-- **One assertion per test** (when practical)
-- **Descriptive test names**
-- **Arrange-Act-Assert pattern**
-- **Mock external dependencies**
+- **Uygulamayı değil, davranışı test et**
+- **Test başına bir doğrulama (assertion)** (pratik olduğu sürece)
+- **Açıklayıcı test isimleri**
+- **Arrange-Act-Assert deseni**
+- **Harici bağımlılıkları mock'la**

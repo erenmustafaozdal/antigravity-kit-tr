@@ -1,161 +1,161 @@
 ---
 name: server-management
-description: Server management principles and decision-making. Process management, monitoring strategy, and scaling decisions. Teaches thinking, not commands.
+description: Sunucu yönetimi prensipleri ve karar verme. Süreç yönetimi, izleme stratejisi ve ölçekleme kararları. Düşünmeyi öğretir, komutları değil.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Server Management
+# Sunucu Yönetimi (Server Management)
 
-> Server management principles for production operations.
-> **Learn to THINK, not memorize commands.**
-
----
-
-## 1. Process Management Principles
-
-### Tool Selection
-
-| Scenario | Tool |
-|----------|------|
-| **Node.js app** | PM2 (clustering, reload) |
-| **Any app** | systemd (Linux native) |
-| **Containers** | Docker/Podman |
-| **Orchestration** | Kubernetes, Docker Swarm |
-
-### Process Management Goals
-
-| Goal | What It Means |
-|------|---------------|
-| **Restart on crash** | Auto-recovery |
-| **Zero-downtime reload** | No service interruption |
-| **Clustering** | Use all CPU cores |
-| **Persistence** | Survive server reboot |
+> Prodüksiyon işlemleri için sunucu yönetimi prensipleri.
+> **Komutları ezberlemek yerine DÜŞÜNMEYİ öğren.**
 
 ---
 
-## 2. Monitoring Principles
+## 1. Süreç Yönetimi Prensipleri
 
-### What to Monitor
+### Araç Seçimi
 
-| Category | Key Metrics |
-|----------|-------------|
-| **Availability** | Uptime, health checks |
-| **Performance** | Response time, throughput |
-| **Errors** | Error rate, types |
-| **Resources** | CPU, memory, disk |
+| Senaryo | Araç |
+|---------|------|
+| **Node.js uygulaması** | PM2 (clustering, reload) |
+| **Herhangi bir uygulama** | systemd (Linux native) |
+| **Container'lar** | Docker/Podman |
+| **Orkestrasyon** | Kubernetes, Docker Swarm |
 
-### Alert Severity Strategy
+### Süreç Yönetimi Hedefleri
 
-| Level | Response |
-|-------|----------|
-| **Critical** | Immediate action |
-| **Warning** | Investigate soon |
-| **Info** | Review daily |
+| Hedef | Anlamı |
+|-------|--------|
+| **Çökmede yeniden başlat** | Otomatik kurtarma |
+| **Sıfır kesinti reload** | Servis kesintisi yok |
+| **Clustering** | Tüm CPU çekirdeklerini kullan |
+| **Kalıcılık** | Sunucu yeniden başlatmayı atlatır |
 
-### Monitoring Tool Selection
+---
 
-| Need | Options |
-|------|---------|
-| Simple/Free | PM2 metrics, htop |
-| Full observability | Grafana, Datadog |
-| Error tracking | Sentry |
+## 2. İzleme Prensipleri
+
+### Neyi İzlemeli
+
+| Kategori | Anahtar Metrikler |
+|----------|-------------------|
+| **Erişilebilirlik** | Uptime, health check'ler |
+| **Performans** | Yanıt süresi, throughput |
+| **Hatalar** | Hata oranı, tipler |
+| **Kaynaklar** | CPU, bellek, disk |
+
+### Alarm Önem Stratejisi
+
+| Seviye | Yanıt |
+|--------|-------|
+| **Kritik** | Hemen aksiyon |
+| **Uyarı** | Yakında araştır |
+| **Bilgi** | Günlük incele |
+
+### İzleme Aracı Seçimi
+
+| İhtiyaç | Seçenekler |
+|---------|------------|
+| Basit/Ücretsiz | PM2 metrikleri, htop |
+| Tam gözlemlenebilirlik | Grafana, Datadog |
+| Hata izleme | Sentry |
 | Uptime | UptimeRobot, Pingdom |
 
 ---
 
-## 3. Log Management Principles
+## 3. Log Yönetimi Prensipleri
 
-### Log Strategy
+### Log Stratejisi
 
-| Log Type | Purpose |
-|----------|---------|
-| **Application logs** | Debug, audit |
-| **Access logs** | Traffic analysis |
-| **Error logs** | Issue detection |
+| Log Tipi | Amaç |
+|----------|------|
+| **Uygulama logları** | Debug, denetim |
+| **Erişim logları** | Trafik analizi |
+| **Hata logları** | Sorun tespiti |
 
-### Log Principles
+### Log Prensipleri
 
-1. **Rotate logs** to prevent disk fill
-2. **Structured logging** (JSON) for parsing
-3. **Appropriate levels** (error/warn/info/debug)
-4. **No sensitive data** in logs
-
----
-
-## 4. Scaling Decisions
-
-### When to Scale
-
-| Symptom | Solution |
-|---------|----------|
-| High CPU | Add instances (horizontal) |
-| High memory | Increase RAM or fix leak |
-| Slow response | Profile first, then scale |
-| Traffic spikes | Auto-scaling |
-
-### Scaling Strategy
-
-| Type | When to Use |
-|------|-------------|
-| **Vertical** | Quick fix, single instance |
-| **Horizontal** | Sustainable, distributed |
-| **Auto** | Variable traffic |
+1. **Logları rotate et** disk dolmasını önlemek için
+2. **Yapılandırılmış loglama** (JSON) parsing için
+3. **Uygun seviyeler** (error/warn/info/debug)
+4. **Hassas veri yok** loglarda
 
 ---
 
-## 5. Health Check Principles
+## 4. Ölçekleme Kararları
 
-### What Constitutes Healthy
+### Ne Zaman Ölçeklemeli
 
-| Check | Meaning |
-|-------|---------|
-| **HTTP 200** | Service responding |
-| **Database connected** | Data accessible |
-| **Dependencies OK** | External services reachable |
-| **Resources OK** | CPU/memory not exhausted |
+| Belirti | Çözüm |
+|---------|-------|
+| Yüksek CPU | Instance ekle (horizontal) |
+| Yüksek bellek | RAM artır veya sızıntıyı düzelt |
+| Yavaş yanıt | Önce profillle, sonra ölçekle |
+| Trafik artışları | Otomatik ölçekleme |
 
-### Health Check Implementation
+### Ölçekleme Stratejisi
 
-- Simple: Just return 200
-- Deep: Check all dependencies
-- Choose based on load balancer needs
-
----
-
-## 6. Security Principles
-
-| Area | Principle |
-|------|-----------|
-| **Access** | SSH keys only, no passwords |
-| **Firewall** | Only needed ports open |
-| **Updates** | Regular security patches |
-| **Secrets** | Environment vars, not files |
-| **Audit** | Log access and changes |
+| Tip | Ne Zaman Kullanılır |
+|-----|---------------------|
+| **Dikey** | Hızlı düzeltme, tek instance |
+| **Yatay** | Sürdürülebilir, dağıtık |
+| **Otomatik** | Değişken trafik |
 
 ---
 
-## 7. Troubleshooting Priority
+## 5. Health Check Prensipleri
 
-When something's wrong:
+### Neyi Sağlıklı Yapar
 
-1. **Check if running** (process status)
-2. **Check logs** (error messages)
-3. **Check resources** (disk, memory, CPU)
-4. **Check network** (ports, DNS)
-5. **Check dependencies** (database, APIs)
+| Kontrol | Anlam |
+|---------|-------|
+| **HTTP 200** | Servis yanıt veriyor |
+| **Veritabanı bağlı** | Veriye erişilebilir |
+| **Bağımlılıklar OK** | Harici servislere ulaşılıyor |
+| **Kaynaklar OK** | CPU/bellek tükenmedi |
 
----
+### Health Check İmplementasyonu
 
-## 8. Anti-Patterns
-
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Run as root | Use non-root user |
-| Ignore logs | Set up log rotation |
-| Skip monitoring | Monitor from day one |
-| Manual restarts | Auto-restart config |
-| No backups | Regular backup schedule |
+- Basit: Sadece 200 döndür
+- Derin: Tüm bağımlılıkları kontrol et
+- Load balancer ihtiyaçlarına göre seç
 
 ---
 
-> **Remember:** A well-managed server is boring. That's the goal.
+## 6. Güvenlik Prensipleri
+
+| Alan | Prensip |
+|------|---------|
+| **Erişim** | Yalnızca SSH anahtarları, şifre yok |
+| **Firewall** | Yalnızca gerekli portlar açık |
+| **Güncellemeler** | Düzenli güvenlik yamaları |
+| **Sırlar** | Ortam değişkenleri, dosya değil |
+| **Denetim** | Erişimi ve değişiklikleri logla |
+
+---
+
+## 7. Sorun Giderme Önceliği
+
+Bir şeyler ters gittiğinde:
+
+1. **Çalışıyor mu kontrol et** (process durumu)
+2. **Logları kontrol et** (hata mesajları)
+3. **Kaynakları kontrol et** (disk, bellek, CPU)
+4. **Ağı kontrol et** (portlar, DNS)
+5. **Bağımlılıkları kontrol et** (veritabanı, API'ler)
+
+---
+
+## 8. Anti-Desenler
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| Root olarak çalıştır | Root olmayan kullanıcı kullan |
+| Logları görmezden gel | Log rotation kur |
+| İzlemeyi atla | İlk günden izle |
+| Manuel yeniden başlatma | Otomatik yeniden başlatma yapılandır |
+| Yedekleme yok | Düzenli yedekleme takvimi |
+
+---
+
+> **Unutma:** İyi yönetilen bir sunucu sıkıcıdır. Hedef budur.

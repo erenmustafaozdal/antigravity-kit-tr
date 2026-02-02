@@ -1,194 +1,194 @@
 ---
 name: documentation-templates
-description: Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation.
+description: Dokümantasyon şablonları ve yapı kuralları. README, API dökümanları, kod yorumları ve YZ dostu dokümantasyon.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Documentation Templates
+# Dokümantasyon Şablonları
 
-> Templates and structure guidelines for common documentation types.
+> Yaygın dokümantasyon türleri için şablonlar ve yapı kuralları.
 
 ---
 
-## 1. README Structure
+## 1. README Yapısı
 
-### Essential Sections (Priority Order)
+### Temel Bölümler (Öncelik Sırasına Göre)
 
-| Section | Purpose |
+| Bölüm | Amaç |
 |---------|---------|
-| **Title + One-liner** | What is this? |
-| **Quick Start** | Running in <5 min |
-| **Features** | What can I do? |
-| **Configuration** | How to customize |
-| **API Reference** | Link to detailed docs |
-| **Contributing** | How to help |
-| **License** | Legal |
+| **Başlık + Tek Cümlelik Özet** | Bu nedir? |
+| **Hızlı Başlangıç** | <5 dakikada çalıştırma |
+| **Özellikler** | Neler yapabilirim? |
+| **Yapılandırma (Configuration)** | Özelleştirme nasıl yapılır? |
+| **API Referansı** | Detaylı döküman linki |
+| **Katkıda Bulunma** | Nasıl yardımcı olabilirim? |
+| **Lisans** | Yasal durum |
 
-### README Template
+### README Şablonu
 
 ```markdown
-# Project Name
+# Proje Adı
 
-Brief one-line description.
+Tek cümlelik kısa açıklama.
 
-## Quick Start
+## Hızlı Başlangıç
 
-[Minimum steps to run]
+[Çalıştırmak için minimum adımlar]
 
-## Features
+## Özellikler
 
-- Feature 1
-- Feature 2
+- Özellik 1
+- Özellik 2
 
-## Configuration
+## Yapılandırma
 
-| Variable | Description | Default |
+| Değişken | Açıklama | Varsayılan |
 |----------|-------------|---------|
-| PORT | Server port | 3000 |
+| PORT | Sunucu portu | 3000 |
 
-## Documentation
+## Dokümantasyon
 
-- [API Reference](./docs/api.md)
-- [Architecture](./docs/architecture.md)
+- [API Referansı](./docs/api.md)
+- [Mimari](./docs/architecture.md)
 
-## License
+## Lisans
 
 MIT
 ```
 
 ---
 
-## 2. API Documentation Structure
+## 2. API Dokümantasyon Yapısı
 
-### Per-Endpoint Template
+### Uç Nokta (Endpoint) Başına Şablon
 
 ```markdown
 ## GET /users/:id
 
-Get a user by ID.
+ID'ye göre kullanıcıyı getirir.
 
-**Parameters:**
-| Name | Type | Required | Description |
+**Parametreler:**
+| Ad | Tür | Zorunlu | Açıklama |
 |------|------|----------|-------------|
-| id | string | Yes | User ID |
+| id | string | Evet | Kullanıcı ID'si |
 
-**Response:**
-- 200: User object
-- 404: User not found
+**Yanıt:**
+- 200: Kullanıcı nesnesi
+- 404: Kullanıcı bulunamadı
 
-**Example:**
-[Request and response example]
+**Örnek:**
+[İstek ve yanıt örneği]
 ```
 
 ---
 
-## 3. Code Comment Guidelines
+## 3. Kod Yorumlama Kuralları
 
-### JSDoc/TSDoc Template
+### JSDoc/TSDoc Şablonu
 
 ```typescript
 /**
- * Brief description of what the function does.
+ * Fonksiyonun ne yaptığının kısa açıklaması.
  * 
- * @param paramName - Description of parameter
- * @returns Description of return value
- * @throws ErrorType - When this error occurs
+ * @param paramName - Parametrenin açıklaması
+ * @returns Dönüş değerinin açıklaması
+ * @throws ErrorType - Bu hata ne zaman oluşur?
  * 
  * @example
- * const result = functionName(input);
+ * const result = fonksiyonAdi(input);
  */
 ```
 
-### When to Comment
+### Ne Zaman Yorum Eklenmeli?
 
-| ✅ Comment | ❌ Don't Comment |
+| ✅ Yorumla | ❌ Yorumlama |
 |-----------|-----------------|
-| Why (business logic) | What (obvious) |
-| Complex algorithms | Every line |
-| Non-obvious behavior | Self-explanatory code |
-| API contracts | Implementation details |
+| Neden (iş mantığı) | Ne (aşikar olan) |
+| Karmaşık algoritmalar | Her satırı |
+| Aşikar olmayan davranışlar | Kendi kendini açıklayan kod |
+| API sözleşmeleri | Uygulama detayları |
 
 ---
 
-## 4. Changelog Template (Keep a Changelog)
+## 4. Değişim Günlüğü (Changelog) Şablonu
 
 ```markdown
-# Changelog
+# Değişim Günlüğü (Changelog)
 
-## [Unreleased]
-### Added
-- New feature
+## [Yayınlanmamış]
+### Eklendi
+- Yeni özellik
 
 ## [1.0.0] - 2025-01-01
-### Added
-- Initial release
-### Changed
-- Updated dependency
-### Fixed
-- Bug fix
+### Eklendi
+- İlk sürüm
+### Değişti
+- Bağımlılıklar güncellendi
+### Düzeltildi
+- Hata düzeltmesi
 ```
 
 ---
 
-## 5. Architecture Decision Record (ADR)
+## 5. Mimari Karar Kaydı (ADR)
 
 ```markdown
-# ADR-001: [Title]
+# ADR-001: [Başlık]
 
-## Status
-Accepted / Deprecated / Superseded
+## Durum
+Kabul Edildi / Kullanımdan Kaldırıldı / Yerine Başkası Geldi
 
-## Context
-Why are we making this decision?
+## Bağlam (Context)
+Bu kararı neden alıyoruz?
 
-## Decision
-What did we decide?
+## Karar
+Neye karar verdik?
 
-## Consequences
-What are the trade-offs?
+## Sonuçlar
+Takaslar (trade-offs) nelerdir?
 ```
 
 ---
 
-## 6. AI-Friendly Documentation (2025)
+## 6. YZ Dostu Dokümantasyon (2025)
 
-### llms.txt Template
+### llms.txt Şablonu
 
-For AI crawlers and agents:
+YZ tarayıcıları ve ajanları için:
 
 ```markdown
-# Project Name
-> One-line objective.
+# Proje Adı
+> Tek cümlelik hedef.
 
-## Core Files
-- [src/index.ts]: Main entry
-- [src/api/]: API routes
-- [docs/]: Documentation
+## Temel Dosyalar
+- [src/index.ts]: Ana giriş noktası
+- [src/api/]: API rotaları
+- [docs/]: Dokümantasyon
 
-## Key Concepts
-- Concept 1: Brief explanation
-- Concept 2: Brief explanation
+## Temel Kavramlar
+- Kavram 1: Kısa açıklama
+- Kavram 2: Kısa açıklama
 ```
 
-### MCP-Ready Documentation
+### MCP-Uyumlu Dokümantasyon
 
-For RAG indexing:
-- Clear H1-H3 hierarchy
-- JSON/YAML examples for data structures
-- Mermaid diagrams for flows
-- Self-contained sections
+RAG indeksi için:
+- Net H1-H3 hiyerarşisi
+- Veri yapıları için JSON/YAML örnekleri
+- Akışlar için Mermaid diyagramları
+- Kendi kendine yeten (self-contained) bölümler
 
 ---
 
-## 7. Structure Principles
+## 7. Yapı Prensipleri
 
-| Principle | Why |
+| Prensip | Neden? |
 |-----------|-----|
-| **Scannable** | Headers, lists, tables |
-| **Examples first** | Show, don't just tell |
-| **Progressive detail** | Simple → Complex |
-| **Up to date** | Outdated = misleading |
+| **Taranabilir** | Başlıklar, listeler, tablolar |
+| **Önce Örnekler** | Sadece anlatma, göster |
+| **Kademeli Detaylandırma** | Basit → Karmaşık |
+| **Güncel** | Güncel olmayan döküman yanıltıcıdır |
 
 ---
 
-> **Remember:** Templates are starting points. Adapt to your project's needs.
+> **Unutmayın:** Şablonlar başlangıç noktalarıdır. Projenizin ihtiyaçlarına göre uyarlayın.

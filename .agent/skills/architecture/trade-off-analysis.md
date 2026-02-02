@@ -1,77 +1,77 @@
-# Trade-off Analysis & ADR
+# Takas (Trade-off) Analizi ve ADR
 
-> Document every architectural decision with trade-offs.
+> Her mimari kararı takaslarıyla (trade-offs) birlikte dökümante edin.
 
-## Decision Framework
+## Karar Çerçevesi
 
-For EACH architectural component, document:
+HER mimari bileşen için şunları dökümante edin:
 
 ```markdown
-## Architecture Decision Record
+## Mimari Karar Kaydı (Architecture Decision Record - ADR)
 
-### Context
-- **Problem**: [What problem are we solving?]
-- **Constraints**: [Team size, scale, timeline, budget]
+### Bağlam (Context)
+- **Sorun**: [Hangi sorunu çözüyoruz?]
+- **Kısıtlamalar**: [Ekip boyutu, ölçek, zaman çizelgesi, bütçe]
 
-### Options Considered
+### Değerlendirilen Seçenekler
 
-| Option | Pros | Cons | Complexity | When Valid |
+| Seçenek | Artılar | Eksiler | Karmaşıklık | Ne Zaman Geçerli? |
 |--------|------|------|------------|-----------|
-| Option A | Benefit 1 | Cost 1 | Low | [Conditions] |
-| Option B | Benefit 2 | Cost 2 | High | [Conditions] |
+| Seçenek A | Fayda 1 | Maliyet 1 | Düşük | [Koşullar] |
+| Seçenek B | Fayda 2 | Maliyet 2 | Yüksek | [Koşullar] |
 
-### Decision
-**Chosen**: [Option B]
+### Karar
+**Seçilen**: [Seçenek B]
 
-### Rationale
-1. [Reason 1 - tied to constraints]
-2. [Reason 2 - tied to requirements]
+### Gerekçe
+1. [Neden 1 - kısıtlamalarla bağlantılı]
+2. [Neden 2 - gereksinimlerle bağlantılı]
 
-### Trade-offs Accepted
-- [What we're giving up]
-- [Why this is acceptable]
+### Kabul Edilen Takaslar (Trade-offs)
+- [Nelerden feragat ediyoruz?]
+- [Bu neden kabul edilebilir?]
 
-### Consequences
-- **Positive**: [Benefits we gain]
-- **Negative**: [Costs/risks we accept]
-- **Mitigation**: [How we'll address negatives]
+### Sonuçlar
+- **Pozitif**: [Kazandığımız faydalar]
+- **Negatif**: [Kabul ettiğimiz maliyetler/riskler]
+- **Azaltma (Mitigation)**: [Negatifleri nasıl yöneteceğiz?]
 
-### Revisit Trigger
-- [When to reconsider this decision]
+### Yeniden Değerlendirme Tetikleyicisi
+- [Bu kararın ne zaman tekrar gözden geçirilmesi gerekir?]
 ```
 
-## ADR Template
+## ADR Şablonu
 
 ```markdown
-# ADR-[XXX]: [Decision Title]
+# ADR-[XXX]: [Karar Başlığı]
 
-## Status
-Proposed | Accepted | Deprecated | Superseded by [ADR-YYY]
+## Durum
+Önerildi | Kabul Edildi | Kullanımdan Kaldırıldı | [ADR-YYY] ile Değiştirildi
 
-## Context
-[What problem? What constraints?]
+## Bağlam (Context)
+[Hangi sorun? Hangi kısıtlamalar?]
 
-## Decision
-[What we chose - be specific]
+## Karar
+[Neyi seçtik - spesifik olun]
 
-## Rationale
-[Why - tie to requirements and constraints]
+## Gerekçe
+[Neden seçtik - gereksinimlere ve kısıtlamalara bağlayın]
 
-## Trade-offs
-[What we're giving up - be honest]
+## Takaslar (Trade-offs)
+[Nelerden vazgeçiyoruz - dürüst olun]
 
-## Consequences
-- **Positive**: [Benefits]
-- **Negative**: [Costs]
-- **Mitigation**: [How to address]
+## Sonuçlar
+- **Pozitif**: [Faydalar]
+- **Negatif**: [Maliyetler]
+- **Azaltma (Mitigation)**: [Nasıl çözüm üretilecek?]
 ```
 
-## ADR Storage
+## ADR Saklama Düzeni
 
 ```
 docs/
 └── architecture/
-    ├── adr-001-use-nextjs.md
-    ├── adr-002-postgresql-over-mongodb.md
-    └── adr-003-adopt-repository-pattern.md
+    ├── adr-001-nextjs-kullanimi.md
+    ├── adr-002-mongodb-yerine-postgresql.md
+    └── adr-003-repository-pattern-uygulanmasi.md
 ```

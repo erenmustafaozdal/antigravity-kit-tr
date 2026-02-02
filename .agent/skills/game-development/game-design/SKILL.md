@@ -1,129 +1,129 @@
 ---
 name: game-design
-description: Game design principles. GDD structure, balancing, player psychology, progression.
+description: Oyun tasarımı (Game design) prensipleri. GDD yapısı, dengeleme, oyuncu psikolojisi, ilerleme.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Game Design Principles
+# Oyun Tasarımı (Game Design) Prensipleri
 
-> Design thinking for engaging games.
+> Sürükleyici oyunlar için tasarım düşüncesi.
 
 ---
 
-## 1. Core Loop Design
+## 1. Temel Döngü (Core Loop) Tasarımı
 
-### The 30-Second Test
+### 30 Saniye Testi
 
 ```
-Every game needs a fun 30-second loop:
-1. ACTION → Player does something
-2. FEEDBACK → Game responds
-3. REWARD → Player feels good
-4. REPEAT
+Her oyunun eğlenceli bir 30 saniyelik döngüye ihtiyacı vardır:
+1. EYLEM (ACTION) → Oyuncu bir şey yapar
+2. GERİ BİLDİRİM (FEEDBACK) → Oyun tepki verir
+3. ÖDÜL (REWARD) → Oyuncu iyi hisseder
+4. TEKRAR (REPEAT)
 ```
 
-### Loop Examples
+### Döngü Örnekleri
 
-| Genre | Core Loop |
+| Tür | Temel Döngü |
 |-------|-----------|
-| Platformer | Run → Jump → Land → Collect |
-| Shooter | Aim → Shoot → Kill → Loot |
-| Puzzle | Observe → Think → Solve → Advance |
-| RPG | Explore → Fight → Level → Gear |
+| Platformer | Koş → Zıpla → Kon → Topla |
+| Shooter | Nişan Al → Ateş Et → Öldür → Yağmala |
+| Bulmaca | Gözlemle → Düşün → Çöz → İlerle |
+| RPG | Keşfet → Savaş → Seviye Atla → Ekipman Diz |
 
 ---
 
-## 2. Game Design Document (GDD)
+## 2. Oyun Tasarım Belgesi (Game Design Document - GDD)
 
-### Essential Sections
+### Temel Bölümler
 
-| Section | Content |
+| Bölüm | İçerik |
 |---------|---------|
-| **Pitch** | One-sentence description |
-| **Core Loop** | 30-second gameplay |
-| **Mechanics** | How systems work |
-| **Progression** | How player advances |
-| **Art Style** | Visual direction |
-| **Audio** | Sound direction |
+| **Pitch (Tanıtım)**| Tek cümlelik açık açıklama |
+| **Temel Döngü** | 30 saniyelik oynanış özeti |
+| **Mekanikler** | Sistemlerin nasıl çalıştığı |
+| **İlerleme** | Oyuncunun nasıl yol katettiği |
+| **Sanat Stili** | Görsel yönelim |
+| **Ses (Audio)** | Ses ve müzik yönelimi |
 
-### Principles
+### Prensipler
 
-- Keep it living (update regularly)
-- Visuals help communicate
-- Less is more (start small)
+- Belgeyi canlı tutun (düzenli olarak güncelleyin).
+- Görseller iletişimi kolaylaştırır.
+- Az ama öz (küçük başlayın).
 
 ---
 
-## 3. Player Psychology
+## 3. Oyuncu Psikolojisi
 
-### Motivation Types
+### Motivasyon Türleri
 
-| Type | Driven By |
+| Tür | İtici Güç |
 |------|-----------|
-| **Achiever** | Goals, completion |
-| **Explorer** | Discovery, secrets |
-| **Socializer** | Interaction, community |
-| **Killer** | Competition, dominance |
+| **Başarı Odaklı (Achiever)**| Hedefler, tamamlama |
+| **Kâşif (Explorer)**| Keşif, sırlar |
+| **Sosyal (Socializer)**| Etkileşim, topluluk |
+| **Rekabetçi (Killer)**| Rekabet, baskınlık |
 
-### Reward Schedules
+### Ödül Takvimleri
 
-| Schedule | Effect | Use |
+| Takvim | Etki | Kullanım |
 |----------|--------|-----|
-| **Fixed** | Predictable | Milestone rewards |
-| **Variable** | Addictive | Loot drops |
-| **Ratio** | Effort-based | Grind games |
+| **Sabit (Fixed)** | Tahmin edilebilir | Kilometre taşı ödülleri |
+| **Değişken (Variable)**| Bağımlılık yapıcı | Yağma (loot) dropları |
+| **Oran (Ratio)** | Çaba tabanlı | Grind odaklı oyunlar |
 
 ---
 
-## 4. Difficulty Balancing
+## 4. Zorluk Dengeleme
 
-### Flow State
+### Akış Durumu (Flow State)
 
 ```
-Too Hard → Frustration → Quit
-Too Easy → Boredom → Quit
-Just Right → Flow → Engagement
+Çok Zor → Hayal Kırıklığı → Oyunu Bırakma
+Çok Kolay → Sıkılma → Oyunu Bırakma
+Tam Ayarında → Akış (Flow) → Bağlılık
 ```
 
-### Balancing Strategies
+### Dengeleme Stratejileri
 
-| Strategy | How |
+| Strateji | Nasıl Uygulanır |
 |----------|-----|
-| **Dynamic** | Adjust to player skill |
-| **Selection** | Let player choose |
-| **Accessibility** | Options for all |
+| **Dinamik** | Oyuncunun yeteneğine göre ayarla |
+| **Seçim** | Zorluğu oyuncunun seçmesine izin ver |
+| **Erişilebilirlik** | Herkes için seçenekler sun |
 
 ---
 
-## 5. Progression Design
+## 5. İlerleme Tasarımı (Progression)
 
-### Progression Types
+### İlerleme Türleri
 
-| Type | Example |
+| Tür | Örnek |
 |------|---------|
-| **Skill** | Player gets better |
-| **Power** | Character gets stronger |
-| **Content** | New areas unlock |
-| **Story** | Narrative advances |
+| **Yetenek (Skill)**| Oyuncu bizzat ustalaşır |
+| **Güç (Power)** | Karakterin istatistikleri güçlenir |
+| **İçerik** | Yeni bölgelerin kilidi açılır |
+| **Hikaye** | Anlatı ilerler |
 
-### Pacing Principles
+### Tempo Prensipleri
 
-- Early wins (hook quickly)
-- Gradually increase challenge
-- Rest beats between intensity
-- Meaningful choices
+- Erken kazanımlar (kullanıcıyı hemen yakalayın).
+- Zorluğu kademeli olarak artırın.
+- Yoğunluk arasuna dinlenme anları (rest beats) koyun.
+- Anlamlı seçimler sunun.
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Design in isolation | Playtest constantly |
-| Polish before fun | Prototype first |
-| Force one way to play | Allow player expression |
-| Punish excessively | Reward progress |
+| Tek başınıza tasarım yapmak | Sürekli oyun testi (playtest) yapın |
+| Eğlenceyi bulmadan cilalamak | Önce prototip üretin |
+| Tek bir oynanış tarzını zorlamak | Oyuncunun kendini ifade etmesine izin verin |
+| Aşırı cezalandırmak | İlerlemeyi ödüllendirin |
 
 ---
 
-> **Remember:** Fun is discovered through iteration, not designed on paper.
+> **Unutmayın:** Eğlence kağıt üzerinde tasarlanmaz, deneme-yanılma (iteration) yoluyla keşfedilir.

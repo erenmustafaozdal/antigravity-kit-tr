@@ -1,152 +1,152 @@
 ---
 name: plan-writing
-description: Structured task planning with clear breakdowns, dependencies, and verification criteria. Use when implementing features, refactoring, or any multi-step work.
+description: Açık kırılımlar, bağımlılıklar ve doğrulama kriterleri ile yapılandırılmış görev planlama. Özellik uygularken, refactoring yaparken veya herhangi bir çok adımlı işte kullan.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Plan Writing
+# Plan Yazma (Plan Writing)
 
-> Source: obra/superpowers
+> Kaynak: obra/superpowers
 
-## Overview
-This skill provides a framework for breaking down work into clear, actionable tasks with verification criteria.
+## Genel Bakış
+Bu yetenek, işi doğrulama kriterleri ile açık, eylem yapılabilir görevlere ayırmak için bir framework sağlar.
 
-## Task Breakdown Principles
+## Görev Kırılım Prensipleri
 
-### 1. Small, Focused Tasks
-- Each task should take 2-5 minutes
-- One clear outcome per task
-- Independently verifiable
+### 1. Küçük, Odaklanmış Görevler
+- Her görev 2-5 dakika sürmeli
+- Görev başına bir açık sonuç
+- Bağımsız olarak doğrulanabilir
 
-### 2. Clear Verification
-- How do you know it's done?
-- What can you check/test?
-- What's the expected output?
+### 2. Açık Doğrulama
+- Bittiğini nasıl bilirsin?
+- Neyi kontrol edebilir/test edebilirsin?
+- Beklenen çıktı nedir?
 
-### 3. Logical Ordering
-- Dependencies identified
-- Parallel work where possible
-- Critical path highlighted
-- **Phase X: Verification is always LAST**
+### 3. Mantıksal Sıralama
+- Bağımlılıklar tanımlandı
+- Mümkün olduğunda paralel iş
+- Kritik yol vurgulandı
+- **Faz X: Doğrulama her zaman SON**
 
-### 4. Dynamic Naming in Project Root
-- Plan files are saved as `{task-slug}.md` in the PROJECT ROOT
-- Name derived from task (e.g., "add auth" → `auth-feature.md`)
-- **NEVER** inside `.claude/`, `docs/`, or temp folders
+### 4. Proje Root'unda Dinamik İsimlendirme
+- Plan dosyaları PROJE ROOT'unda `{task-slug}.md` olarak kaydedilir
+- İsim görevden türetilir (örn. "auth ekle" → `auth-feature.md`)
+- **ASLA** `.claude/`, `docs/` veya geçici klasörlerde değil
 
-## Planning Principles (NOT Templates!)
+## Planlama Prensipleri (Şablon DEĞİL!)
 
-> 🔴 **NO fixed templates. Each plan is UNIQUE to the task.**
+> 🔴 **Sabit şablon YOK. Her plan göreve ÖZGÜ.**
 
-### Principle 1: Keep It SHORT
+### Prensip 1: KISA Tut
 
-| ❌ Wrong | ✅ Right |
-|----------|----------|
-| 50 tasks with sub-sub-tasks | 5-10 clear tasks max |
-| Every micro-step listed | Only actionable items |
-| Verbose descriptions | One-line per task |
+| ❌ Yanlış | ✅ Doğru |
+|-----------|----------|
+| Alt-alt görevler ile 50 görev | Maks 5-10 açık görev |
+| Her mikro adım listelendi | Yalnızca eylem yapılabilir öğeler |
+| Ayrıntılı açıklamalar | Görev başına bir satır |
 
-> **Rule:** If plan is longer than 1 page, it's too long. Simplify.
-
----
-
-### Principle 2: Be SPECIFIC, Not Generic
-
-| ❌ Wrong | ✅ Right |
-|----------|----------|
-| "Set up project" | "Run `npx create-next-app`" |
-| "Add authentication" | "Install next-auth, create `/api/auth/[...nextauth].ts`" |
-| "Style the UI" | "Add Tailwind classes to `Header.tsx`" |
-
-> **Rule:** Each task should have a clear, verifiable outcome.
+> **Kural:** Plan 1 sayfadan uzunsa, çok uzun. Basitleştir.
 
 ---
 
-### Principle 3: Dynamic Content Based on Project Type
+### Prensip 2: SPESİFİK ol, Genel Değil
 
-**For NEW PROJECT:**
-- What tech stack? (decide first)
-- What's the MVP? (minimal features)
-- What's the file structure?
+| ❌ Yanlış | ✅ Doğru |
+|-----------|----------|
+| "Projeyi kur" | "`npx create-next-app` çalıştır" |
+| "Kimlik doğrulama ekle" | "next-auth kur, `/api/auth/[...nextauth].ts` oluştur" |
+| "UI'ı stillendir" | "`Header.tsx`'e Tailwind sınıfları ekle" |
 
-**For FEATURE ADDITION:**
-- Which files are affected?
-- What dependencies needed?
-- How to verify it works?
-
-**For BUG FIX:**
-- What's the root cause?
-- What file/line to change?
-- How to test the fix?
+> **Kural:** Her görevin açık, doğrulanabilir bir sonucu olmalı.
 
 ---
 
-### Principle 4: Scripts Are Project-Specific
+### Prensip 3: Proje Tipine Göre Dinamik İçerik
 
-> 🔴 **DO NOT copy-paste script commands. Choose based on project type.**
+**YENİ PROJE İÇİN:**
+- Hangi teknoloji yığını? (önce karar ver)
+- MVP nedir? (minimal özellikler)
+- Dosya yapısı nedir?
 
-| Project Type | Relevant Scripts |
-|--------------|------------------|
+**ÖZELLİK EKLEMEK İÇİN:**
+- Hangi dosyalar etkilenir?
+- Hangi bağımlılıklar gerekli?
+- Nasıl çalıştığı doğrulanır?
+
+**HATA DÜZELTİMİ İÇİN:**
+- Kök neden nedir?
+- Hangi dosya/satır değiştirilmeli?
+- Düzeltme nasıl test edilir?
+
+---
+
+### Prensip 4: Script'ler Projeye Özgüdür
+
+> 🔴 **Script komutlarını kopyala-yapıştır YAPMA. Proje tipine göre seç.**
+
+| Proje Tipi | İlgili Script'ler |
+|------------|-------------------|
 | Frontend/React | `ux_audit.py`, `accessibility_checker.py` |
 | Backend/API | `api_validator.py`, `security_scan.py` |
-| Mobile | `mobile_audit.py` |
-| Database | `schema_validator.py` |
-| Full-stack | Mix of above based on what you touched |
+| Mobil | `mobile_audit.py` |
+| Veritabanı | `schema_validator.py` |
+| Full-stack | Dokunduğun şeye göre yukarıdakilerin karışımı |
 
-**Wrong:** Adding all scripts to every plan
-**Right:** Only scripts relevant to THIS task
-
----
-
-### Principle 5: Verification is Simple
-
-| ❌ Wrong | ✅ Right |
-|----------|----------|
-| "Verify the component works correctly" | "Run `npm run dev`, click button, see toast" |
-| "Test the API" | "curl localhost:3000/api/users returns 200" |
-| "Check styles" | "Open browser, verify dark mode toggle works" |
+**Yanlış:** Her plana tüm script'leri eklemek
+**Doğru:** Yalnızca BU göreve ilgili script'ler
 
 ---
 
-## Plan Structure (Flexible, Not Fixed!)
+### Prensip 5: Doğrulama Basittir
+
+| ❌ Yanlış | ✅ Doğru |
+|-----------|----------|
+| "Componentin doğru çalıştığını doğrula" | "`npm run dev` çalıştır, butona tıkla, toast gör" |
+| "API'yi test et" | "curl localhost:3000/api/users 200 döndürür" |
+| "Stilleri kontrol et" | "Tarayıcıyı aç, dark mode açma-kapama işlevini doğrula" |
+
+---
+
+## Plan Yapısı (Esnek, Sabit Değil!)
 
 ```
-# [Task Name]
+# [Görev Adı]
 
-## Goal
-One sentence: What are we building/fixing?
+## Hedef
+Tek cümle: Ne inşa ediyoruz/düzeltiyoruz?
 
-## Tasks
-- [ ] Task 1: [Specific action] → Verify: [How to check]
-- [ ] Task 2: [Specific action] → Verify: [How to check]
-- [ ] Task 3: [Specific action] → Verify: [How to check]
+## Görevler
+- [ ] Görev 1: [Spesifik eylem] → Doğrula: [Nasıl kontrol edilir]
+- [ ] Görev 2: [Spesifik eylem] → Doğrula: [Nasıl kontrol edilir]
+- [ ] Görev 3: [Spesifik eylem] → Doğrula: [Nasıl kontrol edilir]
 
-## Done When
-- [ ] [Main success criteria]
+## Bittiğinde
+- [ ] [Ana başarı kriteri]
 ```
 
-> **That's it.** No phases, no sub-sections unless truly needed.
-> Keep it minimal. Add complexity only when required.
+> **Bu kadar.** Gerçekten gerekmedikçe faz yok, alt bölüm yok.
+> Minimal tut. Karmaşıklığı yalnızca gerektiğinde ekle.
 
-## Notes
-[Any important considerations]
+## Notlar
+[Önemli değerlendirmeler]
 ```
 
 ---
 
-## Best Practices (Quick Reference)
+## En İyi Uygulamalar (Hızlı Referans)
 
-1. **Start with goal** - What are we building/fixing?
-2. **Max 10 tasks** - If more, break into multiple plans
-3. **Each task verifiable** - Clear "done" criteria
-4. **Project-specific** - No copy-paste templates
-5. **Update as you go** - Mark `[x]` when complete
+1. **Hedefle başla** - Ne inşa ediyoruz/düzeltiyoruz?
+2. **Maks 10 görev** - Daha fazlaysa, birden fazla plana böl
+3. **Her görev doğrulanabilir** - Açık "bitti" kriteri
+4. **Projeye özgü** - Şablon kopyala-yapıştır yok
+5. **Giderken güncelle** - Tamamlandığında `[x]` işaretle
 
 ---
 
-## When to Use
+## Ne Zaman Kullanılır
 
-- New project from scratch
-- Adding a feature
-- Fixing a bug (if complex)
-- Refactoring multiple files
+- Sıfırdan yeni proje
+- Özellik ekleme
+- Hata düzeltme (karmaşıksa)
+- Birden fazla dosyayı refactoring

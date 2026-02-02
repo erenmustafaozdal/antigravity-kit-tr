@@ -1,89 +1,89 @@
 ---
-description: Create project plan using project-planner agent. No code writing - only plan file generation.
+description: project-planner ajanını kullanarak proje planı oluşturun. Kod yazımı yoktur - sadece plan dosyası oluşturulur.
 ---
 
-# /plan - Project Planning Mode
+# /plan - Proje Planlama Modu
 
 $ARGUMENTS
 
 ---
 
-## 🔴 CRITICAL RULES
+## 🔴 KRİTİK KURALLAR
 
-1. **NO CODE WRITING** - This command creates plan file only
-2. **Use project-planner agent** - NOT Antigravity Agent's native Plan mode
-3. **Socratic Gate** - Ask clarifying questions before planning
-4. **Dynamic Naming** - Plan file named based on task
-
----
-
-## Task
-
-Use the `project-planner` agent with this context:
-
-```
-CONTEXT:
-- User Request: $ARGUMENTS
-- Mode: PLANNING ONLY (no code)
-- Output: docs/PLAN-{task-slug}.md (dynamic naming)
-
-NAMING RULES:
-1. Extract 2-3 key words from request
-2. Lowercase, hyphen-separated
-3. Max 30 characters
-4. Example: "e-commerce cart" → PLAN-ecommerce-cart.md
-
-RULES:
-1. Follow project-planner.md Phase -1 (Context Check)
-2. Follow project-planner.md Phase 0 (Socratic Gate)
-3. Create PLAN-{slug}.md with task breakdown
-4. DO NOT write any code files
-5. REPORT the exact file name created
-```
+1. **KOD YAZIMI YOK** - Bu komut sadece plan dosyası oluşturur
+2. **project-planner ajanını kullan** - Antigravity Ajanının yerel Plan modunu DEĞİL
+3. **Sokratik Geçit** - Planlamadan önce açıklayıcı sorular sor
+4. **Dinamik İsimlendirme** - Plan dosyası göreve göre isimlendirilir
 
 ---
 
-## Expected Output
+## Görev
 
-| Deliverable | Location |
+`project-planner` ajanını bu bağlamla kullanın:
+
+```
+BAĞLAM:
+- Kullanıcı İsteği: $ARGUMENTS
+- Mod: SADECE PLANLAMA (kod yok)
+- Çıktı: docs/PLAN-{gorev-slug}.md (dinamik isimlendirme)
+
+İSİMLENDİRME KURALLARI:
+1. İstekten 2-3 anahtar kelime seç
+2. Küçük harf, tire ile ayrılmış
+3. Maksimum 30 karakter
+4. Örnek: "e-ticaret sepeti" → PLAN-eticaret-sepeti.md
+
+KURALLAR:
+1. project-planner.md Aşama -1'i takip et (Bağlam Kontrolü)
+2. project-planner.md Aşama 0'ı takip et (Sokratik Geçit)
+3. Görev kırılımı içeren PLAN-{slug}.md dosyasını oluştur
+4. Herhangi bir kod dosyası YAZMA
+5. Oluşturulan tam dosya adını BİLDİR
+```
+
+---
+
+## Beklenen Çıktı
+
+| Çıktı | Konum |
 |-------------|----------|
-| Project Plan | `docs/PLAN-{task-slug}.md` |
-| Task Breakdown | Inside plan file |
-| Agent Assignments | Inside plan file |
-| Verification Checklist | Phase X in plan file |
+| Proje Planı | `docs/PLAN-{gorev-slug}.md` |
+| Görev Kırılımı | Plan dosyası içinde |
+| Ajan Atamaları | Plan dosyası içinde |
+| Doğrulama Listesi | Plan dosyasındaki Aşama X |
 
 ---
 
-## After Planning
+## Planlamadan Sonra
 
-Tell user:
+Kullanıcıya söyle:
 ```
-[OK] Plan created: docs/PLAN-{slug}.md
+[TAMAM] Plan oluşturuldu: docs/PLAN-{slug}.md
 
-Next steps:
-- Review the plan
-- Run `/create` to start implementation
-- Or modify plan manually
+Sonraki adımlar:
+- Planı inceleyin
+- Uygulamaya başlamak için `/create` komutunu çalıştırın
+- Veya planı manuel olarak düzenleyin
 ```
 
 ---
 
-## Naming Examples
+## İsimlendirme Örnekleri
 
-| Request | Plan File |
+| İstek | Plan Dosyası |
 |---------|-----------|
-| `/plan e-commerce site with cart` | `docs/PLAN-ecommerce-cart.md` |
-| `/plan mobile app for fitness` | `docs/PLAN-fitness-app.md` |
-| `/plan add dark mode feature` | `docs/PLAN-dark-mode.md` |
-| `/plan fix authentication bug` | `docs/PLAN-auth-fix.md` |
-| `/plan SaaS dashboard` | `docs/PLAN-saas-dashboard.md` |
+| `/plan sepetli e-ticaret sitesi` | `docs/PLAN-eticaret-sepeti.md` |
+| `/plan fitness için mobil uygulama` | `docs/PLAN-fitness-uygulamasi.md` |
+| `/plan karanlık mod özelliği ekle` | `docs/PLAN-karanlik-mod.md` |
+| `/plan kimlik doğrulama hatasını çöz` | `docs/PLAN-auth-cozum.md` |
+| `/plan SaaS paneli` | `docs/PLAN-saas-paneli.md` |
 
 ---
 
-## Usage
+## Kullanım
 
 ```
-/plan e-commerce site with cart
-/plan mobile app for fitness tracking
-/plan SaaS dashboard with analytics
+/plan sepetli e-ticaret sitesi
+/plan fitness takip mobil uygulaması
+/plan analitik içeren SaaS paneli
 ```

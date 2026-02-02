@@ -1,84 +1,84 @@
-# Antigravity Skills
+# Antigravity Yetenekler (Skills)
 
-> **Hướng dẫn tạo và sử dụng Skills trong Antigravity Kit**
-
----
-
-## 📋 Giới thiệu
-
-Mặc dù các mô hình cơ bản của Antigravity (như Gemini) là những mô hình đa năng mạnh mẽ, nhưng chúng không biết ngữ cảnh dự án cụ thể hoặc các tiêu chuẩn của nhóm bạn. Việc tải từng quy tắc hoặc công cụ vào cửa sổ ngữ cảnh của tác nhân sẽ dẫn đến tình trạng "phình to công cụ", chi phí cao hơn, độ trễ và sự nhầm lẫn.
-
-**Antigravity Skills** giải quyết vấn đề này thông qua tính năng **Progressive Disclosure**. Kỹ năng là một gói kiến thức chuyên biệt, ở trạng thái không hoạt động cho đến khi cần. Thông tin này chỉ được tải vào ngữ cảnh của tác nhân khi yêu cầu cụ thể của bạn khớp với nội dung mô tả của kỹ năng.
+> **Antigravity Kit'te Yetenek (Skill) oluşturma ve kullanma rehberi**
 
 ---
 
-## 📁 Cấu trúc và Phạm vi
+## 📋 Tanıtım
 
-Kỹ năng là các gói dựa trên thư mục. Bạn có thể xác định các phạm vi này tuỳ thuộc vào nhu cầu:
+Antigravity'nin temel modelleri (Gemini gibi) güçlü ve çok yönlü modeller olsa da, projenizin özel bağlamını veya ekibinizin standartlarını başlangıçta bilemezler. Her kuralı veya aracı doğrudan ajanın bağlam penceresine yüklemek "araç şişmesine" (tool bloat), yüksek maliyetlere, gecikmelere ve karmaşıklığa neden olur.
 
-| Phạm vi | Đường dẫn | Mô tả |
+**Antigravity Yetenekleri (Skills)**, bu sorunu **Kademeli Açıklama (Progressive Disclosure)** özelliği ile çözer. Bir yetenek, ihtiyaç duyulana kadar inaktif durumda bekleyen uzmanlaşmış bir bilgi paketidir. Bu bilgiler, sadece sizin özel isteğiniz yeteneğin açıklama kısmıyla eşleştiğinde ajanın bağlamına yüklenir.
+
+---
+
+## 📁 Yapı ve Kapsam
+
+Yetenekler, dizin tabanlı paketlerdir. İhtiyaçlarınıza göre bu kapsamları belirleyebilirsiniz:
+
+| Kapsam | Yol | Açıklama |
 |---------|-----------|-------|
-| **Workspace** | `<workspace-root>/.agent/skills/` | Chỉ có trong một dự án cụ thể |
+| **Çalışma Alanı (Workspace)** | `<workspace-root>/.agent/skills/` | Sadece belirli bir projeye özel |
 
-### Cấu trúc thư mục kỹ năng
+### Yetenek Dizin Yapısı
 
 ```
 my-skill/
-├── SKILL.md      # (Required) Metadata & instructions
-├── scripts/      # (Optional) Python or Bash scripts
-├── references/   # (Optional) Text, documentation, templates
-└── assets/       # (Optional) Images or logos
+├── SKILL.md      # (Zorunlu) Metadata ve talimatlar
+├── scripts/      # (Opsiyonel) Python veya Bash scriptleri
+├── references/   # (Opsiyonel) Metinler, dökümanlar, şablonlar
+└── assets/       # (Opsiyonel) Görseller veya logolar
 ```
 
 ---
 
-## 🔍 Ví dụ 1: Code Review Skill
+## 🔍 Örnek 1: Kod İnceleme Yeteneği (Code Review Skill)
 
-Đây là một kỹ năng chỉ có hướng dẫn (instruction-only), chỉ cần tạo file `SKILL.md`.
+Bu, sadece talimat içeren (instruction-only) bir yetenektir; sadece `SKILL.md` dosyasını oluşturmak yeterlidir.
 
-### Bước 1: Tạo thư mục
+### Adım 1: Dizini Oluşturun
 
 ```bash
-mkdir -p ~/.gemini/antigravity/skills/code-review
+mkdir -p .agent/skills/code-review
 ```
 
-### Bước 2: Tạo SKILL.md
+### Adım 2: SKILL.md Dosyasını Oluşturun
 
 ```markdown
 ---
 name: code-review
-description: Reviews code changes for bugs, style issues, and best practices. Use when reviewing PRs or checking code quality.
+description: Kod değişikliklerini hatalar, stil sorunları ve en iyi pratikler açısından inceler. PR'ları gözden geçirirken veya kod kalitesini kontrol ederken kullanın.
 ---
 
-# Code Review Skill
+# Kod İnceleme Yeteneği
 
-When reviewing code, follow these steps:
+Kod incelerken şu adımları takip edin:
 
-## Review checklist
+## İnceleme Kontrol Listesi
 
-1. **Correctness**: Does the code do what it's supposed to?
-2. **Edge cases**: Are error conditions handled?
-3. **Style**: Does it follow project conventions?
-4. **Performance**: Are there obvious inefficiencies?
+1. **Doğruluk**: Kod yapması gereken işi yapıyor mu?
+2. **Uç Durumlar**: Hata durumları yönetilmiş mi?
+3. **Stil**: Proje standartlarına uyuyor mu?
+4. **Performans**: Belirgin verimsizlikler var mı?
 
-## How to provide feedback
+## Geri Bildirim Nasıl Verilmeli?
 
-- Be specific about what needs to change
-- Explain why, not just what
-- Suggest alternatives when possible
+- Neyin değişmesi gerektiği konusunda spesifik olun.
+- Sadece "ne" olduğunu değil, "neden" olduğunu da açıklayın.
+- Mümkünse alternatifler önerin.
 ```
 
-> **Lưu ý**: File `SKILL.md` chứa siêu dữ liệu (name, description) ở trên cùng, sau đó là các chỉ dẫn. Agent sẽ chỉ đọc siêu dữ liệu và chỉ tải hướng dẫn khi cần.
+> **Not**: `SKILL.md` dosyası en üstte metadata (ad, açıklama) içerir, ardından talimatlar gelir. Ajan sadece metadata kısmını okur ve talimatları sadece gerektiğinde yükler.
 
-### Dùng thử
+### Deneyin
 
-Tạo file `demo_bad_code.py`:
+`demo_bad_code.py` dosyasını oluşturun:
 
 ```python
 import time
 
 def get_user_data(users, id):
-    # Find user by ID
+    # ID ile kullanıcıyı bul
     for u in users:
         if u['id'] == id:
             return u
@@ -87,10 +87,10 @@ def get_user_data(users, id):
 def process_payments(items):
     total = 0
     for i in items:
-        # Calculate tax
+        # Vergiyi hesapla
         tax = i['price'] * 0.1
         total = total + i['price'] + tax
-        time.sleep(0.1)  # Simulate slow network call
+        time.sleep(0.1)  # Yavaş ağ çağrısını simüle et
     return total
 
 def run_batch():
@@ -98,7 +98,7 @@ def run_batch():
     items = [{'price': 10}, {'price': 20}, {'price': 100}]
     
     u = get_user_data(users, 3)
-    print("User found: " + u['name'])  # Will crash if None
+    print("User found: " + u['name'])  # None gelirse çökecek
     
     print("Total: " + str(process_payments(items)))
 
@@ -106,72 +106,72 @@ if __name__ == "__main__":
     run_batch()
 ```
 
-**Prompt**: `review the @demo_bad_code.py file`
+**İstek**: `@demo_bad_code.py dosyasını incele`
 
-Agent sẽ tự động xác định kỹ năng `code-review`, tải thông tin và thực hiện theo hướng dẫn.
+Ajan otomatik olarak `code-review` yeteneğini tespit edecek, bilgileri yükleyecek ve talimatlara göre incelemeyi yapacaktır.
 
 ---
 
-## 📄 Ví dụ 2: License Header Skill
+## 📄 Örnek 2: Lisans Başlığı Yeteneği (License Header Skill)
 
-Kỹ năng này sử dụng file tham chiếu (reference file) trong thư mục `resources/`.
+Bu yetenek, `resources/` dizini altındaki bir referans dosyasını kullanır.
 
-### Bước 1: Tạo thư mục
+### Adım 1: Dizini Oluşturun
 
 ```bash
 mkdir -p .agent/skills/license-header-adder/resources
 ```
 
-### Bước 2: Tạo file template
+### Adım 2: Şablon Dosyasını Oluşturun
 
 **`.agent/skills/license-header-adder/resources/HEADER.txt`**:
 
 ```
 /*
- * Copyright (c) 2026 YOUR_COMPANY_NAME LLC.
- * All rights reserved.
- * This code is proprietary and confidential.
+ * Telif Hakkı (c) 2026 ŞİRKET_ADINIZ LLC.
+ * Tüm hakları saklıdır.
+ * Bu kod tescilli ve gizlidir.
  */
 ```
 
-### Bước 3: Tạo SKILL.md
+### Adım 3: SKILL.md Dosyasını Oluşturun
 
 **`.agent/skills/license-header-adder/SKILL.md`**:
 
 ```markdown
 ---
 name: license-header-adder
-description: Adds the standard corporate license header to new source files.
+description: Yeni kaynak dosyalarına standart kurumsal lisans başlığını ekler.
 ---
 
-# License Header Adder
+# Lisans Başlığı Ekleyici
 
-This skill ensures that all new source files have the correct copyright header.
+Bu yetenek, tüm yeni kaynak dosyalarının doğru telif hakkı başlığına sahip olmasını sağlar.
 
-## Instructions
+## Talimatlar
 
-1. **Read the Template**: Read the content of `resources/HEADER.txt`.
-2. **Apply to File**: When creating a new file, prepend this exact content.
-3. **Adapt Syntax**: 
-   - For C-style languages (Java, TS), keep the `/* */` block.
-   - For Python/Shell, convert to `#` comments.
+1. **Şablonu Oku**: `resources/HEADER.txt` içeriğini okuyun.
+2. **Dosyaya Uygula**: Yeni bir dosya oluştururken, bu içeriği aynen başa ekleyin.
+3. **Sözdizimini Uyarlayın**: 
+   - C tarzı diller (Java, TS) için `/* */` bloğunu koruyun.
+   - Python/Shell için `#` yorum satırlarına dönüştürün.
 ```
 
-### Dùng thử
+### Deneyin
 
-**Prompt**: `Create a new Python script named data_processor.py that prints 'Hello World'.`
+**İstek**: `'Hello World' yazdıran data_processor.py adında yeni bir Python betiği oluştur.`
 
-Agent sẽ đọc template, chuyển đổi comments theo kiểu Python và tự động thêm vào đầu file.
+Ajan şablonu okuyacak, yorum satırlarını Python stiline çevirecek ve otomatik olarak dosyanın başına ekleyecektir.
 
 ---
 
-## 🎯 Kết luận
+## 🎯 Sonuç
 
-Bằng cách tạo Skills, bạn đã biến mô hình AI đa năng thành một chuyên gia cho dự án của mình:
+Yetenekler oluşturarak, genel bir YZ modelini projeniz için bir uzmana dönüştürmüş olursunuz:
 
-- ✅ Hệ thống hoá các best practices
-- ✅ Tuân theo quy tắc đánh giá code
-- ✅ Tự động thêm license headers
-- ✅ Agent tự động biết cách làm việc với nhóm của bạn
+- ✅ En iyi pratikleri sistemleştirmiş olursunuz.
+- ✅ Kod inceleme kurallarına uyulmasını sağlarsınız.
+- ✅ Lisans başlıklarını otomatik eklersiniz.
+- ✅ Ajan, ekibinizle nasıl çalışması gerektiğini otomatik olarak bilir.
 
-Thay vì liên tục nhắc AI "nhớ thêm license" hoặc "sửa format commit", giờ đây Agent sẽ tự động thực hiện!
+Sürekli "lisans eklemeyi unutma" veya "commit formatını düzelt" demek yerine, artık ajan bunu otomatik olarak yapacaktır!

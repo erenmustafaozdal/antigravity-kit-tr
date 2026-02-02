@@ -1,241 +1,241 @@
 ---
 name: deployment-procedures
-description: Production deployment principles and decision-making. Safe deployment workflows, rollback strategies, and verification. Teaches thinking, not scripts.
+description: Prodüksiyon dağıtım (deployment) prensipleri ve karar verme. Güvenli dağıtım iş akışları, geri alma (rollback) stratejileri ve doğrulama. Script ezberlemeyi değil, düşünmeyi öğretir.
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
-# Deployment Procedures
+# Dağıtım Prosedürleri (Deployment Procedures)
 
-> Deployment principles and decision-making for safe production releases.
-> **Learn to THINK, not memorize scripts.**
-
----
-
-## ⚠️ How to Use This Skill
-
-This skill teaches **deployment principles**, not bash scripts to copy.
-
-- Every deployment is unique
-- Understand the WHY behind each step
-- Adapt procedures to your platform
+> Güvenli prodüksiyon yayınları için dağıtım prensipleri ve karar verme süreçleri.
+> **Scriptleri ezberlemeyi değil, DÜŞÜNMEYİ öğrenin.**
 
 ---
 
-## 1. Platform Selection
+## ⚠️ Bu Yetenek Nasıl Kullanılır?
 
-### Decision Tree
+Bu yetenek kopyalanacak bash scriptlerini değil, **dağıtım prensiplerini** öğretir.
+
+- Her dağıtım süreci kendine hastır.
+- Her adımın arkasındaki "NEDEN"i anlayın.
+- Prosedürleri kullandığınız platforma göre uyarlayın.
+
+---
+
+## 1. Platform Seçimi
+
+### Karar Ağacı
 
 ```
-What are you deploying?
+Ne dağıtıyorsunuz?
 │
-├── Static site / JAMstack
+├── Statik site / JAMstack
 │   └── Vercel, Netlify, Cloudflare Pages
 │
-├── Simple web app
-│   ├── Managed → Railway, Render, Fly.io
-│   └── Control → VPS + PM2/Docker
+├── Basit web uygulaması
+│   ├── Yönetilen (Managed) → Railway, Render, Fly.io
+│   └── Kontrol bizde olsun → VPS + PM2/Docker
 │
-├── Microservices
-│   └── Container orchestration
+├── Mikroservisler
+│   └── Konteyner orkestrasyonu (Kubernetes vb.)
 │
-└── Serverless
+└── Sunucusuz (Serverless)
     └── Edge functions, Lambda
 ```
 
-### Each Platform Has Different Procedures
+### Her Platformun Prosedürü Farklıdır
 
-| Platform | Deployment Method |
+| Platform | Dağıtım Yöntemi |
 |----------|------------------|
-| **Vercel/Netlify** | Git push, auto-deploy |
-| **Railway/Render** | Git push or CLI |
-| **VPS + PM2** | SSH + manual steps |
-| **Docker** | Image push + orchestration |
+| **Vercel/Netlify** | Git push, otomatik dağıtım |
+| **Railway/Render** | Git push veya CLI |
+| **VPS + PM2** | SSH + manuel adımlar |
+| **Docker** | İmaj push + orkestrasyon |
 | **Kubernetes** | kubectl apply |
 
 ---
 
-## 2. Pre-Deployment Principles
+## 2. Dağıtım Öncesi Prensipler
 
-### The 4 Verification Categories
+### 4 Temel Doğrulama Kategorisi
 
-| Category | What to Check |
+| Kategori | Neler Kontrol Edilmeli? |
 |----------|--------------|
-| **Code Quality** | Tests passing, linting clean, reviewed |
-| **Build** | Production build works, no warnings |
-| **Environment** | Env vars set, secrets current |
-| **Safety** | Backup done, rollback plan ready |
+| **Kod Kalitesi** | Testler geçiyor mu, lint temiz mi, inceleme yapıldı mı? |
+| **Build** | Prodüksiyon build'i çalışıyor mu, uyarı var mı? |
+| **Ortam (Env)** | Port değişkenleri ayarlı mı, secret'lar güncel mi? |
+| **Güvenlik** | Yedek alındı mı, geri alma planı hazır mı? |
 
-### Pre-Deployment Checklist
+### Dağıtım Öncesi Kontrol Listesi
 
-- [ ] All tests passing
-- [ ] Code reviewed and approved
-- [ ] Production build successful
-- [ ] Environment variables verified
-- [ ] Database migrations ready (if any)
-- [ ] Rollback plan documented
-- [ ] Team notified
-- [ ] Monitoring ready
+- [ ] Tüm testler geçiyor
+- [ ] Kod incelendi ve onaylandı
+- [ ] Prodüksiyon build'i başarılı
+- [ ] Ortam değişkenleri (Env vars) doğrulandı
+- [ ] Veritabanı migrasyonları hazır (varsa)
+- [ ] Geri alma (rollback) planı dökümante edildi
+- [ ] Ekip bilgilendirildi
+- [ ] İzleme (monitoring) sistemleri hazır
 
 ---
 
-## 3. Deployment Workflow Principles
+## 3. Dağıtım İş Akışı Prensipleri
 
-### The 5-Phase Process
+### 5 Aşamalı Süreç
 
 ```
-1. PREPARE
-   └── Verify code, build, env vars
+1. HAZIRLIK (PREPARE)
+   └── Kodu, build'i ve env değişkenlerini doğrula
 
-2. BACKUP
-   └── Save current state before changing
+2. YEDEKLEME (BACKUP)
+   └── Değişiklikten önce mevcut durumu kaydet
 
-3. DEPLOY
-   └── Execute with monitoring open
+3. DAĞITIM (DEPLOY)
+   └── İzleme panelleri açıkken yürüt
 
-4. VERIFY
-   └── Health check, logs, key flows
+4. DOĞRULAMA (VERIFY)
+   └── Sağlık kontrolü, loglar ve kritik akışlar
 
-5. CONFIRM or ROLLBACK
-   └── All good? Confirm. Issues? Rollback.
+5. ONAYLA veya GERİ AL (CONFIRM or ROLLBACK)
+   └── Her şey yolunda mı? Onayla. Sorun mu var? Geri al.
 ```
 
-### Phase Principles
+### Aşama Prensipleri
 
-| Phase | Principle |
+| Aşama | Prensip |
 |-------|-----------|
-| **Prepare** | Never deploy untested code |
-| **Backup** | Can't rollback without backup |
-| **Deploy** | Watch it happen, don't walk away |
-| **Verify** | Trust but verify |
-| **Confirm** | Have rollback trigger ready |
+| **Hazırlık** | Test edilmemiş kodu asla dağıtma |
+| **Yedekleme** | Yedek olmadan geri alma yapılamaz |
+| **Dağıtım** | Süreci izleyin, başından ayrılmayın |
+| **Doğrulama** | Güvenin ama kontrol edin |
+| **Onayla** | Geri alma tetikleyicisi her an hazır olsun |
 
 ---
 
-## 4. Post-Deployment Verification
+## 4. Dağıtım Sonrası Doğrulama
 
-### What to Verify
+### Neler Doğrulanmalı?
 
-| Check | Why |
+| Kontrol | Neden? |
 |-------|-----|
-| **Health endpoint** | Service is running |
-| **Error logs** | No new errors |
-| **Key user flows** | Critical features work |
-| **Performance** | Response times acceptable |
+| **Sağlık (Health) Uç Noktası** | Servis çalışıyor mu? |
+| **Hata Logları** | Yeni ve beklenmedik hatalar var mı? |
+| **Kritik Akışlar** | Temel özellikler çalışıyor mu? |
+| **Performans** | Yanıt süreleri kabul edilebilir mi? |
 
-### Verification Window
+### Doğrulama Penceresi
 
-- **First 5 minutes**: Active monitoring
-- **15 minutes**: Confirm stable
-- **1 hour**: Final verification
-- **Next day**: Review metrics
+- **İlk 5 dakika**: Aktif izleme
+- **15 dakika**: Kararlılık onayı
+- **1 saat**: Son doğrulama
+- **Ertesi gün**: Metriklerin gözden geçirilmesi
 
 ---
 
-## 5. Rollback Principles
+## 5. Geri Alma (Rollback) Prensipleri
 
-### When to Rollback
+### Ne Zaman Geri Alınmalı?
 
-| Symptom | Action |
+| Belirti | Eylem |
 |---------|--------|
-| Service down | Rollback immediately |
-| Critical errors | Rollback |
-| Performance >50% degraded | Consider rollback |
-| Minor issues | Fix forward if quick |
+| Servis kapalıysa | Derhal geri al |
+| Kritik hatalar varsa | Geri al |
+| Performans >%50 düştüyse | Geri almayı değerlendir |
+| Küçük sorunlar | Hızlıca düzeltilebiliyorsa devam et |
 
-### Rollback Strategy by Platform
+### Platforma Göre Geri Alma Stratejisi
 
-| Platform | Rollback Method |
+| Platform | Geri Alma Yöntemi |
 |----------|----------------|
-| **Vercel/Netlify** | Redeploy previous commit |
-| **Railway/Render** | Rollback in dashboard |
-| **VPS + PM2** | Restore backup, restart |
-| **Docker** | Previous image tag |
+| **Vercel/Netlify** | Önceki başarılı commit'i tekrar dağıt |
+| **Railway/Render** | Panel üzerinden "Rollback" yap |
+| **VPS + PM2** | Yedeği geri yükle, servisi yeniden başlat |
+| **Docker** | Önceki imaj etiketine (tag) dön |
 | **K8s** | kubectl rollout undo |
 
-### Rollback Principles
+### Geri Alma Prensipleri
 
-1. **Speed over perfection**: Rollback first, debug later
-2. **Don't compound errors**: One rollback, not multiple changes
-3. **Communicate**: Tell team what happened
-4. **Post-mortem**: Understand why after stable
+1. **Hız kusursuzluktan önce gelir**: Önce geri al, sonra hata ayıkla (debug)
+2. **Hataları katlamayın**: Tek bir geri alma işlemi yapın, üst üste değişiklik yapmayın
+3. **İletişim**: Ekibe ne olduğunu bildirin
+4. **Post-mortem**: Sistem kararlı hale geldikten sonra nedenini analiz edin
 
 ---
 
-## 6. Zero-Downtime Deployment
+## 6. Sıfır Kesintili Dağıtım (Zero-Downtime)
 
-### Strategies
+### Stratejiler
 
-| Strategy | How It Works |
+| Strateji | Nasıl Çalışır? |
 |----------|--------------|
-| **Rolling** | Replace instances one by one |
-| **Blue-Green** | Switch traffic between environments |
-| **Canary** | Gradual traffic shift |
+| **Rolling** | Örnekleri (instances) tek tek değiştirir |
+| **Blue-Green** | Trafiği iki ortam arasında değiştirir |
+| **Canary** | Trafiği kademeli olarak yeni sürüme aktarır |
 
-### Selection Principles
+### Seçim Prensipleri
 
-| Scenario | Strategy |
+| Senaryo | Strateji |
 |----------|----------|
-| Standard release | Rolling |
-| High-risk change | Blue-green (easy rollback) |
-| Need validation | Canary (test with real traffic) |
+| Standart yayın | Rolling |
+| Yüksek riskli değişiklik | Blue-green (kolay geri alma) |
+| Doğrulama ihtiyacı | Canary (gerçek trafikle test) |
 
 ---
 
-## 7. Emergency Procedures
+## 7. Acil Durum Prosedürleri
 
-### Service Down Priority
+### Servis Kesintisi Önceliği
 
-1. **Assess**: What's the symptom?
-2. **Quick fix**: Restart if unclear
-3. **Rollback**: If restart doesn't help
-4. **Investigate**: After stable
+1. **Değerlendir**: Belirti nedir?
+2. **Hızlı Düzeltme**: Net değilse yeniden başlatmayı dene
+3. **Geri Al**: Yeniden başlatma işe yaramazsa geri al
+4. **Araştır**: Sistem kararlı olduktan sonra incele
 
-### Investigation Order
+### İnceleme Sırası
 
-| Check | Common Issues |
+| Kontrol | Yaygın Sorunlar |
 |-------|--------------|
-| **Logs** | Errors, exceptions |
-| **Resources** | Disk full, memory |
-| **Network** | DNS, firewall |
-| **Dependencies** | Database, APIs |
+| **Loglar** | Hatalar, exception'lar |
+| **Kaynaklar** | Dolu disk, bellek (RAM) yetersizliği |
+| **Ağ** | DNS sorunları, firewall engelleri |
+| **Bağımlılıklar** | Veritabanı veya API bağlantı sorunları |
 
 ---
 
-## 8. Anti-Patterns
+## 8. Anti-Desenler (Kaçınılması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Deploy on Friday | Deploy early in week |
-| Rush deployment | Follow the process |
-| Skip staging | Always test first |
-| Deploy without backup | Backup before deploy |
-| Walk away after deploy | Monitor for 15+ min |
-| Multiple changes at once | One change at a time |
+| Cuma günü dağıtım yapmak | Haftanın erken günlerinde yapın |
+| Aceleyle dağıtım yapmak | Süreci takip edin |
+| Staging ortamını atlamak | Her zaman önce test edin |
+| Yedek almadan dağıtmak | Dağıtımdan önce mutlaka yedek alın |
+| Dağıtımdan sonra ayrılmak | En az 15 dakika izleyin |
+| Aynı anda çok fazla değişiklik yapmak | Her seferinde tek bir değişiklik yapın |
 
 ---
 
-## 9. Decision Checklist
+## 9. Karar Kontrol Listesi
 
-Before deploying:
+Dağıtımdan önce:
 
-- [ ] **Platform-appropriate procedure?**
-- [ ] **Backup strategy ready?**
-- [ ] **Rollback plan documented?**
-- [ ] **Monitoring configured?**
-- [ ] **Team notified?**
-- [ ] **Time to monitor after?**
-
----
-
-## 10. Best Practices
-
-1. **Small, frequent deploys** over big releases
-2. **Feature flags** for risky changes
-3. **Automate** repetitive steps
-4. **Document** every deployment
-5. **Review** what went wrong after issues
-6. **Test rollback** before you need it
+- [ ] **Platforma uygun prosedür seçildi mi?**
+- [ ] **Yedekleme stratejisi hazır mı?**
+- [ ] **Geri alma planı dökümante edildi mi?**
+- [ ] **İzleme (monitoring) yapılandırıldı mı?**
+- [ ] **Ekip bilgilendirildi mi?**
+- [ ] **Sonrasında izleme için zaman ayrıldı mı?**
 
 ---
 
-> **Remember:** Every deployment is a risk. Minimize risk through preparation, not speed.
+## 10. En İyi Pratikler
+
+1. Büyük yayınlar yerine **küçük ve sık dağıtımlar** yapın.
+2. Riskli değişiklikler için **Feature Flag** (özellik bayrakları) kullanın.
+3. Tekrarlayan adımları **otomatize** edin.
+4. Her dağıtımı **kayıt altına (dökümante)** alın.
+5. Sorunlardan sonra neyin yanlış gittiğini **analiz edin**.
+6. Geri almayı, ihtiyacınız olmadan önce **test edin**.
+
+---
+
+> **Unutmayın:** Her dağıtım bir risktir. Riski hızla değil, hazırlıkla minimize edin.

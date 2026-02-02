@@ -1,39 +1,39 @@
-# Indexing Principles
+# İndeksleme Prensipleri
 
-> When and how to create indexes effectively.
+> İndekslerin ne zaman ve nasıl etkin bir şekilde oluşturulacağı.
 
-## When to Create Indexes
+## Ne Zaman İndeks Oluşturulmalı?
 
 ```
-Index these:
-├── Columns in WHERE clauses
-├── Columns in JOIN conditions
-├── Columns in ORDER BY
-├── Foreign key columns
-└── Unique constraints
+Şu sütunları indeksleyin:
+├── WHERE ifadelerinde kullanılan sütunlar
+├── JOIN koşullarında kullanılan sütunlar
+├── ORDER BY içinde kullanılan sütunlar
+├── Dış anahtar (Foreign key) sütunları
+└── Benzersizlik (Unique) kısıtlamaları
 
-Don't over-index:
-├── Write-heavy tables (slower inserts)
-├── Low-cardinality columns
-├── Columns rarely queried
+Aşırı indekslemeden kaçının:
+├── Yazma ağırlıklı tablolar (ekleme işlemleri yavaşlar)
+├── Düşük kardinaliteli (tekrarlı veri çok olan) sütunlar
+├── Nadiren sorgulanan sütunlar
 ```
 
-## Index Type Selection
+## İndeks Türü Seçimi
 
-| Type | Use For |
+| Tür | Kullanım Alanı |
 |------|---------|
-| **B-tree** | General purpose, equality & range |
-| **Hash** | Equality only, faster |
-| **GIN** | JSONB, arrays, full-text |
-| **GiST** | Geometric, range types |
-| **HNSW/IVFFlat** | Vector similarity (pgvector) |
+| **B-tree** | Genel amaçlı, eşitlik ve aralık sorguları |
+| **Hash** | Sadece eşitlik sorguları, daha hızlı |
+| **GIN** | JSONB, diziler, tam metin (full-text) |
+| **GiST** | Geometrik veriler, aralık tipleri |
+| **HNSW/IVFFlat** | Vektör benzerliği (pgvector) |
 
-## Composite Index Principles
+## Bileşik İndeks Prensipleri
 
 ```
-Order matters for composite indexes:
-├── Equality columns first
-├── Range columns last
-├── Most selective first
-└── Match query pattern
+Bileşik indekslerde sıralama önemlidir:
+├── Eşitlik sorgulanan sütunlar önce
+├── Aralık (range) sorgulanan sütunlar sonra
+├── En seçici (en benzersiz veri dönecek olan) sütunlar önce
+└── Sorgu desenleriyle eşleşen sıralama
 ```

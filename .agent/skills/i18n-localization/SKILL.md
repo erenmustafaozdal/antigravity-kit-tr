@@ -1,39 +1,39 @@
 ---
 name: i18n-localization
-description: Internationalization and localization patterns. Detecting hardcoded strings, managing translations, locale files, RTL support.
+description: Uluslararasılaştırma (i18n) ve yerelleştirme (L10n) desenleri. Hardcoded metinleri belirleme, çevirileri yönetme, yerel ayar dosyaları, Sağdan Sola (RTL) desteği.
 allowed-tools: Read, Glob, Grep
 ---
 
-# i18n & Localization
+# i18n ve Yerelleştirme (Localization)
 
-> Internationalization (i18n) and Localization (L10n) best practices.
+> Uluslararasılaştırma (i18n) ve Yerelleştirme (L10n) için en iyi pratikler.
 
 ---
 
-## 1. Core Concepts
+## 1. Temel Kavramlar
 
-| Term | Meaning |
+| Terim | Anlamı |
 |------|---------|
-| **i18n** | Internationalization - making app translatable |
-| **L10n** | Localization - actual translations |
-| **Locale** | Language + Region (en-US, tr-TR) |
-| **RTL** | Right-to-left languages (Arabic, Hebrew) |
+| **i18n** | Internationalization (Uluslararasılaştırma) - Uygulamayı çevrilebilir hale getirmek |
+| **L10n** | Localization (Yerelleştirme) - Gerçek çevirilerin ve kültürel uyarlamaların yapılması |
+| **Locale (Yerel Ayar)**| Dil + Bölge (en-US, tr-TR) |
+| **RTL** | Sağdan sola yazılan diller (Arapça, İbranice) |
 
 ---
 
-## 2. When to Use i18n
+## 2. Ne Zaman i18n Kullanılmalı?
 
-| Project Type | i18n Needed? |
+| Proje Türü | i18n Gerekli mi? |
 |--------------|--------------|
-| Public web app | ✅ Yes |
-| SaaS product | ✅ Yes |
-| Internal tool | ⚠️ Maybe |
-| Single-region app | ⚠️ Consider future |
-| Personal project | ❌ Optional |
+| Kamuya açık web uygulaması | ✅ Evet |
+| SaaS ürünü | ✅ Evet |
+| Dahili araç (Internal tool) | ⚠️ Belki |
+| Tek bölgeli uygulama | ⚠️ Geleceği planlayın |
+| Kişisel proje | ❌ İsteğe bağlı |
 
 ---
 
-## 3. Implementation Patterns
+## 3. Uygulama Desenleri
 
 ### React (react-i18next)
 
@@ -62,12 +62,12 @@ export default function Page() {
 ```python
 from gettext import gettext as _
 
-print(_("Welcome to our app"))
+print(_("Uygulamamıza hoş geldiniz"))
 ```
 
 ---
 
-## 4. File Structure
+## 4. Dosya Yapısı
 
 ```
 locales/
@@ -85,46 +85,46 @@ locales/
 
 ---
 
-## 5. Best Practices
+## 5. En İyi Pratikler
 
-### DO ✅
+### YAPIN ✅
 
-- Use translation keys, not raw text
-- Namespace translations by feature
-- Support pluralization
-- Handle date/number formats per locale
-- Plan for RTL from the start
-- Use ICU message format for complex strings
+- Doğrudan metin yerine çeviri anahtarlarını (translation keys) kullanın.
+- Çevirileri özelliklere (feature) göre ad alanlarına (namespace) ayırın.
+- Çoğullaştırmayı (pluralization) destekleyin.
+- Her yerel ayar (locale) için tarih/sayı formatlarını doğru yönetin.
+- Baştan itibaren RTL desteğini planlayın.
+- Karmaşık dizeler için ICU mesaj formatını kullanın.
 
-### DON'T ❌
+### YAPMAYIN ❌
 
-- Hardcode strings in components
-- Concatenate translated strings
-- Assume text length (German is 30% longer)
-- Forget about RTL layout
-- Mix languages in same file
+- Bileşenlerin içinde metinleri hardcode (sabit) yazmayın.
+- Çevrilmiş dizeleri manuel olarak birleştirmeyin (concatenate).
+- Metin uzunluklarını sabit varsaymayın (Örn: Almanca, İngilizceden %30 daha uzundur).
+- RTL düzenini (layout) unutmayın.
+- Aynı dosyada dilleri birbirine karıştırmayın.
 
 ---
 
-## 6. Common Issues
+## 6. Yaygın Sorunlar
 
-| Issue | Solution |
+| Sorun | Çözüm |
 |-------|----------|
-| Missing translation | Fallback to default language |
-| Hardcoded strings | Use linter/checker script |
-| Date format | Use Intl.DateTimeFormat |
-| Number format | Use Intl.NumberFormat |
-| Pluralization | Use ICU message format |
+| Eksik çeviri | Varsayılan dile (fallback) dön |
+| Hardcoded metinler | Linter / checker script'i kullan |
+| Tarih formatı | `Intl.DateTimeFormat` kullan |
+| Sayı formatı | `Intl.NumberFormat` kullan |
+| Çoğullaştırma | ICU mesaj formatı kullan |
 
 ---
 
-## 7. RTL Support
+## 7. RTL Desteği (Sağdan Sola)
 
 ```css
-/* CSS Logical Properties */
+/* CSS Mantıksal Özellikler (Logical Properties) */
 .container {
-  margin-inline-start: 1rem;  /* Not margin-left */
-  padding-inline-end: 1rem;   /* Not padding-right */
+  margin-inline-start: 1rem;  /* margin-left yerine */
+  padding-inline-end: 1rem;   /* padding-right yerine */
 }
 
 [dir="rtl"] .icon {
@@ -134,21 +134,21 @@ locales/
 
 ---
 
-## 8. Checklist
+## 8. Kontrol Listesi
 
-Before shipping:
+Yayına almadan önce:
 
-- [ ] All user-facing strings use translation keys
-- [ ] Locale files exist for all supported languages
-- [ ] Date/number formatting uses Intl API
-- [ ] RTL layout tested (if applicable)
-- [ ] Fallback language configured
-- [ ] No hardcoded strings in components
+- [ ] Kullanıcıya görünen tüm metinler çeviri anahtarlarını kullanıyor.
+- [ ] Desteklenen tüm diller için yerel ayar dosyaları mevcut.
+- [ ] Tarih/sayı biçimlendirmesi `Intl API` kullanıyor.
+- [ ] RTL düzeni test edildi (varsa).
+- [ ] Varsayılan (fallback) dil yapılandırıldı.
+- [ ] Bileşenlerde hardcoded dize kalmadı.
 
 ---
 
 ## Script
 
-| Script | Purpose | Command |
+| Script | Amaç | Komut |
 |--------|---------|---------|
-| `scripts/i18n_checker.py` | Detect hardcoded strings & missing translations | `python scripts/i18n_checker.py <project_path>` |
+| `scripts/i18n_checker.py` | Hardcoded metinleri ve eksik çevirileri tespit et | `python scripts/i18n_checker.py <proje_yolu>` |

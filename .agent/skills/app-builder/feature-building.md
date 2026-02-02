@@ -1,53 +1,53 @@
-# Feature Building
+# Özellik Geliştirme (Feature Building)
 
-> How to analyze and implement new features.
+> Yeni özelliklerin nasıl analiz edileceği ve uygulanacağı.
 
-## Feature Analysis
+## Özellik Analizi
 
 ```
-Request: "add payment system"
+İstek: "ödeme sistemi ekle"
 
-Analysis:
-├── Required Changes:
-│   ├── Database: orders, payments tables
+Analiz:
+├── Gereken Değişiklikler:
+│   ├── Veritabanı: orders (siparişler), payments (ödemeler) tabloları
 │   ├── Backend: /api/checkout, /api/webhooks/stripe
-│   ├── Frontend: CheckoutForm, PaymentSuccess
-│   └── Config: Stripe API keys
+│   ├── Frontend: CheckoutForm (Ödeme Formu), PaymentSuccess (Başarılı Ödeme Sayfası)
+│   └── Yapılandırma: Stripe API anahtarları
 │
-├── Dependencies:
-│   ├── stripe package
-│   └── Existing user authentication
+├── Bağımlılıklar:
+│   ├── stripe paketi
+│   └── Mevcut kullanıcı kimlik doğrulaması (auth)
 │
-└── Estimated Time: 15-20 minutes
+└── Tahmini Süre: 15-20 dakika
 ```
 
-## Iterative Enhancement Process
+## Yinelemeli İyileştirme Süreci
 
 ```
-1. Analyze existing project
-2. Create change plan
-3. Present plan to user
-4. Get approval
-5. Apply changes
-6. Test
-7. Show preview
+1. Mevcut projeyi analiz et
+2. Değişiklik planı oluştur
+3. Planı kullanıcıya sun
+4. Onay al
+5. Değişiklikleri uygula
+6. Test et
+7. Önizlemeyi göster
 ```
 
-## Error Handling
+## Hata Yönetimi
 
-| Error Type | Solution Strategy |
+| Hata Türü | Çözüm Stratejisi |
 |------------|-------------------|
-| TypeScript Error | Fix type, add missing import |
-| Missing Dependency | Run npm install |
-| Port Conflict | Suggest alternative port |
-| Database Error | Check migration, validate connection |
+| TypeScript Hatası | Tipi düzelt, eksik import'u ekle |
+| Eksik Bağımlılık | npm install komutunu çalıştır |
+| Port Çakışması | Alternatif port öner |
+| Veritabanı Hatası | Migrasyonu kontrol et, bağlantıyı doğrula |
 
-## Recovery Strategy
+## Kurtarma Stratejisi (Recovery Strategy)
 
 ```
-1. Detect error
-2. Try automatic fix
-3. If failed, report to user
-4. Suggest alternative
-5. Rollback if necessary
+1. Hatayı tespit et
+2. Otomatik düzeltmeyi dene
+3. Başarısız olursa kullanıcıya bildir
+4. Alternatif öner
+5. Gerekiyorsa geri al (rollback)
 ```

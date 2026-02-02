@@ -1,26 +1,26 @@
-# 4. Client-Side Data Fetching
+# 4. İstemci Tarafı Veri Çekme (Client-Side Data Fetching)
 
-> **Impact:** MEDIUM-HIGH
-> **Focus:** Automatic deduplication and efficient data fetching patterns reduce redundant network requests.
-
----
-
-## Overview
-
-This section contains **4 rules** focused on client-side data fetching.
+> **Etki:** ORTA-YÜKSEK
+> **Odak:** Otomatik tekilleştirme ve verimli veri çekme desenleri, gereksiz ağ isteklerini azaltır.
 
 ---
 
-## Rule 4.1: Deduplicate Global Event Listeners
+## Genel Bakış
 
-**Impact:** LOW  
-**Tags:** client, swr, event-listeners, subscription  
+Bu bölüm, istemci tarafı veri çekmeye odaklanan **4 kural** içerir.
 
-## Deduplicate Global Event Listeners
+---
 
-Use `useSWRSubscription()` to share global event listeners across component instances.
+## Kural 4.1: Global Event Listener'ları Tekilleştirin
 
-**Incorrect (N instances = N listeners):**
+**Etki:** DÜŞÜK  
+**Etiketler:** client, swr, event-listeners, subscription  
+
+## Global Event Listener'ları Tekilleştirin
+
+Component instance'ları arasında global event listener'ları paylaşmak için `useSWRSubscription()` kullanın.
+
+**Yanlış (N instance = N listener):**
 
 ```tsx
 function useKeyboardShortcut(key: string, callback: () => void) {
@@ -36,18 +36,18 @@ function useKeyboardShortcut(key: string, callback: () => void) {
 }
 ```
 
-When using the `useKeyboardShortcut` hook multiple times, each instance will register a new listener.
+`useKeyboardShortcut` hook'unu birden fazla kez kullandığınızda, her instance yeni bir listener kaydeder.
 
-**Correct (N instances = 1 listener):**
+**Doğru (N instance = 1 listener):**
 
 ```tsx
 import useSWRSubscription from 'swr/subscription'
 
-// Module-level Map to track callbacks per key
+// Modül seviyesinde Map, her key için callback'leri takip eder
 const keyCallbacks = new Map<string, Set<() => void>>()
 
 function useKeyboardShortcut(key: string, callback: () => void) {
-  // Register this callback in the Map
+  // Bu callback'i Map'e kaydet
   useEffect(() => {
     if (!keyCallbacks.has(key)) {
       keyCallbacks.set(key, new Set())
@@ -77,7 +77,7 @@ function useKeyboardShortcut(key: string, callback: () => void) {
 }
 
 function Profile() {
-  // Multiple shortcuts will share the same listener
+  // Birden fazla kısayol aynı listener'ı paylaşır
   useKeyboardShortcut('p', () => { /* ... */ }) 
   useKeyboardShortcut('k', () => { /* ... */ })
   // ...
@@ -86,16 +86,16 @@ function Profile() {
 
 ---
 
-## Rule 4.2: Use Passive Event Listeners for Scrolling Performance
+## Kural 4.2: Scroll Performansı İçin Passive Event Listener Kullanın
 
-**Impact:** MEDIUM  
-**Tags:** client, event-listeners, scrolling, performance, touch, wheel  
+**Etki:** ORTA  
+**Etiketler:** client, event-listeners, scrolling, performance, touch, wheel  
 
-## Use Passive Event Listeners for Scrolling Performance
+## Scroll Performansı İçin Passive Event Listener Kullanın
 
-Add `{ passive: true }` to touch and wheel event listeners to enable immediate scrolling. Browsers normally wait for listeners to finish to check if `preventDefault()` is called, causing scroll delay.
+Touch ve wheel event listener'larına `{ passive: true }` ekleyerek anında scrolling'i etkinleştirin. Browser'lar normalde `preventDefault()` çağrısını kontrol etmek için listener'ların bitmesini bekler, bu da scroll gecikmesine neden olur.
 
-**Incorrect:**
+**Yanlış:**
 
 ```typescript
 useEffect(() => {
@@ -112,7 +112,7 @@ useEffect(() => {
 }, [])
 ```
 
-**Correct:**
+**Doğru:**
 
 ```typescript
 useEffect(() => {
@@ -129,22 +129,22 @@ useEffect(() => {
 }, [])
 ```
 
-**Use passive when:** tracking/analytics, logging, any listener that doesn't call `preventDefault()`.
+**Passive kullanın:** tracking/analytics, logging, `preventDefault()` çağırmayan herhangi bir listener.
 
-**Don't use passive when:** implementing custom swipe gestures, custom zoom controls, or any listener that needs `preventDefault()`.
+**Passive kullanmayın:** özel swipe hareketleri, özel zoom kontrolleri veya `preventDefault()` ihtiyacı olan herhangi bir listener.
 
 ---
 
-## Rule 4.3: Use SWR for Automatic Deduplication
+## Kural 4.3: Otomatik Tekilleştirme İçin SWR Kullanın
 
-**Impact:** MEDIUM-HIGH  
-**Tags:** client, swr, deduplication, data-fetching  
+**Etki:** ORTA-YÜKSEK  
+**Etiketler:** client, swr, deduplication, data-fetching  
 
-## Use SWR for Automatic Deduplication
+## Otomatik Tekilleştirme İçin SWR Kullanın
 
-SWR enables request deduplication, caching, and revalidation across component instances.
+SWR, component instance'ları arasında istek tekilleştirmesi, önbellekleme ve revalidation sağlar.
 
-**Incorrect (no deduplication, each instance fetches):**
+**Yanlış (tekilleştirme yok, her instance fetch eder):**
 
 ```tsx
 function UserList() {
@@ -157,7 +157,7 @@ function UserList() {
 }
 ```
 
-**Correct (multiple instances share one request):**
+**Doğru (birden fazla instance bir isteği paylaşır):**
 
 ```tsx
 import useSWR from 'swr'
@@ -167,7 +167,7 @@ function UserList() {
 }
 ```
 
-**For immutable data:**
+**Değişmez veri için:**
 
 ```tsx
 import { useImmutableSWR } from '@/lib/swr'
@@ -177,39 +177,39 @@ function StaticContent() {
 }
 ```
 
-**For mutations:**
+**Mutasyon için:**
 
 ```tsx
 import { useSWRMutation } from 'swr/mutation'
 
 function UpdateButton() {
   const { trigger } = useSWRMutation('/api/user', updateUser)
-  return <button onClick={() => trigger()}>Update</button>
+  return <button onClick={() => trigger()}>Güncelle</button>
 }
 ```
 
-Reference: [https://swr.vercel.app](https://swr.vercel.app)
+Referans: [https://swr.vercel.app](https://swr.vercel.app)
 
 ---
 
-## Rule 4.4: Version and Minimize localStorage Data
+## Kural 4.4: localStorage Verisini Versiyonlayın ve Minimize Edin
 
-**Impact:** MEDIUM  
-**Tags:** client, localStorage, storage, versioning, data-minimization  
+**Etki:** ORTA  
+**Etiketler:** client, localStorage, storage, versioning, data-minimization  
 
-## Version and Minimize localStorage Data
+## localStorage Verisini Versiyonlayın ve Minimize Edin
 
-Add version prefix to keys and store only needed fields. Prevents schema conflicts and accidental storage of sensitive data.
+Key'lere versiyon öneki ekleyin ve yalnızca gerekli alanları saklayın. Şema çakışmalarını ve hassas verilerin kazara saklanmasını önler.
 
-**Incorrect:**
+**Yanlış:**
 
 ```typescript
-// No version, stores everything, no error handling
+// Versiyon yok, her şeyi saklar, hata işleme yok
 localStorage.setItem('userConfig', JSON.stringify(fullUserObject))
 const data = localStorage.getItem('userConfig')
 ```
 
-**Correct:**
+**Doğru:**
 
 ```typescript
 const VERSION = 'v2'
@@ -218,7 +218,7 @@ function saveConfig(config: { theme: string; language: string }) {
   try {
     localStorage.setItem(`userConfig:${VERSION}`, JSON.stringify(config))
   } catch {
-    // Throws in incognito/private browsing, quota exceeded, or disabled
+    // Gizli/private browsing, kota aşımı veya devre dışı bırakılmışsa fırlatır
   }
 }
 
@@ -231,7 +231,7 @@ function loadConfig() {
   }
 }
 
-// Migration from v1 to v2
+// v1'den v2'ye migrasyon
 function migrate() {
   try {
     const v1 = localStorage.getItem('userConfig:v1')
@@ -244,10 +244,10 @@ function migrate() {
 }
 ```
 
-**Store minimal fields from server responses:**
+**Sunucu yanıtlarından minimal alanları saklayın:**
 
 ```typescript
-// User object has 20+ fields, only store what UI needs
+// User nesnesi 20+ alana sahip, yalnızca UI'nin ihtiyacı olanları sakla
 function cachePrefs(user: FullUser) {
   try {
     localStorage.setItem('prefs:v1', JSON.stringify({
@@ -258,7 +258,6 @@ function cachePrefs(user: FullUser) {
 }
 ```
 
-**Always wrap in try-catch:** `getItem()` and `setItem()` throw in incognito/private browsing (Safari, Firefox), when quota exceeded, or when disabled.
+**Her zaman try-catch ile sarın:** `getItem()` ve `setItem()` gizli/private browsing'de (Safari, Firefox), kota aşıldığında veya devre dışı bırakıldığında fırlatır.
 
-**Benefits:** Schema evolution via versioning, reduced storage size, prevents storing tokens/PII/internal flags.
-
+**Faydalar:** Versiyonlama ile şema evrimi, azaltılmış depolama boyutu, token/PII/dahili bayrakların saklanmasını önler.

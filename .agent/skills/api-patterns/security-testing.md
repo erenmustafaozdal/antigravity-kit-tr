@@ -1,122 +1,122 @@
-# API Security Testing
+# API Güvenlik Testi
 
-> Principles for testing API security. OWASP API Top 10, authentication, authorization testing.
+> API güvenliğini test etme prensipleri. OWASP API Top 10, kimlik doğrulama (auth) ve yetkilendirme (authz) testleri.
 
 ---
 
-## OWASP API Security Top 10
+## OWASP API Güvenliği İlk 10 (Top 10)
 
-| Vulnerability | Test Focus |
+| Zafiyet | Test Odağı |
 |---------------|------------|
-| **API1: BOLA** | Access other users' resources |
-| **API2: Broken Auth** | JWT, session, credentials |
-| **API3: Property Auth** | Mass assignment, data exposure |
-| **API4: Resource Consumption** | Rate limiting, DoS |
-| **API5: Function Auth** | Admin endpoints, role bypass |
-| **API6: Business Flow** | Logic abuse, automation |
-| **API7: SSRF** | Internal network access |
-| **API8: Misconfiguration** | Debug endpoints, CORS |
-| **API9: Inventory** | Shadow APIs, old versions |
-| **API10: Unsafe Consumption** | Third-party API trust |
+| **API1: BOLA** | Diğer kullanıcıların kaynaklarına erişim (Broken Object Level Authorization) |
+| **API2: Broken Auth** | JWT, oturum, kimlik bilgileri yönetimi |
+| **API3: Property Auth** | Toplu atama (Mass assignment), hassas veri sızıntısı |
+| **API4: Kaynak Tüketimi** | İstek sınırlama (Rate limiting), Hizmet Engelleme (DoS) |
+| **API5: Fonksiyon Yetkilendirme** | Admin uç noktaları, rol atlatma (Function Level Auth) |
+| **API6: İş Akışı (Business Flow)** | Mantık suiistimali, otomasyon |
+| **API7: SSRF** | Dahili ağ erişimi (Sunucu taraflı istek sahteciliği) |
+| **API8: Yanlış Yapılandırma** | Hata ayıklama (Debug) uç noktaları, CORS hataları |
+| **API9: Envanter Yönetimi** | Gölge (Shadow) API'ler, eski versiyonlar |
+| **API10: Güvensiz Tüketim** | Üçüncü taraf API'lere duyulan aşırı güven |
 
 ---
 
-## Authentication Testing
+## Kimlik Doğrulama (Authentication) Testi
 
-### JWT Testing
+### JWT Testleri
 
-| Check | What to Test |
+| Kontrol | Ne Test Edilmeli? |
 |-------|--------------|
-| Algorithm | None, algorithm confusion |
-| Secret | Weak secrets, brute force |
-| Claims | Expiration, issuer, audience |
-| Signature | Manipulation, key injection |
+| Algoritma | "None" algoritması, algoritma karışıklığı (confusion) |
+| Sır (Secret) | Zayıf sırlar, kaba kuvvet (brute force) |
+| Veriler (Claims) | Son kullanma (expiration), yayıncı (issuer), hedef kitle (audience) |
+| İmza | Manipülasyon, anahtar enjeksiyonu |
 
-### Session Testing
+### Oturum (Session) Testleri
 
-| Check | What to Test |
+| Kontrol | Ne Test Edilmeli? |
 |-------|--------------|
-| Generation | Predictability |
-| Storage | Client-side security |
-| Expiration | Timeout enforcement |
-| Invalidation | Logout effectiveness |
+| Oluşturma | Tahmin edilebilirlik |
+| Depolama | İstemci tarafı güvenliği (HttpOnly, Secure vb.) |
+| Sonlanma | Zaman aşımı (Timeout) zorunluluğu |
+| Geçersiz Kılma | Çıkış yapmanın (Logout) etkinliği |
 
 ---
 
-## Authorization Testing
+## Yetkilendirme (Authorization) Testi
 
-| Test Type | Approach |
+| Test Türü | Yaklaşım |
 |-----------|----------|
-| **Horizontal** | Access peer users' data |
-| **Vertical** | Access higher privilege functions |
-| **Context** | Access outside allowed scope |
+| **Yatay (Horizontal)** | Aynı seviyedeki diğer kullanıcıların verilerine erişim |
+| **Dikey (Vertical)** | Daha yüksek yetkili fonksiyonlara (örn. admin) erişim |
+| **Bağlamsal (Context)** | İzin verilen kapsam dışındaki verilere erişim |
 
-### BOLA/IDOR Testing
+### BOLA/IDOR Test Akışı
 
-1. Identify resource IDs in requests
-2. Capture request with user A's session
-3. Replay with user B's session
-4. Check for unauthorized access
+1. İsteklerdeki kaynak ID'lerini belirleyin.
+2. A kullanıcısının oturumuyla isteği yakalayın.
+3. B kullanıcısının ID'sini kullanarak isteği tekrar gönderin.
+4. Yetkisiz erişim sağlanıp sağlanmadığını kontrol edin.
 
 ---
 
-## Input Validation Testing
+## Girdi Doğrulama (Input Validation) Testi
 
-| Injection Type | Test Focus |
+| Enjeksiyon Türü | Test Odağı |
 |----------------|------------|
-| SQL | Query manipulation |
-| NoSQL | Document queries |
-| Command | System commands |
-| LDAP | Directory queries |
+| SQL | Sorgu manipülasyonu |
+| NoSQL | Doküman sorguları |
+| Komut (Command) | Sistem komutları çalıştırma |
+| LDAP | Dizin sorguları |
 
-**Approach:** Test all parameters, try type coercion, test boundaries, check error messages.
+**Yaklaşım:** Tüm parametreleri test edin, veri tipi zorlaması yapın, sınır değerleri test edin, hata mesajlarını inceleyin.
 
 ---
 
-## Rate Limiting Testing
+## İstek Sınırlama (Rate Limiting) Testi
 
-| Aspect | Check |
+| Pozisyon | Kontrol |
 |--------|-------|
-| Existence | Is there any limit? |
-| Bypass | Headers, IP rotation |
-| Scope | Per-user, per-IP, global |
+| Varlık | Herhangi bir limit var mı? |
+| Atlatma (Bypass) | Header'lar, IP rotasyonu |
+| Kapsam | Kullanıcı bazlı, IP bazlı, global |
 
-**Bypass techniques:** X-Forwarded-For, different HTTP methods, case variations, API versioning.
+**Atlatma teknikleri:** `X-Forwarded-For` kullanımı, farklı HTTP metotları, büyük/küçük harf varyasyonları, API versiyonlama.
 
 ---
 
-## GraphQL Security
+## GraphQL Güvenliği
 
-| Test | Focus |
+| Test | Odak |
 |------|-------|
-| Introspection | Schema disclosure |
-| Batching | Query DoS |
-| Nesting | Depth-based DoS |
-| Authorization | Field-level access |
+| İnceleme (Introspection) | Şema sızıntısı |
+| Toplu İşlem (Batching) | Sorgu tabanlı DoS |
+| İç İçe Yapı (Nesting) | Derinlik tabanlı DoS |
+| Yetkilendirme | Alan (field) bazlı erişim kontrolü |
 
 ---
 
-## Security Testing Checklist
+## Güvenlik Testi Kontrol Listesi
 
-**Authentication:**
-- [ ] Test for bypass
-- [ ] Check credential strength
-- [ ] Verify token security
+**Kimlik Doğrulama (Auth):**
+- [ ] Atlatma (bypass) senaryoları test edildi mi?
+- [ ] Kimlik bilgisi gücü kontrol edildi mi?
+- [ ] Token güvenliği doğrulandı mı?
 
-**Authorization:**
-- [ ] Test BOLA/IDOR
-- [ ] Check privilege escalation
-- [ ] Verify function access
+**Yetkilendirme (Authz):**
+- [ ] BOLA/IDOR testleri yapıldı mı?
+- [ ] Yetki yükseltme (privilege escalation) kontrol edildi mi?
+- [ ] Fonksiyon bazlı erişim doğrulandı mı?
 
-**Input:**
-- [ ] Test all parameters
-- [ ] Check for injection
+**Girdi (Input):**
+- [ ] Tüm parametreler test edildi mi?
+- [ ] Enjeksiyon zafiyetleri kontrol edildi mi?
 
-**Config:**
-- [ ] Check CORS
-- [ ] Verify headers
-- [ ] Test error handling
+**Yapılandırma (Config):**
+- [ ] CORS ayarları kontrol edildi mi?
+- [ ] Güvenlik header'ları (HSTS, CSP vb.) doğrulandı mı?
+- [ ] Hata yönetimi (error handling) test edildi mi?
 
 ---
 
-> **Remember:** APIs are the backbone of modern apps. Test them like attackers will.
+> **Unutma:** API'ler modern uygulamaların omurgasıdır. Onları saldırganların gözüyle test edin.

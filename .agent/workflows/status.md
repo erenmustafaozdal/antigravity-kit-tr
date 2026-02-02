@@ -1,86 +1,86 @@
 ---
-description: Display agent and project status. Progress tracking and status board.
+description: Ajan ve proje durumunu görüntüler. İlerleme takibi ve durum panosu.
 ---
 
-# /status - Show Status
+# /status - Durumu Göster
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Görev
 
-Show current project and agent status.
+Mevcut proje ve ajan durumunu gösterir.
 
-### What It Shows
+### Neler Gösterilir?
 
-1. **Project Info**
-   - Project name and path
-   - Tech stack
-   - Current features
+1. **Proje Bilgisi**
+   - Proje adı ve yolu
+   - Teknoloji yığını
+   - Mevcut özellikler
 
-2. **Agent Status Board**
-   - Which agents are running
-   - Which tasks are completed
-   - Pending work
+2. **Ajan Durum Panosu**
+   - Hangi ajanlar çalışıyor
+   - Hangi görevler tamamlandı
+   - Bekleyen işler
 
-3. **File Statistics**
-   - Files created count
-   - Files modified count
+3. **Dosya İstatistikleri**
+   - Oluşturulan dosya sayısı
+   - Değiştirilen dosya sayısı
 
-4. **Preview Status**
-   - Is server running
+4. **Önizleme Durumu**
+   - Sunucu çalışıyor mu?
    - URL
-   - Health check
+   - Sağlık kontrolü (health check)
 
 ---
 
-## Example Output
+## Örnek Çıktı
 
 ```
-=== Project Status ===
+=== Proje Durumu ===
 
-📁 Project: my-ecommerce
-📂 Path: C:/projects/my-ecommerce
-🏷️ Type: nextjs-ecommerce
-📊 Status: active
+📁 Proje: my-ecommerce
+📂 Yol: C:/projects/my-ecommerce
+🏷️ Tür: nextjs-ecommerce
+📊 Durum: aktif
 
-🔧 Tech Stack:
+🔧 Teknoloji Yığını:
    Framework: next.js
-   Database: postgresql
-   Auth: clerk
-   Payment: stripe
+   Veritabanı: postgresql
+   Kimlik Doğrulama: clerk
+   Ödeme: stripe
 
-✅ Features (5):
-   • product-listing
-   • cart
-   • checkout
-   • user-auth
-   • order-history
+✅ Özellikler (5):
+   • ürün-listeleme
+   • sepet
+   • ödeme-sayfasi
+   • kullanıcı-auth
+   • sipariş-gecmisi
 
-⏳ Pending (2):
-   • admin-panel
-   • email-notifications
+⏳ Bekleyenler (2):
+   • admin-paneli
+   • e-posta-bildirimleri
 
-📄 Files: 73 created, 12 modified
+📄 Dosyalar: 73 oluşturuldu, 12 değiştirildi
 
-=== Agent Status ===
+=== Ajan Durumu ===
 
-✅ database-architect → Completed
-✅ backend-specialist → Completed
-🔄 frontend-specialist → Dashboard components (60%)
-⏳ test-engineer → Waiting
+✅ database-architect → Tamamlandı
+✅ backend-specialist → Tamamlandı
+🔄 frontend-specialist → Dashboard bileşenleri (%60)
+⏳ test-engineer → Bekliyor
 
-=== Preview ===
+=== Önizleme ===
 
 🌐 URL: http://localhost:3000
-💚 Health: OK
+💚 Sağlık: TAMAM (OK)
 ```
 
 ---
 
-## Technical
+## Teknik Bilgi
 
-Status uses these scripts:
+Durum bilgisi şu scriptleri kullanır:
 - `python .agent/scripts/session_manager.py status`
 - `python .agent/scripts/auto_preview.py status`

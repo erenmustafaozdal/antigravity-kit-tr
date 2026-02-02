@@ -1,103 +1,103 @@
 ---
 name: python-patterns
-description: Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying.
+description: Python geliştirme prensipleri ve karar verme. Framework seçimi, async desenler, tip ipuçları, proje yapısı. Düşünmeyi öğretir, kopyalamayı değil.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Python Patterns
+# Python Desenleri
 
-> Python development principles and decision-making for 2025.
-> **Learn to THINK, not memorize patterns.**
-
----
-
-## ⚠️ How to Use This Skill
-
-This skill teaches **decision-making principles**, not fixed code to copy.
-
-- ASK user for framework preference when unclear
-- Choose async vs sync based on CONTEXT
-- Don't default to same framework every time
+> 2025 için Python geliştirme prensipleri ve karar verme.
+> **Kopyalamak yerine DÜŞÜNMEYİ öğren.**
 
 ---
 
-## 1. Framework Selection (2025)
+## ⚠️ Bu Yetenek Nasıl Kullanılır
 
-### Decision Tree
+Bu yetenek **karar verme prensiplerini** öğretir, kopyalanacak sabit kod değil.
+
+- Belirsiz olduğunda kullanıcıya framework tercihi SOR
+- BAĞLAMA göre async vs sync seç
+- Her seferinde aynı framework'e varsayılan olarak gitme
+
+---
+
+## 1. Framework Seçimi (2025)
+
+### Karar Ağacı
 
 ```
-What are you building?
+Ne inşa ediyorsun?
 │
-├── API-first / Microservices
-│   └── FastAPI (async, modern, fast)
+├── API-öncelikli / Microservices
+│   └── FastAPI (async, modern, hızlı)
 │
 ├── Full-stack web / CMS / Admin
-│   └── Django (batteries-included)
+│   └── Django (pil dahil)
 │
-├── Simple / Script / Learning
-│   └── Flask (minimal, flexible)
+├── Basit / Script / Öğrenme
+│   └── Flask (minimal, esnek)
 │
-├── AI/ML API serving
+├── AI/ML API servisi
 │   └── FastAPI (Pydantic, async, uvicorn)
 │
-└── Background workers
-    └── Celery + any framework
+└── Arka plan worker'ları
+    └── Celery + herhangi bir framework
 ```
 
-### Comparison Principles
+### Karşılaştırma Prensipleri
 
-| Factor | FastAPI | Django | Flask |
+| Faktör | FastAPI | Django | Flask |
 |--------|---------|--------|-------|
-| **Best for** | APIs, microservices | Full-stack, CMS | Simple, learning |
-| **Async** | Native | Django 5.0+ | Via extensions |
-| **Admin** | Manual | Built-in | Via extensions |
-| **ORM** | Choose your own | Django ORM | Choose your own |
-| **Learning curve** | Low | Medium | Low |
+| **En iyi** | API'ler, microservices | Full-stack, CMS | Basit, öğrenme |
+| **Async** | Native | Django 5.0+ | Uzantılar ile |
+| **Admin** | Manuel | Yerleşik | Uzantılar ile |
+| **ORM** | Kendin seç | Django ORM | Kendin seç |
+| **Öğrenme eğrisi** | Düşük | Orta | Düşük |
 
-### Selection Questions to Ask:
-1. Is this API-only or full-stack?
-2. Need admin interface?
-3. Team familiar with async?
-4. Existing infrastructure?
+### Sorulacak Seçim Soruları:
+1. Bu yalnızca API mi yoksa full-stack mi?
+2. Admin arayüzü gerekli mi?
+3. Takım async'e aşina mı?
+4. Mevcut altyapı var mı?
 
 ---
 
-## 2. Async vs Sync Decision
+## 2. Async vs Sync Kararı
 
-### When to Use Async
+### Async Ne Zaman Kullanılır
 
 ```
-async def is better when:
-├── I/O-bound operations (database, HTTP, file)
-├── Many concurrent connections
-├── Real-time features
-├── Microservices communication
+async def daha iyi when:
+├── I/O-bound işlemler (veritabanı, HTTP, dosya)
+├── Birçok eşzamanlı bağlantı
+├── Gerçek zamanlı özellikler
+├── Microservices iletişimi
 └── FastAPI/Starlette/Django ASGI
 
-def (sync) is better when:
-├── CPU-bound operations
-├── Simple scripts
-├── Legacy codebase
-├── Team unfamiliar with async
-└── Blocking libraries (no async version)
+def (sync) daha iyi when:
+├── CPU-bound işlemler
+├── Basit script'ler
+├── Eski kod tabanı
+├── Takım async'e aşina değil
+└── Engelleyici kütüphaneler (async versiyonu yok)
 ```
 
-### The Golden Rule
+### Altın Kural
 
 ```
-I/O-bound → async (waiting for external)
-CPU-bound → sync + multiprocessing (computing)
+I/O-bound → async (harici için bekleme)
+CPU-bound → sync + multiprocessing (hesaplama)
 
-Don't:
-├── Mix sync and async carelessly
-├── Use sync libraries in async code
-└── Force async for CPU work
+Yapma:
+├── Sync ve async'i dikkatsizce karıştırma
+├── Async kodda sync kütüphaneler kullanma
+└── CPU işi için async'i zorlama
 ```
 
-### Async Library Selection
+### Async Kütüphane Seçimi
 
-| Need | Async Library |
-|------|---------------|
+| İhtiyaç | Async Kütüphane |
+|---------|-----------------|
 | HTTP client | httpx |
 | PostgreSQL | asyncpg |
 | Redis | aioredis / redis-py async |
@@ -106,36 +106,36 @@ Don't:
 
 ---
 
-## 3. Type Hints Strategy
+## 3. Tip İpuçları Stratejisi
 
-### When to Type
+### Ne Zaman Tip Kullanılır
 
 ```
-Always type:
-├── Function parameters
-├── Return types
-├── Class attributes
-├── Public APIs
+Her zaman tiplendir:
+├── Fonksiyon parametreleri
+├── Dönüş tipleri
+├── Sınıf attributeları
+├── Public API'ler
 
-Can skip:
-├── Local variables (let inference work)
-├── One-off scripts
-├── Tests (usually)
+Atlanabilir:
+├── Yerel değişkenler (çıkarımın çalışmasına izin ver)
+├── Tek kullanımlık script'ler
+├── Testler (genellikle)
 ```
 
-### Common Type Patterns
+### Yaygın Tip Desenleri
 
 ```python
-# These are patterns, understand them:
+# Bunlar desenlerdir, onları anla:
 
-# Optional → might be None
+# Optional → None olabilir
 from typing import Optional
 def find_user(id: int) -> Optional[User]: ...
 
-# Union → one of multiple types
+# Union → birden fazla tipten biri
 def process(data: str | dict) -> None: ...
 
-# Generic collections
+# Genel koleksiyonlar
 def get_items() -> list[Item]: ...
 def get_mapping() -> dict[str, int]: ...
 
@@ -144,35 +144,35 @@ from typing import Callable
 def apply(fn: Callable[[int], str]) -> str: ...
 ```
 
-### Pydantic for Validation
+### Doğrulama için Pydantic
 
 ```
-When to use Pydantic:
-├── API request/response models
-├── Configuration/settings
-├── Data validation
+Pydantic ne zaman kullanılır:
+├── API istek/yanıt modelleri
+├── Yapılandırma/ayarlar
+├── Veri doğrulama
 ├── Serialization
 
-Benefits:
-├── Runtime validation
-├── Auto-generated JSON schema
-├── Works with FastAPI natively
-└── Clear error messages
+Faydalar:
+├── Çalışma zamanı doğrulama
+├── Otomatik JSON şeması
+├── FastAPI ile native çalışır
+└── Açık hata mesajları
 ```
 
 ---
 
-## 4. Project Structure Principles
+## 4. Proje Yapısı Prensipleri
 
-### Structure Selection
+### Yapı Seçimi
 
 ```
-Small project / Script:
+Küçük proje / Script:
 ├── main.py
 ├── utils.py
 └── requirements.txt
 
-Medium API:
+Orta API:
 ├── app/
 │   ├── __init__.py
 │   ├── main.py
@@ -183,7 +183,7 @@ Medium API:
 ├── tests/
 └── pyproject.toml
 
-Large application:
+Büyük uygulama:
 ├── src/
 │   └── myapp/
 │       ├── core/
@@ -195,19 +195,19 @@ Large application:
 └── pyproject.toml
 ```
 
-### FastAPI Structure Principles
+### FastAPI Yapı Prensipleri
 
 ```
-Organize by feature or layer:
+Özellik veya katmana göre organize et:
 
-By layer:
-├── routes/ (API endpoints)
-├── services/ (business logic)
-├── models/ (database models)
-├── schemas/ (Pydantic models)
-└── dependencies/ (shared deps)
+Katmana göre:
+├── routes/ (API uç noktaları)
+├── services/ (iş mantığı)
+├── models/ (veritabanı modelleri)
+├── schemas/ (Pydantic modelleri)
+└── dependencies/ (paylaşılan bağımlılıklar)
 
-By feature:
+Özelliğe göre:
 ├── users/
 │   ├── routes.py
 │   ├── service.py
@@ -218,170 +218,170 @@ By feature:
 
 ---
 
-## 5. Django Principles (2025)
+## 5. Django Prensipleri (2025)
 
 ### Django Async (Django 5.0+)
 
 ```
-Django supports async:
-├── Async views
+Django async'i destekler:
+├── Async view'lar
 ├── Async middleware
-├── Async ORM (limited)
+├── Async ORM (sınırlı)
 └── ASGI deployment
 
-When to use async in Django:
-├── External API calls
+Django'da async ne zaman kullanılır:
+├── Harici API çağrıları
 ├── WebSocket (Channels)
-├── High-concurrency views
-└── Background task triggering
+├── Yüksek eşzamanlılık view'ları
+└── Arka plan görev tetikleme
 ```
 
-### Django Best Practices
+### Django En İyi Uygulamaları
 
 ```
-Model design:
-├── Fat models, thin views
-├── Use managers for common queries
-├── Abstract base classes for shared fields
+Model tasarımı:
+├── Şişman modeller, ince view'lar
+├── Yaygın sorgular için manager'lar kullan
+├── Paylaşılan alanlar için abstract base sınıflar
 
-Views:
-├── Class-based for complex CRUD
-├── Function-based for simple endpoints
-├── Use viewsets with DRF
+View'lar:
+├── Karmaşık CRUD için sınıf-tabanlı
+├── Basit uç noktalar için fonksiyon-tabanlı
+├── DRF ile viewset kullan
 
-Queries:
-├── select_related() for FKs
-├── prefetch_related() for M2M
-├── Avoid N+1 queries
-└── Use .only() for specific fields
+Sorgular:
+├── FK'lar için select_related()
+├── M2M için prefetch_related()
+├── N+1 sorgularından kaçın
+└── Spesifik alanlar için .only() kullan
 ```
 
 ---
 
-## 6. FastAPI Principles
+## 6. FastAPI Prensipleri
 
-### async def vs def in FastAPI
+### FastAPI'de async def vs def
 
 ```
-Use async def when:
-├── Using async database drivers
-├── Making async HTTP calls
-├── I/O-bound operations
-└── Want to handle concurrency
+async def ne zaman kullan:
+├── Async veritabanı driver'ları kullanırken
+├── Async HTTP çağrıları yaparken
+├── I/O-bound işlemler
+└── Eşzamanlılığı işlemek istediğinde
 
-Use def when:
-├── Blocking operations
-├── Sync database drivers
-├── CPU-bound work
-└── FastAPI runs in threadpool automatically
+def ne zaman kullan:
+├── Engelleyici işlemler
+├── Sync veritabanı driver'ları
+├── CPU-bound iş
+└── FastAPI otomatik olarak threadpool'da çalıştırır
 ```
 
 ### Dependency Injection
 
 ```
-Use dependencies for:
-├── Database sessions
-├── Current user / Auth
-├── Configuration
-├── Shared resources
+Bağımlılıkları şunlar için kullan:
+├── Veritabanı oturumları
+├── Mevcut kullanıcı / Auth
+├── Yapılandırma
+├── Paylaşılan kaynaklar
 
-Benefits:
-├── Testability (mock dependencies)
-├── Clean separation
-├── Automatic cleanup (yield)
+Faydalar:
+├── Test edilebilirlik (mock bağımlılıklar)
+├── Temiz ayrım
+├── Otomatik temizleme (yield)
 ```
 
-### Pydantic v2 Integration
+### Pydantic v2 Entegrasyonu
 
 ```python
-# FastAPI + Pydantic are tightly integrated:
+# FastAPI + Pydantic sıkı entegre:
 
-# Request validation
+# İstek doğrulama
 @app.post("/users")
 async def create(user: UserCreate) -> UserResponse:
-    # user is already validated
+    # user zaten doğrulanmış
     ...
 
-# Response serialization
-# Return type becomes response schema
+# Yanıt serialization
+# Dönüş tipi yanıt şeması olur
 ```
 
 ---
 
-## 7. Background Tasks
+## 7. Arka Plan Görevleri
 
-### Selection Guide
+### Seçim Kılavuzu
 
-| Solution | Best For |
-|----------|----------|
-| **BackgroundTasks** | Simple, in-process tasks |
-| **Celery** | Distributed, complex workflows |
-| **ARQ** | Async, Redis-based |
-| **RQ** | Simple Redis queue |
-| **Dramatiq** | Actor-based, simpler than Celery |
+| Çözüm | En İyi |
+|-------|--------|
+| **BackgroundTasks** | Basit, işlem içi görevler |
+| **Celery** | Dağıtık, karmaşık iş akışları |
+| **ARQ** | Async, Redis-tabanlı |
+| **RQ** | Basit Redis kuyruğu |
+| **Dramatiq** | Actor-tabanlı, Celery'den daha basit |
 
-### When to Use Each
+### Her Birini Ne Zaman Kullanmalı
 
 ```
 FastAPI BackgroundTasks:
-├── Quick operations
-├── No persistence needed
+├── Hızlı işlemler
+├── Kalıcılık gerekmiyor
 ├── Fire-and-forget
-└── Same process
+└── Aynı işlem
 
 Celery/ARQ:
-├── Long-running tasks
-├── Need retry logic
-├── Distributed workers
-├── Persistent queue
-└── Complex workflows
+├── Uzun süren görevler
+├── Retry mantığı gerekli
+├── Dağıtık worker'lar
+├── Kalıcı kuyruk
+└── Karmaşık iş akışları
 ```
 
 ---
 
-## 8. Error Handling Principles
+## 8. Hata Yönetimi Prensipleri
 
-### Exception Strategy
-
-```
-In FastAPI:
-├── Create custom exception classes
-├── Register exception handlers
-├── Return consistent error format
-└── Log without exposing internals
-
-Pattern:
-├── Raise domain exceptions in services
-├── Catch and transform in handlers
-└── Client gets clean error response
-```
-
-### Error Response Philosophy
+### Exception Stratejisi
 
 ```
-Include:
-├── Error code (programmatic)
-├── Message (human readable)
-├── Details (field-level when applicable)
-└── NOT stack traces (security)
+FastAPI'de:
+├── Özel exception sınıfları oluştur
+├── Exception handler'ları kaydet
+├── Tutarlı hata formatı döndür
+└── İç detayları açığa çıkarmadan logla
+
+Desen:
+├── Servislerde domain exceptionları fırlat
+├── Handler'larda yakala ve dönüştür
+└── İstemci temiz hata yanıtı alır
+```
+
+### Hata Yanıtı Felsefesi
+
+```
+Dahil et:
+├── Hata kodu (programatik)
+├── Mesaj (insan tarafından okunabilir)
+├── Detaylar (uygulanabilirse alan düzeyinde)
+└── Stack trace'ler DEĞİL (güvenlik)
 ```
 
 ---
 
-## 9. Testing Principles
+## 9. Test Etme Prensipleri
 
-### Testing Strategy
+### Test Stratejisi
 
-| Type | Purpose | Tools |
-|------|---------|-------|
-| **Unit** | Business logic | pytest |
-| **Integration** | API endpoints | pytest + httpx/TestClient |
-| **E2E** | Full workflows | pytest + DB |
+| Tip | Amaç | Araçlar |
+|-----|------|---------|
+| **Unit** | İş mantığı | pytest |
+| **Integration** | API uç noktaları | pytest + httpx/TestClient |
+| **E2E** | Tam iş akışları | pytest + DB |
 
-### Async Testing
+### Async Test Etme
 
 ```python
-# Use pytest-asyncio for async tests
+# Async testler için pytest-asyncio kullan
 
 import pytest
 from httpx import AsyncClient
@@ -393,49 +393,49 @@ async def test_endpoint():
         assert response.status_code == 200
 ```
 
-### Fixtures Strategy
+### Fixture Stratejisi
 
 ```
-Common fixtures:
-├── db_session → Database connection
+Yaygın fixture'lar:
+├── db_session → Veritabanı bağlantısı
 ├── client → Test client
-├── authenticated_user → User with token
-└── sample_data → Test data setup
+├── authenticated_user → Token'lı kullanıcı
+└── sample_data → Test veri kurulumu
 ```
 
 ---
 
-## 10. Decision Checklist
+## 10. Karar Kontrol Listesi
 
-Before implementing:
+İmplementasyondan önce:
 
-- [ ] **Asked user about framework preference?**
-- [ ] **Chosen framework for THIS context?** (not just default)
-- [ ] **Decided async vs sync?**
-- [ ] **Planned type hint strategy?**
-- [ ] **Defined project structure?**
-- [ ] **Planned error handling?**
-- [ ] **Considered background tasks?**
-
----
-
-## 11. Anti-Patterns to Avoid
-
-### ❌ DON'T:
-- Default to Django for simple APIs (FastAPI may be better)
-- Use sync libraries in async code
-- Skip type hints for public APIs
-- Put business logic in routes/views
-- Ignore N+1 queries
-- Mix async and sync carelessly
-
-### ✅ DO:
-- Choose framework based on context
-- Ask about async requirements
-- Use Pydantic for validation
-- Separate concerns (routes → services → repos)
-- Test critical paths
+- [ ] **Kullanıcıya framework tercihi soruldu mu?**
+- [ ] **BU bağlam için framework seçildi mi?** (sadece varsayılan değil)
+- [ ] **Async vs sync kararı verildi mi?**
+- [ ] **Tip ipucu stratejisi planlandı mı?**
+- [ ] **Proje yapısı tanımlandı mı?**
+- [ ] **Hata yönetimi planlandı mı?**
+- [ ] **Arka plan görevleri düşünüldü mü?**
 
 ---
 
-> **Remember**: Python patterns are about decision-making for YOUR specific context. Don't copy code—think about what serves your application best.
+## 11. Kaçınılacak Anti-Desenler
+
+### ❌ YAPMA:
+- Basit API'ler için Django'ya varsayılan (FastAPI daha iyi olabilir)
+- Async kodda sync kütüphaneler kullan
+- Public API'ler için tip ipuçlarını atla
+- İş mantığını route'lara/view'lara koy
+- N+1 sorgularını görmezden gel
+- Async ve sync'i dikkatsizce karıştır
+
+### ✅ YAP:
+- Bağlama göre framework seç
+- Async gereksinimleri hakkında sor
+- Doğrulama için Pydantic kullan
+- Endişeleri ayır (routes → services → repos)
+- Kritik yolları test et
+
+---
+
+> **Unutma**: Python desenleri SENİN spesifik bağlamın için karar verme ile ilgilidir. Kod kopyalama—uygulamana en iyi hizmet edecek şey hakkında düşün.

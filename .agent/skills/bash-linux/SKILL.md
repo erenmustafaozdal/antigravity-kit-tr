@@ -1,124 +1,124 @@
 ---
 name: bash-linux
-description: Bash/Linux terminal patterns. Critical commands, piping, error handling, scripting. Use when working on macOS or Linux systems.
+description: Bash/Linux terminal desenleri. Kritik komutlar, piping, hata yönetimi ve betik yazımı (scripting). macOS veya Linux sistemlerinde çalışırken kullanın.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Bash Linux Patterns
+# Bash Linux Desenleri
 
-> Essential patterns for Bash on Linux/macOS.
+> Linux/macOS üzerinde Bash kullanımı için temel desenler.
 
 ---
 
-## 1. Operator Syntax
+## 1. Operatör Sözdizimi
 
-### Chaining Commands
+### Komutları Zincirleme
 
-| Operator | Meaning | Example |
+| Operatör | Anlamı | Örnek |
 |----------|---------|---------|
-| `;` | Run sequentially | `cmd1; cmd2` |
-| `&&` | Run if previous succeeded | `npm install && npm run dev` |
-| `\|\|` | Run if previous failed | `npm test \|\| echo "Tests failed"` |
-| `\|` | Pipe output | `ls \| grep ".js"` |
+| `;` | Sırayla çalıştır | `komut1; komut2` |
+| `&&` | İlki başarılıysa çalıştır | `npm install && npm run dev` |
+| `\|\|` | İlki başarısızsa çalıştır | `npm test \|\| echo "Testler başarısız"` |
+| `\|` | Çıktıyı diğerine aktar (Pipe) | `ls \| grep ".js"` |
 
 ---
 
-## 2. File Operations
+## 2. Dosya İşlemleri
 
-### Essential Commands
+### Temel Komutlar
 
-| Task | Command |
+| Görev | Komut |
 |------|---------|
-| List all | `ls -la` |
-| Find files | `find . -name "*.js" -type f` |
-| File content | `cat file.txt` |
-| First N lines | `head -n 20 file.txt` |
-| Last N lines | `tail -n 20 file.txt` |
-| Follow log | `tail -f log.txt` |
-| Search in files | `grep -r "pattern" --include="*.js"` |
-| File size | `du -sh *` |
-| Disk usage | `df -h` |
+| Hepsini listele | `ls -la` |
+| Dosya bulma | `find . -name "*.js" -type f` |
+| Dosya içeriği | `cat dosya.txt` |
+| İlk N satır | `head -n 20 dosya.txt` |
+| Son N satır | `tail -n 20 dosya.txt` |
+| Log takibi | `tail -f log.txt` |
+| Dosya içinde ara | `grep -r "desen" --include="*.js"` |
+| Dosya boyutu | `du -sh *` |
+| Disk kullanımı | `df -h` |
 
 ---
 
-## 3. Process Management
+## 3. Süreç (Process) Yönetimi
 
-| Task | Command |
+| Görev | Komut |
 |------|---------|
-| List processes | `ps aux` |
-| Find by name | `ps aux \| grep node` |
-| Kill by PID | `kill -9 <PID>` |
-| Find port user | `lsof -i :3000` |
-| Kill port | `kill -9 $(lsof -t -i :3000)` |
-| Background | `npm run dev &` |
-| Jobs | `jobs -l` |
-| Bring to front | `fg %1` |
+| Süreçleri listele | `ps aux` |
+| İsme göre bul | `ps aux \| grep node` |
+| PID ile durdur | `kill -9 <PID>` |
+| Portu kullananı bul | `lsof -i :3000` |
+| Portu temizle | `kill -9 $(lsof -t -i :3000)` |
+| Arka planda çalıştır | `npm run dev &` |
+| İşleri listele | `jobs -l` |
+| Ön plana getir | `fg %1` |
 
 ---
 
-## 4. Text Processing
+## 4. Metin İşleme
 
-### Core Tools
+### Temel Araçlar
 
-| Tool | Purpose | Example |
+| Araç | Amacı | Örnek |
 |------|---------|---------|
-| `grep` | Search | `grep -rn "TODO" src/` |
-| `sed` | Replace | `sed -i 's/old/new/g' file.txt` |
-| `awk` | Extract columns | `awk '{print $1}' file.txt` |
-| `cut` | Cut fields | `cut -d',' -f1 data.csv` |
-| `sort` | Sort lines | `sort -u file.txt` |
-| `uniq` | Unique lines | `sort file.txt \| uniq -c` |
-| `wc` | Count | `wc -l file.txt` |
+| `grep` | Arama | `grep -rn "TODO" src/` |
+| `sed` | Değiştirme | `sed -i 's/eski/yeni/g' dosya.txt` |
+| `awk` | Sütun ayıklama | `awk '{print $1}' dosya.txt` |
+| `cut` | Alan kesme | `cut -d',' -f1 veri.csv` |
+| `sort` | Sıralama | `sort -u dosya.txt` |
+| `uniq` | Benzersiz satırlar | `sort dosya.txt \| uniq -c` |
+| `wc` | Sayma | `wc -l dosya.txt` |
 
 ---
 
-## 5. Environment Variables
+## 5. Ortam Değişkenleri (Environment Variables)
 
-| Task | Command |
+| Görev | Komut |
 |------|---------|
-| View all | `env` or `printenv` |
-| View one | `echo $PATH` |
-| Set temporary | `export VAR="value"` |
-| Set in script | `VAR="value" command` |
-| Add to PATH | `export PATH="$PATH:/new/path"` |
+| Hepsini gör | `env` veya `printenv` |
+| Birini gör | `echo $PATH` |
+| Geçici ata | `export DEGISKEN="değer"` |
+| Komutla birlikte ata | `DEGISKEN="değer" komut` |
+| PATH'e ekle | `export PATH="$PATH:/yeni/yol"` |
 
 ---
 
-## 6. Network
+## 6. Ağ (Network)
 
-| Task | Command |
+| Görev | Komut |
 |------|---------|
-| Download | `curl -O https://example.com/file` |
-| API request | `curl -X GET https://api.example.com` |
-| POST JSON | `curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' URL` |
-| Check port | `nc -zv localhost 3000` |
-| Network info | `ifconfig` or `ip addr` |
+| Dosya indir | `curl -O https://örnek.com/dosya` |
+| API isteği | `curl -X GET https://api.örnek.com` |
+| POST JSON | `curl -X POST -H "Content-Type: application/json" -d '{"anahtar":"değer"}' URL` |
+| Port kontrolü | `nc -zv localhost 3000` |
+| Ağ bilgileri | `ifconfig` veya `ip addr` |
 
 ---
 
-## 7. Script Template
+## 7. Betik (Script) Şablonu
 
 ```bash
 #!/bin/bash
-set -euo pipefail  # Exit on error, undefined var, pipe fail
+set -euo pipefail  # Hata oluştuğunda, tanımsız değişkende veya pipe hatasında çık
 
-# Colors (optional)
+# Renkler (isteğe bağlı)
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-# Script directory
+# Betik dizini
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Functions
-log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $1" >&2; }
+# Fonksiyonlar
+log_info() { echo -e "${GREEN}[BİLGİ]${NC} $1"; }
+log_error() { echo -e "${RED}[HATA]${NC} $1" >&2; }
 
-# Main
+# Ana Bölüm
 main() {
-    log_info "Starting..."
-    # Your logic here
-    log_info "Done!"
+    log_info "Başlatılıyor..."
+    # Mantık buraya gelecek
+    log_info "Tamamlandı!"
 }
 
 main "$@"
@@ -126,74 +126,74 @@ main "$@"
 
 ---
 
-## 8. Common Patterns
+## 8. Yaygın Desenler
 
-### Check if command exists
+### Komut varlığını kontrol etme
 
 ```bash
 if command -v node &> /dev/null; then
-    echo "Node is installed"
+    echo "Node yüklü"
 fi
 ```
 
-### Default variable value
+### Değişkene varsayılan değer atama
 
 ```bash
-NAME=${1:-"default_value"}
+ISIM=${1:-"varsayilan_deger"}
 ```
 
-### Read file line by line
+### Dosyayı satır satır okuma
 
 ```bash
 while IFS= read -r line; do
     echo "$line"
-done < file.txt
+done < dosya.txt
 ```
 
-### Loop over files
+### Dosyalar üzerinde döngü
 
 ```bash
-for file in *.js; do
-    echo "Processing $file"
+for dosya in *.js; do
+    echo "İşleniyor: $dosya"
 done
 ```
 
 ---
 
-## 9. Differences from PowerShell
+## 9. PowerShell ile Farklar
 
-| Task | PowerShell | Bash |
+| Görev | PowerShell | Bash |
 |------|------------|------|
-| List files | `Get-ChildItem` | `ls -la` |
-| Find files | `Get-ChildItem -Recurse` | `find . -type f` |
-| Environment | `$env:VAR` | `$VAR` |
-| String concat | `"$a$b"` | `"$a$b"` (same) |
-| Null check | `if ($x)` | `if [ -n "$x" ]` |
-| Pipeline | Object-based | Text-based |
+| Dosya listele | `Get-ChildItem` | `ls -la` |
+| Dosya bul | `Get-ChildItem -Recurse` | `find . -type f` |
+| Ortam Değişkeni | `$env:VAR` | `$VAR` |
+| Dize birleştirme | `"$a$b"` | `"$a$b"` (aynı) |
+| Null kontrolü | `if ($x)` | `if [ -n "$x" ]` |
+| Pipeline | Nesne tabanlı | Metin tabanlı |
 
 ---
 
-## 10. Error Handling
+## 10. Hata Yönetimi
 
-### Set options
+### Seçenekleri belirleme
 
 ```bash
-set -e          # Exit on error
-set -u          # Exit on undefined variable
-set -o pipefail # Exit on pipe failure
-set -x          # Debug: print commands
+set -e          # Hata oluştuğunda dur
+set -u          # Tanımsız değişken kullanımında dur
+set -o pipefail # Pipe hatalarında dur
+set -x          # Hata ayıklama: komutları yazdır
 ```
 
-### Trap for cleanup
+### Temizlik için Trap (Tuzak)
 
 ```bash
 cleanup() {
-    echo "Cleaning up..."
-    rm -f /tmp/tempfile
+    echo "Temizlik yapılıyor..."
+    rm -f /tmp/gecici_dosya
 }
 trap cleanup EXIT
 ```
 
 ---
 
-> **Remember:** Bash is text-based. Use `&&` for success chains, `set -e` for safety, and quote your variables!
+> **Unutmayın:** Bash metin tabanlıdır. Başarı zincirleri için `&&`, güvenlik için `set -e` kullanın ve değişkenlerinizi her zaman tırnak içine alın!

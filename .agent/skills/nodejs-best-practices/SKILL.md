@@ -1,333 +1,339 @@
 ---
 name: nodejs-best-practices
-description: Node.js development principles and decision-making. Framework selection, async patterns, security, and architecture. Teaches thinking, not copying.
+description: Node.js geliştirme prensipleri ve karar verme. Framework seçimi, async desenleri, güvenlik ve mimari. Düşünmeyi öğretir, kopyalamayı değil.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Node.js Best Practices
+# Node.js En İyi Pratikleri
 
-> Principles and decision-making for Node.js development in 2025.
-> **Learn to THINK, not memorize code patterns.**
-
----
-
-## ⚠️ How to Use This Skill
-
-This skill teaches **decision-making principles**, not fixed code to copy.
-
-- ASK user for preferences when unclear
-- Choose framework/pattern based on CONTEXT
-- Don't default to same solution every time
+> 2025 yılı için Node.js geliştiriminde prensipler ve karar verme.
+> **Kod desenleri ezberlemek değil, DÜŞÜNMEYİ öğrenin.**
 
 ---
 
-## 1. Framework Selection (2025)
+## ⚠️ Bu Yetenek Nasıl Kullanılır?
 
-### Decision Tree
+Bu yetenek, kopyalanacak sabit kodu değil, **karar verme prensipl
+
+erini** öğretir.
+
+- Belirsiz durumlarda kullanıcıya tercihlerini SORUN
+- Framework/deseni BAĞLAM'a göre seçin
+- Her seferinde aynı çözümü varsayılan yapmayın
+
+---
+
+## 1. Framework Seçimi (2025)
+
+### Karar Ağacı
 
 ```
-What are you building?
+Ne inşa ediyorsunuz?
 │
 ├── Edge/Serverless (Cloudflare, Vercel)
-│   └── Hono (zero-dependency, ultra-fast cold starts)
+│   └── Hono (sıfır bağımlılık, ultra hızlı soğuk başlatma)
 │
-├── High Performance API
-│   └── Fastify (2-3x faster than Express)
+├── Yüksek Performanslı API
+│   └── Fastify (Express'ten 2-3x daha hızlı)
 │
-├── Enterprise/Team familiarity
-│   └── NestJS (structured, DI, decorators)
+├── Kurumsal/Ekip aşinalığı
+│   └── NestJS (yapılandırılmış, DI, decorator'lar)
 │
-├── Legacy/Stable/Maximum ecosystem
-│   └── Express (mature, most middleware)
+├── Legacy/Stabil/Maksimum ekosistem
+│   └── Express (olgun, en fazla middleware)
 │
-└── Full-stack with frontend
-    └── Next.js API Routes or tRPC
+└── Frontend ile tam yığın (full-stack)
+    └── Next.js API Routes veya tRPC
 ```
 
-### Comparison Principles
+### Karşılaştırma Prensipleri
 
-| Factor | Hono | Fastify | Express |
+| Faktör | Hono | Fastify | Express |
 |--------|------|---------|---------|
-| **Best for** | Edge, serverless | Performance | Legacy, learning |
-| **Cold start** | Fastest | Fast | Moderate |
-| **Ecosystem** | Growing | Good | Largest |
-| **TypeScript** | Native | Excellent | Good |
-| **Learning curve** | Low | Medium | Low |
+| **En uygun** | Edge, serverless | Performans | Legacy, öğrenme |
+| **Soğuk başlatma** | En hızlı | Hızlı | Orta |
+| **Ekosistem** | Büyüyen | İyi | En geniş |
+| **TypeScript** | Yerel (Native) | Mükemmel | İyi |
+| **Öğrenme eğrisi** | Düşük | Orta | Düşük |
 
-### Selection Questions to Ask:
-1. What's the deployment target?
-2. Is cold start time critical?
-3. Does team have existing experience?
-4. Is there legacy code to maintain?
+### Sorulması Gereken Seçim Soruları:
+1. Dağıtım hedefi nedir?
+2. Soğuk başlatma süresi kritik mi?
+3. Ekibin mevcut deneyimi var mı?
+4. Bakımı yapılacak legacy kod var mı?
 
 ---
 
-## 2. Runtime Considerations (2025)
+## 2. Runtime Hususları (2025)
 
-### Native TypeScript
+### Yerel TypeScript (Native TypeScript)
 
 ```
 Node.js 22+: --experimental-strip-types
-├── Run .ts files directly
-├── No build step needed for simple projects
-└── Consider for: scripts, simple APIs
+├── .ts dosyalarını doğrudan çalıştır
+├── Basit projeler için build adımı gerekmez
+└── Şunlar için düşünün: scriptler, basit API'ler
 ```
 
-### Module System Decision
+### Modül Sistemi Kararı
 
 ```
 ESM (import/export)
-├── Modern standard
-├── Better tree-shaking
-├── Async module loading
-└── Use for: new projects
+├── Modern standart
+├── Daha iyi tree-shaking
+├── Async modül yükleme
+└── Kullanım: yeni projeler
 
 CommonJS (require)
-├── Legacy compatibility
-├── More npm packages support
-└── Use for: existing codebases, some edge cases
+├── Legacy uyumluluk
+├── Daha fazla npm paketi desteği
+└── Kullanım: mevcut kod tabanları, bazı özel durumlar
 ```
 
-### Runtime Selection
+### Runtime Seçimi
 
-| Runtime | Best For |
-|---------|----------|
-| **Node.js** | General purpose, largest ecosystem |
-| **Bun** | Performance, built-in bundler |
-| **Deno** | Security-first, built-in TypeScript |
+| Runtime | En Uygun Durum |
+|---------|----------------|
+| **Node.js** | Genel amaçlı, en geniş ekosistem |
+| **Bun** | Performans, yerleşik bundler |
+| **Deno** | Güvenlik odaklı, yerleşik TypeScript |
 
 ---
 
-## 3. Architecture Principles
+## 3. Mimari Prensipler
 
-### Layered Structure Concept
+### Katmanlı Yapı Konsepti
 
 ```
-Request Flow:
+İstek Akışı:
 │
-├── Controller/Route Layer
-│   ├── Handles HTTP specifics
-│   ├── Input validation at boundary
-│   └── Calls service layer
+├── Controller/Route Katmanı
+│   ├── HTTP özgülükleri ele alır
+│   ├── Sınırda girdi doğrulaması
+│   └── Servis katmanını çağırır
 │
-├── Service Layer
-│   ├── Business logic
-│   ├── Framework-agnostic
-│   └── Calls repository layer
+├── Servis Katmanı (Service Layer)
+│   ├── İş mantığı
+│   ├── Framework'ten bağımsız
+│   └── Repository katmanını çağırır
 │
-└── Repository Layer
-    ├── Data access only
-    ├── Database queries
-    └── ORM interactions
+└── Repository Katmanı
+    ├── Yalnızca veri erişimi
+    ├── Veritabanı sorguları
+    └── ORM etkileşimleri
 ```
 
-### Why This Matters:
-- **Testability**: Mock layers independently
-- **Flexibility**: Swap database without touching business logic
-- **Clarity**: Each layer has single responsibility
+### Bu Neden Önemlidir:
+- **Test Edilebilirlik**: Katmanları bağımsız olarak mock'layın
+- **Esneklik**: İş mantığına dokunmadan veritabanını değiştirin
+- **Netlik**: Her katmanın tek sorumluluğu vardır
 
-### When to Simplify:
-- Small scripts → Single file OK
-- Prototypes → Less structure acceptable
-- Always ask: "Will this grow?"
+### Ne Zaman Basitleştirmeli:
+- Küçük scriptler → Tek dosya OK
+- Prototip → Daha az yapı kabul edilebilir
+- Her zaman sorun: "Bu büyüyecek mi?"
 
 ---
 
-## 4. Error Handling Principles
+## 4. Hata Yönetimi Prensipleri
 
-### Centralized Error Handling
-
-```
-Pattern:
-├── Create custom error classes
-├── Throw from any layer
-├── Catch at top level (middleware)
-└── Format consistent response
-```
-
-### Error Response Philosophy
+### Merkezi Hata Yönetimi
 
 ```
-Client gets:
-├── Appropriate HTTP status
-├── Error code for programmatic handling
-├── User-friendly message
-└── NO internal details (security!)
-
-Logs get:
-├── Full stack trace
-├── Request context
-├── User ID (if applicable)
-└── Timestamp
+Desen:
+├── Özel hata sınıfları oluştur
+├── Herhangi bir katmandan fırlat
+├── En üst düzeyde yakala (middleware)
+└── Tutarlı yanıt formatı
 ```
 
-### Status Code Selection
+### Hata Yanıtı Felsefesi
 
-| Situation | Status | When |
-|-----------|--------|------|
-| Bad input | 400 | Client sent invalid data |
-| No auth | 401 | Missing or invalid credentials |
-| No permission | 403 | Valid auth, but not allowed |
-| Not found | 404 | Resource doesn't exist |
-| Conflict | 409 | Duplicate or state conflict |
-| Validation | 422 | Schema valid but business rules fail |
-| Server error | 500 | Our fault, log everything |
+```
+İstemci alır:
+├── Uygun HTTP durumu
+├── Programatik işleme için hata kodu
+├── Kullanıcı dostu mesaj
+└── Dahili detaylar YOK (güvenlik!)
+
+Loglar alır:
+├── Tam yığın izleme (full stack trace)
+├── İstek bağlamı
+├── Kullanıcı ID'si (varsa)
+└── Zaman damgası
+```
+
+### Durum Kodu Seçimi
+
+| Durum | HTTP Kodu | Ne Zaman |
+|-------|-----------|----------|
+| Kötü girdi | 400 | İstemci geçersiz veri gönderdi |
+| Kimlik doğrulama yok | 401 | Eksik veya geçersiz kimlik bilgileri |
+| İzin yok | 403 | Geçerli kimlik doğrulama, ama izin yok |
+| Bulunamadı | 404 | Kaynak mevcut değil |
+| Çakışma | 409 | Kopya veya durum çakışması |
+| Doğrulama | 422 | Şema geçerli ama iş kuralları başarısız |
+| Sunucu hatası | 500 | Bizim hatamız, her şeyi logla |
 
 ---
 
-## 5. Async Patterns Principles
+## 5. Async Des
 
-### When to Use Each
+en Prensipleri
 
-| Pattern | Use When |
-|---------|----------|
-| `async/await` | Sequential async operations |
-| `Promise.all` | Parallel independent operations |
-| `Promise.allSettled` | Parallel where some can fail |
-| `Promise.race` | Timeout or first response wins |
+### Her Birinin Ne Zaman Kullanılacağı
 
-### Event Loop Awareness
+| Desen | Ne Zaman Kullanılır |
+|-------|---------------------|
+| `async/await` | Ardışık async işlemleri |
+| `Promise.all` | Paralel bağımsız işlemler |
+| `Promise.allSettled` | Bazıları başarısız olabilecek paralel işlemler |
+| `Promise.race` | Timeout veya ilk yanıt kazanır |
+
+### Event Loop Farkındalığı
 
 ```
-I/O-bound (async helps):
-├── Database queries
-├── HTTP requests
-├── File system
-└── Network operations
+I/O-bağımlı (I/O-bound) (async yardımcı olur):
+├── Veritabanı sorguları
+├── HTTP istekleri
+├── Dosya sistemi
+└── Ağ işlemleri
 
-CPU-bound (async doesn't help):
-├── Crypto operations
-├── Image processing
-├── Complex calculations
-└── → Use worker threads or offload
+CPU-bağımlı (CPU-bound) (async yardımcı olmaz):
+├── Kripto işlemleri
+├── Görüntü işleme
+├── Karmaşık hesaplamalar
+└── → Worker thread'ler kullanın veya dış kaynak kullanın
 ```
 
-### Avoiding Event Loop Blocking
+### Event Loop Bloklama'dan Kaçınma
 
-- Never use sync methods in production (fs.readFileSync, etc.)
-- Offload CPU-intensive work
-- Use streaming for large data
+- Üretimde asla senkron metodları kullanmayın (fs.readFileSync, vb.)
+- CPU-yoğun işleri dışarıya taşıyın
+- Büyük veri için streaming kullanın
 
 ---
 
-## 6. Validation Principles
+## 6. Doğrulama Prensipleri
 
-### Validate at Boundaries
+### Sınırlarda Doğrula
 
 ```
-Where to validate:
-├── API entry point (request body/params)
-├── Before database operations
-├── External data (API responses, file uploads)
-└── Environment variables (startup)
+Nerede doğrulanmalı:
+├── API giriş noktası (request body/params)
+├── Veritabanı işlemlerinden önce
+├── Dış veri (API yanıtları, dosya yüklemeleri)
+└── Ortam değişkenleri (başlangıç)
 ```
 
-### Validation Library Selection
+### Doğrulama Kütüphanesi Seçimi
 
-| Library | Best For |
-|---------|----------|
-| **Zod** | TypeScript first, inference |
-| **Valibot** | Smaller bundle (tree-shakeable) |
-| **ArkType** | Performance critical |
-| **Yup** | Existing React Form usage |
+| Kütüphane | En Uygun Durum |
+|-----------|----------------|
+| **Zod** | TypeScript öncelikli, çıkarım (inference) |
+| **Valibot** | Daha küçük paket (tree-shakeable) |
+| **ArkType** | Performans kritik |
+| **Yup** | Mevcut React Form kullanımı |
 
-### Validation Philosophy
+### Doğrulama Felsefesi
 
-- Fail fast: Validate early
-- Be specific: Clear error messages
-- Don't trust: Even "internal" data
+- Hızlı başarısız ol: Erken doğrula
+- Spesifik ol: Net hata mesajları
+- Güvenme: "Dahili" veriye bile
 
 ---
 
-## 7. Security Principles
+## 7. Güvenlik Prensipleri
 
-### Security Checklist (Not Code)
+### Güvenlik Kontrol Listesi (Kod Değil)
 
-- [ ] **Input validation**: All inputs validated
-- [ ] **Parameterized queries**: No string concatenation for SQL
-- [ ] **Password hashing**: bcrypt or argon2
-- [ ] **JWT verification**: Always verify signature and expiry
-- [ ] **Rate limiting**: Protect from abuse
-- [ ] **Security headers**: Helmet.js or equivalent
-- [ ] **HTTPS**: Everywhere in production
-- [ ] **CORS**: Properly configured
-- [ ] **Secrets**: Environment variables only
-- [ ] **Dependencies**: Regularly audited
+- [ ] **Girdi doğrulaması**: Tüm girdiler doğrulandı
+- [ ] **Parametreli sorgular**: SQL için string birleştirme yok
+- [ ] **Şifre hashleme**: bcrypt veya argon2
+- [ ] **JWT doğrulama**: Her zaman imza ve geçerlilik süresi doğrula
+- [ ] **Hız sınırlama**: Kötüye kullanımdan koru
+- [ ] **Güvenlik başlıkları**: Helmet.js veya eşdeğeri
+- [ ] **HTTPS**: Üretimde her yerde
+- [ ] **CORS**: Düzgün yapılandırılmış
+- [ ] **Gizli bilgiler**: Yalnızca ortam değişkenleri
+- [ ] **Bağımlılıklar**: Düzenli olarak denetlenmiş
 
-### Security Mindset
+### Güvenlik Zihniyeti
 
 ```
-Trust nothing:
-├── Query params → validate
-├── Request body → validate
-├── Headers → verify
-├── Cookies → validate
-├── File uploads → scan
-└── External APIs → validate response
+Hiçbir şeye güvenme:
+├── Sorgu parametreleri → doğrula
+├── İstek gövdesi → doğrula
+├── Başlıklar → doğrula
+├── Çerezler → doğrula
+├── Dosya yüklemeleri → tara
+└── Dış API'ler → yanıtı doğrula
 ```
 
 ---
 
-## 8. Testing Principles
+## 8. Test Prensipleri
 
-### Test Strategy Selection
+### Test Stratejisi Seçimi
 
-| Type | Purpose | Tools |
-|------|---------|-------|
-| **Unit** | Business logic | node:test, Vitest |
-| **Integration** | API endpoints | Supertest |
-| **E2E** | Full flows | Playwright |
+| Tür | Amaç | Araçlar |
+|-----|------|---------|
+| **Birim (Unit)** | İş mantığı | node:test, Vitest |
+| **Entegrasyon** | API uç noktaları | Supertest |
+| **E2E** | Tam akışlar | Playwright |
 
-### What to Test (Priorities)
+### Neyi Test Etmeli (Öncelikler)
 
-1. **Critical paths**: Auth, payments, core business
-2. **Edge cases**: Empty inputs, boundaries
-3. **Error handling**: What happens when things fail?
-4. **Not worth testing**: Framework code, trivial getters
+1. **Kritik yollar**: Kimlik doğrulama, ödemeler, temel iş
+2. **Uç durumlar**: Boş girdiler, sınırlar
+3. **Hata yönetimi**: İşler başarısız olduğunda ne olur?
+4. **Test etmeye değmez**: Framework kodu, önemsiz getter'lar
 
-### Built-in Test Runner (Node.js 22+)
+### Yerleşik Test Çalıştırıcı (Node.js 22+)
 
 ```
 node --test src/**/*.test.ts
-├── No external dependency
-├── Good coverage reporting
-└── Watch mode available
+├── Dış bağımlılık yok
+├── İyi kapsam raporlaması
+└── İzleme modu (watch mode) mevcut
 ```
 
 ---
 
-## 10. Anti-Patterns to Avoid
+## 10. Anti-Desenler (Kaçınılması Gerekenler)
 
-### ❌ DON'T:
-- Use Express for new edge projects (use Hono)
-- Use sync methods in production code
-- Put business logic in controllers
-- Skip input validation
-- Hardcode secrets
-- Trust external data without validation
-- Block event loop with CPU work
+### ❌ YAPMAYIN:
+- Yeni edge projeleri için Express kullanmak (Hono kullanın)
+- Üretim kodunda senkron metodlar kullanmak
+- Controller'lara iş mantığı koymak
+- Girdi doğrulamasını atlamak
+- Gizli bilgileri hardcode etmek
+- Doğrulama yapmadan dış verilere güvenmek
+- Event loop'u CPU işi ile bloklamak
 
-### ✅ DO:
-- Choose framework based on context
-- Ask user for preferences when unclear
-- Use layered architecture for growing projects
-- Validate all inputs
-- Use environment variables for secrets
-- Profile before optimizing
+### ✅ YAPIN:
+- Framework'ü bağlam
 
----
-
-## 11. Decision Checklist
-
-Before implementing:
-
-- [ ] **Asked user about stack preference?**
-- [ ] **Chosen framework for THIS context?** (not just default)
-- [ ] **Considered deployment target?**
-- [ ] **Planned error handling strategy?**
-- [ ] **Identified validation points?**
-- [ ] **Considered security requirements?**
+a göre seçin
+- Belirsiz olduğunda kullanıcıya tercihlerini sorun
+- Büyüyen projeler için katmanlı mimari kullanın
+- Tüm girdileri doğrulayın
+- Gizli bilgiler için ortam değişkenleri kullanın
+- Optimize etmeden önce profilleme yapın
 
 ---
 
-> **Remember**: Node.js best practices are about decision-making, not memorizing patterns. Every project deserves fresh consideration based on its requirements.
+## 11. Karar Kontrol Listesi
+
+Uygulamadan önce:
+
+- [ ] **Kullanıcıya stack tercihi soruldu mu?**
+- [ ] **BU bağlam için framework seçildi mi?** (sadece varsayılan değil)
+- [ ] **Dağıtım hedefi değerlendirildi mi?**
+- [ ] **Hata yönetimi stratejisi planlandı mı?**
+- [ ] **Doğrulama noktaları belirlendi mi?**
+- [ ] **Güvenlik gereksinimleri değerlendirildi mi?**
+
+---
+
+> **Unutmayın**: Node.js en iyi pratikleri, desen ezberlemekle değil, karar vermeyle ilgilidir. Her proje, gereksinimlerine göre yeni bir değerlendirmeyi hak eder.

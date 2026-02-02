@@ -1,37 +1,37 @@
-# Response Format Principles
+# Yanıt Formatı (Response Format) Prensipleri
 
-> Consistency is key - choose a format and stick to it.
+> İstikrar esastır - bir format seçin ve ona sadık kalın.
 
-## Common Patterns
-
-```
-Choose one:
-├── Envelope pattern ({ success, data, error })
-├── Direct data (just return the resource)
-└── HAL/JSON:API (hypermedia)
-```
-
-## Error Response
+## Yaygın Desenler
 
 ```
-Include:
-├── Error code (for programmatic handling)
-├── User message (for display)
-├── Details (for debugging, field-level errors)
-├── Request ID (for support)
-└── NOT internal details (security!)
+Birini seçin:
+├── Zarf (Envelope) deseni ({ success, data, error })
+├── Doğrudan veri (sadece kaynağı dönderin)
+├── HAL / JSON:API (hiper ortam desteği)
 ```
 
-## Pagination Types
+## Hata Yanıtları
 
-| Type | Best For | Trade-offs |
+```
+Şunları dahil edin:
+├── Hata kodu (programatik yönetim için)
+├── Kullanıcı mesajı (ekranda göstermek için)
+├── Detaylar (hata ayıklama ve alan bazlı hatalar için)
+├── İstek ID'si (destek süreçleri için)
+└── ASLA dahili sistem detaylarını dahil etmeyin (güvenlik!)
+```
+
+## Sayfalama (Pagination) Türleri
+
+| Tür | En İyi Kullanım | Avantaj/Dezavantaj |
 |------|----------|------------|
-| **Offset** | Simple, jumpable | Performance on large datasets |
-| **Cursor** | Large datasets | Can't jump to page |
-| **Keyset** | Performance critical | Requires sortable key |
+| **Offset** | Basit yapılar, sayfa atlama | Büyük veri setlerinde performans düşer |
+| **Cursor** | Büyük veri setleri | Belirli bir sayfaya atlanamaz |
+| **Keyset** | Performansın kritik olduğu yerler | Sıralanabilir anahtar gerektirir |
 
-### Selection Questions
+### Seçim Soruları
 
-1. How large is the dataset?
-2. Do users need to jump to specific pages?
-3. Is data frequently changing?
+1. Veri seti ne kadar büyük?
+2. Kullanıcıların belirli sayfalara atlaması gerekiyor mu?
+3. Veriler çok sık değişiyor mu?

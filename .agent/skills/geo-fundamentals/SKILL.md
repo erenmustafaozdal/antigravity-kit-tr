@@ -1,156 +1,155 @@
 ---
 name: geo-fundamentals
-description: Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).
+description: AI arama motorları (ChatGPT, Claude, Perplexity vb.) için Üretken Motor Optimizasyonu (GEO).
 allowed-tools: Read, Glob, Grep
 ---
 
-# GEO Fundamentals
+# GEO Temelleri (Generative Engine Optimization)
 
-> Optimization for AI-powered search engines.
+> Yapay zeka destekli arama motorları için optimizasyon.
 
 ---
 
-## 1. What is GEO?
+## 1. GEO Nedir?
 
-**GEO** = Generative Engine Optimization
+**GEO** = Generative Engine Optimization (Üretken Motor Optimizasyonu)
 
-| Goal | Platform |
+| Hedef | Platformlar |
 |------|----------|
-| Be cited in AI responses | ChatGPT, Claude, Perplexity, Gemini |
+| YZ yanıtlarında kaynak gösterilmek | ChatGPT, Claude, Perplexity, Gemini |
 
 ### SEO vs GEO
 
-| Aspect | SEO | GEO |
+| Özellik | SEO | GEO |
 |--------|-----|-----|
-| Goal | #1 ranking | AI citations |
-| Platform | Google | AI engines |
-| Metrics | Rankings, CTR | Citation rate |
-| Focus | Keywords | Entities, data |
+| Hedef | 1. sırada yer almak | YZ alıntıları/kaynakları |
+| Platform | Google, Bing | YZ motorları |
+| Metrikler | Sıralama, Tıklama Oranı (CTR) | Alıntılanma oranı |
+| Odak | Anahtar kelimeler | Varlıklar (Entities), veriler |
 
 ---
 
-## 2. AI Engine Landscape
+## 2. YZ Motor Eko-Sistemi
 
-| Engine | Citation Style | Opportunity |
+| Motor | Alıntı Tarzı | Fırsat |
 |--------|----------------|-------------|
-| **Perplexity** | Numbered [1][2] | Highest citation rate |
-| **ChatGPT** | Inline/footnotes | Custom GPTs |
-| **Claude** | Contextual | Long-form content |
-| **Gemini** | Sources section | SEO crossover |
+| **Perplexity** | Numaralandırılmış [1][2] | En yüksek alıntılanma oranı |
+| **ChatGPT** | Satır içi / alt bilgi | Özel GPT'ler |
+| **Claude** | Bağlamsal | Uzun içerikli materyaller |
+| **Gemini** | Kaynaklar bölümü | SEO ile ortak noktalar |
 
 ---
 
-## 3. RAG Retrieval Factors
+## 3. RAG Erişim Faktörleri
 
-How AI engines select content to cite:
+YZ motorlarının alıntı yapacak içeriği nasıl seçtiği:
 
-| Factor | Weight |
+| Faktör | Ağırlık |
 |--------|--------|
-| Semantic relevance | ~40% |
-| Keyword match | ~20% |
-| Authority signals | ~15% |
-| Freshness | ~10% |
-| Source diversity | ~15% |
+| Anlamsal alaka (Semantic relevance) | ~%40 |
+| Anahtar kelime eşleşmesi | ~%20 |
+| Otorite sinyalleri | ~%15 |
+| Güncellik | ~%10 |
+| Kaynak çeşitliliği | ~%15 |
 
 ---
 
-## 4. Content That Gets Cited
+## 4. Alıntılanan İçerik Türleri
 
-| Element | Why It Works |
+| Öğe | Neden İşe Yarar? |
 |---------|--------------|
-| **Original statistics** | Unique, citable data |
-| **Expert quotes** | Authority transfer |
-| **Clear definitions** | Easy to extract |
-| **Step-by-step guides** | Actionable value |
-| **Comparison tables** | Structured info |
-| **FAQ sections** | Direct answers |
+| **Özgün istatistikler** | Benzersiz, alıntılanabilir veri |
+| **Uzman görüşleri** | Otorite aktarımı |
+| **Net tanımlar** | Ayıklanması kolaydır |
+| **Adım adım kılavuzlar** | Uygulanabilir değer sunar |
+| **Karşılaştırma tabloları** | Yapılandırılmış bilgi |
+| **SSS (FAQ) bölümleri** | Doğrudan cevaplar |
 
 ---
 
-## 5. GEO Content Checklist
+## 5. GEO İçerik Kontrol Listesi
 
-### Content Elements
+### İçerik Öğeleri
 
-- [ ] Question-based titles
-- [ ] Summary/TL;DR at top
-- [ ] Original data with sources
-- [ ] Expert quotes (name, title)
-- [ ] FAQ section (3-5 Q&A)
-- [ ] Clear definitions
-- [ ] "Last updated" timestamp
-- [ ] Author with credentials
+- [ ] Soru tabanlı başlıklar
+- [ ] En üstte özet / TL;DR
+- [ ] Kaynakları belirtilmiş özgün veriler
+- [ ] Uzman görüşleri (isim, ünvan ile)
+- [ ] SSS bölümü (3-5 soru-cevap)
+- [ ] Net tanımlar
+- [ ] "Son güncelleme" zaman damgası
+- [ ] Kimlik bilgileriyle birlikte yazar bilgisi
 
-### Technical Elements
+### Teknik Öğeler
 
-- [ ] Article schema with dates
-- [ ] Person schema for author
-- [ ] FAQPage schema
-- [ ] Fast loading (< 2.5s)
-- [ ] Clean HTML structure
+- [ ] Tarih içeren Article şeması (Schema.org)
+- [ ] Yazar için Person şeması
+- [ ] FAQPage şeması
+- [ ] Hızlı yükleme (< 2.5 sn)
+- [ ] Temiz HTML yapısı
 
 ---
 
-## 6. Entity Building
+## 6. Varlık İnşası (Entity Building)
 
-| Action | Purpose |
+| Eylem | Amaç |
 |--------|---------|
-| Google Knowledge Panel | Entity recognition |
-| Wikipedia (if notable) | Authority source |
-| Consistent info across web | Entity consolidation |
-| Industry mentions | Authority signals |
+| Google Bilgi Paneli | Varlık tanıma |
+| Wikipedia (eğer dikkat çekiciyse) | Otorite kaynağı |
+| Web genelinde tutarlı bilgi | Varlık konsolidasyonu |
+| Sektörel bahsedilmeler | Otorite sinyalleri |
 
 ---
 
-## 7. AI Crawler Access
+## 7. YZ Tarayıcı Erişimi
 
-### Key AI User-Agents
+### Temel YZ Kullanıcı Aracıları (User-Agents)
 
-| Crawler | Engine |
+| Tarayıcı (Crawler) | Motor |
 |---------|--------|
 | GPTBot | ChatGPT/OpenAI |
 | Claude-Web | Claude |
 | PerplexityBot | Perplexity |
-| Googlebot | Gemini (shared) |
+| Googlebot | Gemini (paylaşımlı) |
 
-### Access Decision
+### Erişim Kararı
 
-| Strategy | When |
+| Strateji | Ne Zaman Uygulanır? |
 |----------|------|
-| Allow all | Want AI citations |
-| Block GPTBot | Don't want OpenAI training |
-| Selective | Allow some, block others |
+| Hepsine izin ver | YZ alıntıları istendiğinde |
+| GPTBot'u engelle | OpenAI eğitiminde kullanılmasını istemiyorsanız |
+| Seçici erişim | Bazılarına izin ver, bazılarını engelle |
 
 ---
 
-## 8. Measurement
+## 8. Ölçümleme
 
-| Metric | How to Track |
+| Metrik | Nasıl Takip Edilir? |
 |--------|--------------|
-| AI citations | Manual monitoring |
-| "According to [Brand]" mentions | Search in AI |
-| Competitor citations | Compare share |
-| AI-referred traffic | UTM parameters |
+| YZ alıntıları | Manuel izleme |
+| "[Marka Adı]'na göre" bahsedilmeleri | YZ içinde arama |
+| Rakip alıntıları | Pazar payı karşılaştırması |
+| YZ kaynaklı trafik | UTM parametreleri |
 
 ---
 
-## 9. Anti-Patterns
+## 9. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Publish without dates | Add timestamps |
-| Vague attributions | Name sources |
-| Skip author info | Show credentials |
-| Thin content | Comprehensive coverage |
+| Tarih belirtmeden yayınlamak | Zaman damgaları ekleyin |
+| Belirsiz atıflar yapmak | Kaynakları isimlendirin |
+| Yazar bilgisini atlamak | Kimlik bilgilerini gösterin |
+| Zayıf (thin) içerik | Kapsamlı kapsam sunun |
 
 ---
 
-> **Remember:** AI cites content that's clear, authoritative, and easy to extract. Be the best answer.
+> **Unutmayın:** YZ; net, otoriter ve ayıklanması kolay içeriği alıntılar. Siz en iyi cevap olun.
 
 ---
 
 ## Script
 
-| Script | Purpose | Command |
+| Script | Amaç | Komut |
 |--------|---------|---------|
-| `scripts/geo_checker.py` | GEO audit (AI citation readiness) | `python scripts/geo_checker.py <project_path>` |
-
+| `scripts/geo_checker.py` | GEO denetimi (YZ alıntı hazırlığı) | `python scripts/geo_checker.py <proje_yolu>` |

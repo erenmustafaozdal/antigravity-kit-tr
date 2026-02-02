@@ -1,79 +1,79 @@
-# Animation Guidelines Reference
+# Animasyon Rehberi Referansı
 
-> Animation principles and timing psychology - learn to decide, not copy.
-> **No fixed durations to memorize - understand what affects timing.**
+> Animasyon prensipleri ve zamanlama psikolojisi - kopyalamayı değil, karar vermeyi öğrenin.
+> **Ezberlenecek sabit süreler yok - zamanlamayı neyin etkilediğini anlayın.**
 
 ---
 
-## 1. Duration Principles
+## 1. Süre (Duration) Prensipleri
 
-### What Affects Timing
+### Zamanlamayı Neler Etkiler?
 
 ```
-Factors that determine animation speed:
-├── DISTANCE: Further travel = longer duration
-├── SIZE: Larger elements = slower animations
-├── COMPLEXITY: Complex = slower to process
-├── IMPORTANCE: Critical actions = clear feedback
-└── CONTEXT: Urgent = fast, luxurious = slow
+Animasyon hızını belirleyen faktörler:
+├── MESAFE: Daha uzak mesafe = daha uzun süre
+├── BOYUT: Daha büyük öğeler = daha yavaş animasyonlar
+├── KARMAŞIKLIK: Karmaşık öğeler = işlemesi daha uzun sürer
+├── ÖNEM: Kritik eylemler = net ve belirgin geri bildirim
+└── BAĞLAM: Acil = hızlı, lüks/premium = yavaş
 ```
 
-### Duration Ranges by Purpose
+### Amaca Göre Süre Aralıkları
 
-| Purpose | Range | Why |
+| Amaç | Aralık | Neden? |
 |---------|-------|-----|
-| Instant feedback | 50-100ms | Below perception threshold |
-| Micro-interactions | 100-200ms | Quick but noticeable |
-| Standard transitions | 200-300ms | Comfortable pace |
-| Complex animations | 300-500ms | Time to follow |
-| Page transitions | 400-600ms | Smooth handoff |
-| **Wow/Premium Effects** | 800ms+ | Dramatic, organic spring-based, layered |
+| Anlık geri bildirim | 50-100ms | Algı eşiğinin altında |
+| Mikro-etkileşimler | 100-200ms | Hızlı ama fark edilebilir |
+| Standart geçişler | 200-300ms | Rahat bir tempo |
+| Karmaşık animasyonlar | 300-500ms | Takip etmek için gereken süre |
+| Sayfa geçişleri | 400-600ms | Yumuşak bir devir teslim |
+| **Etkileyici/Lüks Efektler** | 800ms+ | Dramatik, organik yay (spring) tabanlı, katmanlı |
 
-### Choosing Duration
+### Süre Seçimi
 
-Ask yourself:
-1. How far is the element moving?
-2. How important is it to notice this change?
-3. Is the user waiting, or is this background?
+Kendinize sorun:
+1. Öğe ne kadar uzağa hareket ediyor?
+2. Bu değişikliğin fark edilmesi ne kadar önemli?
+3. Kullanıcı bekliyor mu yoksa bu bir arka plan işlemi mi?
 
 ---
 
-## 2. Easing Principles
+## 2. Easing (İvmelenme) Prensipleri
 
-### What Easing Does
+### Easing Ne İşe Yarar?
 
 ```
-Easing = how speed changes over time
-├── Linear: constant speed (mechanical, robotic)
-├── Ease-out: fast start, slow end (natural entry)
-├── Ease-in: slow start, fast end (natural exit)
-└── Ease-in-out: slow both ends (smooth, deliberate)
+Easing = hızın zamanla nasıl değiştiği
+├── Linear (Doğrusal): Sabit hız (mekanik, robotik)
+├── Ease-out: Hızlı başlar, yavaş biter (doğal giriş)
+├── Ease-in: Yavaş başlar, hızlı biter (doğal çıkış)
+└── Ease-in-out: Her iki uçta yavaş (yumuşak, bilinçli)
 ```
 
-### When to Use Each
+### Ne Zaman Hangisi Kullanılmalı?
 
-| Easing | Best For | Feels Like |
+| Easing | En İyi Kullanım | Hissi |
 |--------|----------|------------|
-| **Ease-out** | Elements entering | Arriving, settling |
-| **Ease-in** | Elements leaving | Departing, exiting |
-| **Ease-in-out** | Emphasis, loops | Deliberate, smooth |
-| **Linear** | Continuous motion | Mechanical, constant |
-| **Bounce/Elastic** | Playful UI | Fun, energetic |
+| **Ease-out** | Giriş yapan öğeler | Varış, yerleşme |
+| **Ease-in** | Çıkış yapan öğeler | Ayrılma, terk etme |
+| **Ease-in-out** | Vurgu, döngüler | Bilinçli, yumuşak |
+| **Linear** | Sürekli hareket | Mekanik, sabit |
+| **Bounce/Elastic** | Oyunbaz arayüzler | Eğlenceli, enerjik |
 
-### The Pattern
+### Temel Desen
 
 ```css
-/* Entering view = ease-out (decelerate) */
+/* Görünüme giriş = ease-out (yavaşlama) */
 .enter {
   animation-timing-function: ease-out;
 }
 
-/* Leaving view = ease-in (accelerate) */
+/* Görünümden çıkış = ease-in (hızlanma) */
 .exit {
   animation-timing-function: ease-in;
 }
 
-/* Continuous = ease-in-out */
+/* Sürekli hareket = ease-in-out */
 .continuous {
   animation-timing-function: ease-in-out;
 }
@@ -81,251 +81,255 @@ Easing = how speed changes over time
 
 ---
 
-## 3. Micro-Interaction Principles
+## 3. Mikro-Etkileşim (Micro-Interaction) Prensipleri
 
-### What Makes Good Micro-Interactions
-
-```
-Purpose of micro-interactions:
-├── FEEDBACK: Confirm the action happened
-├── GUIDANCE: Show what's possible
-├── STATUS: Indicate current state
-└── DELIGHT: Small moments of joy
-```
-
-### Button States
+### İyi Bir Mikro-Etkileşimi Ne Oluşturur?
 
 ```
-Hover → slight visual change (lift, color, scale)
-Active → pressed feeling (scale down, shadow change)
-Focus → clear indicator (outline, ring)
-Loading → progress indicator (spinner, skeleton)
-Success → confirmation (check, color)
+Mikro-etkileşimlerin amacı:
+├── GERİ BİLDİRİM: Eylemin gerçekleştiğini onayla
+├── REHBERLİK: Nelerin mümkün olduğunu göster
+├── DURUM: Mevcut durumu belirt
+└── KEYİF: Küçük mutluluk anları yarat
 ```
 
-### Principles
+### Buton Durumları
 
-1. **Respond immediately** (under 100ms perception)
-2. **Match the action** (press = `scale(0.95)`, hover = `translateY(-4px) + glow`)
-3. **Be bold but smooth** (Usta işi hissettir)
-4. **Be consistent** (same actions = same feedback)
+```
+Hover (Üzerine Gelme) → Hafif görsel değişiklik (yükselme, renk, ölçek)
+Active (Basılma) → Basılma hissi (boyut küçültme, gölge değişimi)
+Focus (Odak) → Net gösterge (kenarlık, halka)
+Loading (Yükleniyor) → İlerleme göstergesi (spinner, skeleton)
+Success (Başarı) → Onay (tik işareti, renk değişimi)
+```
+
+### Prensipler
+
+1. **Hemen yanıt verin** (100ms algı eşiğinin altında)
+2. **Eylemle eşleştirin** (basma = `scale(0.95)`, hover = `translateY(-4px) + parlama`)
+3. **Cesur ama yumuşak olun** (Usta işi hissettir)
+4. **Tutarlı olun** (ayni eylemler = aynı geri bildirim)
 
 ---
 
-## 4. Loading States Principles
+## 4. Yükleme Durumları (Loading States) Prensipleri
 
-### Types by Context
+### Bağlama Göre Türler
 
-| Situation | Approach |
+| Durum | Yaklaşım |
 |-----------|----------|
-| Quick load (<1s) | No indicator needed |
-| Medium (1-3s) | Spinner or simple animation |
-| Long (3s+) | Progress bar or skeleton |
-| Unknown duration | Indeterminate indicator |
+| Hızlı yükleme (<1sn) | Göstergeye gerek yok |
+| Orta (1-3sn) | Spinner veya basit animasyon |
+| Uzun (3sn+) | İlerleme çubuğu veya skeleton |
+| Bilinmeyen süre | Belirsiz (indeterminate) gösterge |
 
-### Skeleton Screens
-
-```
-Purpose: Reduce perceived wait time
-├── Show layout shape immediately
-├── Animate subtly (shimmer, pulse)
-├── Replace with content when ready
-└── Feels faster than spinner
-```
-
-### Progress Indicators
+### Skeleton Ekranlar
 
 ```
-When to show progress:
-├── User-initiated action
-├── File uploads/downloads
-├── Multi-step processes
-└── Long operations
+Amaç: Algılanan bekleme süresini azaltmak
+├── Düzenin şeklini hemen göster
+├── Hafifçe anime et (shimmer, nabız efekti)
+├── Hazır olduğunda içerikle değiştir
+└── Spinner'dan daha hızlı hissettirir
+```
 
-When NOT needed:
-├── Very quick operations
-├── Background tasks
-└── Initial page loads (skeleton better)
+### İlerleme Göstergeleri
+
+```
+İlerleme ne zaman gösterilmeli:
+├── Kullanıcı tarafından başlatılan eylemler
+├── Dosya yükleme/indirme
+├── Çok adımlı süreçler
+└── Uzun süren operasyonlar
+
+Ne zaman GEREKMEZ:
+├── Çok hızlı işlemler
+├── Arka plan görevleri
+├── İlk sayfa yüklemeleri (skeleton daha iyidir)
 ```
 
 ---
 
-## 5. Page Transitions Principles
+## 5. Sayfa Geçişleri Prensipleri
 
-### Transition Strategy
+### Geçiş Stratejisi
 
 ```
-Simple rule: exit fast, enter slower
-├── Outgoing content fades quickly
-├── Incoming content animates in
-└── Avoids "everything moving at once"
+Basit kural: Hızlı çıkış, daha yavaş giriş
+├── Giden içerik hızla kaybolur (fade)
+├── Gelen içerik anime edilerek girer
+└── "Her şeyin aynı anda hareket etmesi" karmaşasını önler
 ```
 
-### Common Patterns
+### Yaygın Desenler
 
-| Pattern | When to Use |
+| Desen | Ne Zaman Kullanılır |
 |---------|-------------|
-| **Fade** | Safe default, works everywhere |
-| **Slide** | Sequential navigation (prev/next) |
-| **Scale** | Opening/closing modals |
-| **Shared element** | Maintaining visual continuity |
+| **Fade** | Güvenli varsayılan, her yerde çalışır |
+| **Slide (Kaydırma)** | Ardışık navigasyon (ileri/geri) |
+| **Scale (Ölçek)** | Modalları açma/kapama |
+| **Shared element (Paylaşılan öğe)** | Görsel sürekliliği sağlamak |
 
-### Direction Matching
+### Yön Eşleştirme
 
 ```
-Navigation direction = animation direction
-├── Forward → slide from right
-├── Backward → slide from left
-├── Deeper → scale up from center
-├── Back up → scale down
+Navigasyon yönü = animasyon yönü
+├── İleri → Sağdan kaydır
+├── Geri → Soldan kaydır
+├── Daha derine → Merkezden büyüt (scale up)
+├── Geri yukarı → Küçült (scale down)
 ```
 
 ---
 
-## 6. Scroll Animation Principles
+## 6. Kaydırma (Scroll) Animasyonu Prensipleri
 
-### Progressive Reveal
+### Kademeli Ortaya Çıkarma (Progressive Reveal)
 
 ```
-Content appears as user scrolls:
-├── Reduces initial cognitive load
-├── Rewards exploration
-├── Must not feel sluggish
-└── Option to disable (accessibility)
+Kullanıcı kaydırdıkça içerik belirir:
+├── İlk bilişsel yükü azaltır
+├── Keşfetmeyi ödüllendirir
+├── Hantal hissettirmemelidir
+└── Kapatma seçeneği sunulmalıdır (erişilebilirlik)
 ```
 
-### Trigger Points
+### Tetikleme Noktaları
 
-| When to Trigger | Effect |
+| Ne Zaman Tetiklenmeli | Etkisi |
 |-----------------|--------|
-| Just entering viewport | Standard reveal |
-| Centered in viewport | For emphasis |
-| Partially visible | Earlier reveal |
-| Fully visible | Late trigger |
+| Görüş alanına girer girmez | Standart açılma |
+| Görüş alanında merkezlendiğinde | Vurgu için |
+| Kısmen görünür olduğunda | Daha erken açılma |
+| Tamamen görünür olduğunda | Geç tetikleme |
 
-### Animation Properties
+### Animasyon Özellikleri
 
-- Fade in (opacity)
-- Slide up (transform)
-- Scale (transform)
-- Combination of above
+- Opaklık artışı (fade in)
+- Yukarı kaydırma (slide up - transform)
+- Ölçeklendirme (scale - transform)
+- Yukarıdakilerin kombinasyonu
 
-### Performance
+### Performans
 
-- Use Intersection Observer
-- Animate only transform/opacity
-- Reduce on mobile if needed
+- Intersection Observer kullanın
+- Sadece transform/opacity değerlerini anime edin
+- Gerekiyorsa mobilde etkileri azaltın
 
 ---
 
-## 7. Hover Effects Principles
+## 7. Hover (Üzerine Gelme) Efektleri Prensipleri
 
-### Matching Effect to Action
+### Efekti Eylemle Eşleştirme
 
-| Element | Effect | Intent |
+| Öğe | Efekt | Amaç |
 |---------|--------|--------|
-| **Clickable card** | Lift + shadow | "This is interactive" |
-| **Button** | Color/brightness change | "Press me" |
-| **Image** | Zoom/scale | "View closer" |
-| **Link** | Underline/color | "Navigate here" |
+| **Tıklanabilir kart** | Yükselme + gölge | "Bu etkileşimlidir" |
+| **Buton** | Renk/parlaklık değişimi | "Bana bas" |
+| **Görsel** | Zoom/ölçeklendirme | "Daha yakından bak" |
+| **Link** | Alt çizgi/renk değişimi | "Buraya git" |
 
-### Principles
+### Prensipler
 
-1. **Signal interactivity** - hover shows it's clickable
-2. **Don't overdo it** - subtle changes work
-3. **Match importance** - bigger change = more important
-4. **Touch alternatives** - hover doesn't work on mobile
-
----
-
-## 8. Feedback Animation Principles
-
-### Success States
-
-```
-Celebrate appropriately:
-├── Minor action → subtle check/color
-├── Major action → more pronounced animation
-├── Completion → satisfying animation
-└── Match brand personality
-```
-
-### Error States
-
-```
-Draw attention without panic:
-├── Color change (semantic red)
-├── Shake animation (brief!)
-├── Focus on error field
-└── Clear messaging
-```
-
-### Timing
-
-- Success: slightly longer (enjoy the moment)
-- Error: quick (don't delay action)
-- Loading: continuous until complete
+1. **Etkileşimi sinyalleyin** - hover tıklanabilir olduğunu gösterir
+2. **Aşırıya kaçmayın** - küçük değişiklikler yeterlidir
+3. **Önem derecesini eşleştirin** - büyük değişiklik = daha önemli eylem
+4. **Dokunmatik alternatifleri** - hover mobilde çalışmaz, bunu unutmayın
 
 ---
 
-## 9. Performance Principles
+## 8. Geri Bildirim Animasyonu Prensipleri
 
-### What's Cheap to Animate
+### Başarı Durumları
 
 ```
-GPU-accelerated (FAST):
+Uygun şekilde kutlayın:
+├── Küçük eylem → hafif bir onay/renk
+├── Büyük eylem → daha belirgin animasyon
+├── Tamamlama → tatmin edici animasyon
+└── Marka kişiliğiyle eşleştirin
+```
+
+### Hata Durumları
+
+```
+Panik yaratmadan dikkat çekin:
+├── Renk değişimi (semantik kırmızı)
+├── Sarsıntı (shake) animasyonu (kısa!)
+├── Hata alanına odaklanma (focus)
+└── Net mesajlar
+```
+
+### Zamanlama
+
+- Başarı: Biraz daha uzun (anın tadını çıkar)
+- Hata: Hızlı (eylemi geciktirme)
+- Yükleme: Tamamlanana kadar sürekli
+
+---
+
+## 9. Performans Prensipleri
+
+### Anime Etmesi "Ucuz" (Kolay) Olanlar
+
+```
+GPU hızlandırmalı (HIZLI):
 ├── transform: translate, scale, rotate
-└── opacity: 0 to 1
+└── opacity: 0'dan 1'e
+```
 
-CPU-intensive (SLOW):
+### CPU Yoğunluklu (YAVAŞ) Olanlar
+
+```
+Sürekli yeniden hesaplama gerektirir:
 ├── width, height
 ├── top, left, right, bottom
 ├── margin, padding
-├── border-radius changes
-└── box-shadow changes
+├── border-radius değişiklikleri
+└── box-shadow değişiklikleri
 ```
 
-### Optimization Strategies
+### Optimizasyon Stratejileri
 
-1. **Animate transform/opacity** whenever possible
-2. **Avoid layout triggers** (size/position changes)
-3. **Use will-change sparingly** (hints to browser)
-4. **Test on low-end devices** (not just dev machine)
+1. Mümkün olduğunda **transform/opacity** kullanın
+2. **Layout tetikleyicilerinden** (boyut/konum değişiklikleri) kaçının
+3. **will-change** özelliğini idareli kullanın (tarayıcıya ipucu verir)
+4. Sadece geliştirme makinesinde değil, **düşük donanımlı cihazlarda** da test edin
 
-### Respecting User Preferences
+### Kullanıcı Tercihlerine Saygı
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  /* Honor this preference */
-  /* Essential animations only */
-  /* Reduce or remove decorative motion */
+  /* Bu tercihe saygı duyun */
+  /* Sadece zorunlu animasyonları bırakın */
+  /* Dekoratif hareketleri azaltın veya kaldırın */
 }
 ```
 
 ---
 
-## 10. Animation Decision Checklist
+## 10. Animasyon Karar Kontrol Listesi
 
-Before adding animation:
+Animasyon eklemeden önce:
 
-- [ ] **Is there a purpose?** (feedback/guidance/delight)
-- [ ] **Is timing appropriate?** (not too fast/slow)
-- [ ] **Did you pick correct easing?** (enter/exit/emphasis)
-- [ ] **Is it performant?** (transform/opacity only)
-- [ ] **Tested reduced motion?** (accessibility)
-- [ ] **Consistent with other animations?** (same timing feel)
-- [ ] **Not your default settings?** (variety check)
-- [ ] **Asked user about style if unclear?**
+- [ ] **Bir amacı var mı?** (geri bildirim/rehberlik/keyif)
+- [ ] **Zamanlama uygun mu?** (çok hızlı veya çok yavaş değil mi?)
+- [ ] **Doğru easing'i seçtiniz mi?** (giriş/çıkış/vurgu)
+- [ ] **Performanslı mı?** (sadece transform/opacity mi kullanıyor?)
+- [ ] **Hareketi azaltma tercihi test edildi mi?** (erişilebilirlik)
+- [ ] **Diğer animasyonlarla tutarlı mı?** (aynı zamanlama hissi)
+- [ ] **Varsayılan ayarlarınızın dışına çıktınız mı?** (çeşitlilik kontrolü)
+- [ ] **Belirsizse kullanıcıya stil tercihini sordunuz mu?**
 
-### Anti-Patterns
+### Anti-Desenler (Yapılmaması Gerekenler)
 
-- ❌ Same timing values every project
-- ❌ Animation for animation's sake
-- ❌ Ignoring reduced-motion preference
-- ❌ Animating expensive properties
-- ❌ Too many things animating at once
-- ❌ Delays that frustrate users
+- ❌ Her projede aynı zamanlama değerlerini kullanmak
+- ❌ Sadece "animasyon olsun diye" animasyon yapmak
+- ❌ Hareketi azaltma (reduced-motion) tercihini görmezden gelmek
+- ❌ CPU yoğunluklu (pahalı) özellikleri anime etmek
+- ❌ Aynı anda çok fazla şeyin anime edilmesi
+- ❌ Kullanıcıyı yoran ve bekleten gecikmeler
 
 ---
 
-> **Remember**: Animation is communication. Every motion should have meaning and serve the user experience.
+> **Unutmayın**: Animasyon bir iletişim biçimidir. Her hareketin bir anlamı olmalı ve kullanıcı deneyimine hizmet etmelidir.

@@ -1,33 +1,33 @@
-# Project Scaffolding
+# Proje İskeleti (Project Scaffolding)
 
-> Directory structure and core files for new projects.
+> Yeni projeler için dizin yapısı ve temel dosyalar.
 
 ---
 
-## Next.js Full-Stack Structure (2025 Optimized)
+## Next.js Full-Stack Yapısı (2025 Optimize Edilmiş)
 
 ```
-project-name/
+proje-adi/
 ├── src/
-│   ├── app/                        # Routes only (thin layer)
+│   ├── app/                        # Sadece rotalar (ince katman)
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   ├── globals.css
-│   │   ├── (auth)/                 # Route group - auth pages
+│   │   ├── (auth)/                 # Rota grubu - giriş/kayıt sayfaları
 │   │   │   ├── login/page.tsx
 │   │   │   └── register/page.tsx
-│   │   ├── (dashboard)/            # Route group - dashboard layout
+│   │   ├── (dashboard)/            # Rota grubu - panel düzeni
 │   │   │   ├── layout.tsx
 │   │   │   └── page.tsx
 │   │   └── api/
 │   │       └── [resource]/route.ts
 │   │
-│   ├── features/                   # Feature-based modules
+│   ├── features/                   # Özellik tabanlı modüller
 │   │   ├── auth/
 │   │   │   ├── components/
 │   │   │   ├── hooks/
 │   │   │   ├── actions.ts          # Server Actions
-│   │   │   ├── queries.ts          # Data fetching
+│   │   │   ├── queries.ts          # Veri çekme (Data fetching)
 │   │   │   └── types.ts
 │   │   ├── products/
 │   │   │   ├── components/
@@ -36,15 +36,15 @@ project-name/
 │   │   └── cart/
 │   │       └── ...
 │   │
-│   ├── shared/                     # Shared utilities
-│   │   ├── components/ui/          # Reusable UI components
-│   │   ├── lib/                    # Utils, helpers
-│   │   └── hooks/                  # Global hooks
+│   ├── shared/                     # Paylaşılan araçlar
+│   │   ├── components/ui/          # Tekrar kullanılabilir UI bileşenleri
+│   │   ├── lib/                    # Yardımcı kütüphaneler, araçlar
+│   │   └── hooks/                  # Global hook'lar
 │   │
-│   └── server/                     # Server-only code
-│       ├── db/                     # Database client (Prisma)
-│       ├── auth/                   # Auth config
-│       └── services/               # External API integrations
+│   └── server/                     # Sadece sunucu taraflı kodlar
+│       ├── db/                     # Veritabanı istemcisi (Prisma vb.)
+│       ├── auth/                   # Auth yapılandırması
+│       └── services/               # Harici API entegrasyonları
 │
 ├── prisma/
 │   ├── schema.prisma
@@ -62,33 +62,33 @@ project-name/
 
 ---
 
-## Structure Principles
+## Yapı Prensipleri
 
-| Principle | Implementation |
+| Prensip | Uygulama |
 |-----------|----------------|
-| **Feature isolation** | Each feature in `features/` with its own components, hooks, actions |
-| **Server/Client separation** | Server-only code in `server/`, prevents accidental client imports |
-| **Thin routes** | `app/` only for routing, logic lives in `features/` |
-| **Route groups** | `(groupName)/` for layout sharing without URL impact |
-| **Shared code** | `shared/` for truly reusable UI and utilities |
+| **Özellik İzolasyonu** | `features/` altında her özelliğin kendi bileşenleri, hook'ları ve action'ları bulunur |
+| **Server/Client Ayrımı** | Sadece sunucu kodları `server/` içindedir, istemciye yanlışlıkla aktarılması önlenir |
+| **İnce Rotalar** | `app/` sadece yönlendirme içindir, mantık `features/` altında yaşar |
+| **Rota Grupları** | `(grupAdi)/` yapısı, URL'yi etkilemeden düzen (layout) paylaşımı sağlar |
+| **Paylaşılan Kod** | `shared/` gerçekten tekrar kullanılabilen UI ve araçlar içindir |
 
 ---
 
-## Core Files
+## Temel Dosyalar
 
-| File | Purpose |
+| Dosya | Amacı |
 |------|---------|
-| `package.json` | Dependencies |
-| `tsconfig.json` | TypeScript + path aliases (`@/features/*`) |
-| `tailwind.config.ts` | Tailwind config |
-| `.env.example` | Environment template |
-| `README.md` | Project documentation |
-| `.gitignore` | Git ignore rules |
-| `prisma/schema.prisma` | Database schema |
+| `package.json` | Bağımlılıklar ve scriptler |
+| `tsconfig.json` | TypeScript ayarları ve yol takma adları (`@/features/*`) |
+| `tailwind.config.ts` | Tailwind CSS yapılandırması |
+| `.env.example` | Ortam değişkenleri şablonu |
+| `README.md` | Proje dokümantasyonu |
+| `.gitignore` | Git tarafından yoksayılacak dosyalar |
+| `prisma/schema.prisma`| Veritabanı şeması |
 
 ---
 
-## Path Aliases (tsconfig.json)
+## Yol Takma Adları (Path Aliases - tsconfig.json)
 
 ```json
 {
@@ -105,14 +105,14 @@ project-name/
 
 ---
 
-## When to Use What
+## Ne Nerede Olmalı?
 
-| Need | Location |
+| İhtiyaç | Konum |
 |------|----------|
-| New page/route | `app/(group)/page.tsx` |
-| Feature component | `features/[name]/components/` |
-| Server action | `features/[name]/actions.ts` |
-| Data fetching | `features/[name]/queries.ts` |
-| Reusable button/input | `shared/components/ui/` |
-| Database query | `server/db/` |
-| External API call | `server/services/` |
+| Yeni sayfa/rota | `app/(grup)/page.tsx` |
+| Özelliğe özel bileşen | `features/[isim]/components/` |
+| Server action | `features/[isim]/actions.ts` |
+| Veri çekme mantığı | `features/[isim]/queries.ts` |
+| Genel buton/input vb. | `shared/components/ui/` |
+| Veritabanı sorgusu | `server/db/` |
+| Harici API çağrısı | `server/services/` |

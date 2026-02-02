@@ -1,119 +1,119 @@
 ---
 name: 2d-games
-description: 2D game development principles. Sprites, tilemaps, physics, camera.
+description: 2B oyun geliştirme prensipleri. Sprite'lar, tilemap'ler, fizik, kamera.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# 2D Game Development
+# 2B Oyun Geliştirme (2D Game Development)
 
-> Principles for 2D game systems.
+> 2B oyun sistemleri için temel prensipler.
 
 ---
 
-## 1. Sprite Systems
+## 1. Sprite Sistemleri
 
-### Sprite Organization
+### Sprite Organizasyonu
 
-| Component | Purpose |
+| Bileşen | Amaç |
 |-----------|---------|
-| **Atlas** | Combine textures, reduce draw calls |
-| **Animation** | Frame sequences |
-| **Pivot** | Rotation/scale origin |
-| **Layering** | Z-order control |
+| **Atlas** | Dokuları birleştirir, çizim çağrılarını (draw calls) azaltır |
+| **Animasyon** | Kare (frame) dizileri |
+| **Pivot** | Döndürme/ölçeklendirme başlangıç noktası |
+| **Katmanlama (Layering)** | Z-sırası (Z-order) kontrolü |
 
-### Animation Principles
+### Animasyon Prensipleri
 
-- Frame rate: 8-24 FPS typical
-- Squash and stretch for impact
-- Anticipation before action
-- Follow-through after action
+- Kare hızı: Genellikle 8-24 FPS arası.
+- Etki için "ezme ve esnetme" (squash and stretch).
+- Eylemden önce "beklenti" (anticipation).
+- Eylemden sonra "takip" (follow-through).
 
 ---
 
-## 2. Tilemap Design
+## 2. Tilemap Tasarımı
 
-### Tile Considerations
+### Karo (Tile) Hususları
 
-| Factor | Recommendation |
+| Faktör | Öneri |
 |--------|----------------|
-| **Size** | 16x16, 32x32, 64x64 |
-| **Auto-tiling** | Use for terrain |
-| **Collision** | Simplified shapes |
+| **Boyut** | 16x16, 32x32, 64x64 |
+| **Otomatik Karolama (Auto-tiling)** | Arazi (terrain) için kullanın |
+| **Çarpışma (Collision)** | Basitleştirilmiş şekiller kullanın |
 
-### Layers
+### Katmanlar (Layers)
 
-| Layer | Content |
+| Katman | İçerik |
 |-------|---------|
-| Background | Non-interactive scenery |
-| Terrain | Walkable ground |
-| Props | Interactive objects |
-| Foreground | Parallax overlay |
+| Arkaplan (Background) | Etkileşimsiz manzara |
+| Arazi (Terrain) | Üzerinde yürünebilir zemin |
+| Dekorlar (Props) | Etkileşimli nesneler |
+| Önplan (Foreground) | Parallax katmanı |
 
 ---
 
-## 3. 2D Physics
+## 3. 2B Fizik
 
-### Collision Shapes
+### Çarpışma Şekilleri (Collision Shapes)
 
-| Shape | Use Case |
+| Şekil | Kullanım Durumu |
 |-------|----------|
-| Box | Rectangular objects |
-| Circle | Balls, rounded |
-| Capsule | Characters |
-| Polygon | Complex shapes |
+| Box (Kutu) | Dikdörtgen nesneler |
+| Circle (Daire) | Toplar, yuvarlak nesneler |
+| Capsule (Kapsül) | Karakterler |
+| Polygon (Çokgen) | Karmaşık şekiller |
 
-### Physics Considerations
+### Fizik Hususları
 
-- Pixel-perfect vs physics-based
-- Fixed timestep for consistency
-- Layers for filtering
+- Piksel-mükemmel (pixel-perfect) vs fizik-tabanlı yaklaşım seçimi.
+- Tutarlılık için sabit zaman adımı (fixed timestep).
+- Filtreleme için katmanlar (layers).
 
 ---
 
-## 4. Camera Systems
+## 4. Kamera Sistemleri
 
-### Camera Types
+### Kamera Türleri
 
-| Type | Use |
+| Tür | Kullanım |
 |------|-----|
-| **Follow** | Track player |
-| **Look-ahead** | Anticipate movement |
-| **Multi-target** | Two-player |
-| **Room-based** | Metroidvania |
+| **Takip (Follow)** | Oyuncuyu takip eder |
+| **İleri Bakış (Look-ahead)** | Hareketi daha önceden görür |
+| **Çoklu Hedef (Multi-target)** | İki kişilik oyunlar için |
+| **Oda Temelli (Room-based)** | Metroidvania türü oyunlar |
 
-### Screen Shake
+### Ekran Sallantısı (Screen Shake)
 
-- Short duration (50-200ms)
-- Diminishing intensity
-- Use sparingly
+- Kısa süre (50-200ms).
+- Azalan yoğunlukta olmalı.
+- İdareli kullanın.
 
 ---
 
-## 5. Genre Patterns
+## 5. Tür Desenleri (Genre Patterns)
 
 ### Platformer
 
-- Coyote time (leniency after edge)
-- Jump buffering
-- Variable jump height
+- Coyote time (kenardan düştükten sonraki tolerans süresi).
+- Jump buffering (zeminle temas etmeden az önce zıplama komutu verme).
+- Değişken zıplama yüksekliği (tuşa basılı tutma süresine göre).
 
-### Top-down
+### Üstten Görünüm (Top-down)
 
-- 8-directional or free movement
-- Aim-based or auto-aim
-- Consider rotation or not
+- 8 yönlü veya serbest hareket.
+- Nişan alma tabanlı veya otomatik nişan alma.
+- Döndürme (rotation) kullanımı veya sabit yön.
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Separate textures | Use atlases |
-| Complex collision shapes | Simplified collision |
-| Jittery camera | Smooth following |
-| Pixel-perfect on physics | Choose one approach |
+| Ayrı dokular kullanmak | Atlaslar (atlases) kullanın |
+| Karmaşık çarpışma şekilleri | Basitleştirilmiş çarpışma şekilleri |
+| Sarsıntılı kamera | Yumuşak takip (smoothing) |
+| Fizik üzerinde piksel-mükemmellik zorlamak | Tek bir yaklaşım seçin |
 
 ---
 
-> **Remember:** 2D is about clarity. Every pixel should communicate.
+> **Unutmayın:** 2B açıklık ve netlik üzerinedir. Her piksel bir şey anlatmalıdır.

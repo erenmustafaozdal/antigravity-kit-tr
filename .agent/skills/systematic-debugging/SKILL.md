@@ -1,109 +1,109 @@
 ---
 name: systematic-debugging
-description: 4-phase systematic debugging methodology with root cause analysis and evidence-based verification. Use when debugging complex issues.
+description: Kök neden analizi ve kanıta dayalı doğrulama ile 4 aşamalı sistematik hata ayıklama metodolojisi. Karmaşık sorunları ayıklarken kullan.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Systematic Debugging
+# Sistematik Hata Ayıklama (Systematic Debugging)
 
-> Source: obra/superpowers
+> Kaynak: obra/superpowers
 
-## Overview
-This skill provides a structured approach to debugging that prevents random guessing and ensures problems are properly understood before solving.
+## Genel Bakış
+Bu yetenek, rastgele tahmini önleyen ve sorunları çözmeden önce düzgün anlaşılmasını sağlayan yapılandırılmış bir hata ayıklama yaklaşımı sağlar.
 
-## 4-Phase Debugging Process
+## 4 Aşamalı Hata Ayıklama Süreci
 
-### Phase 1: Reproduce
-Before fixing, reliably reproduce the issue.
-
-```markdown
-## Reproduction Steps
-1. [Exact step to reproduce]
-2. [Next step]
-3. [Expected vs actual result]
-
-## Reproduction Rate
-- [ ] Always (100%)
-- [ ] Often (50-90%)
-- [ ] Sometimes (10-50%)
-- [ ] Rare (<10%)
-```
-
-### Phase 2: Isolate
-Narrow down the source.
+### Aşama 1: Yeniden Üret
+Düzeltmeden önce, sorunu güvenilir bir şekilde yeniden üret.
 
 ```markdown
-## Isolation Questions
-- When did this start happening?
-- What changed recently?
-- Does it happen in all environments?
-- Can we reproduce with minimal code?
-- What's the smallest change that triggers it?
+## Yeniden Üretme Adımları
+1. [Yeniden üretmek için tam adım]
+2. [Sonraki adım]
+3. [Beklenen vs gerçek sonuç]
+
+## Yeniden Üretme Oranı
+- [ ] Her zaman (%100)
+- [ ] Sıklıkla (%50-90)
+- [ ] Bazen (%10-50)
+- [ ] Nadir (%10'dan az)
 ```
 
-### Phase 3: Understand
-Find the root cause, not just symptoms.
+### Aşama 2: İzole Et
+Kaynağı daralt.
 
 ```markdown
-## Root Cause Analysis
-### The 5 Whys
-1. Why: [First observation]
-2. Why: [Deeper reason]
-3. Why: [Still deeper]
-4. Why: [Getting closer]
-5. Why: [Root cause]
+## İzolasyon Soruları
+- Bu ne zaman olmaya başladı?
+- Son zamanlarda ne değişti?
+- Tüm ortamlarda oluyor mu?
+- Minimal kodla yeniden üretebilir miyiz?
+- Tetikleyen en küçük değişiklik nedir?
 ```
 
-### Phase 4: Fix & Verify
-Fix and verify it's truly fixed.
+### Aşama 3: Anla
+Sadece belirtileri değil, kök nedeni bul.
 
 ```markdown
-## Fix Verification
-- [ ] Bug no longer reproduces
-- [ ] Related functionality still works
-- [ ] No new issues introduced
-- [ ] Test added to prevent regression
+## Kök Neden Analizi
+### 5 Neden (The 5 Whys)
+1. Neden: [İlk gözlem]
+2. Neden: [Daha derin sebep]
+3. Neden: [Hala daha derin]
+4. Neden: [Yaklaşıyoruz]
+5. Neden: [Kök neden]
 ```
 
-## Debugging Checklist
+### Aşama 4: Düzelt & Doğrula
+Düzelt ve gerçekten düzeltildiğini doğrula.
 
 ```markdown
-## Before Starting
-- [ ] Can reproduce consistently
-- [ ] Have minimal reproduction case
-- [ ] Understand expected behavior
-
-## During Investigation
-- [ ] Check recent changes (git log)
-- [ ] Check logs for errors
-- [ ] Add logging if needed
-- [ ] Use debugger/breakpoints
-
-## After Fix
-- [ ] Root cause documented
-- [ ] Fix verified
-- [ ] Regression test added
-- [ ] Similar code checked
+## Düzeltme Doğrulaması
+- [ ] Hata artık yeniden üretilmiyor
+- [ ] İlgili işlevsellik hala çalışıyor
+- [ ] Yeni bir sorun eklenmedi
+- [ ] Regresyonu önlemek için test eklendi
 ```
 
-## Common Debugging Commands
+## Hata Ayıklama Kontrol Listesi
+
+```markdown
+## Başlamadan Önce
+- [ ] Tutarlı bir şekilde yeniden üretebilir
+- [ ] Minimal yeniden üretme durumuna sahibiz
+- [ ] Beklenen davranışı anlıyoruz
+
+## Araştırma Sırasında
+- [ ] Son değişiklikleri kontrol et (git log)
+- [ ] Hatalar için logları kontrol et
+- [ ] Gerekirse loglama ekle
+- [ ] Debugger/breakpoint kullan
+
+## Düzeltmeden Sonra
+- [ ] Kök neden belgelendi
+- [ ] Düzeltme doğrulandı
+- [ ] Regresyon testi eklendi
+- [ ] Benzer kod kontrol edildi
+```
+
+## Yaygın Hata Ayıklama Komutları
 
 ```bash
-# Recent changes
+# Son değişiklikler
 git log --oneline -20
 git diff HEAD~5
 
-# Search for pattern
+# Desen ara
 grep -r "errorPattern" --include="*.ts"
 
-# Check logs
+# Logları kontrol et
 pm2 logs app-name --err --lines 100
 ```
 
-## Anti-Patterns
+## Anti-Desenler
 
-❌ **Random changes** - "Maybe if I change this..."
-❌ **Ignoring evidence** - "That can't be the cause"
-❌ **Assuming** - "It must be X" without proof
-❌ **Not reproducing first** - Fixing blindly
-❌ **Stopping at symptoms** - Not finding root cause
+❌ **Rastgele değişiklikler** - "Belki bunu değiştirirsem..."
+❌ **Kanıtları görmezden gelme** - "Bu neden olamaz"
+❌ **Varsayma** - Kanıt olmadan "X olmalı"
+❌ **Önce yeniden üretmeme** - Körü körüne düzeltme
+❌ **Belirtilerde durma** - Kök nedeni bulmama

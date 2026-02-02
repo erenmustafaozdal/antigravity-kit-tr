@@ -1,149 +1,149 @@
 ---
 name: tdd-workflow
-description: Test-Driven Development workflow principles. RED-GREEN-REFACTOR cycle.
+description: Test-Driven Development iş akışı prensipleri. RED-GREEN-REFACTOR döngüsü.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# TDD Workflow
+# TDD İş Akışı (TDD Workflow)
 
-> Write tests first, code second.
+> Önce testleri yaz, sonra kodu.
 
 ---
 
-## 1. The TDD Cycle
+## 1. TDD Döngüsü
 
 ```
-🔴 RED → Write failing test
+🔴 RED → Başarısız test yaz
     ↓
-🟢 GREEN → Write minimal code to pass
+🟢 GREEN → Geçmesi için minimal kod yaz
     ↓
-🔵 REFACTOR → Improve code quality
+🔵 REFACTOR → Kod kalitesini iyileştir
     ↓
-   Repeat...
+   Tekrarla...
 ```
 
 ---
 
-## 2. The Three Laws of TDD
+## 2. TDD'nin Üç Yasası
 
-1. Write production code only to make a failing test pass
-2. Write only enough test to demonstrate failure
-3. Write only enough code to make the test pass
-
----
-
-## 3. RED Phase Principles
-
-### What to Write
-
-| Focus | Example |
-|-------|---------|
-| Behavior | "should add two numbers" |
-| Edge cases | "should handle empty input" |
-| Error states | "should throw for invalid data" |
-
-### RED Phase Rules
-
-- Test must fail first
-- Test name describes expected behavior
-- One assertion per test (ideally)
+1. Yalnızca başarısız bir testi geçirmek için üretim kodu yaz
+2. Başarısızlığı göstermek için yalnızca yeterli test yaz
+3. Testi geçirmek için yalnızca yeterli kod yaz
 
 ---
 
-## 4. GREEN Phase Principles
+## 3. RED Aşaması Prensipleri
 
-### Minimum Code
+### Ne Yazılır
 
-| Principle | Meaning |
-|-----------|---------|
-| **YAGNI** | You Aren't Gonna Need It |
-| **Simplest thing** | Write the minimum to pass |
-| **No optimization** | Just make it work |
+| Odak | Örnek |
+|------|-------|
+| Davranış | "İki sayıyı toplamalı" |
+| Uç durumlar | "Boş girdiyi işlemeli" |
+| Hata durumları | "Geçersiz veri için fırlatmalı" |
 
-### GREEN Phase Rules
+### RED Aşaması Kuralları
 
-- Don't write unneeded code
-- Don't optimize yet
-- Pass the test, nothing more
-
----
-
-## 5. REFACTOR Phase Principles
-
-### What to Improve
-
-| Area | Action |
-|------|--------|
-| Duplication | Extract common code |
-| Naming | Make intent clear |
-| Structure | Improve organization |
-| Complexity | Simplify logic |
-
-### REFACTOR Rules
-
-- All tests must stay green
-- Small incremental changes
-- Commit after each refactor
+- Test önce başarısız olmalı
+- Test adı beklenen davranışı tanımlar
+- Test başına bir assertion (ideal olarak)
 
 ---
 
-## 6. AAA Pattern
+## 4. GREEN Aşaması Prensipleri
 
-Every test follows:
+### Minimum Kod
 
-| Step | Purpose |
-|------|---------|
-| **Arrange** | Set up test data |
-| **Act** | Execute code under test |
-| **Assert** | Verify expected outcome |
+| Prensip | Anlamı |
+|---------|--------|
+| **YAGNI** | İhtiyaç Duymayacaksın |
+| **En basit şey** | Geçmek için minimumu yaz |
+| **Optimizasyon yok** | Sadece çalışmasını sağla |
 
----
+### GREEN Aşaması Kuralları
 
-## 7. When to Use TDD
-
-| Scenario | TDD Value |
-|----------|-----------|
-| New feature | High |
-| Bug fix | High (write test first) |
-| Complex logic | High |
-| Exploratory | Low (spike, then TDD) |
-| UI layout | Low |
+- Gereksiz kod yazma
+- Henüz optimize etme
+- Testi geç, başka bir şey yapma
 
 ---
 
-## 8. Test Prioritization
+## 5. REFACTOR Aşaması Prensipleri
 
-| Priority | Test Type |
-|----------|-----------|
-| 1 | Happy path |
-| 2 | Error cases |
-| 3 | Edge cases |
-| 4 | Performance |
+### Neleri İyileştirmelim
 
----
+| Alan | Eylem |
+|------|-------|
+| Tekrarlama | Ortak kodu çıkar |
+| İsimlendirme | Niyeti açık hale getir |
+| Yapı | Organizasyonu iyileştir |
+| Karmaşıklık | Mantığı basitleştir |
 
-## 9. Anti-Patterns
+### REFACTOR Kuralları
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Skip the RED phase | Watch test fail first |
-| Write tests after | Write tests before |
-| Over-engineer initial | Keep it simple |
-| Multiple asserts | One behavior per test |
-| Test implementation | Test behavior |
+- Tüm testler yeşil kalmalı
+- Küçük artımlı değişiklikler
+- Her refactor'dan sonra commit yap
 
 ---
 
-## 10. AI-Augmented TDD
+## 6. AAA Deseni
 
-### Multi-Agent Pattern
+Her test şunu takip eder:
 
-| Agent | Role |
-|-------|------|
-| Agent A | Write failing tests (RED) |
-| Agent B | Implement to pass (GREEN) |
-| Agent C | Optimize (REFACTOR) |
+| Adım | Amaç |
+|------|------|
+| **Arrange** | Test verisini hazırla |
+| **Act** | Test edilen kodu çalıştır |
+| **Assert** | Beklenen sonucu doğrula |
 
 ---
 
-> **Remember:** The test is the specification. If you can't write a test, you don't understand the requirement.
+## 7. TDD Ne Zaman Kullanılır
+
+| Senaryo | TDD Değeri |
+|---------|-----------|
+| Yeni özellik | Yüksek |
+| Hata düzeltme | Yüksek (önce test yaz) |
+| Karmaşık mantık | Yüksek |
+| Keşifsel | Düşük (spike, sonra TDD) |
+| UI yerleşimi | Düşük |
+
+---
+
+## 8. Test Önceliklendirme
+
+| Öncelik | Test Tipi |
+|---------|-----------|
+| 1 | Mutlu yol |
+| 2 | Hata durumları |
+| 3 | Uç durumlar |
+| 4 | Performans |
+
+---
+
+## 9. Anti-Desenler
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| RED aşamasını atla | Önce testin başarısız olmasını izle |
+| Testleri sonra yaz | Testleri önce yaz |
+| İlk aşamada aşırı mühendislik yap | Basit tut |
+| Birden fazla assertion | Davranış başına bir test |
+| Implementasyonu test et | Davranışı test et |
+
+---
+
+## 10. AI ile Güçlendirilmiş TDD
+
+### Çoklu-Agent Deseni
+
+| Agent | Rol |
+|-------|-----|
+| Agent A | Başarısız testler yaz (RED) |
+| Agent B | Geçmesi için uygula (GREEN) |
+| Agent C | Optimize et (REFACTOR) |
+
+---
+
+> **Unutma:** Test, spesifikasyondur. Bir test yazamıyorsan, gereksinimi anlamıyorsun.

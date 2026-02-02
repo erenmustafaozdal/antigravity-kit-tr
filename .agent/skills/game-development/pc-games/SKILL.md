@@ -1,144 +1,144 @@
 ---
 name: pc-games
-description: PC and console game development principles. Engine selection, platform features, optimization strategies.
+description: PC ve konsol oyun geliştirme prensipleri. Motor seçimi, platform özellikleri, optimizasyon stratejileri.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# PC/Console Game Development
+# PC/Konsol Oyun Geliştirme (PC/Console Game Development)
 
-> Engine selection and platform-specific principles.
+> Motor seçimi ve platforma özel prensipler.
 
 ---
 
-## 1. Engine Selection
+## 1. Motor (Engine) Seçimi
 
-### Decision Tree
+### Karar Ağacı
 
 ```
-What are you building?
+Ne inşa ediyorsunuz?
 │
-├── 2D Game
-│   ├── Open source important? → Godot
-│   └── Large team/assets? → Unity
+├── 2B Oyun
+│   ├── Açık kaynak önemli mi? → Godot
+│   └── Büyük ekip/varlık (asset) yönetimi mi? → Unity
 │
-├── 3D Game
-│   ├── AAA visual quality? → Unreal
-│   ├── Cross-platform priority? → Unity
-│   └── Indie/open source? → Godot 4
+├── 3B Oyun
+│   ├── AAA görsel kalite mi? → Unreal
+│   ├── Çoklu platform önceliği mi? → Unity
+│   └── Bağımsız / Açık kaynak mı? → Godot 4
 │
-└── Specific Needs
-    ├── DOTS performance? → Unity
-    ├── Nanite/Lumen? → Unreal
-    └── Lightweight? → Godot
+└── Özel İhtiyaçlar
+    ├── DOTS performans mı? → Unity
+    ├── Nanite/Lumen mi? → Unreal
+    └── Hafif ve hızlı mı? → Godot
 ```
 
-### Comparison
+### Karşılaştırma
 
-| Factor | Unity 6 | Godot 4 | Unreal 5 |
+| Faktör | Unity 6 | Godot 4 | Unreal 5 |
 |--------|---------|---------|----------|
-| 2D | Good | Excellent | Limited |
-| 3D | Good | Good | Excellent |
-| Learning | Medium | Easy | Hard |
-| Cost | Revenue share | Free | 5% after $1M |
-| Team | Any | Solo-Medium | Medium-Large |
+| 2B (2D) | İyi | Mükemmel | Sınırlı |
+| 3B (3D) | İyi | İyi | Mükemmel |
+| Öğrenme | Orta | Kolay | Zor |
+| Maliyet | Gelir payı | Ücretsiz | 1M$ sonrası %5 |
+| Ekip Yapısı | Her boyutta | Tekil-Orta | Orta-Büyük |
 
 ---
 
-## 2. Platform Features
+## 2. Platform Özellikleri
 
-### Steam Integration
+### Steam Entegrasyonu
 
-| Feature | Purpose |
+| Özellik | Amaç |
 |---------|---------|
-| Achievements | Player goals |
-| Cloud Saves | Cross-device progress |
-| Leaderboards | Competition |
-| Workshop | User mods |
-| Rich Presence | Show in-game status |
+| Başarımlar (Achievements)| Oyuncu hedefleri |
+| Bulut Kayıtları | Cihazlar arası ilerleme |
+| Liderlik Tabloları | Rekabet |
+| Workshop (Atölye) | Kullanıcı modları |
+| Zengin Varlık (Rich Presence)| Oyun içi durumu gösterme |
 
-### Console Requirements
+### Konsol Gereksinimleri
 
-| Platform | Certification |
+| Platform | Sertifikasyon |
 |----------|--------------|
-| PlayStation | TRC compliance |
-| Xbox | XR compliance |
+| PlayStation | TRC uyumluluğu |
+| Xbox | XR uyumluluğu |
 | Nintendo | Lotcheck |
 
 ---
 
-## 3. Controller Support
+## 3. Kontrolcü (Controller) Desteği
 
-### Input Abstraction
+### Girdi Soyutlama
 
 ```
-Map ACTIONS, not buttons:
-- "confirm" → A (Xbox), Cross (PS), B (Nintendo)
-- "cancel" → B (Xbox), Circle (PS), A (Nintendo)
+Butonları değil, EYLEMLERİ (ACTIONS) eşleştirin:
+- "onayla" → A (Xbox), Cross (PS), B (Nintendo)
+- "iptal" → B (Xbox), Circle (PS), A (Nintendo)
 ```
 
-### Haptic Feedback
+### Dokunsal Geri Bildirim (Haptic Feedback)
 
-| Intensity | Use |
+| Yoğunluk | Kullanım |
 |-----------|-----|
-| Light | UI feedback |
-| Medium | Impacts |
-| Heavy | Major events |
+| Hafif | UI geri bildirimi |
+| Orta | Çarpışmalar, darbeler |
+| Güçlü | Büyük olaylar |
 
 ---
 
-## 4. Performance Optimization
+## 4. Performans Optimizasyonu
 
-### Profiling First
+### Önce Profil Oluşturma (Profiling)
 
-| Engine | Tool |
+| Motor | Araç |
 |--------|------|
 | Unity | Profiler Window |
 | Godot | Debugger → Profiler |
 | Unreal | Unreal Insights |
 
-### Common Bottlenecks
+### Yaygın Darboğazlar
 
-| Bottleneck | Solution |
+| Darboğaz | Çözüm |
 |------------|----------|
-| Draw calls | Batching, atlases |
-| GC spikes | Object pooling |
-| Physics | Simpler colliders |
-| Shaders | LOD shaders |
+| Çizim çağrıları (Draw calls)| Batching (gruplama), atlaslar |
+| GC sıçramaları | Nesne havuzlama (object pooling) |
+| Fizik | Daha basit çarpıştırıcılar |
+| Shader'lar | LOD shader'lar |
 
 ---
 
-## 5. Engine-Specific Principles
+## 5. Motora Özel Prensipler
 
 ### Unity 6
 
-- DOTS for performance-critical systems
-- Burst compiler for hot paths
-- Addressables for asset streaming
+- Performansın kritik olduğu yerlerde DOTS kullanımı.
+- Sıcak yollar (hot paths) için Burst derleyicisi.
+- Varlık akışı (asset streaming) için Addressables.
 
 ### Godot 4
 
-- GDScript for rapid iteration
-- C# for complex logic
-- Signals for decoupling
+- Hızlı yineleme için GDScript.
+- Karmaşık mantık için C#.
+- Bağlantıyı kesmek (decoupling) için Sinyaller (Signals).
 
 ### Unreal 5
 
-- Blueprint for designers
-- C++ for performance
-- Nanite for high-poly environments
-- Lumen for dynamic lighting
+- Tasarımcılar için Blueprint.
+- Performans için C++.
+- Yüksek poligonlu ortamlar için Nanite.
+- Dinamik ışıklandırma için Lumen.
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Choose engine by hype | Choose by project needs |
-| Ignore platform guidelines | Study certification requirements |
-| Hardcode input buttons | Abstract to actions |
-| Skip profiling | Profile early and often |
+| Popülerliğe (hype) göre motor seçmek | Proje ihtiyaçlarına göre seçin |
+| Platform yönergelerini yok saymak | Sertifikasyon gereksinimlerini inceleyin |
+| Girdi butonlarını hardcode etmek | Eylemlere (actions) soyutlayın |
+| Profil oluşturmayı atlamak | Erken ve sık sık profil oluşturun |
 
 ---
 
-> **Remember:** Engine is a tool. Master the principles, then adapt to any engine.
+> **Unutmayın:** Oyun motoru sadece bir araçtır. Prensiplerde ustalaşın, sonra herhangi bir motora uyum sağlayın.

@@ -1,45 +1,47 @@
 ---
 name: lint-and-validate
-description: Automatic quality control, linting, and static analysis procedures. Use after every code modification to ensure syntax correctness and project standards. Triggers onKeywords: lint, format, check, validate, types, static analysis.
+description: Otomatik kalite kontrolleri, linting ve statik analiz prosedürleri. Her kod değişikliğinden sonra sözdizimi doğruluğunu ve proje standartlarını sağlamak için kullanın. Tetikleme anahtar kelimeleri: lint, format, check, validate, types, static analysis.
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
-# Lint and Validate Skill
+# Lint ve Doğrulama Yeteneği (Lint and Validate)
 
-> **MANDATORY:** Run appropriate validation tools after EVERY code change. Do not finish a task until the code is error-free.
+> **ZORUNLU:** Her kod değişikliğinden sonra uygun doğrulama araçlarını çalıştırın. Kod hatasız olana kadar görevi bitirmeyin.
 
-### Procedures by Ecosystem
+### Ekosisteme Göre Prosedürler
 
-#### Node.js / TypeScript
-1. **Lint/Fix:** `npm run lint` or `npx eslint "path" --fix`
-2. **Types:** `npx tsc --noEmit`
-3. **Security:** `npm audit --audit-level=high`
+####Node.js / TypeScript
+1. **Lint/Düzelt:** `npm run lint` veya `npx eslint "yol" --fix`
+2. **Tipler:** `npx tsc --noEmit`
+3. **Güvenlik:** `npm audit --audit-level=high`
 
 #### Python
-1. **Linter (Ruff):** `ruff check "path" --fix` (Fast & Modern)
-2. **Security (Bandit):** `bandit -r "path" -ll`
-3. **Types (MyPy):** `mypy "path"`
+1. **Linter (Ruff):** `ruff check "yol" --fix` (Hızlı ve Modern)
+2. **Güvenlik (Bandit):** `bandit -r "yol" -ll`
+3. **Tipler (MyPy):** `mypy "yol"`
 
-## The Quality Loop
-1. **Write/Edit Code**
-2. **Run Audit:** `npm run lint && npx tsc --noEmit`
-3. **Analyze Report:** Check the "FINAL AUDIT REPORT" section.
-4. **Fix & Repeat:** Submitting code with "FINAL AUDIT" failures is NOT allowed.
+## Kalite Döngüsü
 
-## Error Handling
-- If `lint` fails: Fix the style or syntax issues immediately.
-- If `tsc` fails: Correct type mismatches before proceeding.
-- If no tool is configured: Check the project root for `.eslintrc`, `tsconfig.json`, `pyproject.toml` and suggest creating one.
+1. **Kod Yaz/Düzenle**
+2. **Denetim Çalıştır:** `npm run lint && npx tsc --noEmit`
+3. **Raporu Analiz Et:** "SON DENETİM RAPORU" (FINAL AUDIT REPORT) bölümünü kontrol edin.
+4. **Düzelt ve Tekrarla:** "SON DENETİM" hataları ile kod göndermek İZİN VERİLMEZ.
+
+## Hata Yönetimi
+
+- `lint` başarısız olursa: Stil veya sözdizimi sorunlarını hemen düzeltin.
+- `tsc` başarısız olursa: Devam etmeden önce tip uyumsuzluklarını düzeltin.
+- Araç yapılandırılmamışsa: Proje kökündeki `.eslintrc`, `tsconfig.json`, `pyproject.toml` dosyalarını kontrol edin ve oluşturma önerin.
 
 ---
-**Strict Rule:** No code should be committed or reported as "done" without passing these checks.
+
+**Katı Kural:** Bu kontrolleri geçmeden hiçbir kod commit edilmemeli veya "tamamlandı" olarak raporlanmamalıdır.
 
 ---
 
-## Scripts
+## Scriptler
 
-| Script | Purpose | Command |
+| Script | Amaç | Komut |
 |--------|---------|---------|
-| `scripts/lint_runner.py` | Unified lint check | `python scripts/lint_runner.py <project_path>` |
-| `scripts/type_coverage.py` | Type coverage analysis | `python scripts/type_coverage.py <project_path>` |
-
+| `scripts/lint_runner.py` | Birleşik lint kontrolü | `python scripts/lint_runner.py <proje_yolu>` |
+| `scripts/type_coverage.py` | Tip kapsama analizi | `python scripts/type_coverage.py <proje_yolu>` |

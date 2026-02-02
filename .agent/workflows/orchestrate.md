@@ -1,237 +1,236 @@
 ---
-description: Coordinate multiple agents for complex tasks. Use for multi-perspective analysis, comprehensive reviews, or tasks requiring different domain expertise.
+description: Karmaşık görevler için birden fazla ajanı koordine edin. Çok perspektifli analiz, kapsamlı inceleme veya farklı alan uzmanlığı gerektiren görevler için kullanın.
 ---
 
-# Multi-Agent Orchestration
+# Çoklu Ajan Orkestrasyonu
 
-You are now in **ORCHESTRATION MODE**. Your task: coordinate specialized agents to solve this complex problem.
+Şu anda **ORKESTRASYON MODU**'ndasınız. Göreviniz: Bu karmaşık sorunu çözmek için uzmanlaşmış ajanları koordine etmek.
 
-## Task to Orchestrate
+## Orkestre Edilecek Görev
 $ARGUMENTS
 
 ---
 
-## 🔴 CRITICAL: Minimum Agent Requirement
+## 🔴 KRİTİK: Minimum Ajan Gereksinimi
 
-> ⚠️ **ORCHESTRATION = MINIMUM 3 DIFFERENT AGENTS**
+> ⚠️ **ORKESTRASYON = EN AZ 3 FARKLI AJAN**
 > 
-> If you use fewer than 3 agents, you are NOT orchestrating - you're just delegating.
+> 3'ten az ajan kullanırsanız, orkestrasyon YAPMIYORSUNUZ demektir - sadece delege ediyorsunuzdur.
 > 
-> **Validation before completion:**
-> - Count invoked agents
-> - If `agent_count < 3` → STOP and invoke more agents
-> - Single agent = FAILURE of orchestration
+> **Tamamlamadan önce doğrulama:**
+> - Çağrılan ajanları say
+> - Eğer `agent_count < 3` ise → DUR ve daha fazla ajan çağır
+> - Tek ajan = Orkestrasyonun BAŞARISIZLIĞI
 
-### Agent Selection Matrix
+### Ajan Seçim Matrisi
 
-| Task Type | REQUIRED Agents (minimum) |
+| Görev Türü | GEREKLİ Ajanlar (minimum) |
 |-----------|---------------------------|
-| **Web App** | frontend-specialist, backend-specialist, test-engineer |
+| **Web Uygulaması** | frontend-specialist, backend-specialist, test-engineer |
 | **API** | backend-specialist, security-auditor, test-engineer |
-| **UI/Design** | frontend-specialist, seo-specialist, performance-optimizer |
-| **Database** | database-architect, backend-specialist, security-auditor |
+| **UI/Tasarım** | frontend-specialist, seo-specialist, performance-optimizer |
+| **Veritabanı** | database-architect, backend-specialist, security-auditor |
 | **Full Stack** | project-planner, frontend-specialist, backend-specialist, devops-engineer |
-| **Debug** | debugger, explorer-agent, test-engineer |
-| **Security** | security-auditor, penetration-tester, devops-engineer |
+| **Hata Giderme** | debugger, explorer-agent, test-engineer |
+| **Güvenlik** | security-auditor, penetration-tester, devops-engineer |
 
 ---
 
-## Pre-Flight: Mode Check
+## Başlangıç Öncesi: Mod Kontrolü
 
-| Current Mode | Task Type | Action |
+| Mevcut Mod | Görev Türü | Eylem |
 |--------------|-----------|--------|
-| **plan** | Any | ✅ Proceed with planning-first approach |
-| **edit** | Simple execution | ✅ Proceed directly |
-| **edit** | Complex/multi-file | ⚠️ Ask: "This task requires planning. Switch to plan mode?" |
-| **ask** | Any | ⚠️ Ask: "Ready to orchestrate. Switch to edit or plan mode?" |
+| **plan** | Herhangi biri | ✅ Önce planlama yaklaşımıyla devam et |
+| **edit** | Basit uygulama | ✅ Doğrudan devam et |
+| **edit** | Karmaşık/Çok dosya | ⚠️ Sor: "Bu görev planlama gerektiriyor. Plan moduna geçelim mi?" |
+| **ask** | Herhangi biri | ⚠️ Sor: "Orkestrasyona hazırız. Düzenleme (edit) veya plan moduna geçelim mi?" |
 
 ---
 
-## 🔴 STRICT 2-PHASE ORCHESTRATION
+## 🔴 KESİN 2 AŞAMALI ORKESTRASYON
 
-### PHASE 1: PLANNING (Sequential - NO parallel agents)
+### 1. AŞAMA: PLANLAMA (Sıralı - Paralele ajan YOK)
 
-| Step | Agent | Action |
+| Adım | Ajan | Eylem |
 |------|-------|--------|
-| 1 | `project-planner` | Create docs/PLAN.md |
-| 2 | (optional) `explorer-agent` | Codebase discovery if needed |
+| 1 | `project-planner` | docs/PLAN.md oluştur |
+| 2 | (isteğe bağlı) `explorer-agent` | Gerekiyorsa kod tabanı keşfi |
 
-> 🔴 **NO OTHER AGENTS during planning!** Only project-planner and explorer-agent.
+> 🔴 **Planlama sırasında BAŞKA AJAN YOK!** Sadece project-planner ve explorer-agent.
 
-### ⏸️ CHECKPOINT: User Approval
+### ⏸️ KONTROL NOKTASI: Kullanıcı Onayı
 
 ```
-After PLAN.md is complete, ASK:
+PLAN.md tamamlandıktan sonra SOR:
 
 "✅ Plan oluşturuldu: docs/PLAN.md
 
-Onaylıyor musunuz? (Y/N)
-- Y: Implementation başlatılır
-- N: Planı düzeltirim"
+Onaylıyor musunuz? (E/H)
+- E: Uygulama (Implementation) başlatılır
+- H: Planı düzeltirim"
 ```
 
-> 🔴 **DO NOT proceed to Phase 2 without explicit user approval!**
+> 🔴 **Kullanıcının açık onayı olmadan 2. Aşamaya GEÇMEYİN!**
 
-### PHASE 2: IMPLEMENTATION (Parallel agents after approval)
+### 2. AŞAMA: UYGULAMA (Onaydan sonra paralel ajanlar)
 
-| Parallel Group | Agents |
+| Paralel Grup | Ajanlar |
 |----------------|--------|
-| Foundation | `database-architect`, `security-auditor` |
-| Core | `backend-specialist`, `frontend-specialist` |
-| Polish | `test-engineer`, `devops-engineer` |
+| Temel (Foundation) | `database-architect`, `security-auditor` |
+| Çekirdek (Core) | `backend-specialist`, `frontend-specialist` |
+| Cila (Polish) | `test-engineer`, `devops-engineer` |
 
-> ✅ After user approval, invoke multiple agents in PARALLEL.
+> ✅ Kullanıcı onayından sonra, birden fazla ajanı PARALEL olarak çağırın.
 
-## Available Agents (17 total)
+## Mevcut Ajanlar (Toplam 17)
 
-| Agent | Domain | Use When |
+| Ajan | Alan | Ne Zaman Kullanılır |
 |-------|--------|----------|
-| `project-planner` | Planning | Task breakdown, PLAN.md |
-| `explorer-agent` | Discovery | Codebase mapping |
+| `project-planner` | Planlama | Görev kırılımı, PLAN.md |
+| `explorer-agent` | Keşif | Kod tabanı haritalama |
 | `frontend-specialist` | UI/UX | React, Vue, CSS, HTML |
-| `backend-specialist` | Server | API, Node.js, Python |
-| `database-architect` | Data | SQL, NoSQL, Schema |
-| `security-auditor` | Security | Vulnerabilities, Auth |
-| `penetration-tester` | Security | Active testing |
-| `test-engineer` | Testing | Unit, E2E, Coverage |
-| `devops-engineer` | Ops | CI/CD, Docker, Deploy |
-| `mobile-developer` | Mobile | React Native, Flutter |
-| `performance-optimizer` | Speed | Lighthouse, Profiling |
-| `seo-specialist` | SEO | Meta, Schema, Rankings |
-| `documentation-writer` | Docs | README, API docs |
-| `debugger` | Debug | Error analysis |
-| `game-developer` | Games | Unity, Godot |
-| `orchestrator` | Meta | Coordination |
+| `backend-specialist` | Sunucu | API, Node.js, Python |
+| `database-architect` | Veri | SQL, NoSQL, Şema |
+| `security-auditor` | Güvenlik | Zafiyetler, Auth |
+| `penetration-tester` | Güvenlik | Aktif test |
+| `test-engineer` | Test | Unit, E2E, Kapsam |
+| `devops-engineer` | Operasyon | CI/CD, Docker, Dağıtım |
+| `mobile-developer` | Mobil | React Native, Flutter |
+| `performance-optimizer` | Hız | Lighthouse, Profilleme |
+| `seo-specialist` | SEO | Meta, Şema, Sıralamalar |
+| `documentation-writer` | Doküman | README, API dokümanları |
+| `debugger` | Hata Giderme | Hata analizi |
+| `game-developer` | Oyun | Unity, Godot |
+| `orchestrator` | Meta | Koordinasyon |
 
 ---
 
-## Orchestration Protocol
+## Orkestrasyon Protokolü
 
-### Step 1: Analyze Task Domains
-Identify ALL domains this task touches:
+### Adım 1: Görev Alanlarını Analiz Et
+Bu görevin dokunduğu TÜM alanları belirleyin:
 ```
-□ Security     → security-auditor, penetration-tester
-□ Backend/API  → backend-specialist
-□ Frontend/UI  → frontend-specialist
-□ Database     → database-architect
-□ Testing      → test-engineer
-□ DevOps       → devops-engineer
-□ Mobile       → mobile-developer
-□ Performance  → performance-optimizer
-□ SEO          → seo-specialist
-□ Planning     → project-planner
+□ Güvenlik      → security-auditor, penetration-tester
+□ Backend/API   → backend-specialist
+□ Frontend/UI   → frontend-specialist
+□ Veritabanı    → database-architect
+□ Test          → test-engineer
+□ DevOps        → devops-engineer
+□ Mobil         → mobile-developer
+□ Performans    → performance-optimizer
+□ SEO           → seo-specialist
+□ Planlama      → project-planner
 ```
 
-### Step 2: Phase Detection
+### Adım 2: Aşama Tespiti
 
-| If Plan Exists | Action |
+| Plan Varsa | Eylem |
 |----------------|--------|
-| NO `docs/PLAN.md` | → Go to PHASE 1 (planning only) |
-| YES `docs/PLAN.md` + user approved | → Go to PHASE 2 (implementation) |
+| `docs/PLAN.md` YOK | → 1. AŞAMA'ya git (sadece planlama) |
+| `docs/PLAN.md` VAR + kullanıcı onaylı | → 2. AŞAMA'ya git (uygulama) |
 
-### Step 3: Execute Based on Phase
+### Adım 3: Aşamaya Göre Yürüt
 
-**PHASE 1 (Planning):**
+**1. AŞAMA (Planlama):**
 ```
-Use the project-planner agent to create PLAN.md
-→ STOP after plan is created
-→ ASK user for approval
-```
-
-**PHASE 2 (Implementation - after approval):**
-```
-Invoke agents in PARALLEL:
-Use the frontend-specialist agent to [task]
-Use the backend-specialist agent to [task]
-Use the test-engineer agent to [task]
+PLAN.md oluşturmak için project-planner ajanını kullan
+→ Plan oluşturulduktan sonra DUR
+→ Kullanıcıdan onay İSTE
 ```
 
-**🔴 CRITICAL: Context Passing (MANDATORY)**
-
-When invoking ANY subagent, you MUST include:
-
-1. **Original User Request:** Full text of what user asked
-2. **Decisions Made:** All user answers to Socratic questions
-3. **Previous Agent Work:** Summary of what previous agents did
-4. **Current Plan State:** If plan files exist in workspace, include them
-
-**Example with FULL context:**
+**2. AŞAMA (Uygulama - onaydan sonra):**
 ```
-Use the project-planner agent to create PLAN.md:
-
-**CONTEXT:**
-- User Request: "Öğrenciler için sosyal platform, mock data ile"
-- Decisions: Tech=Vue 3, Layout=Grid Widget, Auth=Mock, Design=Genç Dinamik
-- Previous Work: Orchestrator asked 6 questions, user chose all options
-- Current Plan: playful-roaming-dream.md exists in workspace with initial structure
-
-**TASK:** Create detailed PLAN.md based on ABOVE decisions. Do NOT infer from folder name.
+Ajanları PARALEL olarak çağır:
+[görev] için frontend-specialist ajanını kullan
+[görev] için backend-specialist ajanını kullan
+[görev] için test-engineer ajanını kullan
 ```
 
-> ⚠️ **VIOLATION:** Invoking subagent without full context = subagent will make wrong assumptions!
+**🔴 KRİTİK: Bağlam Aktarımı (ZORUNLU)**
 
+Herhangi bir alt ajanı çağırırken, şunları EKLENEMELİSİNİZ:
 
-### Step 4: Verification (MANDATORY)
-The LAST agent must run appropriate verification scripts:
+1. **Orijinal Kullanıcı İsteği:** Kullanıcının ne istediğinin tam metni
+2. **Yapılan Kararlar:** Sokratik sorulara verilen tüm kullanıcı yanıtları
+3. **Önceki Ajan Çalışmaları:** Önceki ajanların ne yaptığının özeti
+4. **Mevcut Plan Durumu:** Çalışma alanında plan dosyaları varsa bunları dahil et
+
+**TAM bağlam içeren örnek:**
+```
+PLAN.md oluşturmak için project-planner ajanını kullan:
+
+**BAĞLAM:**
+- Kullanıcı İsteği: "Öğrenciler için sosyal platform, mock data ile"
+- Kararlar: Tech=Vue 3, Layout=Grid Widget, Auth=Mock, Design=Genç Dinamik
+- Önceki Çalışma: Orkestratör 6 soru sordu, kullanıcı tüm seçenekleri seçti
+- Mevcut Plan: Başlangıç yapısıyla birlikte çalışma alanında playful-roaming-dream.md mevcut
+
+**GÖREV:** YUKARIDAKİ kararlara dayanarak detaylı PLAN.md oluştur. Klasör adından çıkarım YAPMA.
+```
+
+> ⚠️ **İHLAL:** Tam bağlam olmadan alt ajan çağırmak = alt ajanın yanlış varsayımlarda bulunmasına neden olur!
+
+### Adım 4: Doğrulama (ZORUNLU)
+SON ajan uygun doğrulama scriptlerini çalıştırmalıdır:
 ```bash
 python .agent/skills/vulnerability-scanner/scripts/security_scan.py .
 python .agent/skills/lint-and-validate/scripts/lint_runner.py .
 ```
 
-### Step 5: Synthesize Results
-Combine all agent outputs into unified report.
+### Adım 5: Sonuçları Sentezle
+Tüm ajan çıktılarını birleşik bir raporda birleştirin.
 
 ---
 
-## Output Format
+## Çıktı Formatı
 
 ```markdown
-## 🎼 Orchestration Report
+## 🎼 Orkestrasyon Raporu
 
-### Task
-[Original task summary]
+### Görev
+[Orijinal görev özeti]
 
-### Mode
-[Current Antigravity Agent mode: plan/edit/ask]
+### Mod
+[Mevcut Antigravity Ajan modu: plan/edit/ask]
 
-### Agents Invoked (MINIMUM 3)
-| # | Agent | Focus Area | Status |
+### Çağrılan Ajanlar (EN AZ 3)
+| # | Ajan | Odak Alanı | Durum |
 |---|-------|------------|--------|
-| 1 | project-planner | Task breakdown | ✅ |
-| 2 | frontend-specialist | UI implementation | ✅ |
-| 3 | test-engineer | Verification scripts | ✅ |
+| 1 | project-planner | Görev kırılımı | ✅ |
+| 2 | frontend-specialist | UI uygulaması | ✅ |
+| 3 | test-engineer | Doğrulama scriptleri | ✅ |
 
-### Verification Scripts Executed
-- [x] security_scan.py → Pass/Fail
-- [x] lint_runner.py → Pass/Fail
+### Çalıştırılan Doğrulama Scriptleri
+- [x] security_scan.py → Geçti/Kaldı
+- [x] lint_runner.py → Geçti/Kaldı
 
-### Key Findings
-1. **[Agent 1]**: Finding
-2. **[Agent 2]**: Finding
-3. **[Agent 3]**: Finding
+### Temel Bulgular
+1. **[Ajan 1]**: Bulgu
+2. **[Ajan 2]**: Bulgu
+3. **[Ajan 3]**: Bulgu
 
-### Deliverables
-- [ ] PLAN.md created
-- [ ] Code implemented
-- [ ] Tests passing
-- [ ] Scripts verified
+### Çıktılar
+- [ ] PLAN.md oluşturuldu
+- [ ] Kod uygulandı
+- [ ] Testler geçiyor
+- [ ] Scriptler doğrulandı
 
-### Summary
-[One paragraph synthesis of all agent work]
+### Özet
+[Tüm ajan çalışmalarının tek paragraflık sentezi]
 ```
 
 ---
 
-## 🔴 EXIT GATE
+## 🔴 ÇIKIŞ KAPISI
 
-Before completing orchestration, verify:
+Orkestrasyonu tamamlamadan önce doğrulayın:
 
-1. ✅ **Agent Count:** `invoked_agents >= 3`
-2. ✅ **Scripts Executed:** At least `security_scan.py` ran
-3. ✅ **Report Generated:** Orchestration Report with all agents listed
+1. ✅ **Ajan Sayısı:** `invoked_agents >= 3`
+2. ✅ **Çalıştırılan Scriptler:** En az `security_scan.py` çalıştırıldı
+3. ✅ **Rapor Oluşturuldu:** Tüm ajanların listelendiği Orkestrasyon Raporu
 
-> **If any check fails → DO NOT mark orchestration complete. Invoke more agents or run scripts.**
+> **Herhangi bir kontrol başarısızsa → Orkestrasyonu tamamlandı olarak İŞARETLEMEYİN. Daha fazla ajan çağırın veya scriptleri çalıştırın.**
 
 ---
 
-**Begin orchestration now. Select 3+ agents, execute sequentially, run verification scripts, synthesize results.**
+**Orkestrasyonu şimdi başlatın. 3+ ajan seçin, sıralı olarak yürütün, doğrulama scriptlerini çalıştırın, sonuçları sentezleyin.**

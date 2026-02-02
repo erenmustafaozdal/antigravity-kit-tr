@@ -1,60 +1,60 @@
-# 1. Eliminating Waterfalls
+# 1. Şelaleleri Ortadan Kaldırma (Eliminating Waterfalls)
 
-> **Impact:** CRITICAL
-> **Focus:** Waterfalls are the #1 performance killer. Each sequential await adds full network latency. Eliminating them yields the largest gains.
-
----
-
-## Overview
-
-This section contains **5 rules** focused on eliminating waterfalls.
+> **Etki:** KRİTİK
+> **Odak:** Şelaleler (waterfalls) performansın 1 numaralı katilidir. Her ardışık await tam ağ gecikmesi ekler. Bunları ortadan kaldırmak en büyük kazançları sağlar.
 
 ---
 
-## Rule 1.1: Defer Await Until Needed
+## Genel Bakış
 
-**Impact:** HIGH  
-**Tags:** async, await, conditional, optimization  
+Bu bölüm, şelaleleri ortadan kaldırmaya odaklanan **5 kural** içerir.
 
-## Defer Await Until Needed
+---
 
-Move `await` operations into the branches where they're actually used to avoid blocking code paths that don't need them.
+## Kural 1.1: Await'i Gerekene Kadar Ertele
 
-**Incorrect (blocks both branches):**
+**Etki:** YÜKSEK  
+**Etiketler:** async, await, conditional, optimization  
+
+## Await'i Gerekene Kadar Ertele
+
+`await` işlemlerini yalnızca gerçekten kullanıldıkları dallara taşıyın, böylece onlara ihtiyaç duymayan kod yollarını bloklamaktan kaçının.
+
+**Yanlış (her iki dalı da bloklar):**
 
 ```typescript
 async function handleRequest(userId: string, skipProcessing: boolean) {
   const userData = await fetchUserData(userId)
   
   if (skipProcessing) {
-    // Returns immediately but still waited for userData
+    // Hemen dönüyor ama yine de userData'yı bekledi
     return { skipped: true }
   }
   
-  // Only this branch uses userData
+  // Yalnızca bu dal userData kullanıyor
   return processUserData(userData)
 }
 ```
 
-**Correct (only blocks when needed):**
+**Doğru (yalnızca gerektiğinde bloklar):**
 
 ```typescript
 async function handleRequest(userId: string, skipProcessing: boolean) {
   if (skipProcessing) {
-    // Returns immediately without waiting
+    // Beklemeden hemen döner
     return { skipped: true }
   }
   
-  // Fetch only when needed
+  // Yalnızca gerektiğinde çek
   const userData = await fetchUserData(userId)
   return processUserData(userData)
 }
 ```
 
-**Another example (early return optimization):**
+**Başka bir örnek (erken dönüş optimizasyonu):**
 
 ```typescript
-// Incorrect: always fetches permissions
+// Yanlış: her zaman izinleri çeker
 async function updateResource(resourceId: string, userId: string) {
   const permissions = await fetchPermissions(userId)
   const resource = await getResource(resourceId)
@@ -70,7 +70,7 @@ async function updateResource(resourceId: string, userId: string) {
   return await updateResourceData(resource, permissions)
 }
 
-// Correct: fetches only when needed
+// Doğru: yalnızca gerektiğinde çeker
 async function updateResource(resourceId: string, userId: string) {
   const resource = await getResource(resourceId)
   
@@ -88,20 +88,20 @@ async function updateResource(resourceId: string, userId: string) {
 }
 ```
 
-This optimization is especially valuable when the skipped branch is frequently taken, or when the deferred operation is expensive.
+Bu optimizasyon, atlanan dalın sık kullanıldığı veya ertelenen işlemin pahalı olduğu durumlarda özellikle değerlidir.
 
 ---
 
-## Rule 1.2: Dependency-Based Parallelization
+## Kural 1.2: Bağımlılık Tabanlı Paralelleştirme
 
-**Impact:** CRITICAL  
-**Tags:** async, parallelization, dependencies, better-all  
+**Etki:** KRİTİK  
+**Etiketler:** async, parallelization, dependencies, better-all  
 
-## Dependency-Based Parallelization
+## Bağımlılık Tabanlı Paralelleştirme
 
-For operations with partial dependencies, use `better-all` to maximize parallelism. It automatically starts each task at the earliest possible moment.
+Kısmi bağımlılıkları olan işlemler için, paralelliği maksimize etmek için `better-all` kullanın. Her görevi en erken olası anda otomatik olarak başlatır.
 
-**Incorrect (profile waits for config unnecessarily):**
+**Yanlış (profile gereksiz yere config'i bekliyor):**
 
 ```typescript
 const [user, config] = await Promise.all([
@@ -111,7 +111,7 @@ const [user, config] = await Promise.all([
 const profile = await fetchProfile(user.id)
 ```
 
-**Correct (config and profile run in parallel):**
+**Doğru (config ve profile paralel çalışır):**
 
 ```typescript
 import { all } from 'better-all'
@@ -125,9 +125,9 @@ const { user, config, profile } = await all({
 })
 ```
 
-**Alternative without extra dependencies:**
+**Ekstra bağımlılık olmadan alternatif:**
 
-We can also create all the promises first, and do `Promise.all()` at the end.
+Tüm promise'leri önce oluşturabilir ve sonunda `Promise.all()` yapabiliriz.
 
 ```typescript
 const userPromise = fetchUser()
@@ -140,20 +140,20 @@ const [user, config, profile] = await Promise.all([
 ])
 ```
 
-Reference: [https://github.com/shuding/better-all](https://github.com/shuding/better-all)
+Referans: [https://github.com/shuding/better-all](https://github.com/shuding/better-all)
 
 ---
 
-## Rule 1.3: Prevent Waterfall Chains in API Routes
+## Kural 1.3: API Route'larında Şelale Zincirlerini Önleyin
 
-**Impact:** CRITICAL  
-**Tags:** api-routes, server-actions, waterfalls, parallelization  
+**Etki:** KRİTİK  
+**Etiketler:** api-routes, server-actions, waterfalls, parallelization  
 
-## Prevent Waterfall Chains in API Routes
+## API Route'larında Şelale Zincirlerini Önleyin
 
-In API routes and Server Actions, start independent operations immediately, even if you don't await them yet.
+API route'larında ve Server Action'larda, henüz await etmeseniz bile bağımsız işlemleri hemen başlatın.
 
-**Incorrect (config waits for auth, data waits for both):**
+**Yanlış (config auth'u bekler, data ikisini de bekler):**
 
 ```typescript
 export async function GET(request: Request) {
@@ -164,7 +164,7 @@ export async function GET(request: Request) {
 }
 ```
 
-**Correct (auth and config start immediately):**
+**Doğru (auth ve config hemen başlar):**
 
 ```typescript
 export async function GET(request: Request) {
@@ -179,20 +179,20 @@ export async function GET(request: Request) {
 }
 ```
 
-For operations with more complex dependency chains, use `better-all` to automatically maximize parallelism (see Dependency-Based Parallelization).
+Daha karmaşık bağımlılık zincirleri olan işlemler için, paralelliği otomatik olarak maksimize etmek için `better-all` kullanın (Bağımlılık Tabanlı Paralelleştirme'ye bakın).
 
 ---
 
-## Rule 1.4: Promise.all() for Independent Operations
+## Kural 1.4: Bağımsız İşlemler İçin Promise.all()
 
-**Impact:** CRITICAL  
-**Tags:** async, parallelization, promises, waterfalls  
+**Etki:** KRİTİK  
+**Etiketler:** async, parallelization, promises, waterfalls  
 
-## Promise.all() for Independent Operations
+## Bağımsız İşlemler İçin Promise.all()
 
-When async operations have no interdependencies, execute them concurrently using `Promise.all()`.
+Async işlemlerin birbirine bağımlılığı olmadığında, `Promise.all()` kullanarak eşzamanlı olarak yürütün.
 
-**Incorrect (sequential execution, 3 round trips):**
+**Yanlış (ardışık yürütme, 3 tur gidiş-dönüş):**
 
 ```typescript
 const user = await fetchUser()
@@ -200,7 +200,7 @@ const posts = await fetchPosts()
 const comments = await fetchComments()
 ```
 
-**Correct (parallel execution, 1 round trip):**
+**Doğru (paralel yürütme, 1 tur gidiş-dönüş):**
 
 ```typescript
 const [user, posts, comments] = await Promise.all([
@@ -212,20 +212,20 @@ const [user, posts, comments] = await Promise.all([
 
 ---
 
-## Rule 1.5: Strategic Suspense Boundaries
+## Kural 1.5: Stratejik Suspense Sınırları
 
-**Impact:** HIGH  
-**Tags:** async, suspense, streaming, layout-shift  
+**Etki:** YÜKSEK  
+**Etiketler:** async, suspense, streaming, layout-shift  
 
-## Strategic Suspense Boundaries
+## Stratejik Suspense Sınırları
 
-Instead of awaiting data in async components before returning JSX, use Suspense boundaries to show the wrapper UI faster while data loads.
+Async componentlerde JSX döndürmeden önce veriyi await etmek yerine, Suspense sınırları kullanarak wrapper UI'yi daha hızlı gösterin ve veri yüklenirken bekletin.
 
-**Incorrect (wrapper blocked by data fetching):**
+**Yanlış (wrapper veri çekme ile bloklanır):**
 
 ```tsx
 async function Page() {
-  const data = await fetchData() // Blocks entire page
+  const data = await fetchData() // Tüm sayfayı bloklar
   
   return (
     <div>
@@ -240,9 +240,9 @@ async function Page() {
 }
 ```
 
-The entire layout waits for data even though only the middle section needs it.
+Tüm layout, yalnızca orta bölümün ihtiyacı olsa bile veriyi bekler.
 
-**Correct (wrapper shows immediately, data streams in):**
+**Doğru (wrapper hemen gösterilir, veri akışla gelir):**
 
 ```tsx
 function Page() {
@@ -261,18 +261,18 @@ function Page() {
 }
 
 async function DataDisplay() {
-  const data = await fetchData() // Only blocks this component
+  const data = await fetchData() // Yalnızca bu componenti bloklar
   return <div>{data.content}</div>
 }
 ```
 
-Sidebar, Header, and Footer render immediately. Only DataDisplay waits for data.
+Sidebar, Header ve Footer hemen render edilir. Yalnızca DataDisplay veriyi bekler.
 
-**Alternative (share promise across components):**
+**Alternatif (promise'i componentler arasında paylaş):**
 
 ```tsx
 function Page() {
-  // Start fetch immediately, but don't await
+  // Çekmeyi hemen başlat, ama await etme
   const dataPromise = fetchData()
   
   return (
@@ -289,24 +289,23 @@ function Page() {
 }
 
 function DataDisplay({ dataPromise }: { dataPromise: Promise<Data> }) {
-  const data = use(dataPromise) // Unwraps the promise
+  const data = use(dataPromise) // Promise'i açar (unwrap)
   return <div>{data.content}</div>
 }
 
 function DataSummary({ dataPromise }: { dataPromise: Promise<Data> }) {
-  const data = use(dataPromise) // Reuses the same promise
+  const data = use(dataPromise) // Aynı promise'i yeniden kullanır
   return <div>{data.summary}</div>
 }
 ```
 
-Both components share the same promise, so only one fetch occurs. Layout renders immediately while both components wait together.
+Her iki component de aynı promise'i paylaşır, bu yüzden yalnızca bir fetch gerçekleşir. Layout hemen render edilir, her iki component birlikte bekler.
 
-**When NOT to use this pattern:**
+**Bu deseni NE ZAMAN KULLANMAYIN:**
 
-- Critical data needed for layout decisions (affects positioning)
-- SEO-critical content above the fold
-- Small, fast queries where suspense overhead isn't worth it
-- When you want to avoid layout shift (loading → content jump)
+- Layout kararları için kritik veriler gerektiğinde (konumlandırmayı etkiler)
+- SEO-kritik içerik, sayfa kıvrımının üstünde (above the fold)
+- Küçük, hızlı sorgularda suspense yükü buna değmez
+- Layout shift'ten (yükleniyor → içerik atlama) kaçınmak istediğinizde
 
-**Trade-off:** Faster initial paint vs potential layout shift. Choose based on your UX priorities.
-
+**Takas:** Daha hızlı ilk boyama vs potansiyel layout shift. UX önceliklerinize göre seçin.

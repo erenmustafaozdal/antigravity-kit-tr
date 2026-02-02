@@ -1,215 +1,148 @@
-# Mobile Backend Patterns
+# Mobil Backend Desenleri
 
-> **This file covers backend/API patterns SPECIFIC to mobile clients.**
-> Generic backend patterns are in `nodejs-best-practices` and `api-patterns`.
-> **Mobile backend is NOT the same as web backend. Different constraints, different patterns.**
-
----
-
-## 🧠 MOBILE BACKEND MINDSET
-
-```
-Mobile clients are DIFFERENT from web clients:
-├── Unreliable network (2G, subway, elevator)
-├── Battery constraints (minimize wake-ups)
-├── Limited storage (can't cache everything)
-├── Interrupted sessions (calls, notifications)
-├── Diverse devices (old phones to flagships)
-└── Binary updates are slow (App Store review)
-```
-
-**Your backend must compensate for ALL of these.**
+> **Bu dosya, mobil istemcilere ÖZEL backend/API desenlerini kapsar.**
+> Genel backend desenleri `nodejs-best-practices` ve `api-patterns` dosyalarındadır.
+> **Mobil backend, web backend ile aynı değildir. Farklı kısıtlamalar, farklı desenler.**
 
 ---
 
-## 🚫 AI MOBILE BACKEND ANTI-PATTERNS
+## 🧠 MOBİL BACKEND ZİHNİYETİ
 
-### These are common AI mistakes when building mobile backends:
+```
+Mobil istemciler web istemcilerinden FARKLI özelliklere sahiptir:
+├── Güvenilmez ağ (2G, metro, asansör)
+├── Pil kısıtlamaları (uyandırmaları minimize etme)
+├── Sınırlı depolama (her şey önbelleğe alınamaz)
+├── Kesitilen oturumlar (aramalar, bildirimler)
+├── Çeşitli cihazlar (eski telefonlardan amiral gemilerine)
+└── İkilik (binary) güncellemeler yavaştır (App Store incelemesi)
+```
 
-| ❌ AI Default | Why It's Wrong | ✅ Mobile-Correct |
+**Backend'iniz tüm bunları telafi etmelidir.**
+
+---
+
+## 🚫 YZ MOBİL BACKEND ANTİ-DESENLERİ
+
+### Bunlar mobil backend inşa ederken YZ'lerin yaptığı yaygın hatalardır:
+
+| ❌ YZ Varsayılanı | Neden Yanlış? | ✅ Mobil-Doğru |
 |---------------|----------------|-------------------|
-| Same API for web and mobile | Mobile needs compact responses | Separate mobile endpoints OR field selection |
-| Full object responses | Wastes bandwidth, battery | Partial responses, pagination |
-| No offline consideration | App crashes without network | Offline-first design, sync queues |
-| WebSocket for everything | Battery drain | Push notifications + polling fallback |
-| No app versioning | Can't force updates, breaking changes | Version headers, minimum version check |
-| Generic error messages | Users can't fix issues | Mobile-specific error codes + recovery actions |
-| Session-based auth | Mobile apps restart | Token-based with refresh |
-| Ignore device info | Can't debug issues | Device ID, app version in headers |
+| Web ve mobil için aynı API | Mobilin kompakt yanıtlara ihtiyacı vardır | Ayrı mobil uç noktaları VEYA alan seçimi |
+| Tam nesne yanıtları | Bant genişliği ve pil harcar | Kısmi yanıtlar, sayfalama |
+| Çevrimdışı düşünülmemiş | Ağ olmadan uygulama çöker | Önce-çevrimdışı tasarım, senkronizasyon kuyrukları |
+| Her şey için WebSocket | Pil tüketimi | Push bildirimleri + polling (yoklama) yedeği |
+| Uygulama versiyonlaması yok | Güncelleme zorlanamaz, breaking change riski | Versiyon header'ları, minimum versiyon kontrolü |
+| Genel hata mesajları | Kullanıcılar sorunu çözemez | Mobilde spesifik hata kodları + kurtarma eylemleri |
+| Session tabanlı auth | Mobil uygulamalar sık kapanabilir | Refresh token destekli token tabanlı auth |
+| Cihaz bilgisini yoksayma | Sorunlar hata ayıklanamaz | Header'larda Cihaz ID'si, uygulama versiyonu |
 
 ---
 
-## 1. Push Notifications
+## 1. Push Bildirimleri (Push Notifications)
 
-### Platform Architecture
+### Platform Mimarisi
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    YOUR BACKEND                                  │
+│                    SİZİN BACKEND'İNİZ                            │
 ├─────────────────────────────────────────────────────────────────┤
 │                         │                                        │
 │              ┌──────────┴──────────┐                            │
 │              ▼                     ▼                            │
 │    ┌─────────────────┐   ┌─────────────────┐                    │
 │    │   FCM (Google)  │   │  APNs (Apple)   │                    │
-│    │   Firebase      │   │  Direct or FCM  │                    │
+│    │   Firebase      │   │  Doğrudan/FCM   │                    │
 │    └────────┬────────┘   └────────┬────────┘                    │
 │             │                     │                              │
 │             ▼                     ▼                              │
 │    ┌─────────────────┐   ┌─────────────────┐                    │
-│    │ Android Device  │   │   iOS Device    │                    │
+│    │ Android Cihaz   │   │     iOS Cihaz   │                    │
 │    └─────────────────┘   └─────────────────┘                    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Push Types
+### Push Türleri
 
-| Type | Use Case | User Sees |
+| Tür | Kullanım Durumu | Kullanıcı Ne Görür? |
 |------|----------|-----------|
-| **Display** | New message, order update | Notification banner |
-| **Silent** | Background sync, content update | Nothing (background) |
-| **Data** | Custom handling by app | Depends on app logic |
+| **Display (Görünür)** | Yeni mesaj, sipariş güncellemesi | Bildirim başlığı/banner |
+| **Silent (Sessiz)** | Arka plan senk., içerik güncelleme | Hiçbir şey (arka planda) |
+| **Data (Veri)** | Uygulama tarafından özel işleme | Uygulama mantığına bağlı |
 
-### Anti-Patterns
+### Anti-Desenler
 
-| ❌ NEVER | ✅ ALWAYS |
+| ❌ ASLA | ✅ HER ZAMAN |
 |----------|----------|
-| Send sensitive data in push | Push says "New message", app fetches content |
-| Overload with pushes | Batch, dedupe, respect quiet hours |
-| Same message to all | Segment by user preference, timezone |
-| Ignore failed tokens | Clean up invalid tokens regularly |
-| Skip APNs for iOS | FCM alone doesn't guarantee iOS delivery |
-
-### Token Management
-
-```
-TOKEN LIFECYCLE:
-├── App registers → Get token → Send to backend
-├── Token can change → App must re-register on start
-├── Token expires → Clean from database
-├── User uninstalls → Token becomes invalid (detect via error)
-└── Multiple devices → Store multiple tokens per user
-```
+| Push içinde hassas veri gönder | Push "Yeni mesaj" der, uygulama içeriği çeker |
+| Push yağmuruna tut | Grupla, tekilleştir, sessiz saatlere saygı duy |
+| Herkese aynı mesajı gönder | Kullanıcı tercihi ve zaman dilimine göre segmente et |
+| Başarısız tokenları yoksay | Geçersiz tokenları düzenli olarak temizle |
+| iOS için APNs'i atla | Sadece FCM ile iOS'ta teslimat garantisi yoktur |
 
 ---
 
-## 2. Offline Sync & Conflict Resolution
+## 2. Çevrimdışı Senk. ve Çakışma Çözümü
 
-### Sync Strategy Selection
+### Senkronizasyon Stratejisi Seçimi
 
 ```
-WHAT TYPE OF DATA?
+VERİ TÜRÜ NEDİR?
         │
-        ├── Read-only (news, catalog)
-        │   └── Simple cache + TTL
-        │       └── ETag/Last-Modified for invalidation
+        ├── Salt Okunur (haberler, katalog)
+        │   └── Basit önbellek + TTL
+        │       └── Geçersiz kılma için ETag/Last-Modified
         │
-        ├── User-owned (notes, todos)
-        │   └── Last-write-wins (simple)
-        │       └── Or timestamp-based merge
+        ├── Kullanıcıya Ait (notlar, yapılacaklar)
+        │   └── Son yazan kazanır (basit)
+        │       └── Veya zaman damgası tabanlı birleştirme
         │
-        ├── Collaborative (shared docs)
-        │   └── CRDT or OT required
-        │       └── Consider Firebase/Supabase
+        ├── İş Birlikli (paylaşılan dosyalar)
+        │   └── CRDT veya OT gereklidir
+        │       └── Firebase/Supabase değerlendirin
         │
-        └── Critical (payments, inventory)
-            └── Server is source of truth
-                └── Optimistic UI + server confirmation
+        └── Kritik (ödemeler, envanter)
+            └── Sunucu tek gerçeklik kaynağıdır
+                └── İyimser UI + sunucu onayı
 ```
 
-### Conflict Resolution Strategies
+### Çakışma Çözümü (Conflict Resolution) Stratejileri
 
-| Strategy | How It Works | Best For |
+| Strateji | Nasıl Çalışır? | En İyi Kullanım |
 |----------|--------------|----------|
-| **Last-write-wins** | Latest timestamp overwrites | Simple data, single user |
-| **Server-wins** | Server always authoritative | Critical transactions |
-| **Client-wins** | Offline changes prioritized | Offline-heavy apps |
-| **Merge** | Combine changes field-by-field | Documents, rich content |
-| **CRDT** | Mathematically conflict-free | Real-time collaboration |
-
-### Sync Queue Pattern
-
-```
-CLIENT SIDE:
-├── User makes change → Write to local DB
-├── Add to sync queue → { action, data, timestamp, retries }
-├── Network available → Process queue FIFO
-├── Success → Remove from queue
-├── Failure → Retry with backoff (max 5 retries)
-└── Conflict → Apply resolution strategy
-
-SERVER SIDE:
-├── Accept change with client timestamp
-├── Compare with server version
-├── Apply conflict resolution
-├── Return merged state
-└── Client updates local with server response
-```
+| **Son yazan kazanır** | En yeni zaman damgası üzerine yazar | Basit veri, tek kullanıcı |
+| **Sunucu kazanır** | Sunucu her zaman yetkilidir | Kritik işlemler |
+| **İstemci kazanır** | Çevrimdışı değişiklikler önceliklidir | Çevrimdışı odaklı uygulamalar |
+| **Birleştirme** | Alan bazında değişiklikleri birleştirir | Dokümanlar, zengin içerik |
+| **CRDT** | Matematiksel olarak çakışmasız | Gerçek zamanlı iş birliği |
 
 ---
 
-## 3. Mobile API Optimization
+## 3. Mobil API Optimizasyonu
 
-### Response Size Reduction
+### Yanıt Boyutu Azaltma
 
-| Technique | Savings | Implementation |
+| Teknik | Tasarruf | Uygulama |
 |-----------|---------|----------------|
-| **Field selection** | 30-70% | `?fields=id,name,thumbnail` |
-| **Compression** | 60-80% | gzip/brotli (automatic) |
-| **Pagination** | Varies | Cursor-based for mobile |
-| **Image variants** | 50-90% | `/image?w=200&q=80` |
-| **Delta sync** | 80-95% | Only changed records since timestamp |
-
-### Pagination: Cursor vs Offset
-
-```
-OFFSET (Bad for mobile):
-├── Page 1: OFFSET 0 LIMIT 20
-├── Page 2: OFFSET 20 LIMIT 20
-├── Problem: New item added → duplicates!
-└── Problem: Large offset = slow query
-
-CURSOR (Good for mobile):
-├── First: ?limit=20
-├── Next: ?limit=20&after=cursor_abc123
-├── Cursor = encoded (id + sort values)
-├── No duplicates on data changes
-└── Consistent performance
-```
-
-### Batch Requests
-
-```
-Instead of:
-GET /users/1
-GET /users/2  
-GET /users/3
-(3 round trips, 3x latency)
-
-Use:
-POST /batch
-{ requests: [
-    { method: "GET", path: "/users/1" },
-    { method: "GET", path: "/users/2" },
-    { method: "GET", path: "/users/3" }
-]}
-(1 round trip)
-```
+| **Alan seçimi** | 30-70% | `?fields=id,name,thumbnail` |
+| **Sıkıştırma** | 60-80% | gzip/brotli (otomatik) |
+| **Sayfalama** | Değişken | Mobil için cursor tabanlı |
+| **Görsel varyasyonlar** | 50-90% | `/image?w=200&q=80` |
+| **Delta senkronizasyonu**| 80-95% | Zaman damgasından sonraki değişiklikler |
 
 ---
 
-## 4. App Versioning
+## 4. Uygulama Versiyonlaması
 
-### Version Check Endpoint
+### Versiyon Kontrol Uç Noktası (Endpoint)
 
-```
-GET /api/app-config
-Headers:
-  X-App-Version: 2.1.0
-  X-Platform: ios
-  X-Device-ID: abc123
+```json
+// GET /api/app-config
+// Headers:
+//   X-App-Version: 2.1.0
+//   X-Platform: ios
+//   X-Device-ID: abc123
 
-Response:
 {
   "minimum_version": "2.0.0",
   "latest_version": "2.3.0",
@@ -224,75 +157,44 @@ Response:
 }
 ```
 
-### Version Comparison Logic
-
-```
-CLIENT VERSION vs MINIMUM VERSION:
-├── client >= minimum → Continue normally
-├── client < minimum → Show force update screen
-│   └── Block app usage until updated
-└── client < latest → Show optional update prompt
-
-FEATURE FLAGS:
-├── Enable/disable features without app update
-├── A/B testing by version/device
-└── Gradual rollout (10% → 50% → 100%)
-```
-
 ---
 
-## 5. Authentication for Mobile
+## 5. Mobil İçin Kimlik Doğrulama (Authentication)
 
-### Token Strategy
+### Token Stratejisi
 
 ```
 ACCESS TOKEN:
-├── Short-lived (15 min - 1 hour)
-├── Stored in memory (not persistent)
-├── Used for API requests
-└── Refresh when expired
+├── Kısa ömürlü (15 dk - 1 saat)
+├── Bellekte saklanır (kalıcı değil)
+├── API istekleri için kullanılır
+└── Süresi dolduğunda yenilenir
 
 REFRESH TOKEN:
-├── Long-lived (30-90 days)
-├── Stored in SecureStore/Keychain
-├── Used only to get new access token
-└── Rotate on each use (security)
+├── Uzun ömürlü (30-90 gün)
+├── SecureStore/Keychain içinde saklanır
+├── Sadece yeni access token almak için kullanılır
+└── Her kullanımda yenilenir (güvenlik için rotate)
 
 DEVICE TOKEN:
-├── Identifies this device
-├── Allows "log out all devices"
-├── Stored alongside refresh token
-└── Server tracks active devices
-```
-
-### Silent Re-authentication
-
-```
-REQUEST FLOW:
-├── Make request with access token
-├── 401 Unauthorized?
-│   ├── Have refresh token?
-│   │   ├── Yes → Call /auth/refresh
-│   │   │   ├── Success → Retry original request
-│   │   │   └── Failure → Force logout
-│   │   └── No → Force logout
-│   └── Token just expired (not invalid)
-│       └── Auto-refresh, user doesn't notice
-└── Success → Continue
+├── Bu cihazı tanımlar
+├── "Tüm cihazlardan çıkış yap" imkanı sunar
+├── Refresh token ile birlikte saklanır
+└── Sunucu aktif cihazları takip eder
 ```
 
 ---
 
-## 6. Error Handling for Mobile
+## 6. Mobil İçin Hata Yönetimi
 
-### Mobile-Specific Error Format
+### Mobil-Özel Hata Formatı
 
 ```json
 {
   "error": {
     "code": "PAYMENT_DECLINED",
-    "message": "Your payment was declined",
-    "user_message": "Please check your card details or try another payment method",
+    "message": "Ödemeniz reddedildi",
+    "user_message": "Lütfen kart bilgilerinizi kontrol edin veya başka bir yöntem deneyin",
     "action": {
       "type": "navigate",
       "destination": "payment_methods"
@@ -305,187 +207,65 @@ REQUEST FLOW:
 }
 ```
 
-### Error Categories
-
-| Code Range | Category | Mobile Handling |
-|------------|----------|-----------------|
-| 400-499 | Client error | Show message, user action needed |
-| 401 | Auth expired | Silent refresh or re-login |
-| 403 | Forbidden | Show upgrade/permission screen |
-| 404 | Not found | Remove from local cache |
-| 409 | Conflict | Show sync conflict UI |
-| 429 | Rate limit | Retry after header, backoff |
-| 500-599 | Server error | Retry with backoff, show "try later" |
-| Network | No connection | Use cached data, queue for sync |
-
 ---
 
-## 7. Media & Binary Handling
+## 7. Medya ve Binary İşleme
 
-### Image Optimization
+### Görsel Optimizasyonu
 
 ```
-CLIENT REQUEST:
+İSTEMCİ İSTEĞİ:
 GET /images/{id}?w=400&h=300&q=80&format=webp
 
-SERVER RESPONSE:
-├── Resize on-the-fly OR use CDN
-├── WebP for Android (smaller)
-├── HEIC for iOS 14+ (if supported)
-├── JPEG fallback
+SUNUCU YANITI:
+├── Anlık boyutlandırma VEYA CDN kullanımı
+├── Android için WebP (daha küçük)
+├── iOS 14+ için HEIC (destekleniyorsa)
+├── JPEG yedeği
 └── Cache-Control: max-age=31536000
 ```
 
-### Chunked Upload (Large Files)
+---
+
+## 8. Mobil Güvenlik
+
+### Cihaz Doğrulaması (Attestation)
 
 ```
-UPLOAD FLOW:
-1. POST /uploads/init
-   { filename, size, mime_type }
-   → { upload_id, chunk_size }
-
-2. PUT /uploads/{upload_id}/chunks/{n}
-   → Upload each chunk (1-5 MB)
-   → Can resume if interrupted
-
-3. POST /uploads/{upload_id}/complete
-   → Server assembles chunks
-   → Return final file URL
+GERÇEK CİHAZ DOĞRULAMA (emülatör/bot değil):
+├── iOS: DeviceCheck API (Sunucu Apple ile doğrular)
+├── Android: Play Integrity API (Sunucu Google ile doğrular)
+└── Fail closed: Doğrulama başarısızsa reddet
 ```
 
-### Streaming Audio/Video
+### İstek İmzalama (Request Signing)
 
 ```
-REQUIREMENTS:
-├── HLS (HTTP Live Streaming) for iOS
-├── DASH or HLS for Android
-├── Multiple quality levels (adaptive bitrate)
-├── Range request support (seeking)
-└── Offline download chunks
+İSTEMCİ:
+├── İmza oluşturur = HMAC(zaman damgası + yol + gövde, secret)
+├── Gönderir: X-Signature: {imza}
+├── Gönderir: X-Timestamp: {zaman_damgası}
+└── Gönderir: X-Device-ID: {cihaz_id}
 
-ENDPOINTS:
-GET /media/{id}/manifest.m3u8  → HLS manifest
-GET /media/{id}/segment_{n}.ts → Video segment
-GET /media/{id}/download       → Full file for offline
+SUNUCU:
+├── Zaman damgasını doğrular (5 dakika içinde)
+├── Aynı girdilerle imzayı tekrar oluşturur
+├── İmzaları karşılaştırır
+└── Eşleşmezse reddeder (veri kurcalanmış demektir)
 ```
 
 ---
 
-## 8. Security for Mobile
+## 📝 MOBİL BACKEND KONTROL LİSTESİ
 
-### Device Attestation
-
-```
-VERIFY REAL DEVICE (not emulator/bot):
-├── iOS: DeviceCheck API
-│   └── Server verifies with Apple
-├── Android: Play Integrity API (replaces SafetyNet)
-│   └── Server verifies with Google
-└── Fail closed: Reject if attestation fails
-```
-
-### Request Signing
-
-```
-CLIENT:
-├── Create signature = HMAC(timestamp + path + body, secret)
-├── Send: X-Signature: {signature}
-├── Send: X-Timestamp: {timestamp}
-└── Send: X-Device-ID: {device_id}
-
-SERVER:
-├── Validate timestamp (within 5 minutes)
-├── Recreate signature with same inputs
-├── Compare signatures
-└── Reject if mismatch (tampering detected)
-```
-
-### Rate Limiting
-
-```
-MOBILE-SPECIFIC LIMITS:
-├── Per device (X-Device-ID)
-├── Per user (after auth)
-├── Per endpoint (stricter for sensitive)
-└── Sliding window preferred
-
-HEADERS:
-X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 95
-X-RateLimit-Reset: 1609459200
-Retry-After: 60 (when 429)
-```
+- [ ] **Mobil-özel gereksinimler belirlendi mi?**
+- [ ] **Çevrimdışı davranış planlandı mı?**
+- [ ] **Yanıtlar olabildiğince küçük mü?**
+- [ ] **Token yenileme (refresh) uygulandı mı?**
+- [ ] **Hassas veri push mesajı içinde gönderiliyor mu? (GÖNDERİLMEMELİ)**
+- [ ] **Versiyon kontrol ucu (endpoint) hazır mı?**
+- [ ] **Cihaz ID'si, uygulama versiyonu vb. header'lar ekleniyor mu?**
 
 ---
 
-## 9. Monitoring & Analytics
-
-### Required Headers from Mobile
-
-```
-Every mobile request should include:
-├── X-App-Version: 2.1.0
-├── X-Platform: ios | android
-├── X-OS-Version: 17.0
-├── X-Device-Model: iPhone15,2
-├── X-Device-ID: uuid (persistent)
-├── X-Request-ID: uuid (per request, for tracing)
-├── Accept-Language: tr-TR
-└── X-Timezone: Europe/Istanbul
-```
-
-### What to Log
-
-```
-FOR EACH REQUEST:
-├── All headers above
-├── Endpoint, method, status
-├── Response time
-├── Error details (if any)
-└── User ID (if authenticated)
-
-ALERTS:
-├── Error rate > 5% per version
-├── P95 latency > 2 seconds
-├── Specific version crash spike
-├── Auth failure spike (attack?)
-└── Push delivery failure spike
-```
-
----
-
-## 📝 MOBILE BACKEND CHECKLIST
-
-### Before API Design
-- [ ] Identified mobile-specific requirements?
-- [ ] Planned offline behavior?
-- [ ] Designed sync strategy?
-- [ ] Considered bandwidth constraints?
-
-### For Every Endpoint
-- [ ] Response as small as possible?
-- [ ] Pagination cursor-based?
-- [ ] Proper caching headers?
-- [ ] Mobile error format with actions?
-
-### Authentication
-- [ ] Token refresh implemented?
-- [ ] Silent re-auth flow?
-- [ ] Multi-device logout?
-- [ ] Secure token storage guidance?
-
-### Push Notifications
-- [ ] FCM + APNs configured?
-- [ ] Token lifecycle managed?
-- [ ] Silent vs display push defined?
-- [ ] Sensitive data NOT in push payload?
-
-### Release
-- [ ] Version check endpoint ready?
-- [ ] Feature flags configured?
-- [ ] Force update mechanism?
-- [ ] Monitoring headers required?
-
----
-
-> **Remember:** Mobile backend must be resilient to bad networks, respect battery life, and handle interrupted sessions gracefully. The client cannot be trusted, but it also cannot be hung up—provide offline capabilities and clear error recovery paths.
+> **Unutma:** Mobil backend kötü ağlara dayanıklı olmalı, pil ömrüne saygı duymalı ve kesilen oturumları zarafetle yönetmelidir. İstemciye (client) güvenilemez ama onu tıkanmış halde de bırakamazsınız; çevrimdışı yetenekler ve net hata kurtarma yolları sağlayın.

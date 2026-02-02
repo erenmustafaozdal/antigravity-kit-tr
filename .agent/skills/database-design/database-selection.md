@@ -1,43 +1,43 @@
-# Database Selection (2025)
+# Veritabanı Seçimi (2025)
 
-> Choose database based on context, not default.
+> Veritabanını varsayılanlara göre değil, bağlama göre seçin.
 
-## Decision Tree
+## Karar Ağacı
 
 ```
-What are your requirements?
+Gereksinimleriniz nelerdir?
 │
-├── Full relational features needed
-│   ├── Self-hosted → PostgreSQL
-│   └── Serverless → Neon, Supabase
+├── Tam ilişkisel özellikler gerekiyor
+│   ├── Kendi sunucumuz (Self-hosted) → PostgreSQL
+│   └── Sunucusuz (Serverless) → Neon, Supabase
 │
-├── Edge deployment / Ultra-low latency
-│   └── Turso (edge SQLite)
+├── Edge dağıtımı / Çok düşük gecikme
+│   └── Turso (edge üzerinde SQLite)
 │
-├── AI / Vector search
+├── YZ / Vektör arama
 │   └── PostgreSQL + pgvector
 │
-├── Simple / Embedded / Local
+├── Basit / Yerleşik (Embedded) / Yerel
 │   └── SQLite
 │
-└── Global distribution
+└── Küresel dağıtım
     └── PlanetScale, CockroachDB, Turso
 ```
 
-## Comparison
+## Karşılaştırma
 
-| Database | Best For | Trade-offs |
+| Veritabanı | En İyi Kullanım | Takaslar (Trade-offs) |
 |----------|----------|------------|
-| **PostgreSQL** | Full features, complex queries | Needs hosting |
-| **Neon** | Serverless PG, branching | PG complexity |
-| **Turso** | Edge, low latency | SQLite limitations |
-| **SQLite** | Simple, embedded, local | Single-writer |
-| **PlanetScale** | MySQL, global scale | No foreign keys |
+| **PostgreSQL** | Tam özellikli, karmaşık sorgular | Barındırma gerektirir |
+| **Neon** | Serverless PG, dallanma (branching) | PG karmaşıklığı |
+| **Turso** | Edge, düşük gecikme | SQLite kısıtlamaları |
+| **SQLite** | Basit, gömülü, yerel | Tek yazıcı (single-writer) kısıtı |
+| **PlanetScale** | MySQL, küresel ölçek | Dış anahtar (foreign key) kısıtlamaları |
 
-## Questions to Ask
+## Sorulacak Sorular
 
-1. What's the deployment environment?
-2. How complex are the queries?
-3. Is edge/serverless important?
-4. Vector search needed?
-5. Global distribution required?
+1. Dağıtım (deployment) ortamı nedir?
+2. Sorgular ne kadar karmaşık?
+3. Edge/serverless desteği önemli mi?
+4. Vektör arama gerekiyor mu?
+5. Küresel dağıtım şart mı?

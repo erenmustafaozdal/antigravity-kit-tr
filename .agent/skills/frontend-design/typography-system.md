@@ -1,345 +1,345 @@
-# Typography System Reference
+# Tipografi Sistemi Referansı
 
-> Typography principles and decision-making - learn to think, not memorize.
-> **No fixed font names or sizes - understand the system.**
+> Tipografi prensipleri ve karar verme süreci - ezberlemeyi değil, düşünmeyi öğrenin.
+> **Sabit yazı tipi isimleri veya boyutları yok - sistemi anlayın.**
 
 ---
 
-## 1. Modular Scale Principles
+## 1. Modüler Ölçek (Modular Scale) Prensipleri
 
-### What is a Modular Scale?
+### Modüler Ölçek Nedir?
 
 ```
-A mathematical relationship between font sizes:
-├── Pick a BASE size (usually body text)
-├── Pick a RATIO (multiplier)
-└── Generate all sizes using: base × ratio^n
+Yazı boyutları arasındaki matematiksel ilişkidir:
+├── Bir TEMEL (base) boyut seçin (genellikle gövde metni)
+├── Bir ORAN (çarpan) seçin
+└── Tüm boyutları şu formülle üretin: temel × oran^n
 ```
 
-### Common Ratios and When to Use
+### Yaygın Oranlar ve Kullanım Alanları
 
-| Ratio | Value | Feeling | Best For |
+| Oran | Değer | Hissi | En İyi Kullanım |
 |-------|-------|---------|----------|
-| Minor Second | 1.067 | Very subtle | Dense UI, small screens |
-| Major Second | 1.125 | Subtle | Compact interfaces |
-| Minor Third | 1.2 | Comfortable | Mobile apps, cards |
-| Major Third | 1.25 | Balanced | General web (most common) |
-| Perfect Fourth | 1.333 | Noticeable | Editorial, blogs |
-| Perfect Fifth | 1.5 | Dramatic | Headlines, marketing |
-| Golden Ratio | 1.618 | Maximum impact | Hero sections, display |
+| Minor Second | 1.067 | Çok hafif | Yoğun arayüzler, küçük ekranlar |
+| Major Second | 1.125 | Hafif | Kompakt arayüzler |
+| Minor Third | 1.2 | Rahat | Mobil uygulamalar, kartlar |
+| Major Third | 1.25 | Dengeli | Genel web (en yaygın) |
+| Perfect Fourth | 1.333 | Belirgin | Editöryel içerik, bloglar |
+| Perfect Fifth | 1.5 | Dramatik | Başlıklar, pazarlama sayfaları |
+| Altın Oran | 1.618 | Maksimum etki | Hero bölümleri, büyük ekranlar |
 
-### Generate Your Scale
+### Ölçeğinizi Oluşturun
 
 ```
-Given: base = YOUR_BASE_SIZE, ratio = YOUR_RATIO
+Verilen: temel = TEMEL_BOYUTUNUZ, oran = ORANINIZ
 
-Scale:
-├── xs:  base ÷ ratio²
-├── sm:  base ÷ ratio
-├── base: YOUR_BASE_SIZE
-├── lg:  base × ratio
-├── xl:  base × ratio²
-├── 2xl: base × ratio³
-├── 3xl: base × ratio⁴
-└── ... continue as needed
+Ölçek:
+├── xs:  temel ÷ oran²
+├── sm:  temel ÷ oran
+├── temel: TEMEL_BOYUTUNUZ
+├── lg:  temel × oran
+├── xl:  temel × oran²
+├── 2xl: temel × oran³
+├── 3xl: temel × oran⁴
+└── ... gerektiği kadar devam edin
 ```
 
-### Choosing Base Size
+### Temel Boyut Seçimi
 
-| Context | Base Size Range | Why |
+| Bağlam | Temel Boyut Aralığı | Neden? |
 |---------|-----------------|-----|
-| Mobile-first | 16-18px | Readability on small screens |
-| Desktop app | 14-16px | Information density |
-| Editorial | 18-21px | Long-form reading comfort |
-| Accessibility focus | 18px+ | Easier to read |
+| Mobil öncelikli | 16-18px | Küçük ekranlarda okunabilirlik |
+| Masaüstü uygulama | 14-16px | Bilgi yoğunluğu ve verimlilik |
+| Editöryel | 18-21px | Uzun okumalarda konfor |
+| Erişilebilirlik odaklı| 18px+ | Daha kolay okuma |
 
 ---
 
-## 2. Font Pairing Principles
+## 2. Yazı Tipi Eşleştirme (Font Pairing) Prensipleri
 
-### What Makes Fonts Work Together
+### Yazı Tiplerini Birbirine Uygun Kılan Nedir?
 
 ```
-Contrast + Harmony:
-├── Different ENOUGH to create hierarchy
-├── Similar ENOUGH to feel cohesive
-└── Usually: serif + sans, or display + neutral
+Kontrast + Uyum:
+├── Hiyerarşi yaratacak kadar FARKLI
+├── Bütünlük hissi verecek kadar BENZER
+└── Genellikle: serif + sans-serif, veya ekran fontu + nötr font
 ```
 
-### Pairing Strategies
+### Eşleştirme Stratejileri
 
-| Strategy | How | Result |
+| Strateji | Nasıl Yapılır | Sonuç |
 |----------|-----|--------|
-| **Contrast** | Serif heading + Sans body | Classic, editorial feel |
-| **Same Family** | One variable font, different weights | Cohesive, modern |
-| **Same Designer** | Fonts by same foundry | Often harmonious proportions |
-| **Era Match** | Fonts from same time period | Historical consistency |
+| **Kontrast** | Serif başlık + Sans gövde | Klasik, editöryel his |
+| **Aynı Aile** | Tek bir değişken font, farklı ağırlıklar | Bütünsel, modern |
+| **Aynı Tasarımcı** | Aynı dökümhaneden çıkan fontlar | Genellikle uyumlu oranlar |
+| **Dönem Uyumu** | Aynı zaman dilimine ait fontlar | Tarihsel tutarlılık |
 
-### What to Look For
+### Nelere Bakılmalı?
 
 ```
-When pairing, compare:
-├── x-height (height of lowercase letters)
-├── Letter width (narrow vs wide)
-├── Stroke contrast (thin/thick variation)
-└── Overall mood (formal vs casual)
+Eşleştirirken şunları karşılaştırın:
+├── x-yüksekliği (küçük harflerin yüksekliği)
+├── Harf genişliği (dar vs geniş)
+├── Çizgi kontrastı (ince/kalın varyasyonu)
+└── Genel ruh hali (resmi vs rahat)
 ```
 
-### Safe Pairing Patterns
+### Güvenli Eşleştirme Desenleri
 
-| Heading Style | Body Style | Mood |
+| Başlık Stili | Gövde Stili | Ruh Hali |
 |---------------|------------|------|
-| Geometric sans | Humanist sans | Modern, friendly |
-| Display serif | Clean sans | Editorial, sophisticated |
-| Neutral sans | Same sans | Minimal, tech |
-| Bold geometric | Light geometric | Contemporary |
+| Geometrik sans | Humanist sans | Modern, cana yakın |
+| Display serif | Temiz sans | Editöryel, sofistike |
+| Nötr sans | Aynı sans | Minimal, teknolojik |
+| Kalın geometrik | İnce geometrik | Çağdaş |
 
-### Avoid
+### Kaçınılması Gerekenler
 
-- ❌ Two decorative fonts together
-- ❌ Similar fonts that conflict
-- ❌ More than 2-3 font families
-- ❌ Fonts with very different x-heights
+- ❌ İki farklı dekoratif fontu birlikte kullanmak
+- ❌ Birbiriyle çakışan birbirine çok benzer fontlar
+- ❌ 2-3'ten fazla font ailesi kullanmak
+- ❌ x-yükseklikleri çok farklı olan fontlar
 
 ---
 
-## 3. Line Height Principles
+## 3. Satır Yüksekliği (Line Height) Prensipleri
 
-### The Relationship
+### İlişki Döngüsü
 
 ```
-Line height depends on:
-├── Font size (larger text = less line height needed)
-├── Line length (longer lines = more line height)
-├── Font design (some fonts need more space)
-└── Content type (headings vs body)
+Satır yüksekliği şunlara bağlıdır:
+├── Yazı boyutu (büyük metin = daha az satır yüksekliği)
+├── Satır genişliği (uzun satırlar = daha fazla satır yüksekliği)
+├── Yazı tipi tasarımı (bazı fontlar daha fazla alana ihtiyaç duyar)
+└── İçerik türü (başlıklar vs gövde metni)
 ```
 
-### Guidelines by Context
+### Bağlama Göre Yönergeler
 
-| Content Type | Line Height Range | Why |
+| İçerik Türü | Satır Yüksekliği Aralığı | Neden? |
 |--------------|-------------------|-----|
-| **Headings** | 1.1 - 1.3 | Short lines, want compact |
-| **Body text** | 1.4 - 1.6 | Comfortable reading |
-| **Long-form** | 1.6 - 1.8 | Maximum readability |
-| **UI elements** | 1.2 - 1.4 | Space efficiency |
+| **Başlıklar** | 1.1 - 1.3 | Kısa satırlar, kompakt görünüm |
+| **Gövde metni** | 1.4 - 1.6 | Rahat okuma |
+| **Uzun yazılar** | 1.6 - 1.8 | Maksimum okunabilirlik |
+| **Arayüz öğeleri**| 1.2 - 1.4 | Alan verimliliği |
 
-### Adjustment Factors
+### Ayarlama Faktörleri
 
-- **Longer line length** → Increase line height
-- **Larger font size** → Decrease line height ratio
-- **All caps** → May need more line height
-- **Tight tracking** → May need more line height
+- **Daha uzun satır genişliği** → Satır yüksekliğini artırın
+- **Daha büyük yazı boyutu** → Satır yüksekliği oranını azaltın
+- **Tamamı büyük harf** → Daha fazla satır yüksekliğine ihtiyaç duyabilir
+- **Dar harf boşluğu (tracking)** → Daha fazla satır yüksekliği gerekebilir
 
 ---
 
-## 4. Line Length Principles
+## 4. Satır Genişliği (Line Length) Prensipleri
 
-### Optimal Reading Width
+### En Uygun Okuma Genişliği
 
 ```
-The sweet spot: 45-75 characters per line
-├── < 45: Too choppy, breaks flow
-├── 45-75: Comfortable reading
-├── > 75: Eye tracking strain
+İdeal nokta: Satır başına 45-75 karakter
+├── < 45: Çok kesik, akışı bozar
+├── 45-75: Rahat okuma deneyimi
+├── > 75: Göz takibini zorlaştırır ve yorar
 ```
 
-### How to Measure
+### Nasıl Ölçülür?
 
 ```css
-/* Character-based (recommended) */
-max-width: 65ch; /* ch = width of "0" character */
+/* Karakter tabanlı (önerilen) */
+max-width: 65ch; /* ch = "0" karakterinin genişliğidir */
 
-/* This adapts to font size automatically */
+/* Bu, yazı boyutuna göre otomatik olarak ayarlanır */
 ```
 
-### Context Adjustments
+### Bağlama Göre Ayarlamalar
 
-| Context | Character Range |
+| Bağlam | Karakter Aralığı |
 |---------|-----------------|
-| Desktop article | 60-75 characters |
-| Mobile | 35-50 characters |
-| Sidebar text | 30-45 characters |
-| Wide monitors | Still cap at ~75ch |
+| Masaüstü makale | 60-75 karakter |
+| Mobil | 35-50 karakter |
+| Yan panel metni | 30-45 karakter |
+| Geniş monitörler | Yine de ~75ch ile sınırlandırın |
 
 ---
 
-## 5. Responsive Typography Principles
+## 5. Duyarlı (Responsive) Tipografi Prensipleri
 
-### The Problem
+### Sorun Tanımı
 
 ```
-Fixed sizes don't scale well:
-├── Desktop size too big on mobile
-├── Mobile size too small on desktop
-└── Breakpoint jumps feel jarring
+Sabit boyutlar iyi ölçeklenmez:
+├── Masaüstü boyutu mobilde çok büyük kalır
+├── Mobil boyutu masaüstünde çok küçük kalır
+└── Kesme noktası (breakpoint) sıçramaları rahatsız edici hissettirir
 ```
 
-### Fluid Typography (clamp)
+### Akışkan Tipografi (Fluid Typography - clamp)
 
 ```css
-/* Syntax: clamp(MIN, PREFERRED, MAX) */
+/* Sözdizimi: clamp(MİN, TERCİH EDİLEN, MAKS) */
 font-size: clamp(
-  MINIMUM_SIZE,
-  FLUID_CALCULATION,
-  MAXIMUM_SIZE
+  MINIMUM_BOYUT,
+  AKISKAN_HESAPLAMA,
+  MAKSIMUM_BOYUT
 );
 
-/* FLUID_CALCULATION typically: 
-   base + viewport-relative-unit */
+/* AKISKAN_HESAPLAMA genellikle şöyledir: 
+   temel + viewport-relative-unit */
 ```
 
-### Scaling Strategy
+### Ölçeklendirme Stratejisi
 
-| Element | Scaling Behavior |
+| Öğe | Ölçeklendirme Davranışı |
 |---------|-----------------|
-| Body text | Slight scaling (1rem → 1.125rem) |
-| Subheadings | Moderate scaling |
-| Headings | More dramatic scaling |
-| Display text | Most dramatic scaling |
+| Gövde metni | Hafif ölçeklendirme (1rem → 1.125rem) |
+| Alt başlıklar | Orta düzeyde ölçeklendirme |
+| Başlıklar | Daha dramatik ölçeklendirme |
+| Display (Ekran) metni | En dramatik ölçeklendirme |
 
 ---
 
-## 6. Weight and Emphasis Principles
+## 6. Ağırlık (Weight) ve Vurgu Prensipleri
 
-### Semantic Weight Usage
+### Semantik Ağırlık Kullanımı
 
-| Weight Range | Name | Use For |
+| Ağırlık Aralığı | Adı | Kullanım Alanı |
 |--------------|------|---------|
-| 300-400 | Light/Normal | Body text, paragraphs |
-| 500 | Medium | Subtle emphasis |
-| 600 | Semibold | Subheadings, labels |
-| 700 | Bold | Headings, strong emphasis |
-| 800-900 | Heavy/Black | Display, hero text |
+| 300-400 | Light/Normal | Gövde metni, paragraflar |
+| 500 | Medium | Hafif vurgu |
+| 600 | Semibold | Alt başlıklar, etiketler |
+| 700 | Bold | Başlıklar, güçlü vurgu |
+| 800-900 | Heavy/Black | Hero metni, büyük başlıklar |
 
-### Creating Contrast
+### Kontrast Yaratma
 
 ```
-Good contrast = skip at least 2 weight levels
-├── 400 body + 700 heading = good
-├── 400 body + 500 emphasis = subtle
-├── 600 heading + 700 subheading = too similar
+İyi kontrast = en az 2 ağırlık seviyesi atlamak
+├── 400 gövde + 700 başlık = İYİ
+├── 400 gövde + 500 vurgu = HAFİF/ZAYIF
+├── 600 başlık + 700 alt başlık = BİRBİRİNE ÇOK BENZER
 ```
 
-### Avoid
+### Kaçınılması Gerekenler
 
-- ❌ Too many weights (max 3-4 per page)
-- ❌ Adjacent weights for hierarchy (400/500)
-- ❌ Heavy weights for long text
+- ❌ Çok fazla farklı ağırlık kullanımı (sayfa başına maksimum 3-4)
+- ❌ Hiyerarşi için birbirine çok yakın ağırlıklar (400/500)
+- ❌ Uzun metinler için çok ağır/kalın fontlar
 
 ---
 
-## 7. Letter Spacing (Tracking)
+## 7. Harf Aralığı (Tracking)
 
-### Principles
+### Prensipler
 
 ```
-Large text (headings): tighter tracking
-├── Letters are big, gaps feel larger
-└── Slight negative tracking looks better
+Büyük metin (başlıklar): Daha dar harf aralığı
+├── Harfler büyüktür, boşluklar daha büyük hissedilir
+└── Hafif negatif aralık daha iyi görünür
 
-Small text (body): normal or slightly wider
-├── Improves readability at small sizes
-└── Never negative for body text
+Küçük metin (gövde): Normal veya hafif geniş aralık
+├── Küçük boyutlarda okunabilirliği artırır
+└── Gövde metni için asla negatif aralık kullanmayın
 
-ALL CAPS: always wider tracking
-├── Uppercase lacks ascenders/descenders
-└── Needs more space to feel right
+HEPSİ BÜYÜK HARF: Her zaman daha geniş harf aralığı
+├── Büyük harflerin alt/üst uzantıları yoktur
+└── Doğru hissettirmesi için daha fazla alana ihtiyaç duyar
 ```
 
-### Adjustment Guidelines
+### Ayarlama Yönergeleri
 
-| Context | Tracking Adjustment |
+| Bağlam | Harf Aralığı Ayarı |
 |---------|---------------------|
-| Display/Hero | -2% to -4% |
-| Headings | -1% to -2% |
-| Body text | 0% (normal) |
-| Small text | +1% to +2% |
-| ALL CAPS | +5% to +10% |
+| Display/Hero | -%2 ile -%4 arası |
+| Başlıklar | -%1 ile -%2 arası |
+| Gövde metni | %0 (normal) |
+| Küçük metin | +%1 ile +%2 arası |
+| HEPSİ BÜYÜK | +%5 ile +%10 arası |
 
 ---
 
-## 8. Hierarchy Principles
+## 8. Hiyerarşi Prensipleri
 
-### Visual Hierarchy Through Type
+### Yazı Yoluyla Görsel Hiyerarşi
 
 ```
-Ways to create hierarchy:
-├── SIZE (most obvious)
-├── WEIGHT (bold stands out)
-├── COLOR (contrast levels)
-├── SPACING (margins separate sections)
-└── POSITION (top = important)
+Hiyerarşi yaratma yolları:
+├── BOYUT (en belirgin olan)
+├── AĞIRLIK (kalın olan öne çıkar)
+├── RENK (kontrast seviyeleri)
+├── BOŞLUK (kenar boşlukları bölümleri ayırır)
+└── KONUM (üstte olan önemlidir)
 ```
 
-### Typical Hierarchy
+### Tipik Hiyerarşi Düzeni
 
-| Level | Characteristics |
+| Seviye | Özellikler |
 |-------|-----------------|
-| Primary (H1) | Largest, boldest, most distinct |
-| Secondary (H2) | Noticeably smaller but still bold |
-| Tertiary (H3) | Medium size, may use weight only |
-| Body | Standard size and weight |
-| Caption/Meta | Smaller, often lighter color |
+| Birincil (H1) | En büyük, en kalın, en belirgin |
+| İkincil (H2) | Belirgin şekilde daha küçük ama hala kalın |
+| Üçüncil (H3) | Orta boy, sadece ağırlık farkı kullanılabilir |
+| Gövde | Standart boyut ve ağırlık |
+| Altyazı/Meta | Daha küçük, genellikle daha açık renk |
 
-### Testing Hierarchy
+### Hiyerarşiyi Test Etme
 
-Ask: "Can I tell what's most important at a glance?"
+Sorun: "Bakışta neyin en önemli olduğunu anlayabiliyor muyum?"
 
-If squinting at the page, the hierarchy should still be clear.
+Gözlerinizi kısarak sayfalara baktığınızda, hiyerarşi hala net olmalıdır.
 
 ---
 
-## 9. Readability Psychology
+## 9. Okunabilirlik Psikolojisi
 
-### F-Pattern Reading
+### F-Tipi Okuma Deseni (F-Pattern)
 
 ```
-Users scan in F-pattern:
-├── Across the top (first line)
-├── Down the left side
-├── Across again (subheading)
-└── Continue down left
+Kullanıcılar F-şeklinde tarar:
+├── Üst kısım boyunca (ilk satır)
+├── Sol kenardan aşağıya doğru
+├── Tekrar yatay (alt başlık)
+└── Sol kenardan aşağı devam eder
 ```
 
-**Implication**: Key info on left and in headings
+**Sonuç**: Kritik bilgiler solda ve başlıklarda olmalıdır.
 
-### Chunking for Comprehension
+### Anlaşılabilirlik İçin Gruplandırma (Chunking)
 
-- Short paragraphs (3-4 lines max)
-- Clear subheadings
-- Bullet points for lists
-- White space between sections
+- Kısa paragraflar (en fazla 3-4 satır)
+- Net alt başlıklar
+- Listeler için madde işaretleri
+- Bölümler arasında beyaz boşluk (whitespace)
 
-### Cognitive Ease
+### Bilişsel Kolaylık
 
-- Familiar fonts = easier reading
-- High contrast = less strain
-- Consistent patterns = predictable
-
----
-
-## 10. Typography Selection Checklist
-
-Before finalizing typography:
-
-- [ ] **Asked user for font preferences?**
-- [ ] **Considered brand/context?**
-- [ ] **Selected appropriate scale ratio?**
-- [ ] **Limited to 2-3 font families?**
-- [ ] **Tested readability at all sizes?**
-- [ ] **Checked line length (45-75ch)?**
-- [ ] **Verified contrast for accessibility?**
-- [ ] **Different from your last project?**
-
-### Anti-Patterns
-
-- ❌ Same fonts every project
-- ❌ Too many font families
-- ❌ Ignoring readability for style
-- ❌ Fixed sizes without responsiveness
-- ❌ Decorative fonts for body text
+- Tanıdık yazı tipleri = Daha kolay okuma
+- Yüksek kontrast = Daha az yorulma
+- Tutarlı desenler = Tahmin edilebilir yapı
 
 ---
 
-> **Remember**: Typography is about communication clarity. Choose based on content needs and audience, not personal preference.
+## 10. Tipografi Seçimi Kontrol Listesi
+
+Tipografiyi kesinleştirmeden önce:
+
+- [ ] **Kullanıcıya font tercihleri soruldu mu?**
+- [ ] **Marka ve bağlama uygunluk değerlendirildi mi?**
+- [ ] **Uygun ölçek oranı seçildi mi?**
+- [ ] **2-3 font ailesi ile sınırlandırıldı mı?**
+- [ ] **Tüm boyutlarda okunabilirlik test edildi mi?**
+- [ ] **Satır genişliği kontrol edildi mi (45-75ch)?**
+- [ ] **Erişilebilirlik için kontrast doğrulandı mı?**
+- [ ] **Önceki projenizden farklı mı?**
+
+### Anti-Desenler (Yapılmaması Gerekenler)
+
+- ❌ Her projede aynı fontları kullanmak
+- ❌ Çok fazla font ailesi kullanmak
+- ❌ Stil uğruna okunabilirliği feda etmek
+- ❌ Duyarlı (responsive) olmayan sabit boyutlar
+- ❌ Gövde metni için dekoratif fontlar kullanmak
+
+---
+
+> **Unutmayın**: Tipografi, iletişimin netliği ile ilgilidir. Kişisel tercihlere göre değil, içerik ihtiyaçlarına ve hedef kitleye göre seçim yapın.

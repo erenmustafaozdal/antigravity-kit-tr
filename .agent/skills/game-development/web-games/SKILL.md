@@ -1,150 +1,150 @@
 ---
 name: web-games
-description: Web browser game development principles. Framework selection, WebGPU, optimization, PWA.
+description: Web tarayıcı oyun geliştirme prensipleri. Framework seçimi, WebGPU, optimizasyon, PWA.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Web Browser Game Development
+# Web Tarayıcı Oyun Geliştirme (Web Browser Game Development)
 
-> Framework selection and browser-specific principles.
+> Framework seçimi ve tarayıcıya özel prensipler.
 
 ---
 
-## 1. Framework Selection
+## 1. Framework Seçimi
 
-### Decision Tree
+### Karar Ağacı
 
 ```
-What type of game?
+Ne tür bir oyun?
 │
-├── 2D Game
-│   ├── Full game engine features? → Phaser
-│   └── Raw rendering power? → PixiJS
+├── 2B Oyun
+│   ├── Tam oyun motoru özellikleri mi? → Phaser
+│   └── Sadece ham çizim gücü mü? → PixiJS
 │
-├── 3D Game
-│   ├── Full engine (physics, XR)? → Babylon.js
-│   └── Rendering focused? → Three.js
+├── 3B Oyun
+│   ├── Tam motor (fizik, XR vb.) mi? → Babylon.js
+│   └── Çizim odaklı mı? → Three.js
 │
-└── Hybrid / Canvas
-    └── Custom → Raw Canvas/WebGL
+└── Hibrit / Canvas
+    └── Özel çözüm → Saf Canvas/WebGL
 ```
 
-### Comparison (2025)
+### Karşılaştırma (2025)
 
-| Framework | Type | Best For |
+| Framework | Tür | En Uygun |
 |-----------|------|----------|
-| **Phaser 4** | 2D | Full game features |
-| **PixiJS 8** | 2D | Rendering, UI |
-| **Three.js** | 3D | Visualizations, lightweight |
-| **Babylon.js 7** | 3D | Full engine, XR |
+| **Phaser 4** | 2B | Eksiksiz oyun özellikleri |
+| **PixiJS 8** | 2B | Çizim hızı, UI |
+| **Three.js** | 3B | Görselleştirmeler, hafif yapı |
+| **Babylon.js 7** | 3B | Tam teşekküllü motor, XR |
 
 ---
 
-## 2. WebGPU Adoption
+## 2. WebGPU Geçişi
 
-### Browser Support (2025)
+### Tarayıcı Desteği (2025 başı)
 
-| Browser | Support |
+| Tarayıcı | Destek Durumu |
 |---------|---------|
-| Chrome | ✅ Since v113 |
-| Edge | ✅ Since v113 |
-| Firefox | ✅ Since v131 |
-| Safari | ✅ Since 18.0 |
-| **Total** | **~73%** global |
+| Chrome | ✅ v113'ten beri |
+| Edge | ✅ v113'ten beri |
+| Firefox | ✅ v131'den beri |
+| Safari | ✅ 18.0'dan beri |
+| **Toplam** | **~%73** küresel kullanım |
 
-### Decision
+### Karar Stratejisi
 
-- **New projects**: Use WebGPU with WebGL fallback
-- **Legacy support**: Start with WebGL
-- **Feature detection**: Check `navigator.gpu`
+- **Yeni projeler**: WebGL yedeği (fallback) ile WebGPU kullanın.
+- **Eski cihaz desteği**: WebGL ile başlayın.
+- **Özellik tespiti**: `navigator.gpu` kontrolü yapın.
 
 ---
 
-## 3. Performance Principles
+## 3. Performans Prensipleri
 
-### Browser Constraints
+### Tarayıcı Kısıtlamaları
 
-| Constraint | Strategy |
+| Kısıtlama | Strateji |
 |------------|----------|
-| No local file access | Asset bundling, CDN |
-| Tab throttling | Pause when hidden |
-| Mobile data limits | Compress assets |
-| Audio autoplay | Require user interaction |
+| Yerel dosya erişimi yok | Varlık paketleme, CDN kullanımı |
+| Sekme sönümleme (throttling)| Gizlendiğinde oyunu duraklat |
+| Mobil veri sınırları | Varlıkları sıkıştır |
+| Ses otomatik oynatma engeli | Kullanıcı etkileşimi şartı |
 
-### Optimization Priority
+### Optimizasyon Önceliği
 
-1. **Asset compression** - KTX2, Draco, WebP
-2. **Lazy loading** - Load on demand
-3. **Object pooling** - Avoid GC
-4. **Draw call batching** - Reduce state changes
-5. **Web Workers** - Offload heavy computation
+1. **Varlık sıkıştırma** - KTX2, Draco, WebP.
+2. **Tembel yükleme (Lazy loading)** - İhtiyaç anında yükle.
+3. **Nesne havuzlama (Object pooling)** - Bellek temizliğinden (GC) kaçın.
+4. **Çizim çağrısı gruplama** - Durum değişikliklerini azalt.
+5. **Web Workers** - Ağır hesaplamaları ana iş parçacığından ayır.
 
 ---
 
-## 4. Asset Strategy
+## 4. Varlık (Asset) Stratejisi
 
-### Compression Formats
+### Sıkıştırma Formatları
 
-| Type | Format |
+| Tür | Format |
 |------|--------|
-| Textures | KTX2 + Basis Universal |
-| Audio | WebM/Opus (fallback: MP3) |
-| 3D Models | glTF + Draco/Meshopt |
+| Dokular | KTX2 + Basis Universal |
+| Ses | WebM/Opus (Yedek: MP3) |
+| 3B Modeller | glTF + Draco/Meshopt |
 
-### Loading Strategy
+### Yükleme Stratejisi
 
-| Phase | Load |
+| Aşama | Ne Yüklenmeli? |
 |-------|------|
-| Startup | Core assets, <2MB |
-| Gameplay | Stream on demand |
-| Background | Prefetch next level |
+| Başlangıç | Temel varlıklar, <2MB |
+| Oynanış | İhtiyaç anında akış yap |
+| Arka Plan | Bir sonraki bölümü önceden çek |
 
 ---
 
-## 5. PWA for Games
+## 5. Oyunlar için PWA (Aşamalı Web Uygulaması)
 
-### Benefits
+### Avantajlar
 
-- Offline play
-- Install to home screen
-- Full screen mode
-- Push notifications
+- Çevrimdışı oynama.
+- Ana ekrana yükleme.
+- Tam ekran modu.
+- Anlık bildirimler (push notifications).
 
-### Requirements
+### Gereksinimler
 
-- Service worker for caching
-- Web app manifest
-- HTTPS
-
----
-
-## 6. Audio Handling
-
-### Browser Requirements
-
-- Audio context requires user interaction
-- Create AudioContext on first click/tap
-- Resume context if suspended
-
-### Best Practices
-
-- Use Web Audio API
-- Pool audio sources
-- Preload common sounds
-- Compress with WebM/Opus
+- Önbelleğe alma için Service Worker.
+- Web App Manifest dosyası.
+- HTTPS zorunluluğu.
 
 ---
 
-## 7. Anti-Patterns
+## 6. Ses Yönetimi
 
-| ❌ Don't | ✅ Do |
+### Tarayıcı Gereksinimleri
+
+- Audio Context başlatmak için kullanıcı etkileşimi gerekir.
+- İlk tıklama/dokunmada AudioContext oluşturun.
+- Eğer askıya alınmışsa (suspended) bağlamı devam ettirin (resume).
+
+### En İyi Pratikler
+
+- Web Audio API kullanın.
+- Ses kaynaklarını havuzlayın (pooling).
+- Yaygın sesleri önceden yükleyin.
+- WebM/Opus ile sıkıştırın.
+
+---
+
+## 7. Anti-Desenler (Yapılmaması Gerekenler)
+
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Load all assets upfront | Progressive loading |
-| Ignore tab visibility | Pause when hidden |
-| Block on audio load | Lazy load audio |
-| Skip compression | Compress everything |
-| Assume fast connection | Handle slow networks |
+| Tüm varlıkları en başta yüklemek | Kademeli yükleme (progressive) |
+| Sekme görünürlüğünü yok saymak | Gizlendiğinde duraklatın |
+| Ses yüklenene kadar akışı kesmek | Sesi tembel yükleyin |
+| Sıkıştırmayı atlamak | Her şeyi sıkıştırın |
+| Hızlı internet varsaymak | Yavaş ağları hesaba katın |
 
 ---
 
-> **Remember:** Browser is the most accessible platform. Respect its constraints.
+> **Unutmayın:** Tarayıcı en erişilebilir platformdur. Onun kısıtlamalarına saygı duyun.

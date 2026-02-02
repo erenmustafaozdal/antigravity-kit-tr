@@ -1,335 +1,335 @@
 ---
 name: intelligent-routing
-description: Automatic agent selection and intelligent task routing. Analyzes user requests and automatically selects the best specialist agent(s) without requiring explicit user mentions.
+description: Otomatik agent seçimi ve akıllı görev yönlendirme. Kullanıcı isteklerini analiz eder ve kullanıcının açıkça belirtmesini gerektirmeden en iyi uzman agent(leri) otomatik olarak seçer.
 version: 1.0.0
 ---
 
-# Intelligent Agent Routing
+# Akıllı Agent Yönlendirme (Intelligent Agent Routing)
 
-**Purpose**: Automatically analyze user requests and route them to the most appropriate specialist agent(s) without requiring explicit user mentions.
+**Amaç**: Kullanıcı isteklerini otomatik olarak analiz et ve kullanıcının açıkça belirtmesini gerektirmeden en uygun uzman agent(lere) yönlendir.
 
-## Core Principle
+## Temel Prensip
 
-> **The AI should act as an intelligent Project Manager**, analyzing each request and automatically selecting the best specialist(s) for the job.
+> **AI, akıllı bir Proje Yöneticisi gibi hareket etmelidir**, her isteği analiz edip iş için en iyi uzman(ları) otomatik olarak seçer.
 
-## How It Works
+## Nasıl Çalışır
 
-### 1. Request Analysis
+### 1. İstek Analizi
 
-Before responding to ANY user request, perform automatic analysis:
+HERHANGİ bir kullanıcı isteğine yanıt vermeden önce, otomatik analiz yap:
 
 ```mermaid
 graph TD
-    A[User Request: Add login] --> B[ANALYZE]
-    B --> C[Keywords]
-    B --> D[Domains]
-    B --> E[Complexity]
-    C --> F[SELECT AGENT]
+    A[Kullanıcı İsteği: Login ekle] --> B[ANALİZ]
+    B --> C[Anahtar Kelimeler]
+    B --> D[Alanlar]
+    B --> E[Karmaşıklık]
+    C --> F[AGENT SEÇ]
     D --> F
     E --> F
     F --> G[security-auditor + backend-specialist]
-    G --> H[AUTO-INVOKE with context]
+    G --> H[Bağlamla OTOMATİK ÇAĞIR]
 ```
 
-### 2. Agent Selection Matrix
+### 2. Agent Seçim Matrisi
 
-**Use this matrix to automatically select agents:**
+**Agentleri otomatik olarak seçmek için bu matrisi kullan:**
 
-| User Intent         | Keywords                                   | Selected Agent(s)                           | Auto-invoke? |
-| ------------------- | ------------------------------------------ | ------------------------------------------- | ------------ |
-| **Authentication**  | "login", "auth", "signup", "password"      | `security-auditor` + `backend-specialist`   | ✅ YES       |
-| **UI Component**    | "button", "card", "layout", "style"        | `frontend-specialist`                       | ✅ YES       |
-| **Mobile UI**       | "screen", "navigation", "touch", "gesture" | `mobile-developer`                          | ✅ YES       |
-| **API Endpoint**    | "endpoint", "route", "API", "POST", "GET"  | `backend-specialist`                        | ✅ YES       |
-| **Database**        | "schema", "migration", "query", "table"    | `database-architect` + `backend-specialist` | ✅ YES       |
-| **Bug Fix**         | "error", "bug", "not working", "broken"    | `debugger`                                  | ✅ YES       |
-| **Test**            | "test", "coverage", "unit", "e2e"          | `test-engineer`                             | ✅ YES       |
-| **Deployment**      | "deploy", "production", "CI/CD", "docker"  | `devops-engineer`                           | ✅ YES       |
-| **Security Review** | "security", "vulnerability", "exploit"     | `security-auditor` + `penetration-tester`   | ✅ YES       |
-| **Performance**     | "slow", "optimize", "performance", "speed" | `performance-optimizer`                     | ✅ YES       |
-| **Product Def**     | "requirements", "user story", "backlog", "MVP" | `product-owner`                             | ✅ YES       |
-| **New Feature**     | "build", "create", "implement", "new app"  | `orchestrator` → multi-agent                | ⚠️ ASK FIRST |
-| **Complex Task**    | Multiple domains detected                  | `orchestrator` → multi-agent                | ⚠️ ASK FIRST |
+| Kullanıcı Niyeti | Anahtar Kelimeler | Seçilen Agent(ler) | Otomatik çağır? |
+|------------------|-------------------|---------------------|-----------------|
+| **Kimlik Doğrulama** | "login", "auth", "signup", "şifre" | `security-auditor` + `backend-specialist` | ✅ EVET |
+| **UI Component** | "buton", "kart", "düzen", "stil" | `frontend-specialist` | ✅ EVET |
+| **Mobil UI** | "ekran", "navigasyon", "dokunma", "jest" | `mobile-developer` | ✅ EVET |
+| **API Uç Noktası** | "endpoint", "rota", "API", "POST", "GET" | `backend-specialist` | ✅ EVET |
+| **Veritabanı** | "şema", "migrasyon", "sorgu", "tablo" | `database-architect` + `backend-specialist` | ✅ EVET |
+| **Hata Düzeltme** | "hata", "bug", "çalışmıyor", "bozuk" | `debugger` | ✅ EVET |
+| **Test** | "test", "kapsam", "unit", "e2e" | `test-engineer` | ✅ EVET |
+| **Deployment** | "deploy", "prodüksiyon", "CI/CD", "docker" | `devops-engineer` | ✅ EVET |
+| **Güvenlik İncelemesi** | "güvenlik", "güvenlik açığı", "exploit" | `security-auditor` + `penetration-tester` | ✅ EVET |
+| **Performans** | "yavaş", "optimize et", "performans", "hız" | `performance-optimizer` | ✅ EVET |
+| **Ürün Tanımı** | "gereksinimler", "kullanıcı hikayesi", "backlog", "MVP" | `product-owner` | ✅ EVET |
+| **Yeni Özellik** | "inşa et", "oluştur", "implemente et", "yeni uygulama" | `orchestrator` → çoklu-agent | ⚠️ ÖNCE SOR |
+| **Karmaşık Görev** | Birden fazla alan tespit edildi | `orchestrator` → çoklu-agent | ⚠️ ÖNCE SOR |
 
-### 3. Automatic Routing Protocol
+### 3. Otomatik Yönlendirme Protokolü
 
-## TIER 0 - Automatic Analysis (ALWAYS ACTIVE)
+## SEVİYE 0 - Otomatik Analiz (HER ZAMAN AKTİF)
 
-Before responding to ANY request:
+Herhangi bir isteğe yanıt vermeden önce:
 
 ```javascript
-// Pseudo-code for decision tree
+// Karar ağacı için pseudo-kod
 function analyzeRequest(userMessage) {
-    // 1. Classify request type
+    // 1. İstek tipini sınıflandır
     const requestType = classifyRequest(userMessage);
 
-    // 2. Detect domains
+    // 2. Alanları tespit et
     const domains = detectDomains(userMessage);
 
-    // 3. Determine complexity
+    // 3. Karmaşıklığı değerlendir
     const complexity = assessComplexity(domains);
 
-    // 4. Select agent(s)
+    // 4. Agent(leri) seç
     if (complexity === "SIMPLE" && domains.length === 1) {
         return selectSingleAgent(domains[0]);
     } else if (complexity === "MODERATE" && domains.length <= 2) {
         return selectMultipleAgents(domains);
     } else {
-        return "orchestrator"; // Complex task
+        return "orchestrator"; // Karmaşık görev
     }
 }
 ```
 
-## 4. Response Format
+## 4. Yanıt Formatı
 
-**When auto-selecting an agent, inform the user concisely:**
-
-```markdown
-🤖 **Applying knowledge of `@security-auditor` + `@backend-specialist`...**
-
-[Proceed with specialized response]
-```
-
-**Benefits:**
-
-- ✅ User sees which expertise is being applied
-- ✅ Transparent decision-making
-- ✅ Still automatic (no /commands needed)
-
-## Domain Detection Rules
-
-### Single-Domain Tasks (Auto-invoke Single Agent)
-
-| Domain          | Patterns                                   | Agent                   |
-| --------------- | ------------------------------------------ | ----------------------- |
-| **Security**    | auth, login, jwt, password, hash, token    | `security-auditor`      |
-| **Frontend**    | component, react, vue, css, html, tailwind | `frontend-specialist`   |
-| **Backend**     | api, server, express, fastapi, node        | `backend-specialist`    |
-| **Mobile**      | react native, flutter, ios, android, expo  | `mobile-developer`      |
-| **Database**    | prisma, sql, mongodb, schema, migration    | `database-architect`    |
-| **Testing**     | test, jest, vitest, playwright, cypress    | `test-engineer`         |
-| **DevOps**      | docker, kubernetes, ci/cd, pm2, nginx      | `devops-engineer`       |
-| **Debug**       | error, bug, crash, not working, issue      | `debugger`              |
-| **Performance** | slow, lag, optimize, cache, performance    | `performance-optimizer` |
-| **SEO**         | seo, meta, analytics, sitemap, robots      | `seo-specialist`        |
-| **Game**        | unity, godot, phaser, game, multiplayer    | `game-developer`        |
-
-### Multi-Domain Tasks (Auto-invoke Orchestrator)
-
-If request matches **2+ domains from different categories**, automatically use `orchestrator`:
-
-```text
-Example: "Create a secure login system with dark mode UI"
-→ Detected: Security + Frontend
-→ Auto-invoke: orchestrator
-→ Orchestrator will handle: security-auditor, frontend-specialist, test-engineer
-```
-
-## Complexity Assessment
-
-### SIMPLE (Direct agent invocation)
-
-- Single file edit
-- Clear, specific task
-- One domain only
-- Example: "Fix the login button style"
-
-**Action**: Auto-invoke respective agent
-
-### MODERATE (2-3 agents)
-
-- 2-3 files affected
-- Clear requirements
-- 2 domains max
-- Example: "Add API endpoint for user profile"
-
-**Action**: Auto-invoke relevant agents sequentially
-
-### COMPLEX (Orchestrator required)
-
-- Multiple files/domains
-- Architectural decisions needed
-- Unclear requirements
-- Example: "Build a social media app"
-
-**Action**: Auto-invoke `orchestrator` → will ask Socratic questions
-
-## Implementation Rules
-
-### Rule 1: Silent Analysis
-
-#### DO NOT announce "I'm analyzing your request..."
-
-- ✅ Analyze silently
-- ✅ Inform which agent is being applied
-- ❌ Avoid verbose meta-commentary
-
-### Rule 2: Inform Agent Selection
-
-**DO inform which expertise is being applied:**
+**Bir agenti otomatik seçerken, kullanıcıyı kısaca bilgilendir:**
 
 ```markdown
-🤖 **Applying knowledge of `@frontend-specialist`...**
+🤖 **`@security-auditor` + `@backend-specialist` uzmanlığı uygulanıyor...**
 
-I will create the component with the following characteristics:
-[Continue with specialized response]
+[Özelleşmiş yanıtla devam et]
 ```
 
-### Rule 3: Seamless Experience
+**Faydalar:**
 
-**The user should not notice a difference from talking to the right specialist directly.**
+- ✅ Kullanıcı hangi uzmanlığın uygulandığını görür
+- ✅ Şeffaf karar verme
+- ✅ Hala otomatik (/komutlar gerekmiyor)
 
-### Rule 4: Override Capability
+## Alan Tespit Kuralları
 
-**User can still explicitly mention agents:**
+### Tek Alanlı Görevler (Tek Agent Otomatik Çağır)
+
+| Alan | Desenler | Agent |
+|------|----------|-------|
+| **Güvenlik** | auth, login, jwt, şifre, hash, token | `security-auditor` |
+| **Frontend** | component, react, vue, css, html, tailwind | `frontend-specialist` |
+| **Backend** | api, server, express, fastapi, node | `backend-specialist` |
+| **Mobil** | react native, flutter, ios, android, expo | `mobile-developer` |
+| **Veritabanı** | prisma, sql, mongodb, şema, migrasyon | `database-architect` |
+| **Test** | test, jest, vitest, playwright, cypress | `test-engineer` |
+| **DevOps** | docker, kubernetes, ci/cd, pm2, nginx | `devops-engineer` |
+| **Debug** | hata, bug, crash, çalışmıyor, sorun | `debugger` |
+| **Performans** | yavaş, lag, optimize et, cache, performans | `performance-optimizer` |
+| **SEO** | seo, meta, analytics, sitemap, robots | `seo-specialist` |
+| **Oyun** | unity, godot, phaser, oyun, çok oyunculu | `game-developer` |
+
+### Çoklu Alanlı Görevler (Orchestrator Otomatik Çağır)
+
+İstek **farklı kategorilerden 2+ alana** uyuyorsa, otomatik olarak `orchestrator` kullan:
 
 ```text
-User: "Use @backend-specialist to review this"
-→ Override auto-selection
-→ Use explicitly mentioned agent
+Örnek: "Dark mode UI ile güvenli bir login sistemi oluştur"
+→ Tespit edilen: Güvenlik + Frontend
+→ Otomatik çağır: orchestrator
+→ Orchestrator şunları yönetir: security-auditor, frontend-specialist, test-engineer
 ```
 
-## Edge Cases
+## Karmaşıklık Değerlendirmesi
 
-### Case 1: Generic Question
+### BASİT (Doğrudan agent çağırma)
 
-```text
-User: "How does React work?"
-→ Type: QUESTION
-→ No agent needed
-→ Respond directly with explanation
-```
+- Tek dosya düzenleme
+- Açık, spesifik görev
+- Yalnızca bir alan
+- Örnek: "Login buton stilini düzelt"
 
-### Case 2: Extremely Vague Request
+**Eylem**: İlgili agenti otomatik çağır
 
-```text
-User: "Make it better"
-→ Complexity: UNCLEAR
-→ Action: Ask clarifying questions first
-→ Then route to appropriate agent
-```
+### ORTA (2-3 agent)
 
-### Case 3: Contradictory Patterns
+- 2-3 dosya etkilenir
+- Açık gereksinimler
+- Maks 2 alan
+- Örnek: "Kullanıcı profili için API uç noktası ekle"
 
-```text
-User: "Add mobile support to the web app"
-→ Conflict: mobile vs web
-→ Action: Ask: "Do you want responsive web or native mobile app?"
-→ Then route accordingly
-```
+**Eylem**: İlgili agentleri sırayla otomatik çağır
 
-## Integration with Existing Workflows
+### KARMAŞIK (Orchestrator gerekli)
 
-### With /orchestrate Command
+- Birden fazla dosya/alan
+- Mimari kararlar gerekli
+- Belirsiz gereksinimler
+- Örnek: "Bir sosyal medya uygulaması inşa et"
 
-- **User types `/orchestrate`**: Explicit orchestration mode
-- **AI detects complex task**: Auto-invoke orchestrator (same result)
+**Eylem**: `orchestrator`'ı otomatik çağır → Sokratik sorular sorar
 
-**Difference**: User doesn't need to know the command exists.
+## İmplementasyon Kuralları
 
-### With Socratic Gate
+### Kural 1: Sessiz Analiz
 
-- **Auto-routing does NOT bypass Socratic Gate**
-- If task is unclear, still ask questions first
-- Then route to appropriate agent
+#### "İsteğinizi analiz ediyorum..." diye duyurma
 
-### With GEMINI.md Rules
+- ✅ Sessizce analiz et
+- ✅ Hangi agentin uygulandığını bildir
+- ❌ Ayrıntılı meta-yorumdan kaçın
 
-- **Priority**: GEMINI.md rules > intelligent-routing
-- If GEMINI.md specifies explicit routing, follow it
-- Intelligent routing is the DEFAULT when no explicit rule exists
+### Kural 2: Agent Seçimini Bildir
 
-## Testing the System
-
-### Test Cases
-
-#### Test 1: Simple Frontend Task
-
-```text
-User: "Create a dark mode toggle button"
-Expected: Auto-invoke frontend-specialist
-Verify: Response shows "Using @frontend-specialist"
-```
-
-#### Test 2: Security Task
-
-```text
-User: "Review the authentication flow for vulnerabilities"
-Expected: Auto-invoke security-auditor
-Verify: Security-focused analysis
-```
-
-#### Test 3: Complex Multi-Domain
-
-```text
-User: "Build a chat application with real-time notifications"
-Expected: Auto-invoke orchestrator
-Verify: Multiple agents coordinated (backend, frontend, test)
-```
-
-#### Test 4: Bug Fix
-
-```text
-User: "Login is not working, getting 401 error"
-Expected: Auto-invoke debugger
-Verify: Systematic debugging approach
-```
-
-## Performance Considerations
-
-### Token Usage
-
-- Analysis adds ~50-100 tokens per request
-- Tradeoff: Better accuracy vs slight overhead
-- Overall SAVES tokens by reducing back-and-forth
-
-### Response Time
-
-- Analysis is instant (pattern matching)
-- No additional API calls required
-- Agent selection happens before first response
-
-## User Education
-
-### Optional: First-Time Explanation
-
-If this is the first interaction in a project:
+**Hangi uzmanlığın uygulandığını BİLDİR:**
 
 ```markdown
-💡 **Tip**: I am configured with automatic specialist agent selection.
-I will always choose the most suitable specialist for your task. You can
-still mention agents explicitly with `@agent-name` if you prefer.
+🤖 **`@frontend-specialist` uzmanlığı uygulanıyor...**
+
+Componenti şu özelliklerle oluşturacağım:
+[Özelleşmiş yanıtla devam et]
 ```
 
-## Debugging Agent Selection
+### Kural 3: Sorunsuz Deneyim
 
-### Enable Debug Mode (for development)
+**Kullanıcı, doğru uzmanla doğrudan konuşmaktan bir fark görmemeli.**
 
-Add to GEMINI.md temporarily:
+### Kural 4: Geçersiz Kılma Yeteneği
+
+**Kullanıcı hala agentleri açıkça belirtebilir:**
+
+```text
+Kullanıcı: "Bunu incelemek için @backend-specialist kullan"
+→ Otomatik seçimi geçersiz kıl
+→ Açıkça belirtilen agenti kullan
+```
+
+## Uç Durumlar
+
+### Durum 1: Genel Soru
+
+```text
+Kullanıcı: "React nasıl çalışır?"
+→ Tip: SORU
+→ Agent gerekmiyor
+→ Doğrudan açıklamayla yanıt ver
+```
+
+### Durum 2: Aşırı Belirsiz İstek
+
+```text
+Kullanıcı: "Daha iyi yap"
+→ Karmaşıklık: BELİRSİZ
+→ Eylem: Önce açıklayıcı sorular sor
+→ Sonra uygun agente yönlendir
+```
+
+### Durum 3: Çelişkili Desenler
+
+```text
+Kullanıcı: "Web uygulamasına mobil destek ekle"
+→ Çelişki: mobil vs web
+→ Eylem: Sor: "Responsive web mi yoksa native mobil uygulama mı istiyorsunuz?"
+→ Sonra buna göre yönlendir
+```
+
+## Mevcut İş Akışlarıyla Entegrasyon
+
+### /orchestrate Komutu ile
+
+- **Kullanıcı `/orchestrate` yazar**: Açık orkestrasyon modu
+- **AI karmaşık görev tespit eder**: Orchestrator'ı otomatik çağır (aynı sonuç)
+
+**Fark**: Kullanıcının komutun var olduğunu bilmesi gerekmez.
+
+### Sokratik Kapı ile
+
+- **Otomatik yönlendirme Sokratik Kapıyı ATLAMAZ**
+- Görev belirsizse, hala önce sorular sor
+- Sonra uygun agenta yönlendir
+
+### GEMINI.md Kuralları ile
+
+- **Öncelik**: GEMINI.md kuralları > intelligent-routing
+- GEMINI.md açık yönlendirme belirtiyorsa, onu takip et
+- Akıllı yönlendirme, açık kural olmadığında VARSAYILANdır
+
+## Sistemi Test Etme
+
+### Test Durumları
+
+#### Test 1: Basit Frontend Görevi
+
+```text
+Kullanıcı: "Dark mode açma-kapama butonu oluştur"
+Beklenen: frontend-specialist otomatik çağrılır
+Doğrula: Yanıt "@frontend-specialist kullanılıyor" gösterir
+```
+
+#### Test 2: Güvenlik Görevi
+
+```text
+Kullanıcı: "Güvenlik açıkları için kimlik doğrulama akışını incele"
+Beklenen: security-auditor otomatik çağrılır
+Doğrula: Güvenlik odaklı analiz
+```
+
+#### Test 3: Karmaşık Çoklu Alan
+
+```text
+Kullanıcı: "Gerçek zamanlı bildirimlerle bir sohbet uygulaması inşa et"
+Beklenen: orchestrator otomatik çağrılır
+Doğrula: Birden fazla agent koordine edilir (backend, frontend, test)
+```
+
+#### Test 4: Hata Düzeltme
+
+```text
+Kullanıcı: "Login çalışmıyor, 401 hatası alıyorum"
+Beklenen: debugger otomatik çağrılır
+Doğrula: Sistematik hata ayıklama yaklaşımı
+```
+
+## Performans Hususları
+
+### Token Kullanımı
+
+- Analiz istek başına ~50-100 token ekler
+- Takas: Daha iyi doğruluk vs hafif ek yük
+- Genel olarak ileri geri giderek token'leri TASARRUF eder
+
+### Yanıt Süresi
+
+- Analiz anında (desen eşleştirme)
+- Ek API çağrısı gerekmez
+- Agent seçimi ilk yanıttan önce olur
+
+## Kullanıcı Eğitimi
+
+### Opsiyonel: İlk Kez Açıklama
+
+Eğer projede bu ilk etkileşimse:
+
+```markdown
+💡 **İpucu**: Otomatik uzman agent seçimi ile yapılandırıldım.
+Göreviniz için her zaman en uygun uzmanı seçeceğim. İsterseniz
+`@agent-name` ile agentleri açıkça belirtmeye devam edebilirsiniz.
+```
+
+## Agent Seçiminde Hata Ayıklama
+
+### Debug Modunu Etkinleştir (geliştirme için)
+
+GEMINI.md'ye geçici olarak ekle:
 
 ```markdown
 ## DEBUG: Intelligent Routing
 
-Show selection reasoning:
+Seçim gerekçesini göster:
 
-- Detected domains: [list]
-- Selected agent: [name]
-- Reasoning: [why]
+- Tespit edilen alanlar: [liste]
+- Seçilen agent: [isim]
+- Gerekçe: [neden]
 ```
 
-## Summary
+## Özet
 
-**intelligent-routing skill enables:**
+**intelligent-routing yeteneği şunları sağlar:**
 
-✅ Zero-command operation (no need for `/orchestrate`)  
-✅ Automatic specialist selection based on request analysis  
-✅ Transparent communication of which expertise is being applied  
-✅ Seamless integration with existing workflows  
-✅ Override capability for explicit agent mentions  
-✅ Fallback to orchestrator for complex tasks
+✅ Sıfır komut operasyonu (`/orchestrate` gerekmez)  
+✅ İstek analizine dayalı otomatik uzman seçimi  
+✅ Hangi uzmanlığın uygulandığının şeffaf iletişimi  
+✅ Mevcut iş akışlarıyla sorunsuz entegrasyon  
+✅ Açık agent belirtmeleri için geçersiz kılma yeteneği  
+✅ Karmaşık görevler için orchestrator'a geri dönüş
 
-**Result**: User gets specialist-level responses without needing to know the system architecture.
+**Sonuç**: Kullanıcı, sistem mimarisini bilmeye gerek kalmadan uzman düzeyinde yanıtlar alır.
 
 ---
 
-**Next Steps**: Integrate this skill into GEMINI.md TIER 0 rules.
+**Sonraki Adımlar**: Bu yeteneği GEMINI.md SEVİYE 0 kurallarına entegre et.

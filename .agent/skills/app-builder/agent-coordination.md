@@ -1,71 +1,71 @@
-# Agent Coordination
+# Ajan Koordinasyonu (Agent Coordination)
 
-> How App Builder orchestrates specialist agents.
+> App Builder'ın uzman ajanları nasıl orkestre ettiği.
 
-## Agent Pipeline
+## Ajan Hattı (Agent Pipeline)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   APP BUILDER (Orchestrator)                 │
-└─────────────────────────────────────────────────────────────┘
+│                   APP BUILDER (Orkestratör)                  │
+└─────────────────────────────────────────────────────────────┐
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                     PROJECT PLANNER                          │
-│  • Task breakdown                                            │
-│  • Dependency graph                                          │
-│  • File structure planning                                   │
-│  • Create {task-slug}.md in project root (MANDATORY)             │
-└─────────────────────────────────────────────────────────────┘
+│  • Görev kırılımı                                            │
+│  • Bağımlılık grafiği                                        │
+│  • Dosya yapısı planlaması                                   │
+│  • Kök dizinde {task-slug}.md oluşturma (ZORUNLU)              │
+└─────────────────────────────────────────────────────────────┐
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              CHECKPOINT: PLAN VERIFICATION                   │
-│  🔴 VERIFY: Does {task-slug}.md exist in project root?       │
-│  🔴 If NO → STOP → Create plan file first                    │
-│  🔴 If YES → Proceed to specialist agents                    │
-└─────────────────────────────────────────────────────────────┘
+│              KONTROL NOKTASI: PLAN DOĞRULAMA                 │
+│  🔴 DOĞRULA: Kök dizinde {task-slug}.md mevcut mu?           │
+│  🔴 HAYIR ise → DUR → Önce plan dosyasını oluştur            │
+│  🔴 EVET ise → Uzman ajanlara devam et                       │
+└─────────────────────────────────────────────────────────────┐
                               │
           ┌───────────────────┼───────────────────┐
           ▼                   ▼                   ▼
 ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│ DATABASE        │ │ BACKEND         │ │ FRONTEND        │
-│ ARCHITECT       │ │ SPECIALIST      │ │ SPECIALIST      │
+│ VERİTABANI      │ │ BACKEND         │ │ FRONTEND        │
+│ MİMARI          │ │ UZMANI          │ │ UZMANI          │
 │                 │ │                 │ │                 │
-│ • Schema design │ │ • API routes    │ │ • Components    │
-│ • Migrations    │ │ • Controllers   │ │ • Pages         │
-│ • Seed data     │ │ • Middleware    │ │ • Styling       │
+│ • Şema tasarımı │ │ • API rotaları  │ │ • Bileşenler    │
+│ • Migrasyonlar  │ │ • Controller'lar│ │ • Sayfalar      │
+│ • Örnek veriler │ │ • Middleware    │ │ • Stil yönetimi │
 └─────────────────┘ └─────────────────┘ └─────────────────┘
           │                   │                   │
           └───────────────────┼───────────────────┘
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 PARALLEL PHASE (Optional)                    │
-│  • Security Auditor → Vulnerability check                   │
-│  • Test Engineer → Unit tests                               │
-│  • Performance Optimizer → Bundle analysis                  │
-└─────────────────────────────────────────────────────────────┘
+│                 PARALEL AŞAMA (Opsiyonel)                    │
+│  • Security Auditor → Zafiyet kontrolü                      │
+│  • Test Engineer → Unit testler                             │
+│  • Performance Optimizer → Paket analizi                     │
+└─────────────────────────────────────────────────────────────┐
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                     DEVOPS ENGINEER                          │
-│  • Environment setup                                         │
-│  • Preview deployment                                        │
-│  • Health check                                              │
-└─────────────────────────────────────────────────────────────┘
+│                     DEVOPS MÜHENDİSİ                         │
+│  • Ortam kurulumu (Env setup)                                │
+│  • Önizleme yayını (Preview deployment)                      │
+│  • Sağlık kontrolü (Health check)                            │
+└─────────────────────────────────────────────────────────────┐
 ```
 
-## Execution Order
+## Yürütme Sırası
 
-| Phase | Agent(s) | Parallel? | Prerequisite | CHECKPOINT |
+| Aşama | Ajan(lar) | Paralel mi? | Ön Koşul | KONTROL NOKTASI |
 |-------|----------|-----------|--------------|------------|
-| 0 | Socratic Gate | ❌ | - | ✅ Ask 3 questions |
-| 1 | Project Planner | ❌ | Questions answered | ✅ **PLAN.md created** |
-| 1.5 | **PLAN VERIFICATION** | ❌ | PLAN.md exists | ✅ **File exists in root** |
-| 2 | Database Architect | ❌ | Plan ready | Schema defined |
-| 3 | Backend Specialist | ❌ | Schema ready | API routes created |
-| 4 | Frontend Specialist | ✅ | API ready (partial) | UI components ready |
-| 5 | Security Auditor, Test Engineer | ✅ | Code ready | Tests & audit pass |
-| 6 | DevOps Engineer | ❌ | All code ready | Deployment ready |
+| 0 | Sokratik Geçit | ❌ | - | ✅ 3 soru sor |
+| 1 | Project Planner | ❌ | Sorular yanıtlandı | ✅ **PLAN.md oluşturuldu** |
+| 1.5 | **PLAN DOĞRULAMA** | ❌ | PLAN.md mevcut | ✅ **Dosya kök dizinde var** |
+| 2 | Veritabanı Mimarı | ❌ | Plan hazır | Şema tanımlandı |
+| 3 | Backend Uzmanı | ❌ | Şema hazır | API rotaları oluşturuldu |
+| 4 | Frontend Uzmanı | ✅ | API hazır (kısmen) | UI bileşenleri hazır |
+| 5 | Security Auditor, Test Engineer | ✅ | Kod hazır | Testler ve denetim geçti |
+| 6 | DevOps Mühendisi | ❌ | Tüm kod hazır | Dağıtım hazır |
 
-> 🔴 **CRITICAL:** Phase 1.5 is MANDATORY. No specialist agents proceed without PLAN.md verification.
+> 🔴 **KRİTİK:** Aşama 1.5 ZORUNLUDUR. PLAN.md doğrulanmadan hiçbir uzman ajan işe başlamaz.

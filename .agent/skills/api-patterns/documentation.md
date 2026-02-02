@@ -1,26 +1,26 @@
-# API Documentation Principles
+# API Dokümantasyon Prensipleri
 
-> Good docs = happy developers = API adoption.
+> İyi dokümantasyon = mutlu geliştiriciler = API'nin benimsenmesi.
 
-## OpenAPI/Swagger Essentials
-
-```
-Include:
-├── All endpoints with examples
-├── Request/response schemas
-├── Authentication requirements
-├── Error response formats
-└── Rate limiting info
-```
-
-## Good Documentation Has
+## OpenAPI/Swagger Temelleri
 
 ```
-Essentials:
-├── Quick start / Getting started
-├── Authentication guide
-├── Complete API reference
-├── Error handling guide
-├── Code examples (multiple languages)
-└── Changelog
+Şunları dahil edin:
+├── Örneklerle birlikte tüm uç noktalar (endpoints)
+├── İstek ve yanıt şemaları
+├── Kimlik doğrulama (auth) gereksinimleri
+├── Hata yanıt formatları
+└── İstek sınırlama (rate limiting) bilgileri
+```
+
+## İyi Bir Dokümantasyonda Olması Gerekenler
+
+```
+Temel Öğeler:
+├── Hızlı Başlangıç / Tanıtım kılavuzu
+├── Kimlik doğrulama rehberi
+├── Eksiksiz API referansı (reference)
+├── Hata yönetimi rehberi
+├── Kod örnekleri (birden fazla dilde)
+└── Değişim günlüğü (Changelog)
 ```

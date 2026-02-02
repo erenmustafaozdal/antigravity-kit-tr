@@ -1,55 +1,55 @@
 ---
 name: architecture
-description: Architectural decision-making framework. Requirements analysis, trade-off evaluation, ADR documentation. Use when making architecture decisions or analyzing system design.
+description: Mimari karar verme çerçevesi. Gereksinim analizi, takas (trade-off) değerlendirmesi, ADR dokümantasyonu. Mimari kararlar alırken veya sistem tasarımını analiz ederken kullanın.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Architecture Decision Framework
+# Mimari Karar Çerçevesi (Architecture Decision Framework)
 
-> "Requirements drive architecture. Trade-offs inform decisions. ADRs capture rationale."
+> "Gereksinimler mimariyi yönlendirir. Takaslar kararları şekillendirir. ADR'ler gerekçeleri kaydeder."
 
-## 🎯 Selective Reading Rule
+## 🎯 Seçici Okuma Kuralı
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+**SADECE istekle ilgili dosyaları okuyun!** İçerik haritasını kontrol edin ve ihtiyacınız olanı bulun.
 
-| File | Description | When to Read |
+| Dosya | Açıklama | Ne Zaman Okunmalı? |
 |------|-------------|--------------|
-| `context-discovery.md` | Questions to ask, project classification | Starting architecture design |
-| `trade-off-analysis.md` | ADR templates, trade-off framework | Documenting decisions |
-| `pattern-selection.md` | Decision trees, anti-patterns | Choosing patterns |
-| `examples.md` | MVP, SaaS, Enterprise examples | Reference implementations |
-| `patterns-reference.md` | Quick lookup for patterns | Pattern comparison |
+| `context-discovery.md` | Sorulacak sorular, proje sınıflandırması | Mimari tasarıma başlarken |
+| `trade-off-analysis.md` | ADR şablonları, takas çerçevesi | Kararları dökümante ederken |
+| `pattern-selection.md` | Karar ağaçları, anti-desenler | Desen seçerken |
+| `examples.md` | MVP, SaaS, Kurumsal örnekler | Referans uygulamalar için |
+| `patterns-reference.md` | Desenler için hızlı bakış | Desen karşılaştırması için |
 
 ---
 
-## 🔗 Related Skills
+## 🔗 İlgili Yetenekler
 
-| Skill | Use For |
+| Yetenek | Kullanım Amacı |
 |-------|---------|
-| `@[skills/database-design]` | Database schema design |
-| `@[skills/api-patterns]` | API design patterns |
-| `@[skills/deployment-procedures]` | Deployment architecture |
+| `@[skills/database-design]` | Veritabanı şema tasarımı |
+| `@[skills/api-patterns]` | API tasarım desenleri |
+| `@[skills/deployment-procedures]` | Dağıtım mimarisi |
 
 ---
 
-## Core Principle
+## Temel Prensip
 
-**"Simplicity is the ultimate sophistication."**
+**"Basitlik en yüksek gelişmişlik düzeyidir."**
 
-- Start simple
-- Add complexity ONLY when proven necessary
-- You can always add patterns later
-- Removing complexity is MUCH harder than adding it
+- Basit başlayın.
+- Karmaşıklığı SADECE gerekli olduğu kanıtlandığında ekleyin.
+- Desenleri daha sonra her zaman ekleyebilirsiniz.
+- Karmaşıklığı kaldırmak, eklemekten ÇOK daha zordur.
 
 ---
 
-## Validation Checklist
+## Doğrulama Kontrol Listesi
 
-Before finalizing architecture:
+Mimariyi kesinleştirmeden önce:
 
-- [ ] Requirements clearly understood
-- [ ] Constraints identified
-- [ ] Each decision has trade-off analysis
-- [ ] Simpler alternatives considered
-- [ ] ADRs written for significant decisions
-- [ ] Team expertise matches chosen patterns
+- [ ] Gereksinimler net bir şekilde anlaşıldı mı?
+- [ ] Kısıtlamalar belirlendi mi?
+- [ ] Her kararın takas (trade-off) analizi yapıldı mı?
+- [ ] Daha basit alternatifler değerlendirildi mi?
+- [ ] Önemli kararlar için ADR'ler yazıldı mı?
+- [ ] Ekibin uzmanlığı seçilen desenlerle örtüşüyor mu?

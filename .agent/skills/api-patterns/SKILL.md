@@ -1,81 +1,80 @@
 ---
 name: api-patterns
-description: API design principles and decision-making. REST vs GraphQL vs tRPC selection, response formats, versioning, pagination.
+description: API tasarım prensipleri ve karar verme. REST vs GraphQL vs tRPC seçimi, yanıt formatları, versiyonlama, sayfalama.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# API Patterns
+# API Desenleri (API Patterns)
 
-> API design principles and decision-making for 2025.
-> **Learn to THINK, not copy fixed patterns.**
+> 2025 yılı için API tasarım prensipleri ve karar verme kılavuzu.
+> **Sabit desenleri kopyalamayı değil, DÜŞÜNMEYİ öğrenin.**
 
-## 🎯 Selective Reading Rule
+## 🎯 Seçici Okuma Kuralı
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+**SADECE istekle ilgili dosyaları okuyun!** İçerik haritasını kontrol edin ve ihtiyacınız olanı bulun.
 
 ---
 
-## 📑 Content Map
+## 📑 İçerik Haritası
 
-| File | Description | When to Read |
+| Dosya | Açıklama | Ne Zaman Okunmalı? |
 |------|-------------|--------------|
-| `api-style.md` | REST vs GraphQL vs tRPC decision tree | Choosing API type |
-| `rest.md` | Resource naming, HTTP methods, status codes | Designing REST API |
-| `response.md` | Envelope pattern, error format, pagination | Response structure |
-| `graphql.md` | Schema design, when to use, security | Considering GraphQL |
-| `trpc.md` | TypeScript monorepo, type safety | TS fullstack projects |
-| `versioning.md` | URI/Header/Query versioning | API evolution planning |
-| `auth.md` | JWT, OAuth, Passkey, API Keys | Auth pattern selection |
-| `rate-limiting.md` | Token bucket, sliding window | API protection |
-| `documentation.md` | OpenAPI/Swagger best practices | Documentation |
-| `security-testing.md` | OWASP API Top 10, auth/authz testing | Security audits |
+| `api-style.md` | REST vs GraphQL vs tRPC karar ağacı | API türü seçerken |
+| `rest.md` | Kaynak isimlendirme, HTTP metodları, durum kodları | REST API tasarlarken |
+| `response.md` | Zarf deseni, hata formatı, sayfalama | Yanıt yapısı planlarken |
+| `graphql.md` | Şema tasarımı, ne zaman kullanılır, güvenlik | GraphQL değerlendirirken |
+| `trpc.md` | TypeScript monorepo, tip güvenliği | TS fullstack projelerinde |
+| `versioning.md` | URI/Header/Sorgu versiyonlama | API evrimi planlarken |
+| `auth.md` | JWT, OAuth, Passkey, API anahtarları | Auth deseni seçerken |
+| `rate-limiting.md` | Token bucket, sliding window | API koruması planlarken |
+| `documentation.md` | OpenAPI/Swagger en iyi pratikleri | Dokümantasyon aşamasında |
+| `security-testing.md` | OWASP API Top 10, auth/authz testleri | Güvenlik denetimlerinde |
 
 ---
 
-## 🔗 Related Skills
+## 🔗 İlgili Yetenekler
 
-| Need | Skill |
+| İhtiyaç | Yetenek |
 |------|-------|
-| API implementation | `@[skills/backend-development]` |
-| Data structure | `@[skills/database-design]` |
-| Security details | `@[skills/security-hardening]` |
+| API uygulaması | `@[skills/backend-development]` |
+| Veri yapısı | `@[skills/database-design]` |
+| Güvenlik detayları | `@[skills/security-hardening]` |
 
 ---
 
-## ✅ Decision Checklist
+## ✅ Karar Kontrol Listesi
 
-Before designing an API:
+Bir API tasarlamadan önce:
 
-- [ ] **Asked user about API consumers?**
-- [ ] **Chosen API style for THIS context?** (REST/GraphQL/tRPC)
-- [ ] **Defined consistent response format?**
-- [ ] **Planned versioning strategy?**
-- [ ] **Considered authentication needs?**
-- [ ] **Planned rate limiting?**
-- [ ] **Documentation approach defined?**
+- [ ] **API tüketicileri (istemciler) hakkında kullanıcıya soru soruldu mu?**
+- [ ] **BU bağlam için en uygun API stili seçildi mi?** (REST/GraphQL/tRPC)
+- [ ] **Tutarlı bir yanıt formatı belirlendi mi?**
+- [ ] **Versiyonlama stratejisi planlandı mı?**
+- [ ] **Kimlik doğrulama gereksinimleri değerlendirildi mi?**
+- [ ] **İstek sınırlama (rate limiting) planlandı mı?**
+- [ ] **Dokümantasyon yaklaşımı tanımlandı mı?**
 
 ---
 
-## ❌ Anti-Patterns
+## ❌ Anti-Desenler
 
-**DON'T:**
-- Default to REST for everything
-- Use verbs in REST endpoints (/getUsers)
-- Return inconsistent response formats
-- Expose internal errors to clients
-- Skip rate limiting
+**YAPMA:**
+- Her şey için varsayılan olarak REST kullanma.
+- REST uç noktalarında fiiller kullanma (/getUsers gibi).
+- Tutarsız yanıt formatları döndürme.
+- Dahili hataları (internal errors) istemcilere doğrudan sızdırma.
+- İstek sınırlamayı (rate limiting) atlama.
 
-**DO:**
-- Choose API style based on context
-- Ask about client requirements
-- Document thoroughly
-- Use appropriate status codes
+**YAP:**
+- API stilini bağlama göre seç.
+- İstemci gereksinimlerini sor.
+- Kapsamlı dökümante et.
+- Uygun HTTP durum kodlarını kullan.
 
 ---
 
 ## Script
 
-| Script | Purpose | Command |
+| Script | Amaç | Komut |
 |--------|---------|---------|
-| `scripts/api_validator.py` | API endpoint validation | `python scripts/api_validator.py <project_path>` |
-
+| `scripts/api_validator.py` | API uç noktası doğrulaması | `python scripts/api_validator.py <project_path>` |

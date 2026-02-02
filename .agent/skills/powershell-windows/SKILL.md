@@ -1,167 +1,167 @@
 ---
 name: powershell-windows
-description: PowerShell Windows patterns. Critical pitfalls, operator syntax, error handling.
+description: PowerShell Windows desenleri. Kritik tuzaklar, operatör sözdizimi, hata yönetimi.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# PowerShell Windows Patterns
+# PowerShell Windows Desenleri
 
-> Critical patterns and pitfalls for Windows PowerShell.
+> Windows PowerShell için kritik desenler ve tuzaklar.
 
 ---
 
-## 1. Operator Syntax Rules
+## 1. Operatör Sözdizimi Kuralları
 
-### CRITICAL: Parentheses Required
+### KRİTİK: Parantez Gerekli
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
+| ❌ Yanlış | ✅ Doğru |
+|----------|----------|
 | `if (Test-Path "a" -or Test-Path "b")` | `if ((Test-Path "a") -or (Test-Path "b"))` |
 | `if (Get-Item $x -and $y -eq 5)` | `if ((Get-Item $x) -and ($y -eq 5))` |
 
-**Rule:** Each cmdlet call MUST be in parentheses when using logical operators.
+**Kural:** Mantıksal operatörler kullanılırken her cmdlet çağrısı parantez içinde olmalıdır.
 
 ---
 
-## 2. Unicode/Emoji Restriction
+## 2. Unicode/Emoji Kısıtlaması
 
-### CRITICAL: No Unicode in Scripts
+### KRİTİK: Script'lerde Unicode Yok
 
-| Purpose | ❌ Don't Use | ✅ Use |
-|---------|-------------|--------|
-| Success | ✅ ✓ | [OK] [+] |
-| Error | ❌ ✗ 🔴 | [!] [X] |
-| Warning | ⚠️ 🟡 | [*] [WARN] |
-| Info | ℹ️ 🔵 | [i] [INFO] |
-| Progress | ⏳ | [...] |
+| Amaç | ❌ Kullanma | ✅ Kullan |
+|------|-------------|-----------|
+| Başarı | ✅ ✓ | [OK] [+] |
+| Hata | ❌ ✗ 🔴 | [!] [X] |
+| Uyarı | ⚠️ 🟡 | [*] [WARN] |
+| Bilgi | ℹ️ 🔵 | [i] [INFO] |
+| İlerleme | ⏳ | [...] |
 
-**Rule:** Use ASCII characters only in PowerShell scripts.
+**Kural:** PowerShell script'lerinde yalnızca ASCII karakterler kullanın.
 
 ---
 
-## 3. Null Check Patterns
+## 3. Null Kontrolü Desenleri
 
-### Always Check Before Access
+### Erişimden Önce Her Zaman Kontrol Et
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
+| ❌ Yanlış | ✅ Doğru |
+|----------|----------|
 | `$array.Count -gt 0` | `$array -and $array.Count -gt 0` |
 | `$text.Length` | `if ($text) { $text.Length }` |
 
 ---
 
-## 4. String Interpolation
+## 4. String İnterpolasyonu
 
-### Complex Expressions
+### Karmaşık İfadeler
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
-| `"Value: $($obj.prop.sub)"` | Store in variable first |
+| ❌ Yanlış | ✅ Doğru |
+|----------|----------|
+| `"Değer: $($obj.prop.sub)"` | Önce değişkende sakla |
 
-**Pattern:**
+**Desen:**
 ```
 $value = $obj.prop.sub
-Write-Output "Value: $value"
+Write-Output "Değer: $value"
 ```
 
 ---
 
-## 5. Error Handling
+## 5. Hata Yönetimi
 
 ### ErrorActionPreference
 
-| Value | Use |
-|-------|-----|
-| Stop | Development (fail fast) |
-| Continue | Production scripts |
-| SilentlyContinue | When errors expected |
+| Değer | Kullanım |
+|-------|----------|
+| Stop | Geliştirme (hızlı başarısız) |
+| Continue | Prodüksiyon script'leri |
+| SilentlyContinue | Hatalar beklendiğinde |
 
-### Try/Catch Pattern
+### Try/Catch Deseni
 
-- Don't return inside try block
-- Use finally for cleanup
-- Return after try/catch
-
----
-
-## 6. File Paths
-
-### Windows Path Rules
-
-| Pattern | Use |
-|---------|-----|
-| Literal path | `C:\Users\User\file.txt` |
-| Variable path | `Join-Path $env:USERPROFILE "file.txt"` |
-| Relative | `Join-Path $ScriptDir "data"` |
-
-**Rule:** Use Join-Path for cross-platform safety.
+- Try bloğu içinde return yapma
+- Temizleme için finally kullan
+- Try/catch'ten sonra return yap
 
 ---
 
-## 7. Array Operations
+## 6. Dosya Yolları
 
-### Correct Patterns
+### Windows Yol Kuralları
 
-| Operation | Syntax |
-|-----------|--------|
-| Empty array | `$array = @()` |
-| Add item | `$array += $item` |
-| ArrayList add | `$list.Add($item) | Out-Null` |
+| Desen | Kullanım |
+|-------|----------|
+| Literal yol | `C:\Users\User\file.txt` |
+| Değişken yol | `Join-Path $env:USERPROFILE "file.txt"` |
+| Göreceli | `Join-Path $ScriptDir "data"` |
+
+**Kural:** Platformlar arası güvenlik için Join-Path kullanın.
 
 ---
 
-## 8. JSON Operations
+## 7. Dizi İşlemleri
 
-### CRITICAL: Depth Parameter
+### Doğru Desenler
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
+| İşlem | Sözdizimi |
+|-------|-----------|
+| Boş dizi | `$array = @()` |
+| Öğe ekle | `$array += $item` |
+| ArrayList ekle | `$list.Add($item) | Out-Null` |
+
+---
+
+## 8. JSON İşlemleri
+
+### KRİTİK: Depth Parametresi
+
+| ❌ Yanlış | ✅ Doğru |
+|----------|----------|
 | `ConvertTo-Json` | `ConvertTo-Json -Depth 10` |
 
-**Rule:** Always specify `-Depth` for nested objects.
+**Kural:** İç içe nesneler için her zaman `-Depth` belirtin.
 
-### File Operations
+### Dosya İşlemleri
 
-| Operation | Pattern |
-|-----------|---------|
-| Read | `Get-Content "file.json" -Raw | ConvertFrom-Json` |
-| Write | `$data | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8` |
-
----
-
-## 9. Common Errors
-
-| Error Message | Cause | Fix |
-|---------------|-------|-----|
-| "parameter 'or'" | Missing parentheses | Wrap cmdlets in () |
-| "Unexpected token" | Unicode character | Use ASCII only |
-| "Cannot find property" | Null object | Check null first |
-| "Cannot convert" | Type mismatch | Use .ToString() |
+| İşlem | Desen |
+|-------|-------|
+| Oku | `Get-Content "file.json" -Raw | ConvertFrom-Json` |
+| Yaz | `$data | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8` |
 
 ---
 
-## 10. Script Template
+## 9. Yaygın Hatalar
+
+| Hata Mesajı | Neden | Düzeltme |
+|-------------|-------|----------|
+| "parameter 'or'" | Eksik parantez | Cmdlet'leri () içine alın |
+| "Unexpected token" | Unicode karakter | Yalnızca ASCII kullanın |
+| "Cannot find property" | Null nesne | Önce null'u kontrol edin |
+| "Cannot convert" | Tip uyuşmazlığı | .ToString() kullanın |
+
+---
+
+## 10. Script Şablonu
 
 ```powershell
 # Strict mode
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Continue"
 
-# Paths
+# Yollar
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-# Main
+# Ana
 try {
-    # Logic here
-    Write-Output "[OK] Done"
+    # Mantık burada
+    Write-Output "[OK] Tamamlandı"
     exit 0
 }
 catch {
-    Write-Warning "Error: $_"
+    Write-Warning "Hata: $_"
     exit 1
 }
 ```
 
 ---
 
-> **Remember:** PowerShell has unique syntax rules. Parentheses, ASCII-only, and null checks are non-negotiable.
+> **Unutma:** PowerShell'in kendine özgü sözdizimi kuralları vardır. Parantezler, yalnızca ASCII ve null kontrolleri pazarlık konusu değildir.

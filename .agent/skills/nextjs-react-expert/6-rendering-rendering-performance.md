@@ -1,26 +1,26 @@
-# 6. Rendering Performance
+# 6. Rendering Performansı (Rendering Performance)
 
-> **Impact:** MEDIUM
-> **Focus:** Optimizing the rendering process reduces the work the browser needs to do.
-
----
-
-## Overview
-
-This section contains **9 rules** focused on rendering performance.
+> **Etki:** ORTA
+> **Odak:** Rendering sürecini optimize etmek, tarayıcının yapması gereken işi azaltır.
 
 ---
 
-## Rule 6.1: Animate SVG Wrapper Instead of SVG Element
+## Genel Bakış
 
-**Impact:** LOW  
-**Tags:** rendering, svg, css, animation, performance  
+Bu bölüm, rendering performansına odaklanan **9 kural** içerir.
 
-## Animate SVG Wrapper Instead of SVG Element
+---
 
-Many browsers don't have hardware acceleration for CSS3 animations on SVG elements. Wrap SVG in a `<div>` and animate the wrapper instead.
+## Kural 6.1: SVG Element Yerine SVG Wrapper'ı Animasyonlayın
 
-**Incorrect (animating SVG directly - no hardware acceleration):**
+**Etki:** DÜŞÜK  
+**Etiketler:** rendering, svg, css, animation, performance  
+
+## SVG Element Yerine SVG Wrapper'ı Animasyonlayın
+
+Birçok tarayıcı, SVG elementlerinde CSS3 animasyonları için donanım hızlandırmasına sahip değildir. SVG'yi bir `<div>`'e sarın ve wrapper'ı animasyonlayın.
+
+**Yanlış (SVG'yi doğrudan animasyonlar - donanım hızlandırma yok):**
 
 ```tsx
 function LoadingSpinner() {
@@ -37,7 +37,7 @@ function LoadingSpinner() {
 }
 ```
 
-**Correct (animating wrapper div - hardware accelerated):**
+**Doğru (wrapper div animasyonluyor - donanım hızlandırmalı):**
 
 ```tsx
 function LoadingSpinner() {
@@ -55,18 +55,18 @@ function LoadingSpinner() {
 }
 ```
 
-This applies to all CSS transforms and transitions (`transform`, `opacity`, `translate`, `scale`, `rotate`). The wrapper div allows browsers to use GPU acceleration for smoother animations.
+Bu, tüm CSS transform ve transition'lar için geçerlidir (`transform`, `opacity`, `translate`, `scale`, `rotate`). Wrapper div, tarayıcıların daha akıcı animasyonlar için GPU hızlandırması kullanmasına izin verir.
 
 ---
 
-## Rule 6.2: CSS content-visibility for Long Lists
+## Kural 6.2: Uzun Listeler İçin CSS content-visibility
 
-**Impact:** HIGH  
-**Tags:** rendering, css, content-visibility, long-lists  
+**Etki:** YÜKSEK  
+**Etiketler:** rendering, css, content-visibility, long-lists  
 
-## CSS content-visibility for Long Lists
+## Uzun Listeler İçin CSS content-visibility
 
-Apply `content-visibility: auto` to defer off-screen rendering.
+Ekran dışı rendering'i ertelemek için `content-visibility: auto` uygulayın.
 
 **CSS:**
 
@@ -77,7 +77,7 @@ Apply `content-visibility: auto` to defer off-screen rendering.
 }
 ```
 
-**Example:**
+**Örnek:**
 
 ```tsx
 function MessageList({ messages }: { messages: Message[] }) {
@@ -94,20 +94,20 @@ function MessageList({ messages }: { messages: Message[] }) {
 }
 ```
 
-For 1000 messages, browser skips layout/paint for ~990 off-screen items (10× faster initial render).
+1000 mesaj için, tarayıcı ~990 ekran dışı öğe için layout/paint'i atlar (10× daha hızlı ilk render).
 
 ---
 
-## Rule 6.3: Hoist Static JSX Elements
+## Kural 6.3: Statik JSX Elementlerini Yukarı Taşıyın
 
-**Impact:** LOW  
-**Tags:** rendering, jsx, static, optimization  
+**Etki:** DÜŞÜK  
+**Etiketler:** rendering, jsx, static, optimization  
 
-## Hoist Static JSX Elements
+## Statik JSX Elementlerini Yukarı Taşıyın
 
-Extract static JSX outside components to avoid re-creation.
+Yeniden oluşturulmasını önlemek için statik JSX'i componentlerin dışına çıkarın.
 
-**Incorrect (recreates element every render):**
+**Yanlış (her render'da elementi yeniden oluşturur):**
 
 ```tsx
 function LoadingSkeleton() {
@@ -123,7 +123,7 @@ function Container() {
 }
 ```
 
-**Correct (reuses same element):**
+**Doğru (aynı elementi yeniden kullanır):**
 
 ```tsx
 const loadingSkeleton = (
@@ -139,34 +139,34 @@ function Container() {
 }
 ```
 
-This is especially helpful for large and static SVG nodes, which can be expensive to recreate on every render.
+Bu özellikle büyük ve statik SVG node'ları için yararlıdır, bunlar her render'da yeniden oluşturulması pahalı olabilir.
 
-**Note:** If your project has [React Compiler](https://react.dev/learn/react-compiler) enabled, the compiler automatically hoists static JSX elements and optimizes component re-renders, making manual hoisting unnecessary.
+**Not:** Projenizde [React Compiler](https://react.dev/learn/react-compiler) etkinse, compiler otomatik olarak statik JSX elementlerini yukarı taşır ve component yeniden render'larını optimize eder, manuel taşıma gereksizdir.
 
 ---
 
-## Rule 6.4: Optimize SVG Precision
+## Kural 6.4: SVG Hassasiyetini Optimize Edin
 
-**Impact:** LOW  
-**Tags:** rendering, svg, optimization, svgo  
+**Etki:** DÜŞÜK  
+**Etiketler:** rendering, svg, optimization, svgo  
 
-## Optimize SVG Precision
+## SVG Hassasiyetini Optimize Edin
 
-Reduce SVG coordinate precision to decrease file size. The optimal precision depends on the viewBox size, but in general reducing precision should be considered.
+Dosya boyutunu azaltmak için SVG koordinat hassasiyetini azaltın. Optimal hassasiyet viewBox boyutuna bağlıdır, ancak genel olarak hassasiyeti azaltmak göz önünde bulundurulmalıdır.
 
-**Incorrect (excessive precision):**
+**Yanlış (aşırı hassas):**
 
 ```svg
 <path d="M 10.293847 20.847362 L 30.938472 40.192837" />
 ```
 
-**Correct (1 decimal place):**
+**Doğru (1 ondalık basamak):**
 
 ```svg
 <path d="M 10.3 20.8 L 30.9 40.2" />
 ```
 
-**Automate with SVGO:**
+**SVGO ile otomatikleştirin:**
 
 ```bash
 npx svgo --precision=1 --multipass icon.svg
@@ -174,20 +174,20 @@ npx svgo --precision=1 --multipass icon.svg
 
 ---
 
-## Rule 6.5: Prevent Hydration Mismatch Without Flickering
+## Kural 6.5: Titreme Olmadan Hydration Mismatch'i Önleyin
 
-**Impact:** MEDIUM  
-**Tags:** rendering, ssr, hydration, localStorage, flicker  
+**Etki:** ORTA  
+**Etiketler:** rendering, ssr, hydration, localStorage, flicker  
 
-## Prevent Hydration Mismatch Without Flickering
+## Titreme Olmadan Hydration Mismatch'i Önleyin
 
-When rendering content that depends on client-side storage (localStorage, cookies), avoid both SSR breakage and post-hydration flickering by injecting a synchronous script that updates the DOM before React hydrates.
+İstemci tarafı depolamaya (localStorage, cookies) bağlı içerik render ederken, React hydrate olmadan önce DOM'u güncelleyen senkron bir script enjekte ederek hem SSR bozulmasını hem de hydration sonrası titremeyi önleyin.
 
-**Incorrect (breaks SSR):**
+**Yanlış (SSR'ı bozar):**
 
 ```tsx
 function ThemeWrapper({ children }: { children: ReactNode }) {
-  // localStorage is not available on server - throws error
+  // localStorage sunucuda mevcut değil - hata fırlatır
   const theme = localStorage.getItem('theme') || 'light'
   
   return (
@@ -198,16 +198,16 @@ function ThemeWrapper({ children }: { children: ReactNode }) {
 }
 ```
 
-Server-side rendering will fail because `localStorage` is undefined.
+Sunucu tarafı rendering başarısız olacaktır çünkü `localStorage` undefined'dır.
 
-**Incorrect (visual flickering):**
+**Yanlış (görsel titreme):**
 
 ```tsx
 function ThemeWrapper({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState('light')
   
   useEffect(() => {
-    // Runs after hydration - causes visible flash
+    // Hydration'dan sonra çalışır - görünür parlamaya neden olur
     const stored = localStorage.getItem('theme')
     if (stored) {
       setTheme(stored)
@@ -222,9 +222,9 @@ function ThemeWrapper({ children }: { children: ReactNode }) {
 }
 ```
 
-Component first renders with default value (`light`), then updates after hydration, causing a visible flash of incorrect content.
+Component önce varsayılan değerle (`light`) render olur, sonra hydration'dan sonra güncellenir, yanlış içeriğin görünür bir parlamasına neden olur.
 
-**Correct (no flicker, no hydration mismatch):**
+**Doğru (titreme yok, hydration mismatch yok):**
 
 ```tsx
 function ThemeWrapper({ children }: { children: ReactNode }) {
@@ -251,22 +251,22 @@ function ThemeWrapper({ children }: { children: ReactNode }) {
 }
 ```
 
-The inline script executes synchronously before showing the element, ensuring the DOM already has the correct value. No flickering, no hydration mismatch.
+Inline script, elementi göstermeden önce senkron olarak yürütülür, DOM'un zaten doğru değere sahip olmasını sağlar. Titreme yok, hydration mismatch yok.
 
-This pattern is especially useful for theme toggles, user preferences, authentication states, and any client-only data that should render immediately without flashing default values.
+Bu desen özellikle tema değiştiricileri, kullanıcı tercihleri, kimlik doğrulama durumları ve varsayılan değerleri göstermeden hemen render edilmesi gereken istemci-only veriler için yararlıdır.
 
 ---
 
-## Rule 6.6: Suppress Expected Hydration Mismatches
+## Kural 6.6: Beklenen Hydration Mismatch'lerini Baskılayın
 
-**Impact:** LOW-MEDIUM  
-**Tags:** rendering, hydration, ssr, nextjs  
+**Etki:** DÜŞÜK-ORTA  
+**Etiketler:** rendering, hydration, ssr, nextjs  
 
-## Suppress Expected Hydration Mismatches
+## Beklenen Hydration Mismatch'lerini Baskılayın
 
-In SSR frameworks (e.g., Next.js), some values are intentionally different on server vs client (random IDs, dates, locale/timezone formatting). For these *expected* mismatches, wrap the dynamic text in an element with `suppressHydrationWarning` to prevent noisy warnings. Do not use this to hide real bugs. Don’t overuse it.
+SSR framework'lerinde (örn. Next.js), bazı değerler kasıtlı olarak sunucu ve istemcide farklıdır (rastgele ID'ler, tarihler, locale/timezone formatlama). Bu *beklenen* mismatch'ler için, gürültülü uyarıları önlemek için dinamik metni `suppressHydrationWarning` olan bir elemente sarın. Bunu gerçek hataları gizlemek için kullanmayın. Aşırı kullanmayın.
 
-**Incorrect (known mismatch warnings):**
+**Yanlış (bilinen mismatch uyarıları):**
 
 ```tsx
 function Timestamp() {
@@ -274,7 +274,7 @@ function Timestamp() {
 }
 ```
 
-**Correct (suppress expected mismatch only):**
+**Doğru (yalnızca beklenen mismatch'i baskıla):**
 
 ```tsx
 function Timestamp() {
@@ -288,16 +288,16 @@ function Timestamp() {
 
 ---
 
-## Rule 6.7: Use Activity Component for Show/Hide
+## Kural 6.7: Göster/Gizle İçin Activity Component Kullanın
 
-**Impact:** MEDIUM  
-**Tags:** rendering, activity, visibility, state-preservation  
+**Etki:** ORTA  
+**Etiketler:** rendering, activity, visibility, state-preservation  
 
-## Use Activity Component for Show/Hide
+## Göster/Gizle İçin Activity Component Kullanın
 
-Use React's `<Activity>` to preserve state/DOM for expensive components that frequently toggle visibility.
+Sık sık görünürlüğünü değiştiren pahalı componentler için state/DOM'u korumak için React'in `<Activity>`'sini kullanın.
 
-**Usage:**
+**Kullanım:**
 
 ```tsx
 import { Activity } from 'react'
@@ -311,20 +311,20 @@ function Dropdown({ isOpen }: Props) {
 }
 ```
 
-Avoids expensive re-renders and state loss.
+Pahalı yeniden render'lardan ve state kaybından kaçınır.
 
 ---
 
-## Rule 6.8: Use Explicit Conditional Rendering
+## Kural 6.8: Açık Koşullu Rendering Kullanın
 
-**Impact:** LOW  
-**Tags:** rendering, conditional, jsx, falsy-values  
+**Etki:** DÜŞÜK  
+**Etiketler:** rendering, conditional, jsx, falsy-values  
 
-## Use Explicit Conditional Rendering
+## Açık Koşullu Rendering Kullanın
 
-Use explicit ternary operators (`? :`) instead of `&&` for conditional rendering when the condition can be `0`, `NaN`, or other falsy values that render.
+Koşul `0`, `NaN` veya render edilecek diğer falsy değerler olabildiğinde, koşullu rendering için `&&` yerine açık ternary operatörleri (`? :`) kullanın.
 
-**Incorrect (renders "0" when count is 0):**
+**Yanlış (count 0 olduğunda "0" render eder):**
 
 ```tsx
 function Badge({ count }: { count: number }) {
@@ -335,11 +335,11 @@ function Badge({ count }: { count: number }) {
   )
 }
 
-// When count = 0, renders: <div>0</div>
-// When count = 5, renders: <div><span class="badge">5</span></div>
+// count = 0 iken, render eder: <div>0</div>
+// count = 5 iken, render eder: <div><span class="badge">5</span></div>
 ```
 
-**Correct (renders nothing when count is 0):**
+**Doğru (count 0 olduğunda hiçbir şey render etmez):**
 
 ```tsx
 function Badge({ count }: { count: number }) {
@@ -350,22 +350,22 @@ function Badge({ count }: { count: number }) {
   )
 }
 
-// When count = 0, renders: <div></div>
-// When count = 5, renders: <div><span class="badge">5</span></div>
+// count = 0 iken, render eder: <div></div>
+// count = 5 iken, render eder: <div><span class="badge">5</span></div>
 ```
 
 ---
 
-## Rule 6.9: Use useTransition Over Manual Loading States
+## Kural 6.9: Manuel Loading State'leri Yerine useTransition Kullanın
 
-**Impact:** LOW  
-**Tags:** rendering, transitions, useTransition, loading, state  
+**Etki:** DÜŞÜK  
+**Etiketler:** rendering, transitions, useTransition, loading, state  
 
-## Use useTransition Over Manual Loading States
+## Manuel Loading State'leri Yerine useTransition Kullanın
 
-Use `useTransition` instead of manual `useState` for loading states. This provides built-in `isPending` state and automatically manages transitions.
+Loading state'leri için manuel `useState` yerine `useTransition` kullanın. Bu yerleşik `isPending` state'i sağlar ve transition'ları otomatik olarak yönetir.
 
-**Incorrect (manual loading state):**
+**Yanlış (manuel loading state):**
 
 ```tsx
 function SearchResults() {
@@ -391,7 +391,7 @@ function SearchResults() {
 }
 ```
 
-**Correct (useTransition with built-in pending state):**
+**Doğru (yerleşik pending state'i ile useTransition):**
 
 ```tsx
 import { useTransition, useState } from 'react'
@@ -402,10 +402,10 @@ function SearchResults() {
   const [isPending, startTransition] = useTransition()
 
   const handleSearch = (value: string) => {
-    setQuery(value) // Update input immediately
+    setQuery(value) // Input'u hemen güncelle
     
     startTransition(async () => {
-      // Fetch and update results
+      // Sonuçları fetch et ve güncelle
       const data = await fetchResults(value)
       setResults(data)
     })
@@ -421,12 +421,11 @@ function SearchResults() {
 }
 ```
 
-**Benefits:**
+**Faydalar:**
 
-- **Automatic pending state**: No need to manually manage `setIsLoading(true/false)`
-- **Error resilience**: Pending state correctly resets even if the transition throws
-- **Better responsiveness**: Keeps the UI responsive during updates
-- **Interrupt handling**: New transitions automatically cancel pending ones
+- **Otomatik pending state**: `setIsLoading(true/false)` manuel olarak yönetmeye gerek yok
+- **Hata dayanıklılığı**: Transition fırlatsa bile pending state doğru şekilde sıfırlanır
+- **Daha iyi yanıt verebilirlik**: Güncellemeler sırasında UI'uyı yanıt verebilir tutar
+- **Kesme yönetimi**: Yeni transition'lar bekleyen olanları otomatik olarak iptal eder
 
-Reference: [useTransition](https://react.dev/reference/react/useTransition)
-
+Referans: [useTransition](https://react.dev/reference/react/useTransition)

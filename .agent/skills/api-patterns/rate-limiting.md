@@ -1,31 +1,31 @@
-# Rate Limiting Principles
+# İstek Sınırlama (Rate Limiting) Prensipleri
 
-> Protect your API from abuse and overload.
+> API'nizi suiistimallere ve aşırı yüklenmeye karşı koruyun.
 
-## Why Rate Limit
+## Neden İstek Sınırlama Yapılmalı?
 
 ```
-Protect against:
-├── Brute force attacks
-├── Resource exhaustion
-├── Cost overruns (if pay-per-use)
-└── Unfair usage
+Şunlara karşı koruma sağlayın:
+├── Kaba kuvvet (Brute force) saldırıları
+├── Kaynak tükenmesi (Resource exhaustion)
+├── Beklenmedik maliyet aşımları (kullandıkça öde ise)
+└── Haksız veya dengesiz kullanım
 ```
 
-## Strategy Selection
+## Strateji Seçimi
 
-| Type | How | When |
+| Tür | Nasıl Çalışır | Ne Zaman Kullanılır |
 |------|-----|------|
-| **Token bucket** | Burst allowed, refills over time | Most APIs |
-| **Sliding window** | Smooth distribution | Strict limits |
-| **Fixed window** | Simple counters per window | Basic needs |
+| **Token bucket** | Anlık yüklenmeye (burst) izin verir, zamanla dolar | Çoğu API için |
+| **Sliding window**| Pürüzsüz bir dağılım sağlar | Katı limitler gerektiğinde |
+| **Fixed window** | Her pencere için basit sayaçlar tutar | Basit ihtiyaçlar için |
 
-## Response Headers
+## Yanıt Header Bilgileri
 
 ```
-Include in headers:
-├── X-RateLimit-Limit (max requests)
-├── X-RateLimit-Remaining (requests left)
-├── X-RateLimit-Reset (when limit resets)
-└── Return 429 when exceeded
+Header'lara şunları dahil edin:
+├── X-RateLimit-Limit (maksimum istek sayısı)
+├── X-RateLimit-Remaining (kalan istek hakkı)
+├── X-RateLimit-Reset (limitin ne zaman sıfırlanacağı)
+└── Limit aşıldığında 429 durum kodunu döndürün
 ```

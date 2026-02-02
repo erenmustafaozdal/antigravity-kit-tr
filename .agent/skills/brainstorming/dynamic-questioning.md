@@ -1,350 +1,341 @@
-# Dynamic Question Generation
+# Dinamik Soru Üretimi (Dynamic Question Generation)
 
-> **PRINCIPLE:** Questions are not about gathering data—they are about **revealing architectural consequences**.
+> **PRENSİP:** Sorular sadece veri toplamak için değil, **mimari sonuçları ortaya çıkarmak** içindir.
 >
-> Every question must connect to a concrete implementation decision that affects cost, complexity, or timeline.
+> Her soru; maliyeti, karmaşıklığı veya zaman çizelgesini etkileyen somut bir uygulama kararına bağlanmalıdır.
 
 ---
 
-## 🧠 Core Principles
+## 🧠 Temel Prensipler
 
-### 1. Questions Reveal Consequences
+### 1. Sorular Sonuçları Belirler
 
-A good question is not "What color do you want?" but:
+İyi bir soru "Hangi rengi istersiniz?" değil, şudur:
 
 ```markdown
-❌ BAD: "What authentication method?"
-✅ GOOD: "Should users sign up with email/password or social login?
+❌ YANLIŞ: "Hangi kimlik doğrulama yöntemini istersiniz?"
+✅ DOĞRU: "Kullanıcılar e-posta/şifre ile mi yoksa sosyal medya hesaplarıyla mı giriş yapmalı?
 
-   Impact:
-   - Email/Pass → Need password reset, hashing, 2FA infrastructure
-   - Social → OAuth providers, user profile mapping, less control
+   Etki:
+   - E-posta/Şifre → Şifre sıfırlama, hashleme, 2FA altyapısı gerekir
+   - Sosyal Medya → OAuth sağlayıcıları, profil eşleştirme, daha az kontrol imkanı
 
-   Trade-off: Security vs. Development time vs. User friction"
+   Takas (Trade-off): Güvenlik vs. Geliştirme süresi vs. Kullanıcı sürtünmesi"
 ```
 
-### 2. Context Before Content
+### 2. İçerikten Önce Bağlam
 
-First understand **where** this request fits:
+Öncelikle bu isteğin **nereye** oturduğunu anlayın:
 
-| Context | Question Focus |
+| Bağlam | Soru Odağı |
 |---------|----------------|
-| **Greenfield** (new project) | Foundation decisions: stack, hosting, scale |
-| **Feature Addition** | Integration points, existing patterns, breaking changes |
-| **Refactor** | Why refactor? Performance? Maintainability? What's broken? |
-| **Debug** | Symptoms → Root cause → Reproduction path |
+| **Sıfırdan Proje** (Greenfield) | Temel kararlar: teknoloji yığını, barındırma, ölçek |
+| **Özellik Ekleme** | Entegrasyon noktaları, mevcut desenler, kırılma riski olan yerler |
+| **Refactor** | Neden refactor? Performans mı? Sürdürülebilirlik mi? Bozulan ne? |
+| **Debug** | Belirtiler → Kök neden → Yeniden oluşturma yolu |
 
-### 3. Minimum Viable Questions
+### 3. Minimum Gerekli Sorular
 
-**PRINCIPLE:** Each question must eliminate a fork in the implementation road.
+**PRENSİP:** Her soru, uygulama yolundaki bir ayrımı ortadan kaldırmalıdır.
 
 ```
-Before Question:
-├── Path A: Do X (5 min)
-├── Path B: Do Y (15 min)
-└── Path C: Do Z (1 hour)
+Soru Öncesi:
+├── Yol A: X Yap (5 dk)
+├── Yol B: Y Yap (15 dk)
+└── Yol C: Z Yap (1 saat)
 
-After Question:
-└── Path Confirmed: Do X (5 min)
+Soru Sonrası:
+└── Onaylanan Yol: X Yap (5 dk)
 ```
 
-If a question doesn't reduce implementation paths → **DELETE IT**.
+Bir soru uygulama yollarını azaltmıyorsa → **SİLEBİLİRSİNİZ**.
 
-### 4. Questions Generate Data, Not Assumptions
+### 4. Sorular Varsayım Değil, Veri Üretir
 
 ```markdown
-❌ ASSUMPTION: "User probably wants Stripe for payments"
-✅ QUESTION: "Which payment provider fits your needs?
+❌ VARSAYIM: "Kullanıcı muhtemelen ödemeler için Stripe ister"
+✅ SORU: "İhtiyaçlarınıza hangi ödeme sağlayıcısı daha uygun?
 
-   Stripe → Best documentation, 2.9% + $0.30, US-centric
-   LemonSqueezy → Merchant of Record, 5% + $0.50, global taxes
-   Paddle → Complex pricing, handles EU VAT, enterprise focus"
+   Stripe → En iyi dokümantasyon, %2.9 + $0.30, ABD merkezli
+   LemonSqueezy → Kayıtlı Satıcı (MoR), %5 + $0.50, küresel vergiler
+   Paddle → Karmaşık fiyatlandırma, AB KDV yönetiminde iyi, kurumsal odaklı"
 ```
 
 ---
 
-## 📋 Question Generation Algorithm
+## 📋 Soru Üretme Algoritması
 
 ```
-INPUT: User request + Context (greenfield/feature/refactor/debug)
+GİRDİ: Kullanıcı isteği + Bağlam (yeni proje/özellik/refactor/debug)
 │
-├── STEP 1: Parse Request
-│   ├── Extract domain (ecommerce, auth, realtime, cms, etc.)
-│   ├── Extract features (explicit and implied)
-│   └── Extract scale indicators (users, data volume, frequency)
+├── ADIM 1: İsteği Çözümle
+│   ├── Alanı çıkar (e-ticaret, auth, real-time, cms vb.)
+│   ├── Özellikleri çıkar (açıkça belirtilen ve ima edilen)
+│   └── Ölçek göstergelerini çıkar (kullanıcı sayısı, veri hacmi, sıklık)
 │
-├── STEP 2: Identify Decision Points
-│   ├── What MUST be decided before coding? (blocking)
-│   ├── What COULD be decided later? (deferable)
-│   └── What has ARCHITECTURAL impact? (high-leverage)
+├── ADIM 2: Karar Noktalarını Belirle
+│   ├── Kodlamadan önce ne karar VERİLMELİ? (engelleyici)
+│   ├── Ne daha sonra kararlaştırılabilir? (ertelenebilir)
+│   └── Nelerin MİMARİ etkisi var? (yüksek kaldıraçlı)
 │
-├── STEP 3: Generate Questions (Priority Order)
-│   ├── P0: Blocking decisions (cannot proceed without answer)
-│   ├── P1: High-leverage (affects >30% of implementation)
-│   ├── P2: Medium-leverage (affects specific features)
-│   └── P3: Nice-to-have (edge cases, optimization)
+├── ADIM 3: Soruları Üret (Öncelik Sırası)
+│   ├── P0: Engelleyici kararlar (cevaplanmadan ilerlenemez)
+│   ├── P1: Yüksek kaldıraçlı (uygulamanın %30'undan fazlasını etkiler)
+│   ├── P2: Orta kaldıraçlı (belirli özellikleri etkiler)
+│   └── P3: Olsa iyi olur (uç durumlar, optimizasyon)
 │
-└── STEP 4: Format Each Question
-    ├── What: Clear question
-    ├── Why: Impact on implementation
-    ├── Options: Trade-offs (not just A vs B)
-    └── Default: What happens if user doesn't answer
+└── ADIM 4: Her Soruyu Formatla
+    ├── Ne: Net soru cümlesi
+    ├── Neden: Uygulama üzerindeki etkisi
+    ├── Seçenekler: Takaslar (sadece A vs B değil)
+    └── Varsayılan: Kullanıcı cevaplamazsa ne olur
 ```
 
 ---
 
-## 🎯 Domain-Specific Question Banks
+## 🎯 Alan Bazlı Soru Bankaları
 
-### E-Commerce
+### E-Ticaret
 
-| Question | Why It Matters | Trade-offs |
+| Soru | Neden Önemli? | Takaslar (Trade-offs) |
 |----------|----------------|------------|
-| **Single or Multi-vendor?** | Multi-vendor → Commission logic, vendor dashboards, split payments | +Revenue, -Complexity |
-| **Inventory Tracking?** | Needs stock tables, reservation logic, low-stock alerts | +Accuracy, -Development time |
-| **Digital or Physical Products?** | Digital → Download links, no shipping | Physical → Shipping APIs, tracking |
-| **Subscription or One-time?** | Subscription → Recurring billing, dunning, proration | +Revenue, -Complexity |
+| **Tekli mi Çoklu Satıcı mı?** | Çoklu satıcı → Komisyon mantığı, satıcı panelleri, ödeme dağıtımı | +Gelir, -Karmaşıklık |
+| **Stok Takibi Yapılacak mı?** | Stok tabloları, rezervasyon mantığı, düşük stok uyarıları gerekir | +Hassasiyet, -Geliştirme süresi |
+| **Dijital mi Fiziksel Ürün mü?** | Dijital → İndirme linkleri, kargo yok | Fiziksel → Kargo API'leri, takip |
+| **Abonelik mi Tek Seferlik mi?** | Abonelik → Düzenli faturalandırma, yapılandırma | +Gelir, -Karmaşıklık |
 
-### Authentication
+### Kimlik Doğrulama (Authentication)
 
-| Question | Why It Matters | Trade-offs |
+| Soru | Neden Önemli? | Takaslar (Trade-offs) |
 |----------|----------------|------------|
-| **Social Login Needed?** | OAuth providers vs. password reset infrastructure | +UX, -Control |
-| **Role-Based Permissions?** | RBAC tables, policy enforcement, admin UI | +Security, -Development time |
-| **2FA Required?** | TOTP/SMI infrastructure, backup codes, recovery flow | +Security, -UX friction |
-| **Email Verification?** | Verification tokens, email service, resend logic | +Security, -Sign-up friction |
+| **Sosyal Giriş Lazım mı?** | OAuth sağlayıcıları vs. şifre sıfırlama altyapısı | +Kullanıcı Deneyimi, -Kontrol |
+| **Rol Bazlı İzinler?** | RBAC tabloları, yetki kontrolü, admin paneli | +Güvenlik, -Geliştirme süresi |
+| **2FA Gerekiyor mu?** | TOTP/SMS altyapısı, yedek kodlar, kurtarma akışı | +Güvenlik, -Kullanıcı sürtünmesi |
+| **E-posta Doğrulama?** | Doğrulama tokenları, e-posta servisi, tekrar gönderme mantığı | +Güvenlik, -Kayıt olma sürtünmesi |
 
-### Real-time
+### Gerçek Zamanlı (Real-time)
 
-| Question | Why It Matters | Trade-offs |
+| Soru | Neden Önemli? | Takaslar (Trade-offs) |
 |----------|----------------|------------|
-| **WebSocket or Polling?** | WS → Server scaling, connection management | Polling → Simpler, higher latency |
-| **Expected Concurrent Users?** | <100 → Single server, >1000 → Redis pub/sub, >10k → specialized infra | +Scale, -Complexity |
-| **Message Persistence?** | History tables, storage costs, pagination | +UX, -Storage |
-| **Ephemeral or Durable?** | Ephemeral → In-memory, Durable → Database write before emit | +Reliability, -Latency |
-
-### Content/CMS
-
-| Question | Why It Matters | Trade-offs |
-|----------|----------------|------------|
-| **Rich Text or Markdown?** | Rich Text → Sanitization, XSS risks | Markdown → Simple, no WYSIWYG |
-| **Draft/Publish Workflow?** | Status field, scheduled jobs, versioning | +Control, -Complexity |
-| **Media Handling?** | Upload endpoints, storage, optimization | +Features, -Development time |
-| **Multi-language?** | i18n tables, translation UI, fallback logic | +Reach, -Complexity |
+| **WebSocket mi Polling mi?** | WS → Sunucu ölçeklendirme, bağlantı yönetimi | Polling → Daha basit, daha yüksek gecikme |
+| **Beklenen Eşzamanlı Kullanıcı?** | <100 → Tek sunucu, >1000 → Redis pub/sub, >10k → özel altyapı | +Ölçek, -Karmaşıklık |
+| **Mesaj Kalıcılığı?** | Geçmiş mesaj tabloları, depolama maliyeti, sayfalama | +Kullanıcı Deneyimi, -Depolama |
+| **Uçucu mu Kalıcı mı?** | Uçucu → Bellek içi, Kalıcı → Veritabanına yazdıktan sonra yayma | +Güvenilirlik, -Gecikme |
 
 ---
 
-## 📐 Dynamic Question Template
+## 📐 Dinamik Soru Şablonu
 
 ```markdown
-Based on your request for [DOMAIN] [FEATURE]:
+[ALAN] [ÖZELLİK] isteğinize dayanarak:
 
-## 🔴 CRITICAL (Blocking Decisions)
+## 🔴 KRİTİK (Engelleyici Kararlar)
 
-### 1. **[DECISION POINT]**
+### 1. **[KARAR NOKTASI]**
 
-**Question:** [Clear, specific question]
+**Soru:** [Net ve spesifik soru cümlesi]
 
-**Why This Matters:**
-- [Explain architectural consequence]
-- [Affects: cost / complexity / timeline / scale]
+**Bu Neden Önemli:**
+- [Mimari sonucu açıklayın]
+- [Etkilediği alanlar: maliyet / karmaşıklık / zaman çizelgesi / ölçek]
 
-**Options:**
-| Option | Pros | Cons | Best For |
+**Seçenekler:**
+| Seçenek | Artılar | Eksiler | En Uygun Durum |
 |--------|------|------|----------|
-| A | [Advantage] | [Disadvantage] | [Use case] |
-| B | [Advantage] | [Disadvantage] | [Use case] |
+| A | [Avantaj] | [Dezavantaj] | [Senaryo] |
+| B | [Avantaj] | [Dezavantaj] | [Senaryo] |
 
-**If Not Specified:** [Default choice + rationale]
-
----
-
-## 🟡 HIGH-LEVERAGE (Affects Implementation)
-
-### 2. **[DECISION POINT]**
-[Same format]
+**Belirtilmezse:** [Varsayılan seçim + gerekçesi]
 
 ---
 
-## 🟢 NICE-TO-HAVE (Edge Cases)
+## 🟡 YÜKSEK KALDIRAÇLI (Uygulamayı Etkileyenler)
 
-### 3. **[DECISION POINT]**
-[Same format]
+### 2. **[KARAR NOKTASI]**
+[Aynı format]
+
+---
+
+## 🟢 OLSA İYİ OLUR (Uç Durumlar)
+
+### 3. **[KARAR NOKTASI]**
+[Aynı format]
 ```
 
 ---
 
-## 🔄 Iterative Questioning
+## 🔄 Yinelemeli Sorgulama
 
-### First Pass (3-5 Questions)
-Focus on **blocking decisions**. Don't proceed without answers.
+### İlk Aşama (3-5 Soru)
+**Engelleyici kararlara** odaklanın. Cevap almadan ilerlemeyin.
 
-### Second Pass (After Initial Implementation)
-As patterns emerge, ask:
-- "This feature implies [X]. Should we handle [edge case] now or defer?"
-- "We're using [Pattern A]. Should [Feature B] follow the same pattern?"
+### İkinci Aşama (Uygulama Başladıktan Sonra)
+Desenler ortaya çıktıkça:
+- "Bu özellik [X] gerektiriyor. [Uç durumu] şimdi mi yönetelim yoksa erteleyelim mi?"
+- "[A Deseni]'ni kullanıyoruz. [B Özelliği] de aynı deseni mi takip etmeli?"
 
-### Third Pass (Optimization)
-When functionality works:
-- "Performance bottleneck at [X]. Optimize now or acceptable for now?"
-- "Refactor [Y] for maintainability or ship as-is?"
-
----
-
-## 🎭 Example: Full Question Generation
-
-```
-USER REQUEST: "Build an Instagram clone"
-
-STEP 1: Parse
-├── Domain: Social Media
-├── Features: Photo sharing, engagement (likes/comments), user profiles
-├── Implied: Feed, following, authentication
-└── Scale: Potentially high (social apps go viral)
-
-STEP 2: Decision Points
-├── Blocking: Storage strategy, authentication method, feed type
-├── High-leverage: Real-time notifications, data model complexity
-└── Deferable: Analytics, advanced search, reels/video
-
-STEP 3: Generate Questions (Priority)
-
-P0 (Blocking):
-1. Storage Strategy → Affects architecture, cost, speed
-2. Feed Algorithm → Affects database queries, complexity
-3. Auth Method → Affects dev time, UX, security
-
-P1 (High-leverage):
-4. Real-time Notifications → WebSocket vs polling
-5. Media Processing → Client-side vs server-side optimization
-
-P2 (Deferable):
-6. Story/Reels → Major feature creep, defer to v2
-7. DM/Chat → Separate subsystem, defer to v2
-
-STEP 4: Format Output
-```
+### Üçüncü Aşama (Optimizasyon)
+İşlevsellik çalıştığında:
+- "[X] noktasında performans darboğazı var. Şimdi mi optimize edelim yoksa şimdilik yeterli mi?"
+- "[Y] yapısını sürdürülebilirlik için refactor edelim mi yoksa olduğu gibi mi bırakalım?"
 
 ---
 
-## 📊 Generated Output (Example)
+## 🎭 Örnek: Tam Soru Üretimi
 
 ```
-Based on your Instagram clone request:
+KULLANICI İSTEĞİ: "Bir Instagram klonu yap"
 
-## 🔴 CRITICAL DECISIONS (Cannot Proceed Without Answers)
+ADIM 1: Çözümle
+├── Alan: Sosyal Medya
+├── Özellikler: Fotoğraf paylaşımı, etkileşim (beğeni/yorum), profil sayfaları
+├── İma Edilen: Akış (feed), takip etme, kimlik doğrulama
+└── Ölçek: Potansiyel olarak yüksek (sosyal uygulamalar hızla yayılabilir)
 
-### 1. **Photo Storage Strategy**
+ADIM 2: Karar Noktaları
+├── Engelleyici: Depolama stratejisi, auth yöntemi, akış türü
+├── Yüksek Kaldıraçlı: Gerçek zamanlı bildirimler, veri modeli karmaşıklığı
+└── Ertelenebilir: Analitik, gelişmiş arama, reels/video özellikleri
 
-**Question:** Where will user photos be stored and served?
+ADIM 3: Soruları Üret (Öncelik)
 
-**Why This Matters:**
-- Affects: Monthly hosting costs, page load speed, CDN complexity
-- High-volume social apps: 1000 users × 10 photos × 2MB = 20GB storage
+P0 (Engelleyici):
+1. Depolama Stratejisi → Mimariyi, maliyeti ve hızı etkiler
+2. Akış Algoritması → Veritabanı sorgularını ve karmaşıklığı etkiler
+3. Auth Yöntemi → Geliştirme süresini, UX'i ve güvenliği etkiler
 
-**Options:**
-| Option | Cost | Speed | Complexity | Best For |
+P1 (Yüksek Kaldıraçlı):
+4. Gerçek Zamanlı Bildirimler → WebSocket vs polling
+5. Medya İşleme → İstemci tarafı vs sunucu tarafı optimizasyon
+
+P2 (Ertelenebilir):
+6. Hikaye/Reels → Önemli bir kapsam genişlemesi (scope creep), v2'ye ertele
+7. DM/Chat → Ayrı bir alt sistem, v2'ye ertele
+
+ADIM 4: Çıktıyı Formatla
+```
+
+---
+
+## 📊 Üretilen Çıktı (Örnek)
+
+```
+Instagram klonu isteğinize dayanarak:
+
+## 🔴 KRİTİK KARARLAR (Cevaplanmadan İlerlenemez)
+
+### 1. **Fotoğraf Depolama Stratejisi**
+
+**Soru:** Kullanıcı fotoğrafları nerede saklanacak ve servis edilecek?
+
+**Bu Neden Önemli:**
+- Etkileri: Aylık barındırma maliyetleri, sayfa yükleme hızı, CDN karmaşıklığı
+- Yüksek hacimli sosyal uygulamalar: 1000 kullanıcı × 10 fotoğraf × 2MB = 20GB depolama
+
+**Seçenekler:**
+| Seçenek | Maliyet | Hız | Karmaşıklık | En Uygun Durum |
 |--------|------|-------|------------|----------|
-| **Cloudinary** | $89/mo (25GB) | Fast (CDN) | Low | MVP, rapid launch |
-| **AWS S3 + CloudFront** | $0.023/GB | Fast (CDN) | Medium | Production, cost-optimized |
-| **Supabase Storage** | Free tier 1GB | Medium | Low | Small scale, simple |
-| **Local Storage** | Server cost | Slow | Low | Development only |
+| **Cloudinary** | $89/ay (25GB) | Hızlı (CDN) | Düşük | MVP, hızlı çıkış |
+| **AWS S3 + CloudFront** | $0.023/GB | Hızlı (CDN) | Orta | Prodüksiyon, maliyet odaklı |
+| **Supabase Storage** | Ücretsiz 1GB | Orta | Düşük | Küçük ölçek, basit yapı |
+| **Yerel Depolama** | Sunucu bedeli | Yavaş | Düşük | Sadece geliştirme aşaması |
 
-**If Not Specified:** Cloudinary (balanced for MVP)
+**Belirtilmezse:** Cloudinary (MVP için dengeli seçim)
 
 ---
 
-### 2. **Feed Algorithm Choice**
+### 2. **Akış (Feed) Algoritması Seçimi**
 
-**Question:** How should the main feed work?
+**Soru:** Ana akış nasıl çalışmalı?
 
-**Why This Matters:**
-- Affects: Database query complexity, caching strategy, development time
-- Algorithmic feeds require ML infrastructure, ranking signals
+**Bu Neden Önemli:**
+- Etkileri: Veritabanı sorgu karmaşıklığı, önbellekleme stratejisi, geliştirme süresi
+- Algoritmik akışlar ML altyapısı ve sıralama sinyalleri gerektirir
 
-**Options:**
-| Option | Complexity | Database Impact | Best For |
+**Seçenekler:**
+| Seçenek | Karmaşıklık | Veritabanı Etkisi | En Uygun Durum |
 |--------|------------|-----------------|----------|
-| **Chronological** | Low | Simple query | Early stage, transparency |
-| **Follow-Only** | Medium | JOIN with pagination | Most social apps |
-| **Algorithmic** | High | Pre-computed feed tables | Instagram competitor |
+| **Kronolojik** | Düşük | Basit sorgu | Erken aşama, şeffaflık |
+| **Sadece Takip Edilenler** | Orta | Pagination + JOIN | Çoğu sosyal uygulama |
+| **Algoritmik** | Yüksek | Önceden hesaplanmış tablolar | Instagram rakibi projeler |
 
-**If Not Specified:** Follow-Only (balanced for social app)
+**Belirtilmezse:** Sadece Takip Edilenler (Sosyal uygulama için dengeli seçim)
 
 ---
 
-### 3. **Authentication Approach**
+### 3. **Kimlik Doğrulama (Auth) Yaklaşımı**
 
-**Question:** How do users sign up and login?
+**Soru:** Kullanıcılar nasıl kayıt olacak ve giriş yapacak?
 
-**Why This Matters:**
-- Affects: Development time (2-5 hours), security posture, UX friction
+**Bu Neden Önemli:**
+- Etkileri: Geliştirme süresi (2-5 saat), güvenlik duruşu, kullanıcı deneyimi
 
-**Options:**
-| Option | Dev Time | Security | UX | Best For |
+**Seçenekler:**
+| Seçenek | Geliştirme Süresi | Güvenlik | Deneyim | En Uygun Durum |
 |--------|----------|----------|-----|----------|
-| **Email/Password** | 4-5 hrs | High (if 2FA) | Medium | Full control needed |
-| **Social Only** | 1-2 hrs | Provider-dependent | Smooth | B2C, rapid launch |
-| **Magic Link** | 2-3 hrs | Medium | Very smooth | Security-focused |
-| **Clerk/Auth0** | 1 hr | High | Smooth | Fastest to market |
+| **E-posta/Şifre** | 4-5 saat | Yüksek (2FA varsa) | Orta | Tam kontrol gerekliyse |
+| **Sadece Sosyal** | 1-2 saat | Sağlayıcıya bağlı | Akıcı | B2C, hızlı çıkış |
+| **Magic Link** | 2-3 saat | Orta | Çok akıcı | Güvenlik odaklı |
+| **Clerk/Auth0** | 1 saat | Yüksek | Akıcı | En hızlı piyasaya çıkış |
 
-**If Not Specified:** Clerk (fastest for MVP)
+**Belirtilmezse:** Clerk (MVP için en hızlısı)
 
 ---
 
-## 🟡 HIGH-LEVERAGE (Affects Architecture)
+## 🟡 YÜKSEK KALDIRAÇLI (Mimariyi Etkileyenler)
 
-### 4. **Real-time Notifications**
+### 4. **Gerçek Zamanlı Bildirimler**
 
-**Question:** Do users need instant notifications for likes/comments?
+**Soru:** Kullanıcıların beğeni/yorumlar için anlık bildirimlere ihtiyacı var mı?
 
-**Why This Matters:**
-- WebSocket adds infrastructure complexity (Redis pub/sub for scaling)
-- Polling is simpler but higher latency
+**Bu Neden Önemli:**
+- WebSocket altyapı karmaşıklığı ekler (ölçeklenme için Redis pub/sub vb.)
+- Polling daha basittir ancak gecikmesi daha yüksektir
 
-**Options:**
-| Option | Complexity | Scale Cost | Best For |
+**Seçenekler:**
+| Seçenek | Karmaşıklık | Ölçek Maliyeti | En Uygun Durum |
 |--------|------------|------------|----------|
-| **WebSocket + Redis** | High | $10+/mo | >1000 concurrent users |
-| **Polling (30s)** | Low | DB queries | <1000 users |
-| **No Real-time** | None | None | MVP, validate first |
+| **WebSocket + Redis** | Yüksek | $10+/ay | >1000 eşzamanlı kullanıcı |
+| **Polling (30sn)** | Düşük | DB sorguları | <1000 kullanıcı |
+| **Gerçek Zamanlı Yok** | Yok | Yok | MVP, önce doğrula |
 
-**If Not Specified:** Polling for MVP (defer WebSocket until validated)
-
----
-
-## 🟢 NICE-TO-HAVE (Defer to v2)
-
-### 5. **Video/Reels Support**
-- Major complexity (video processing, streaming infrastructure)
-- Recommendation: Launch with photos only, add video after validation
-
-### 6. **Direct Messaging**
-- Separate subsystem (chat infrastructure different from feed)
-- Recommendation: Use Pusher/Stream for real-time or defer entirely
+**Belirtilmezse:** MVP için Polling (WebSocket'i doğrulamadan sonra ekle)
 
 ---
 
-## 📋 Summary
+## 🟢 OLSA İYİ OLUR (v2'ye Ertele)
 
-| Decision | Recommendation | If Changed |
+### 5. **Video/Reels Desteği**
+- Büyük karmaşıklık (video işleme, yayılım altyapısı)
+- Öneri: Sadece fotoğraf ile başlayın, videoyu doğrulamadan sonra ekleyin.
+
+### 6. **Doğrudan Mesajlaşma (DM)**
+- Ayrı bir alt sistem (chat altyapısı akıştan farklıdır)
+- Öneri: Gerçek zamanlı için Pusher/Stream kullanın veya tamamen erteleyin.
+
+---
+
+## 📋 Özet Tablo
+
+| Karar | Öneri | Değişirse Ne Olur? |
 |----------|----------------|------------|
-| Storage | Cloudinary | +3 hrs setup |
-| Feed | Follow-only | +2 hrs query optimization |
-| Auth | Clerk | -3 hrs dev time |
-| Real-time | Polling | +5 hrs WebSocket setup |
-| Video | Defer to v2 | N/A |
-| DM | Defer to v2 | N/A |
+| Depolama | Cloudinary | +3 saat kurulum |
+| Akış | Sadece Takipçiler | +2 saat sorgu optimizasyonu |
+| Auth | Clerk | -3 saat geliştirme süresi |
+| Gerçek Zamanlı | Polling | +5 saat WebSocket kurulumu |
+| Video | v2'ye ertele | N/A |
+| DM | v2'ye ertele | N/A |
 
-**Total Estimated MVP Time:** 15-20 hours with recommendations above
+**Tahmini Toplam MVP Süresi:** Yukarıdaki önerilerle 15-20 saat
 ```
 
 ---
 
-## 🎯 Principles Recap
+## 🎯 Prensiplerin Özeti
 
-1. **Every question = Architectural decision** → Not data gathering
-2. **Show trade-offs** → User understands consequences
-3. **Prioritize blocking decisions** → Cannot proceed without
-4. **Provide defaults** → If user doesn't answer, we proceed anyway
-5. **Domain-aware** → Ecommerce questions ≠ Auth questions ≠ Real-time questions
-6. **Iterative** → More questions as patterns emerge during implementation
+1. **Her soru = Bir mimari karar** → Sadece veri toplama değil.
+2. **Takasları göster** → Kullanıcı sonuçları anlasın.
+3. **Engelleyici kararları önceliklendir** → Onlar olmadan ilerlenemez.
+4. **Varsayılanlar sunun** → Kullanıcı cevap vermezse bile ilerleyebilelim.
+5. **Alana duyarlı olun** → E-ticaret soruları ≠ Auth soruları ≠ Real-time soruları.
+6. **Yinelemeli ilerleyin** → Uygulama sırasında desenler netleştikçe daha fazla soru sorun.

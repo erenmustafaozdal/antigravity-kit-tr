@@ -1,135 +1,135 @@
 ---
 name: 3d-games
-description: 3D game development principles. Rendering, shaders, physics, cameras.
+description: 3B oyun geliştirme prensipleri. Çizim, shader'lar, fizik, kameralar.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# 3D Game Development
+# 3B Oyun Geliştirme (3D Game Development)
 
-> Principles for 3D game systems.
+> 3B oyun sistemleri için temel prensipler.
 
 ---
 
-## 1. Rendering Pipeline
+## 1. Çizim Hattı (Rendering Pipeline)
 
-### Stages
+### Aşamalar
 
 ```
-1. Vertex Processing → Transform geometry
-2. Rasterization → Convert to pixels
-3. Fragment Processing → Color pixels
-4. Output → To screen
+1. Vertex Processing (Köşe İşleme) → Geometriyi dönüştür
+2. Rasterization (Rasterizasyon) → Piksellere dönüştür
+3. Fragment Processing (Fragman İşleme) → Pikselleri renklendir
+4. Output (Çıktı) → Ekrana gönder
 ```
 
-### Optimization Principles
+### Optimizasyon Prensipleri
 
-| Technique | Purpose |
+| Teknik | Amaç |
 |-----------|---------|
-| **Frustum culling** | Don't render off-screen |
-| **Occlusion culling** | Don't render hidden |
-| **LOD** | Less detail at distance |
-| **Batching** | Combine draw calls |
+| **Frustum culling** | Ekran dışındakileri çizme |
+| **Occlusion culling**| Gizli/kapatılmış olanları çizme |
+| **LOD (Detay Seviyesi)**| Uzaklıktaki detayı azalt |
+| **Batching (Gruplama)**| Çizim çağrılarını birleştir |
 
 ---
 
-## 2. Shader Principles
+## 2. Shader Prensipleri
 
-### Shader Types
+### Shader Türleri
 
-| Type | Purpose |
+| Tür | Amaç |
 |------|---------|
-| **Vertex** | Position, normals |
-| **Fragment/Pixel** | Color, lighting |
-| **Compute** | General computation |
+| **Vertex** | Konum, normaller |
+| **Fragment/Pixel**| Renk, ışıklandırma |
+| **Compute** | Genel hesaplama işlemleri |
 
-### When to Write Custom Shaders
+### Ne Zaman Özel Shader Yazılmalı?
 
-- Special effects (water, fire, portals)
-- Stylized rendering (toon, sketch)
-- Performance optimization
-- Unique visual identity
+- Özel efektler (su, ateş, portallar).
+- Stilize çizimler (toon shading, karakalem efekti).
+- Performans optimizasyonu.
+- Benzersiz bir görsel kimlik yaratma.
 
 ---
 
-## 3. 3D Physics
+## 3. 3B Fizik
 
-### Collision Shapes
+### Çarpışma Şekilleri (Collision Shapes)
 
-| Shape | Use Case |
+| Şekil | Kullanım Durumu |
 |-------|----------|
-| **Box** | Buildings, crates |
-| **Sphere** | Balls, quick checks |
-| **Capsule** | Characters |
-| **Mesh** | Terrain (expensive) |
+| **Box (Kutu)** | Binalar, kasalar |
+| **Sphere (Küre)** | Toplar, hızlı kontroller |
+| **Capsule (Kapsül)**| Karakterler |
+| **Mesh** | Arazi (Terrain - maliyetlidir) |
 
-### Principles
+### Prensipler
 
-- Simple colliders, complex visuals
-- Layer-based filtering
-- Raycasting for line-of-sight
+- Basit çarpıştırıcılar (colliders), karmaşık görseller.
+- Katman tabanlı filtreleme.
+- Görüş hattı (line-of-sight) için Raycasting.
 
 ---
 
-## 4. Camera Systems
+## 4. Kamera Sistemleri
 
-### Camera Types
+### Kamera Türleri
 
-| Type | Use |
+| Tür | Kullanım |
 |------|-----|
-| **Third-person** | Action, adventure |
-| **First-person** | Immersive, FPS |
-| **Isometric** | Strategy, RPG |
-| **Orbital** | Inspection, editors |
+| **Üçüncü Şahıs (Third-person)**| Aksiyon, macera |
+| **Birinci Şahıs (First-person)**| Daldırma (Immersive), FPS |
+| **İzometrik** | Strateji, RPG |
+| **Orbital** | İnceleme, editörler |
 
-### Camera Feel
+### Kamera Hissi
 
-- Smooth following (lerp)
-- Collision avoidance
-- Look-ahead for movement
-- FOV changes for speed
+- Yumuşak takip (lerp/smoothing).
+- Çarpışma engelleme (duvarların içine girmeme).
+- Hareket için ileri bakış (look-ahead).
+- Hız hissi için FOV (görüş alanı) değişiklikleri.
 
 ---
 
-## 5. Lighting
+## 5. Işıklandırma (Lighting)
 
-### Light Types
+### Işık Türleri
 
-| Type | Use |
+| Tür | Kullanım |
 |------|-----|
-| **Directional** | Sun, moon |
-| **Point** | Lamps, torches |
-| **Spot** | Flashlight, stage |
-| **Ambient** | Base illumination |
+| **Directional (Yönlü)**| Güneş, ay |
+| **Point (Noktasal)** | Lambalar, meşaleler |
+| **Spot** | El feneri, sahne ışığı |
+| **Ambient (Ortam)** | Temel aydınlatma |
 
-### Performance Consideration
+### Performans Hususları
 
-- Real-time shadows are expensive
-- Bake when possible
-- Shadow cascades for large worlds
+- Gerçek zamanlı (real-time) gölgeler maliyetlidir.
+- Mümkünse "Bake" (önceden hesaplanmış) yapın.
+- Büyük dünyalar için gölge kaskadları (shadow cascades) kullanın.
 
 ---
 
-## 6. Level of Detail (LOD)
+## 6. Detay Seviyesi (Level of Detail - LOD)
 
-### LOD Strategy
+### LOD Stratejisi
 
-| Distance | Model |
+| Uzaklık | Model |
 |----------|-------|
-| Near | Full detail |
-| Medium | 50% triangles |
-| Far | 25% or billboard |
+| Yakın | Tam detay |
+| Orta | %50 poligon sayısı |
+| Uzak | %25 veya billboard (2B düzlem) |
 
 ---
 
-## 7. Anti-Patterns
+## 7. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Mesh colliders everywhere | Simple shapes |
-| Real-time shadows on mobile | Baked or blob shadows |
-| One LOD for all distances | Distance-based LOD |
-| Unoptimized shaders | Profile and simplify |
+| Her yerde Mesh Collider kullanmak | Basit şekiller kullanın |
+| Mobilde gerçek zamanlı gölgeler kullanmak | Bake edilmiş veya blob gölgeler kullanın |
+| Tüm mesafeler için tek bir LOD kullanmak | Mesafe tabanlı LOD kullanın |
+| Optimize edilmemiş shader'lar | Profil oluşturun ve basitleştirin |
 
 ---
 
-> **Remember:** 3D is about illusion. Create the impression of detail, not the detail itself.
+> **Unutmayın:** 3B bir illüzyondur. Detayın kendisini değil, detayın izlenimini yaratın.

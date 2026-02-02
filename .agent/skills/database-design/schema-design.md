@@ -1,56 +1,56 @@
-# Schema Design Principles
+# Şema Tasarım Prensipleri
 
-> Normalization, primary keys, timestamps, relationships.
+> Normalizasyon, birincil anahtarlar (PK), zaman damgaları, ilişkiler.
 
-## Normalization Decision
+## Normalizasyon Kararı
 
 ```
-When to normalize (separate tables):
-├── Data is repeated across rows
-├── Updates would need multiple changes
-├── Relationships are clear
-└── Query patterns benefit
+Ne zaman normalize edilmeli (tabloları ayır):
+├── Veri satırlar arasında tekrarlanıyorsa
+├── Güncelleme işlemi birden fazla yerin değişmesini gerektiriyorsa
+├── İlişkiler netse
+└── Sorgu desenleri bundan fayda sağlıyorsa
 
-When to denormalize (embed/duplicate):
-├── Read performance critical
-├── Data rarely changes
-├── Always fetched together
-└── Simpler queries needed
+Ne zaman denormalize edilmeli (gömülü/kopya veri):
+├── Okuma performansı kritikse
+├── Veri nadiren değişiyorsa
+├── Veri her zaman birlikte çekiliyorsa
+└── Daha basit sorgular gerekiyorsa
 ```
 
-## Primary Key Selection
+## Birincil Anahtar (Primary Key) Seçimi
 
-| Type | Use When |
+| Tür | Ne Zaman Kullanılır |
 |------|----------|
-| **UUID** | Distributed systems, security |
-| **ULID** | UUID + sortable by time |
-| **Auto-increment** | Simple apps, single database |
-| **Natural key** | Rarely (business meaning) |
+| **UUID** | Dağıtık sistemler, güvenlik |
+| **ULID** | UUID + zamana göre sıralanabilir |
+| **Auto-increment** | Basit uygulamalar, tek veritabanı |
+| **Doğal Anahtar** | Çok nadiren (iş mantığı taşıyan anahtarlar) |
 
-## Timestamp Strategy
+## Zaman Damgası (Timestamp) Stratejisi
 
 ```
-For every table:
-├── created_at → When created
-├── updated_at → Last modified
-└── deleted_at → Soft delete (if needed)
+Her tablo için:
+├── created_at → Oluşturulma zamanı
+├── updated_at → Son güncelleme zamanı
+└── deleted_at → Yazılımsal silme (soft delete - gerekliyse)
 
-Use TIMESTAMPTZ (with timezone) not TIMESTAMP
+TIMESTAMP yerine TIMESTAMPTZ (zaman dilimi ile birlikte) kullanın.
 ```
 
-## Relationship Types
+## İlişki Türleri
 
-| Type | When | Implementation |
+| Tür | Durum | Uygulama |
 |------|------|----------------|
-| **One-to-One** | Extension data | Separate table with FK |
-| **One-to-Many** | Parent-children | FK on child table |
-| **Many-to-Many** | Both sides have many | Junction table |
+| **Bire-Bir** | Uzantı verileri | FK (Dış Anahtar) içeren ayrı tablo |
+| **Bire-Çok** | Ebeveyn-çocuk ilişkisi | Çocuk tabloda FK |
+| **Çoka-Çok** | Her iki tarafın da birden fazla bağlantısı varsa | Bağlantı (Junction) tablosu |
 
-## Foreign Key ON DELETE
+## Dış Anahtar (Foreign Key) ON DELETE Davranışı
 
 ```
-├── CASCADE → Delete children with parent
-├── SET NULL → Children become orphans
-├── RESTRICT → Prevent delete if children exist
-└── SET DEFAULT → Children get default value
+├── CASCADE → Ebeveyn silindiğinde çocukları da sil
+├── SET NULL → Çocukları yetim bırak (nullable ise)
+├── RESTRICT → Çocuklar varsa ebeveynin silinmesini engelle
+└── SET DEFAULT → Çocuklara varsayılan değerleri ata
 ```

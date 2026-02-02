@@ -1,185 +1,185 @@
 ---
 name: game-art
-description: Game art principles. Visual style selection, asset pipeline, animation workflow.
+description: Oyun sanatı (Game art) prensipleri. Görsel stil seçimi, varlık boru hattı, animasyon iş akışı.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Game Art Principles
+# Oyun Sanatı (Game Art) Prensipleri
 
-> Visual design thinking for games - style selection, asset pipelines, and art direction.
+> Oyunlar için görsel tasarım düşüncesi - stil seçimi, varlık (asset) boru hattı ve sanat yönetimi.
 
 ---
 
-## 1. Art Style Selection
+## 1. Sanat Stili Seçimi
 
-### Decision Tree
+### Karar Ağacı
 
 ```
-What feeling should the game evoke?
+Oyun hangi duyguyu uyandırmalı?
 │
-├── Nostalgic / Retro
-│   ├── Limited palette? → Pixel Art
-│   └── Hand-drawn feel? → Vector / Flash style
+├── Nostaljik / Retro
+│   ├── Sınırlı palet mi? → Pixel Art
+│   └── El çizimi hissi mi? → Vektör / Flash stili
 │
-├── Realistic / Immersive
-│   ├── High budget? → PBR 3D
-│   └── Stylized realism? → Hand-painted textures
+├── Gerçekçi / Derinlikli (Immersive)
+│   ├── Yüksek bütçe mi? → PBR 3B (PBR 3D)
+│   └── Stilize gerçekçilik mi? → El boyaması (Hand-painted) dokular
 │
-├── Approachable / Casual
-│   ├── Clean shapes? → Flat / Minimalist
-│   └── Soft feel? → Gradient / Soft shadows
+├── Cana Yakın / Şirin (Casual)
+│   ├── Net şekiller mi? → Flat / Minimalist
+│   └── Yumuşak bir his mi? → Gradyan / Yumuşak gölgeler
 │
-└── Unique / Experimental
-    └── Define custom style guide
+└── Benzersiz / Deneysel
+    └── Özel bir stil rehberi tanımlayın
 ```
 
-### Style Comparison Matrix
+### Stil Karşılaştırma Matrisi
 
-| Style | Production Speed | Skill Floor | Scalability | Best For |
+| Stil | Üretim Hızı | Yetenek Eşiği | Ölçeklenebilirlik | En Uygun |
 |-------|------------------|-------------|-------------|----------|
-| **Pixel Art** | Medium | Medium | Hard to hire | Indie, retro |
-| **Vector/Flat** | Fast | Low | Easy | Mobile, casual |
-| **Hand-painted** | Slow | High | Medium | Fantasy, stylized |
-| **PBR 3D** | Slow | High | AAA pipeline | Realistic games |
-| **Low-poly** | Fast | Medium | Easy | Indie 3D |
-| **Cel-shaded** | Medium | Medium | Medium | Anime, cartoon |
+| **Pixel Art** | Orta | Orta | Ekip bulmak zor | Bağımsız, retro |
+| **Vektör/Flat** | Hızlı | Düşük | Kolay | Mobil, şirin oyunlar |
+| **El Boyaması** | Yavaş | Yüksek | Orta | Fantezi, stilize |
+| **PBR 3B** | Yavaş | Yüksek | AAA boru hattı | Gerçekçi oyunlar |
+| **Low-poly** | Hızlı | Orta | Kolay | Bağımsız 3B |
+| **Cel-shaded** | Orta | Orta | Orta | Anime, çizgi film |
 
 ---
 
-## 2. Asset Pipeline Decisions
+## 2. Varlık (Asset) Boru Hattı Kararları
 
-### 2D Pipeline
+### 2B Boru Hattı
 
-| Phase | Tool Options | Output |
+| Aşama | Araç Seçenekleri | Çıktı |
 |-------|--------------|--------|
-| **Concept** | Paper, Procreate, Photoshop | Reference sheet |
-| **Creation** | Aseprite, Photoshop, Krita | Individual sprites |
+| **Konsept** | Kağıt, Procreate, Photoshop | Referans sayfası |
+| **Yaratım** | Aseprite, Photoshop, Krita | Tekil sprite'lar |
 | **Atlas** | TexturePacker, Aseprite | Spritesheet |
-| **Animation** | Spine, DragonBones, Frame-by-frame | Animation data |
-| **Integration** | Engine import | Game-ready assets |
+| **Animasyon** | Spine, DragonBones, Kare-kare | Animasyon verisi |
+| **Entegrasyon** | Oyun Motoru | Oyuna hazır varlıklar |
 
-### 3D Pipeline
+### 3B Boru Hattı
 
-| Phase | Tool Options | Output |
+| Aşama | Araç Seçenekleri | Çıktı |
 |-------|--------------|--------|
-| **Concept** | 2D art, Blockout | Reference |
-| **Modeling** | Blender, Maya, 3ds Max | High-poly mesh |
-| **Retopology** | Blender, ZBrush | Game-ready mesh |
-| **UV/Texturing** | Substance Painter, Blender | Texture maps |
-| **Rigging** | Blender, Maya | Skeletal rig |
-| **Animation** | Blender, Maya, Mixamo | Animation clips |
-| **Export** | FBX, glTF | Engine-ready |
+| **Konsept** | 2B sanat, Blockout | Referans |
+| **Modelleme** | Blender, Maya, 3ds Max | Yüksek poligonlu mesh |
+| **Retopoloji** | Blender, ZBrush | Oyuna hazır mesh |
+| **UV/Dokulama** | Substance Painter, Blender | Doku haritaları (Texture maps) |
+| **Rigleme** | Blender, Maya | İskelet sistemi (Rig) |
+| **Animasyon** | Blender, Maya, Mixamo | Animasyon klipleri |
+| **Dışa Aktarma** | FBX, glTF | Motor için hazır dosya |
 
 ---
 
-## 3. Color Theory Decisions
+## 3. Renk Teorisi Kararları
 
-### Palette Selection
+### Palet Seçimi
 
-| Goal | Strategy | Example |
+| Hedef | Strateji | Örnek |
 |------|----------|---------|
-| **Harmony** | Complementary or analogous | Nature games |
-| **Contrast** | High saturation differences | Action games |
-| **Mood** | Warm/cool temperature | Horror, cozy |
-| **Readability** | Value contrast over hue | Gameplay clarity |
+| **Uyum** | Tamamlayıcı veya benzer renkler | Doğa oyunları |
+| **Kontrast** | Yüksek doygunluk farkları | Aksiyon oyunları |
+| **Ruh Hali** | Sıcak/soğuk sıcaklığı | Korku, huzurlu oyunlar |
+| **Okunabilirlik** | Renk tonu yerine değer kontrastı | Oynanış netliği |
 
-### Color Principles
+### Renk Prensipleri
 
-- **Hierarchy:** Important elements should pop
-- **Consistency:** Same object = same color family
-- **Context:** Colors read differently on backgrounds
-- **Accessibility:** Don't rely only on color
+- **Hiyerarşi:** Önemli öğeler öne çıkmalıdır.
+- **Tutarlılık:** Aynı nesne = aynı renk ailesi.
+- **Bağlam:** Renkler farklı arka planlarda farklı okunur.
+- **Erişilebilirlik:** Sadece renge güvenmeyin (şekil farkı ekleyin).
 
 ---
 
-## 4. Animation Principles
+## 4. Animasyon Prensipleri
 
-### The 12 Principles (Applied to Games)
+### 12 Prensip (Oyunlara Uygulanmış Hali)
 
-| Principle | Game Application |
+| Prensip | Oyun Uygulaması |
 |-----------|------------------|
-| **Squash & Stretch** | Jump arcs, impacts |
-| **Anticipation** | Wind-up before attack |
-| **Staging** | Clear silhouettes |
-| **Follow-through** | Hair, capes after movement |
-| **Slow in/out** | Easing on transitions |
-| **Arcs** | Natural movement paths |
-| **Secondary Action** | Breathing, blinking |
-| **Timing** | Frame count = weight/speed |
-| **Exaggeration** | Readable from distance |
-| **Appeal** | Memorable design |
+| **Esnetme ve Ezme** | Zıplama kavisleri, etkiler |
+| **Beklenti (Anticipation)** | Saldırıdan önce yapılan hazırlık |
+| **Sahneleme (Staging)** | Net silüetler |
+| **Takip ve Üst Üste Binme** | Hareketten sonra saç/pelerin savrulması |
+| **Giriş ve Çıkışta Yavaşlama** | Geçişlerde yumuşatma (easing) |
+| **Kavisler (Arcs)** | Doğal hareket yolları |
+| **İkincil Eylem** | Nefes alma, göz kırpma |
+| **Zamanlama** | Kare sayısı = ağırlık/hız |
+| **Mübalağa (Exaggeration)** | Uzaktan okunabilir olması |
+| **Cazibe (Appeal)** | Akılda kalıcı tasarım |
 
-### Frame Count Guidelines
+### Kare Sayısı Yönergeleri
 
-| Action Type | Typical Frames | Feel |
+| Eylem Türü | Tipik Kare Sayısı | Hissi |
 |-------------|----------------|------|
-| Idle breathing | 4-8 | Subtle |
-| Walk cycle | 6-12 | Smooth |
-| Run cycle | 4-8 | Energetic |
-| Attack | 3-6 | Snappy |
-| Death | 8-16 | Dramatic |
+| Nefes alma | 4-8 | Hafif |
+| Yürüme döngüsü | 6-12 | Yumuşak |
+| Koşma döngüsü | 4-8 | Enerjik |
+| Saldırı | 3-6 | Hızlı/Sert |
+| Ölüm | 8-16 | Dramatik |
 
 ---
 
-## 5. Resolution & Scale Decisions
+## 5. Çözünürlük ve Ölçek Kararları
 
-### 2D Resolution by Platform
+### Platforma Göre 2B Çözünürlük
 
-| Platform | Base Resolution | Sprite Scale |
+| Platform | Temel Çözünürlük | Sprite Ölçeği |
 |----------|-----------------|--------------|
-| Mobile | 1080p | 64-128px characters |
-| Desktop | 1080p-4K | 128-256px characters |
-| Pixel art | 320x180 to 640x360 | 16-32px characters |
+| Mobil | 1080p | 64-128px karakterler |
+| Masaüstü | 1080p-4K | 128-256px karakterler |
+| Pixel art | 320x180 - 640x360 | 16-32px karakterler |
 
-### Consistency Rule
+### Tutarlılık Kuralı
 
-Choose a base unit and stick to it:
-- Pixel art: Work at 1x, scale up (never down)
-- HD art: Define DPI, maintain ratio
-- 3D: 1 unit = 1 meter (industry standard)
-
----
-
-## 6. Asset Organization
-
-### Naming Convention
-
-```
-[type]_[object]_[variant]_[state].[ext]
-
-Examples:
-spr_player_idle_01.png
-tex_stone_wall_normal.png
-mesh_tree_oak_lod2.fbx
-```
-
-### Folder Structure Principle
-
-```
-assets/
-├── characters/
-│   ├── player/
-│   └── enemies/
-├── environment/
-│   ├── props/
-│   └── tiles/
-├── ui/
-├── effects/
-└── audio/
-```
+Bir temel birim seçin ve ona sadık kalın:
+- Pixel art: 1x boyutunda çalışın, yukarı ölçeklendirin (asla aşağı değil).
+- HD sanat: Bir DPI tanımlayın, oranı koruyun.
+- 3B: 1 birim = 1 metre (endüstri standardı).
 
 ---
 
-## 7. Anti-Patterns
+## 6. Varlık (Asset) Organizasyonu
 
-| Don't | Do |
+### İsimlendirme Kuralları
+
+```
+[tür]_[nesne]_[varyant]_[durum].[uzanti]
+
+Örnekler:
+spr_oyuncu_bekleme_01.png
+tex_tas_duvar_normal.png
+mesh_agac_mese_lod2.fbx
+```
+
+### Klasör Yapısı Prensibi
+
+```
+varliklar/ (assets/)
+├── karakterler/
+│   ├── oyuncu/
+│   └── dusmanlar/
+├── cevre/
+│   ├── dekorlar/
+│   └── karolar (tiles)/
+├── arayüz (ui)/
+├── efektler/
+└── ses (audio)/
+```
+
+---
+
+## 7. Anti-Desenler (Yapılmaması Gerekenler)
+
+| YAPMAYIN | YAPIN |
 |-------|-----|
-| Mix art styles randomly | Define and follow style guide |
-| Work at final resolution only | Create at source resolution |
-| Ignore silhouette readability | Test at gameplay distance |
-| Over-detail background | Focus detail on player area |
-| Skip color testing | Test on target display |
+| Sanat stillerini rastgele karıştırmak | Stil rehberi tanımlayın ve ona uyun |
+| Sadece final çözünürlükte çalışmak | Kaynak çözünürlükte yaratın |
+| Silüet okunabilirliğini görmezden gelmek | Oynanış mesafesinden test edin |
+| Arkaplanı aşırı detaylandırmak | Detayı oyuncu bölgesine odaklayın |
+| Renk testini atlamak | Hedef ekranda test edin |
 
 ---
 
-> **Remember:** Art serves gameplay. If it doesn't help the player, it's decoration.
+> **Unutmayın:** Sanat oyun mekaniğine hizmet eder. Eğer oyuncuya yardımcı olmuyorsa, o sadece bir süstür.

@@ -1,94 +1,94 @@
-# Architecture Examples
+# Mimari Örnekleri
 
-> Real-world architecture decisions by project type.
+> Proje türüne göre gerçek dünya mimari kararları.
 
 ---
 
-## Example 1: MVP E-commerce (Solo Developer)
+## Örnek 1: MVP E-ticaret (Tek Geliştirici)
 
 ```yaml
-Requirements:
-  - <1000 users initially
-  - Solo developer
-  - Fast to market (8 weeks)
-  - Budget-conscious
+Gereksinimler:
+  - Başlangıçta <1000 kullanıcı
+  - Tek (solo) geliştirici
+  - Hızlı teslimat (8 hafta)
+  - Bütçe kısıtlı
 
-Architecture Decisions:
-  App Structure: Monolith (simpler for solo)
-  Framework: Next.js (full-stack, fast)
-  Data Layer: Prisma direct (no over-abstraction)
-  Authentication: JWT (simpler than OAuth)
-  Payment: Stripe (hosted solution)
-  Database: PostgreSQL (ACID for orders)
+Mimari Kararlar:
+  Uygulama Yapısı: Monolit (tek kişi için daha basit)
+  Framework: Next.js (full-stack, hızlı)
+  Veri Katmanı: Doğrudan Prisma (aşırı soyutlama yok)
+  Kimlik Doğrulama: JWT (OAuth'tan daha basit)
+  Ödeme: Stripe (hazır çözüm)
+  Veritabanı: PostgreSQL (siparişler için ACID garantisi)
 
-Trade-offs Accepted:
-  - Monolith → Can't scale independently (team doesn't justify it)
-  - No Repository → Less testable (simple CRUD doesn't need it)
-  - JWT → No social login initially (can add later)
+Kabul Edilen Takaslar:
+  - Monolit → Bağımsız ölçeklenemez (ekip büyüklüğü bunu gerektirmiyor)
+  - Repository yok → Daha az test edilebilir (basit CRUD için gerek yok)
+  - JWT → Başlangıçta sosyal giriş yok (daha sonra eklenebilir)
 
-Future Migration Path:
-  - Users > 10K → Extract payment service
-  - Team > 3 → Add Repository pattern
-  - Social login requested → Add OAuth
+Gelecek Planı:
+  - Kullanıcı > 10K → Ödeme servisini ayır
+  - Ekip > 3 → Repository desenini ekle
+  - Sosyal giriş talebi → OAuth entegrasyonu yap
 ```
 
 ---
 
-## Example 2: SaaS Product (5-10 Developers)
+## Örnek 2: SaaS Ürünü (5-10 Geliştirici)
 
 ```yaml
-Requirements:
-  - 1K-100K users
-  - 5-10 developers
-  - Long-term (12+ months)
-  - Multiple domains (billing, users, core)
+Gereksinimler:
+  - 1K-100K kullanıcı
+  - 5-10 geliştirici
+  - Uzun vadeli (12+ ay)
+  - Çoklu etki alanları (faturalandırma, kullanıcılar, çekirdek özellikler)
 
-Architecture Decisions:
-  App Structure: Modular Monolith (team size optimal)
-  Framework: NestJS (modular by design)
-  Data Layer: Repository pattern (testing, flexibility)
-  Domain Model: Partial DDD (rich entities)
-  Authentication: OAuth + JWT
-  Caching: Redis
-  Database: PostgreSQL
+Mimari Kararlar:
+  Uygulama Yapısı: Modüler Monolit (ekip boyutu için optimal)
+  Framework: NestJS (doğuştan modüler yapıda)
+  Veri Katmanı: Repository deseni (test edilebilirlik, esneklik)
+  Alan Modeli: Kısmi DDD (zengin varlıklar)
+  Kimlik Doğrulama: OAuth + JWT
+  Önbellek: Redis
+  Veritabanı: PostgreSQL
 
-Trade-offs Accepted:
-  - Modular Monolith → Some module coupling (microservices not justified)
-  - Partial DDD → No full aggregates (no domain experts)
-  - RabbitMQ later → Initial synchronous (add when proven needed)
+Kabul Edilen Takaslar:
+  - Modüler Monolit → Bazı modüller arası sıkı bağlar (mikroservislere henüz gerek yok)
+  - Kısmi DDD → Tam "aggregates" yapısı yok (alan uzmanı eksikliği)
+  - Sonradan RabbitMQ → Başlangıçta senkron iletişim (ihtiyaç olduğunda eklenecek)
 
-Migration Path:
-  - Team > 10 → Consider microservices
-  - Domains conflict → Extract bounded contexts
-  - Read performance issues → Add CQRS
+Gelecek Planı:
+  - Ekip > 10 → Mikroservislere geçişi değerlendir
+  - Alanlar arası çakışma → Sınırlı bağlamları (bounded contexts) ayrıştır
+  - Okuma performans sorunları → CQRS ekle
 ```
 
 ---
 
-## Example 3: Enterprise (100K+ Users)
+## Örnek 3: Kurumsal (100K+ Kullanıcı)
 
 ```yaml
-Requirements:
-  - 100K+ users
-  - 10+ developers
-  - Multiple business domains
-  - Different scaling needs
-  - 24/7 availability
+Gereksinimler:
+  - 100K+ kullanıcı
+  - 10+ geliştirici
+  - Çoklu iş alanları
+  - Farklı ölçeklenme ihtiyaçları
+  - 7/24 erişilebilirlik
 
-Architecture Decisions:
-  App Structure: Microservices (independent scale)
+Mimari Kararlar:
+  Uygulama Yapısı: Mikroservisler (bağımsız ölçeklendirme)
   API Gateway: Kong/AWS API GW
-  Domain Model: Full DDD
-  Consistency: Event-driven (eventual OK)
-  Message Bus: Kafka
-  Authentication: OAuth + SAML (enterprise SSO)
-  Database: Polyglot (right tool per job)
-  CQRS: Selected services
+  Alan Modeli: Tam DDD
+  Tutarlılık: Olay güdümlü (nihai tutarlılık kabul edilebilir)
+  Mesaj Kuyruğu: Kafka
+  Kimlik Doğrulama: OAuth + SAML (kurumsal SSO)
+  Veritabanı: Polyglot (her iş için doğru araç)
+  CQRS: Seçili servislerde
 
-Operational Requirements:
+Operasyonel Gereksinimler:
   - Service mesh (Istio/Linkerd)
-  - Distributed tracing (Jaeger/Tempo)
-  - Centralized logging (ELK/Loki)
-  - Circuit breakers (Resilience4j)
+  - Dağıtık izleme (Jaeger/Tempo)
+  - Merkezi loglama (ELK/Loki)
+  - Devre kesiciler (Circuit breakers - Resilience4j)
   - Kubernetes/Helm
 ```

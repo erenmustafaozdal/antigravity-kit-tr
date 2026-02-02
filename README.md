@@ -1,137 +1,93 @@
-# Antigravity Kit
+# Antigravity Kit (TR Core)
 
-> AI Agent templates with Skills, Agents, and Workflows
+> Yetenekler, Ajanlar ve İş Akışları ile YZ Ajan Şablonları
 
-<div  align="center">
-    <a href="https://unikorn.vn/p/antigravity-kit?ref=unikorn" target="_blank"><img src="https://unikorn.vn/api/widgets/badge/antigravity-kit?theme=dark" alt="Antigravity Kit - Nổi bật trên Unikorn.vn" style="width: 210px; height: 54px;" width="210" height="54" /></a>
-    <a href="https://unikorn.vn/p/antigravity-kit?ref=unikorn" target="_blank"><img src="https://unikorn.vn/api/widgets/badge/antigravity-kit/rank?theme=dark&type=daily" alt="Antigravity Kit - Hàng ngày" style="width: 250px; height: 64px;" width="250" height="64" /></a>
-    <a href="https://launch.j2team.dev/products/antigravity-kit" target="_blank"><img src="https://launch.j2team.dev/badge/antigravity-kit/dark" alt="Antigravity Kit on J2TEAM Launch" width="250" height="54" /></a>
-</div>
+## Hızlı Kurulum
 
-## Quick Install
+Bu versiyon, doğrudan projenize klonlanarak kullanılmak üzere tasarlanmıştır. Projenize eklemek için:
 
 ```bash
-npx @vudovn/ag-kit init
+git clone https://github.com/erenmustafaozdal/antigravity-kit-tr .agent
 ```
 
-Or install globally:
+Bu komut tüm şablonları içeren `.agent` klasörünü projenize indirir. Eğer bir Git projesi içindeyseniz, `.gitignore` dosyanıza `.agent/` eklemeyi unutmayın.
 
-```bash
-npm install -g @vudovn/ag-kit
-ag-kit init
-```
+## Neler Dahil?
 
-This installs the `.agent` folder containing all templates into your project.
-
-## What's Included
-
-| Component     | Count | Description                                                        |
-| ------------- | ----- | ------------------------------------------------------------------ |
-| **Agents**    | 20    | Specialist AI personas (frontend, backend, security, PM, QA, etc.) |
-| **Skills**    | 36    | Domain-specific knowledge modules                                  |
-| **Workflows** | 11    | Slash command procedures                                           |
+| Bileşen       | Sayı | Açıklama                                                           |
+| ------------- | ---- | ------------------------------------------------------------------ |
+| **Ajanlar**   | 20   | Uzman YZ personaları (frontend, backend, güvenlik, PM, QA vb.)     |
+| **Yetenekler**| 36   | Alan-bazlı bilgi modülleri                                         |
+| **İş Akışları**| 11   | Slash komutu prosedürleri                                          |
 
 
-## Usage
+## Kullanım
 
-### Using Agents
+### Ajanları Kullanma
 
-**No need to mention agents explicitly!** The system automatically detects and applies the right specialist(s):
+**Ajanları açıkça belirtmenize gerek yok!** Sistem otomatik olarak doğru uzmanı/uzmanları algılar ve uygular:
 
 ```
-You: "Add JWT authentication"
-AI: 🤖 Applying @security-auditor + @backend-specialist...
+Siz: "JWT kimlik doğrulama ekle"
+YZ: 🤖 @security-auditor + @backend-specialist uygulanıyor...
 
-You: "Fix the dark mode button"
-AI: 🤖 Using @frontend-specialist...
+Siz: "Karanlık mod butonunu düzelt"
+YZ: 🤖 @frontend-specialist kullanılıyor...
 
-You: "Login returns 500 error"
-AI: 🤖 Using @debugger for systematic analysis...
+Siz: "Giriş 500 hatası veriyor"
+YZ: 🤖 Sistematik analiz için @debugger kullanılıyor...
 ```
 
-**How it works:**
+**Nasıl Çalışır:**
 
-- Analyzes your request silently
+- İsteğinizi sessizce analiz eder
+- Alan(lar)ı otomatik algılar (frontend, backend, güvenlik vb.)
+- En iyi uzman(lar)ı seçer
+- Hangi uzmanlığın uygulandığını size bildirir
+- Sistem mimarisini bilmenize gerek kalmadan uzman düzeyinde yanıtlar alırsınız
 
-- Detects domain(s) automatically (frontend, backend, security, etc.)
-- Selects the best specialist(s)
-- Informs you which expertise is being applied
-- You get specialist-level responses without needing to know the system architecture
+**Avantajlar:**
 
-**Benefits:**
+- ✅ Öğrenme eğrisi yok - sadece neye ihtiyacınız olduğunu tarif edin
+- ✅ Her zaman uzman yanıtları alın
+- ✅ Şeffaf - hangi ajanın kullanıldığını gösterir
+- ✅ İsterseniz ajanı açıkça belirterek geçersiz kılabilirsiniz
 
-- ✅ Zero learning curve - just describe what you need
-- ✅ Always get expert responses
-- ✅ Transparent - shows which agent is being used
-- ✅ Can still override by mentioning agent explicitly
+### İş Akışlarını Kullanma
 
-### Using Workflows
+İş akışlarını slash komutları ile çağırın:
 
-Invoke workflows with slash commands:
-
-| Command          | Description                           |
+| Komut            | Açıklama                              |
 | ---------------- | ------------------------------------- |
-| `/brainstorm`    | Explore options before implementation |
-| `/create`        | Create new features or apps           |
-| `/debug`         | Systematic debugging                  |
-| `/deploy`        | Deploy application                    |
-| `/enhance`       | Improve existing code                 |
-| `/orchestrate`   | Multi-agent coordination              |
-| `/plan`          | Create task breakdown                 |
-| `/preview`       | Preview changes locally               |
-| `/status`        | Check project status                  |
-| `/test`          | Generate and run tests                |
-| `/ui-ux-pro-max` | Design with 50 styles                 |
+| `/brainstorm`    | Uygulamadan önce seçenekleri keşfet   |
+| `/create`        | Yeni özellikler veya uygulamalar yarat|
+| `/debug`         | Sistematik hata ayıklama              |
+| `/deploy`        | Uygulamayı dağıt                      |
+| `/enhance`       | Mevcut kodu iyileştir                 |
+| `/orchestrate`   | Çoklu-ajan koordinasyonu              |
+| `/plan`          | Görev kırılımı oluştur                |
+| `/preview`       | Değişiklikleri yerel olarak önizle    |
+| `/status`        | Proje durumunu kontrol et             |
+| `/test`          | Test üret ve çalıştır                 |
+| `/ui-ux-pro-max` | 50 stil ile tasarım yap               |
 
-Example:
+Örnek:
 
 ```
-/brainstorm authentication system
-/create landing page with hero section
-/debug why login fails
+/brainstorm kimlik doğrulama sistemi
+/create hero bölümü olan bir landing page
+/debug giriş neden başarısız oluyor
 ```
 
-### Using Skills
+### Yetenekleri Kullanma
 
-Skills are loaded automatically based on task context. The AI reads skill descriptions and applies relevant knowledge.
+Yetenekler, görev bağlamına göre otomatik olarak yüklenir. YZ, yetenek açıklamalarını okur ve ilgili bilgiyi uygular.
 
-## CLI Tool
+## Dokümantasyon
 
-| Command         | Description                               |
-| --------------- | ----------------------------------------- |
-| `ag-kit init`   | Install `.agent` folder into your project |
-| `ag-kit update` | Update to the latest version              |
-| `ag-kit status` | Check installation status                 |
+- **[Web Uygulaması Örneği](https://antigravity-kit.vercel.app//docs/guide/examples/web-app)** - Web uygulaması oluşturma rehberi (*İngilizce*)
+- **[Online Dokümanlar](https://antigravity-kit.vercel.app//docs)** - Tüm dokümantasyonu çevrimiçi inceleyin (*İngilizce*)
 
-### Options
+## Lisans
 
-```bash
-ag-kit init --force        # Overwrite existing .agent folder
-ag-kit init --path ./myapp # Install in specific directory
-ag-kit init --branch dev   # Use specific branch
-ag-kit init --quiet        # Suppress output (for CI/CD)
-ag-kit init --dry-run      # Preview actions without executing
-```
-
-## Documentation
-
-- **[Web App Example](https://antigravity-kit.vercel.app//docs/guide/examples/brainstorm)** - Step-by-step guide to creating a web application
-- **[Online Docs](https://antigravity-kit.vercel.app//docs)** - Browse all documentation online
-
-## Buy me coffee
-
-<p align="center">
-  <a href="https://buymeacoffee.com/vudovn">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee" />
-  </a>
-</p>
-
-<p align="center"> - or - </p>
-
-<p align="center">
-  <img src="https://img.vietqr.io/image/mbbank-0779440918-compact.jpg" alt="Buy me coffee" width="200" />
-</p>
-
-## License
-
-MIT © Vudovn
+MIT © Vudovn (Original), Eren Mustafa Özdal (TR Fork)

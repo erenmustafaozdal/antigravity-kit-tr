@@ -1,41 +1,41 @@
-# GraphQL Principles
+# GraphQL Prensipleri
 
-> Flexible queries for complex, interconnected data.
+> Karmaşık ve birbiriyle bağlantılı veriler için esnek sorgular.
 
-## When to Use
-
-```
-✅ Good fit:
-├── Complex, interconnected data
-├── Multiple frontend platforms
-├── Clients need flexible queries
-├── Evolving data requirements
-└── Reducing over-fetching matters
-
-❌ Poor fit:
-├── Simple CRUD operations
-├── File upload heavy
-├── HTTP caching important
-└── Team unfamiliar with GraphQL
-```
-
-## Schema Design Principles
+## Ne Zaman Kullanılmalı?
 
 ```
-Principles:
-├── Think in graphs, not endpoints
-├── Design for evolvability (no versions)
-├── Use connections for pagination
-├── Be specific with types (not generic "data")
-└── Handle nullability thoughtfully
+✅ Uygundur:
+├── Karmaşık, birbiriyle bağlantılı veriler
+├── Çoklu ön yüz (frontend) platformları
+├── İstemcilerin esnek sorgulara ihtiyaç duyması
+├── Sürekli evrilen veri gereksinimleri
+└── Gereksiz veri çekimini (over-fetching) azaltmak kritikse
+
+❌ Uygun Değildir:
+├── Basit CRUD işlemleri
+├── Dosya yükleme ağırlıklı işlemler
+├── HTTP seviyesinde önbelleğe alma (caching) çok önemliyse
+├── Ekibin GraphQL tecrübesi yoksa
 ```
 
-## Security Considerations
+## Şema Tasarım Prensipleri
 
 ```
-Protect against:
-├── Query depth attacks → Set max depth
-├── Query complexity → Calculate cost
-├── Batching abuse → Limit batch size
-├── Introspection → Disable in production
+Prensipler:
+├── Uç noktalar yerine grafiksel düşünün
+├── Gelişebilirliğe göre tasarlayın (versiyonlama yerine)
+├── Sayfalama için "connections" kullanın
+├── Tipler konusunda spesifik olun (genel "data" tipi yerine)
+├── Boş olabilirliği (nullability) dikkatli yönetin
+```
+
+## Güvenlik Değerlendirmeleri
+
+```
+Şunlara karşı koruma sağlayın:
+├── Sorgu derinliği saldırıları → Maksimum derinlik belirleyin
+├── Sorgu karmaşıklığı → Maliyet hesaplaması yapın
+├── Toplu işlem (Batching) suiistimali → Paket boyutunu sınırlayın
+├── İnceleme (Introspection) → Prodüksiyon ortamında devre dışı bırakın
 ```

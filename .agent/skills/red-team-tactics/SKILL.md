@@ -1,199 +1,199 @@
 ---
 name: red-team-tactics
-description: Red team tactics principles based on MITRE ATT&CK. Attack phases, detection evasion, reporting.
+description: MITRE ATT&CK'a dayalı red team taktikleri prensipleri. Saldırı aşamaları, tespit kaçırma, raporlama.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Red Team Tactics
+# Red Team Taktikleri (Red Team Tactics)
 
-> Adversary simulation principles based on MITRE ATT&CK framework.
-
----
-
-## 1. MITRE ATT&CK Phases
-
-### Attack Lifecycle
-
-```
-RECONNAISSANCE → INITIAL ACCESS → EXECUTION → PERSISTENCE
-       ↓              ↓              ↓            ↓
-   PRIVILEGE ESC → DEFENSE EVASION → CRED ACCESS → DISCOVERY
-       ↓              ↓              ↓            ↓
-LATERAL MOVEMENT → COLLECTION → C2 → EXFILTRATION → IMPACT
-```
-
-### Phase Objectives
-
-| Phase | Objective |
-|-------|-----------|
-| **Recon** | Map attack surface |
-| **Initial Access** | Get first foothold |
-| **Execution** | Run code on target |
-| **Persistence** | Survive reboots |
-| **Privilege Escalation** | Get admin/root |
-| **Defense Evasion** | Avoid detection |
-| **Credential Access** | Harvest credentials |
-| **Discovery** | Map internal network |
-| **Lateral Movement** | Spread to other systems |
-| **Collection** | Gather target data |
-| **C2** | Maintain command channel |
-| **Exfiltration** | Extract data |
+> MITRE ATT&CK framework'üne dayalı düşman simülasyon prensipleri.
 
 ---
 
-## 2. Reconnaissance Principles
+## 1. MITRE ATT&CK Aşamaları
 
-### Passive vs Active
+### Saldırı Yaşam Döngüsü
 
-| Type | Trade-off |
-|------|-----------|
-| **Passive** | No target contact, limited info |
-| **Active** | Direct contact, more detection risk |
+```
+KEŞİF → İLK ERİŞİM → YÜRÜTME → KALICILIK
+   ↓         ↓          ↓          ↓
+YETKİ YÜKSELTİM → SAVUNMA KAÇIRMA → KİMLİK ERİŞİMİ → KEŞİF
+   ↓         ↓          ↓          ↓
+YANAL HAREKET → TOPLAMA → C2 → SIZMA → ETKİ
+```
 
-### Information Targets
+### Aşama Hedefleri
 
-| Category | Value |
+| Aşama | Hedef |
+|-------|-------|
+| **Keşif** | Saldırı yüzeyini haritalama |
+| **İlk Erişim** | İlk dayanak noktasını al |
+| **Yürütme** | Hedefte kod çalıştır |
+| **Kalıcılık** | Yeniden başlatmaları atlatma |
+| **Yetki Yükseltimi** | Admin/root al |
+| **Savunma Kaçırma** | Tespiti önleme |
+| **Kimlik Erişimi** | Kimlik bilgilerini toplama |
+| **Keşif** | Dahili ağı haritalama |
+| **Yanal Hareket** | Diğer sistemlere yayılma |
+| **Toplama** | Hedef veriyi toplama |
+| **C2** | Komuta kanalını sürdürme |
+| **Sızma** | Veriyi çıkarma |
+
+---
+
+## 2. Keşif Prensipleri
+
+### Pasif vs Aktif
+
+| Tip | Takas |
+|-----|-------|
+| **Pasif** | Hedef teması yok, sınırlı bilgi |
+| **Aktif** | Direkt temas, daha fazla tespit riski |
+
+### Bilgi Hedefleri
+
+| Kategori | Değer |
 |----------|-------|
-| Technology stack | Attack vector selection |
-| Employee info | Social engineering |
-| Network ranges | Scanning scope |
-| Third parties | Supply chain attack |
+| Teknoloji yığını | Saldırı vektörü seçimi |
+| Çalışan bilgisi | Sosyal mühendislik |
+| Ağ aralıkları | Tarama kapsamı |
+| Üçüncü taraflar | Tedarik zinciri saldırısı |
 
 ---
 
-## 3. Initial Access Vectors
+## 3. İlk Erişim Vektörleri
 
-### Selection Criteria
+### Seçim Kriterleri
 
-| Vector | When to Use |
-|--------|-------------|
-| **Phishing** | Human target, email access |
-| **Public exploits** | Vulnerable services exposed |
-| **Valid credentials** | Leaked or cracked |
-| **Supply chain** | Third-party access |
-
----
-
-## 4. Privilege Escalation Principles
-
-### Windows Targets
-
-| Check | Opportunity |
-|-------|-------------|
-| Unquoted service paths | Write to path |
-| Weak service permissions | Modify service |
-| Token privileges | Abuse SeDebug, etc. |
-| Stored credentials | Harvest |
-
-### Linux Targets
-
-| Check | Opportunity |
-|-------|-------------|
-| SUID binaries | Execute as owner |
-| Sudo misconfiguration | Command execution |
-| Kernel vulnerabilities | Kernel exploits |
-| Cron jobs | Writable scripts |
+| Vektör | Ne Zaman Kullanılır |
+|--------|---------------------|
+| **Phishing** | İnsan hedef, e-posta erişimi |
+| **Genel exploitler** | Açığa çıkan savunmasız servisler |
+| **Geçerli kimlik bilgileri** | Sızdırılmış veya kırılmış |
+| **Tedarik zinciri** | Üçüncü taraf erişimi |
 
 ---
 
-## 5. Defense Evasion Principles
+## 4. Yetki Yükseltimi Prensipleri
 
-### Key Techniques
+### Windows Hedefleri
 
-| Technique | Purpose |
-|-----------|---------|
-| LOLBins | Use legitimate tools |
-| Obfuscation | Hide malicious code |
-| Timestomping | Hide file modifications |
-| Log clearing | Remove evidence |
+| Kontrol | Fırsat |
+|---------|--------|
+| Tırnak içine alınmamış servis yolları | Yola yazma |
+| Zayıf servis izinleri | Servisi değiştirme |
+| Token yetkiler | SeDebug vb. kötüye kullanma |
+| Depolanan kimlik bilgileri | Toplama |
 
-### Operational Security
+### Linux Hedefleri
 
-- Work during business hours
-- Mimic legitimate traffic patterns
-- Use encrypted channels
-- Blend with normal behavior
+| Kontrol | Fırsat |
+|---------|--------|
+| SUID binary'leri | Sahip olarak yürütme |
+| Sudo yapılandırma hatası | Komut yürütme |
+| Kernel güvenlik açıkları | Kernel exploitleri |
+| Cron işleri | Yazılabilir script'ler |
 
 ---
 
-## 6. Lateral Movement Principles
+## 5. Savunma Kaçırma Prensipleri
 
-### Credential Types
+### Anahtar Teknikler
 
-| Type | Use |
-|------|-----|
-| Password | Standard auth |
+| Teknik | Amaç |
+|--------|------|
+| LOLBins | Meşru araçları kullanma |
+| Obfuscation | Kötü niyetli kodu gizleme |
+| Timestomping | Dosya değişikliklerini gizleme |
+| Log temizleme | Kanıtı kaldırma |
+
+### Operasyonel Güvenlik
+
+- Çalışma saatlerinde çalışma
+- Meşru trafik desenlerini taklit etme
+- Şifreli kanallar kullanma
+- Normal davranışla harmanlanma
+
+---
+
+## 6. Yanal Hareket Prensipleri
+
+### Kimlik Bilgisi Tipleri
+
+| Tip | Kullanım |
+|-----|----------|
+| Şifre | Standart kimlik doğrulama |
 | Hash | Pass-the-hash |
 | Ticket | Pass-the-ticket |
-| Certificate | Certificate auth |
+| Sertifika | Sertifika kimlik doğrulaması |
 
-### Movement Paths
+### Hareket Yolları
 
-- Admin shares
-- Remote services (RDP, SSH, WinRM)
-- Exploitation of internal services
-
----
-
-## 7. Active Directory Attacks
-
-### Attack Categories
-
-| Attack | Target |
-|--------|--------|
-| Kerberoasting | Service account passwords |
-| AS-REP Roasting | Accounts without pre-auth |
-| DCSync | Domain credentials |
-| Golden Ticket | Persistent domain access |
+- Admin paylaşımları
+- Uzak servisler (RDP, SSH, WinRM)
+- Dahili servislerin exploitasyonu
 
 ---
 
-## 8. Reporting Principles
+## 7. Active Directory Saldırıları
 
-### Attack Narrative
+### Saldırı Kategorileri
 
-Document the full attack chain:
-1. How initial access was gained
-2. What techniques were used
-3. What objectives were achieved
-4. Where detection failed
-
-### Detection Gaps
-
-For each successful technique:
-- What should have detected it?
-- Why didn't detection work?
-- How to improve detection
+| Saldırı | Hedef |
+|---------|-------|
+| Kerberoasting | Servis hesabı şifreleri |
+| AS-REP Roasting | Pre-auth olmayan hesaplar |
+| DCSync | Domain kimlik bilgileri |
+| Golden Ticket | Kalıcı domain erişimi |
 
 ---
 
-## 9. Ethical Boundaries
+## 8. Raporlama Prensipleri
 
-### Always
+### Saldırı Anlatımı
 
-- Stay within scope
-- Minimize impact
-- Report immediately if real threat found
-- Document all actions
+Tam saldırı zincirini belgele:
+1. İlk erişim nasıl elde edildi
+2. Hangi teknikler kullanıldı
+3. Hangi hedefler başarıldı
+4. Tespit nerede başarısız oldu
 
-### Never
+### Tespit Boşlukları
 
-- Destroy production data
-- Cause denial of service (unless scoped)
-- Access beyond proof of concept
-- Retain sensitive data
-
----
-
-## 10. Anti-Patterns
-
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Rush to exploitation | Follow methodology |
-| Cause damage | Minimize impact |
-| Skip reporting | Document everything |
-| Ignore scope | Stay within boundaries |
+Her başarılı teknik için:
+- Neyin tespit etmesi gerekirdi?
+- Tespit neden çalışmadı?
+- Tespiti nasıl iyileştirilir
 
 ---
 
-> **Remember:** Red team simulates attackers to improve defenses, not to cause harm.
+## 9. Etik Sınırlar
+
+### Her Zaman
+
+- Kapsam içinde kal
+- Etkiyi minimize et
+- Gerçek tehdit bulunursa hemen raporla
+- Tüm eylemleri belgele
+
+### Asla
+
+- Prodüksiyon verisini yok etme
+- Hizmet reddi (scoped olmadıkça)
+- Proof of concept'in ötesine erişme
+- Hassas veriyi saklama
+
+---
+
+## 10. Anti-Desenler
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| Exploitasyon için acele et | Metodolojiyi takip et |
+| Hasara neden ol | Etkiyi minimize et |
+| Raporlamayı atla | Her şeyi belgele |
+| Kapsamı görmezden gel | Sınırlar içinde kal |
+
+---
+
+> **Unutma:** Red team, savunmaları iyileştirmek için saldırganları simüle eder, zarar vermek için değil.

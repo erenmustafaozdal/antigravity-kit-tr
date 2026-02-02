@@ -1,75 +1,75 @@
 ---
 name: app-builder
-description: Main application building orchestrator. Creates full-stack applications from natural language requests. Determines project type, selects tech stack, coordinates agents.
+description: Ana uygulama oluşturma orkestratörü. Doğal dildeki isteklerden tam kapsamlı (full-stack) uygulamalar oluşturur. Proje türünü belirler, teknoloji yığınını seçer ve ajanları koordine eder.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 ---
 
-# App Builder - Application Building Orchestrator
+# Uygulama Oluşturucu (App Builder) - Uygulama Oluşturma Orkestratörü
 
-> Analyzes user's requests, determines tech stack, plans structure, and coordinates agents.
+> Kullanıcı isteklerini analiz eder, teknoloji yığınını belirler, yapıyı planlar ve ajanları koordine eder.
 
-## 🎯 Selective Reading Rule
+## 🎯 Seçici Okuma Kuralı
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+**SADECE istekle ilgili dosyaları okuyun!** İçerik haritasını kontrol edin ve ihtiyacınız olanı bulun.
 
-| File | Description | When to Read |
+| Dosya | Açıklama | Ne Zaman Okunmalı? |
 |------|-------------|--------------|
-| `project-detection.md` | Keyword matrix, project type detection | Starting new project |
-| `tech-stack.md` | 2026 default stack, alternatives | Choosing technologies |
-| `agent-coordination.md` | Agent pipeline, execution order | Coordinating multi-agent work |
-| `scaffolding.md` | Directory structure, core files | Creating project structure |
-| `feature-building.md` | Feature analysis, error handling | Adding features to existing project |
-| `templates/SKILL.md` | **Project templates** | Scaffolding new project |
+| `project-detection.md` | Anahtar kelime matrisi, proje türü tespiti | Yeni projeye başlarken |
+| `tech-stack.md` | 2026 varsayılan teknoloji yığını, alternatifler | Teknoloji seçerken |
+| `agent-coordination.md` | Ajan hattı (pipeline), yürütme sırası | Çoklu ajan çalışmasını koordine ederken |
+| `scaffolding.md` | Dizin yapısı, temel dosyalar | Proje yapısını oluştururken |
+| `feature-building.md` | Özellik analizi, hata yönetimi | Mevcut projeye özellik eklerken |
+| `templates/SKILL.md` | **Proje şablonları** | Yeni projenin temel yapısını kurarken |
 
 ---
 
-## 📦 Templates (13)
+## 📦 Şablonlar (13)
 
-Quick-start scaffolding for new projects. **Read the matching template only!**
+Yeni projeler için hızlı başlangıç iskeletleri. **Sadece eşleşen şablonu okuyun!**
 
-| Template | Tech Stack | When to Use |
+| Şablon | Teknoloji Yığını | Ne Zaman Kullanılır |
 |----------|------------|-------------|
-| [nextjs-fullstack](templates/nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | Full-stack web app |
-| [nextjs-saas](templates/nextjs-saas/TEMPLATE.md) | Next.js + Stripe | SaaS product |
-| [nextjs-static](templates/nextjs-static/TEMPLATE.md) | Next.js + Framer | Landing page |
-| [nuxt-app](templates/nuxt-app/TEMPLATE.md) | Nuxt 3 + Pinia | Vue full-stack app |
+| [nextjs-fullstack](templates/nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | Full-stack web uygulaması |
+| [nextjs-saas](templates/nextjs-saas/TEMPLATE.md) | Next.js + Stripe | SaaS ürünü |
+| [nextjs-static](templates/nextjs-static/TEMPLATE.md) | Next.js + Framer | Açılış sayfası (Landing page) |
+| [nuxt-app](templates/nuxt-app/TEMPLATE.md) | Nuxt 3 + Pinia | Vue full-stack uygulaması |
 | [express-api](templates/express-api/TEMPLATE.md) | Express + JWT | REST API |
 | [python-fastapi](templates/python-fastapi/TEMPLATE.md) | FastAPI | Python API |
-| [react-native-app](templates/react-native-app/TEMPLATE.md) | Expo + Zustand | Mobile app |
-| [flutter-app](templates/flutter-app/TEMPLATE.md) | Flutter + Riverpod | Cross-platform mobile |
-| [electron-desktop](templates/electron-desktop/TEMPLATE.md) | Electron + React | Desktop app |
-| [chrome-extension](templates/chrome-extension/TEMPLATE.md) | Chrome MV3 | Browser extension |
-| [cli-tool](templates/cli-tool/TEMPLATE.md) | Node.js + Commander | CLI app |
-| [monorepo-turborepo](templates/monorepo-turborepo/TEMPLATE.md) | Turborepo + pnpm | Monorepo |
+| [react-native-app](templates/react-native-app/TEMPLATE.md) | Expo + Zustand | Mobil uygulama |
+| [flutter-app](templates/flutter-app/TEMPLATE.md) | Flutter + Riverpod | Platformlar arası mobil uygulama |
+| [electron-desktop](templates/electron-desktop/TEMPLATE.md) | Electron + React | Masaüstü uygulaması |
+| [chrome-extension](templates/chrome-extension/TEMPLATE.md) | Chrome MV3 | Tarayıcı eklentisi |
+| [cli-tool](templates/cli-tool/TEMPLATE.md) | Node.js + Commander | CLI uygulaması |
+| [monorepo-turborepo](templates/monorepo-turborepo/TEMPLATE.md) | Turborepo + pnpm | Monorepo yapısı |
 
 ---
 
-## 🔗 Related Agents
+## 🔗 İlgili Ajanlar
 
-| Agent | Role |
+| Ajan | Rol |
 |-------|------|
-| `project-planner` | Task breakdown, dependency graph |
-| `frontend-specialist` | UI components, pages |
-| `backend-specialist` | API, business logic |
-| `database-architect` | Schema, migrations |
-| `devops-engineer` | Deployment, preview |
+| `project-planner` | Görev kırılımı, bağımlılık grafiği |
+| `frontend-specialist` | UI bileşenleri, sayfalar |
+| `backend-specialist` | API, iş mantığı (business logic) |
+| `database-architect` | Şema, migrasyonlar |
+| `devops-engineer` | Dağıtım (deployment), önizleme |
 
 ---
 
-## Usage Example
+## Kullanım Örneği
 
 ```
-User: "Make an Instagram clone with photo sharing and likes"
+Kullanıcı: "Fotoğraf paylaşımı ve beğenileri olan bir Instagram klonu yap"
 
-App Builder Process:
-1. Project type: Social Media App
-2. Tech stack: Next.js + Prisma + Cloudinary + Clerk
-3. Create plan:
-   ├─ Database schema (users, posts, likes, follows)
-   ├─ API routes (12 endpoints)
-   ├─ Pages (feed, profile, upload)
-   └─ Components (PostCard, Feed, LikeButton)
-4. Coordinate agents
-5. Report progress
-6. Start preview
+App Builder Süreci:
+1. Proje türü: Sosyal Medya Uygulaması
+2. Teknoloji yığını: Next.js + Prisma + Cloudinary + Clerk
+3. Plan oluştur:
+   ├─ Veritabanı şeması (users, posts, likes, follows)
+   ├─ API rotaları (12 uç nokta)
+   ├─ Sayfalar (akış, profil, yükleme)
+   └─ Bileşenler (PostCard, Feed, LikeButton)
+4. Ajanları koordine et
+5. İlerlemeyi bildir
+6. Önizlemeyi başlat
 ```

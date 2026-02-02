@@ -1,63 +1,63 @@
 ---
-description: Add or update features in existing application. Used for iterative development.
+description: Mevcut uygulamaya özellikler ekleyin veya bunları güncelleyin. Yinelemeli (iterative) geliştirme için kullanılır.
 ---
 
-# /enhance - Update Application
+# /enhance - Uygulamayı Güncelle/İyileştir
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Görev
 
-This command adds features or makes updates to existing application.
+Bu komut, mevcut uygulamaya yeni özellikler ekler veya mevcut özellikleri günceller.
 
-### Steps:
+### Adımlar:
 
-1. **Understand Current State**
-   - Load project state with `python .agent/scripts/session_manager.py info`
-   - Understand existing features, tech stack
+1. **Mevcut Durumu Anla**
+   - Proje durumunu `python .agent/scripts/session_manager.py info` ile yükle
+   - Mevcut özellikleri ve teknoloji yığınını anla
 
-2. **Plan Changes**
-   - Determine what will be added/changed
-   - Detect affected files
-   - Check dependencies
+2. **Değişiklikleri Planla**
+   - Nelerin ekleneceğini/değiştirileceğini belirle
+   - Etkilenen dosyaları tespit et
+   - Bağımlılıkları kontrol et
 
-3. **Present Plan to User** (for major changes)
+3. **Planı Kullanıcıya Sun** (büyük değişiklikler için)
    ```
-   "To add admin panel:
-   - I'll create 15 new files
-   - Update 8 files
-   - Takes ~10 minutes
+   "Yönetim paneli eklemek için:
+   - 15 yeni dosya oluşturacağım
+   - 8 dosyayı güncelleyeceğim
+   - Yaklaşık 10 dakika sürecek
    
-   Should I start?"
+   Başlayayım mı?"
    ```
 
-4. **Apply**
-   - Call relevant agents
-   - Make changes
-   - Test
+4. **Uygula**
+   - İlgili ajanları çağır
+   - Değişiklikleri yap
+   - Test et
 
-5. **Update Preview**
-   - Hot reload or restart
-
----
-
-## Usage Examples
-
-```
-/enhance add dark mode
-/enhance build admin panel
-/enhance integrate payment system
-/enhance add search feature
-/enhance edit profile page
-/enhance make responsive
-```
+5. **Önizlemeyi Güncelle**
+   - Hot reload yap veya yeniden başlat
 
 ---
 
-## Caution
+## Kullanım Örnekleri
 
-- Get approval for major changes
-- Warn on conflicting requests (e.g., "use Firebase" when project uses PostgreSQL)
-- Commit each change with git
+```
+/enhance karanlık mod ekle
+/enhance yönetim paneli oluştur
+/enhance ödeme sistemi entegre et
+/enhance arama özelliği ekle
+/enhance profil sayfasını düzenle
+/enhance duyarlı (responsive) yap
+```
+
+---
+
+## Dikkat
+
+- Büyük değişiklikler için onay al
+- Çelişkili istekler konusunda uyar (örneğin, proje PostgreSQL kullanırken "Firebase kullan" denmesi)
+- Her değişikliği git ile commit'le

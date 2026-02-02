@@ -1,357 +1,357 @@
-# Mobile Design Thinking
+# Mobil Tasarım Düşüncesi (Thinking)
 
-> **This file prevents AI from using memorized patterns and forces genuine thinking.**
-> Mechanisms to prevent standard AI training defaults in mobile development.
-> **The mobile equivalent of frontend's layout decomposition approach.**
+> **Bu dosya, YZ'nin ezberlenmiş desenleri kullanmasını engeller ve gerçek düşünmeye zorlar.**
+> Mobil geliştirmede standart YZ eğitim varsayılanlarını engelleme mekanizmalarıdır.
+> **Frontend'deki düzen ayrıştırma (layout decomposition) yaklaşımının mobil karşılığıdır.**
 
 ---
 
-## 🧠 DEEP MOBILE THINKING PROTOCOL
+## 🧠 DERİN MOBİL DÜŞÜNCE PROTOKOLÜ
 
-### This Process is Mandatory Before Every Mobile Project
+### Her Mobil Projeden Önce Bu Süreç Zorunludur
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    DEEP MOBILE THINKING                         │
+│                    DERİN MOBİL DÜŞÜNCE                          │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  1️⃣ CONTEXT SCAN                                               │
-│     └── What are my assumptions for this project?               │
-│         └── QUESTION these assumptions                          │
+│  1️⃣ BAĞLAM TARAMASI                                             │
+│     └── Bu proje için varsayımlarım neler?                      │
+│         └── Bu varsayımları SORGULAYIN                          │
 │                                                                 │
-│  2️⃣ ANTI-DEFAULT ANALYSIS                                      │
-│     └── Am I applying a memorized pattern?                      │
-│         └── Is this pattern REALLY the best for THIS project?   │
+│  2️⃣ VARSAYILAN KARŞITI ANALİZ                                    │
+│     └── Ezberlenmiş bir desen mi uyguluyorum?                   │
+│         └── Bu desen GERÇEKTEN BU proje için en iyisi mi?       │
 │                                                                 │
-│  3️⃣ PLATFORM DECOMPOSITION                                     │
-│     └── Did I think about iOS and Android separately?           │
-│         └── What are the platform-specific patterns?            │
+│  3️⃣ PLATFORM AYRIŞTIRMA                                          │
+│     └── iOS ve Android'i ayrı ayrı düşündüm mü?                 │
+│         └── Platforma özgü desenler nelerdir?                   │
 │                                                                 │
-│  4️⃣ TOUCH INTERACTION BREAKDOWN                                │
-│     └── Did I analyze each interaction individually?            │
-│         └── Did I apply Fitts' Law, Thumb Zone?                 │
+│  4️⃣ DOKUNMATİK ETKİLEŞİM KIRILIMI                                │
+│     └── Her etkileşimi ayrı ayrı analiz ettim mi?               │
+│         └── Fitts Yasasını ve Başparmak Bölgesini uyguladım mı?  │
 │                                                                 │
-│  5️⃣ PERFORMANCE IMPACT ANALYSIS                                │
-│     └── Did I consider performance impact of each component?    │
-│         └── Is the default solution performant?                 │
+│  5️⃣ PERFORMANS ETKİ ANALİZİ                                      │
+│     └── Her bileşenin performans etkisini düşündüm mü?          │
+│         └── Varsayılan çözüm performanslı mı?                   │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚫 AI MOBILE DEFAULTS (FORBIDDEN LIST)
+## 🚫 YZ MOBİL VARSAYILANLARI (YASAK LİSTESİ)
 
-### Using These Patterns Automatically is FORBIDDEN!
+### Bu Desenleri Otomatik Olarak Kullanmak YASAKTIR!
 
-The following patterns are "defaults" that AIs learned from training data.
-Before using any of these, **QUESTION them and CONSIDER ALTERNATIVES!**
+Aşağıdaki desenler, YZ'lerin eğitim verilerinden öğrendiği "varsayılanlardır".
+Bunlardan herhangi birini kullanmadan önce **onları SORGULAYIN ve ALTERNATİFLERİ DÜŞÜNÜN!**
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                 🚫 AI MOBILE SAFE HARBOR                        │
-│           (Default Patterns - Never Use Without Questioning)    │
+│                 🚫 YZ MOBİL GÜVENLİ LİMAN                        │
+│         (Varsayılan Desenler - Sorgulamadan Asla Kullanma)      │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  NAVIGATION DEFAULTS:                                           │
-│  ├── Tab bar for every project (Would drawer be better?)        │
-│  ├── Fixed 5 tabs (Are 3 enough? For 6+, drawer?)               │
-│  ├── "Home" tab on left (What does user behavior say?)          │
-│  └── Hamburger menu (Is it outdated now?)                       │
+│  NAVİGASYON VARSAYILANLARI:                                     │
+│  ├── Her proje için Tab Bar (Drawer daha mı iyi olurdu?)        │
+│  ├── Sabit 5 sekme (3 tane yeterli mi? 6+ için Drawer mı?)      │
+│  ├── Solda "Ana Sayfa" sekmesi (Kullanıcı davranışı ne diyor?)  │
+│  └── Hamburger menü (Artık modası geçti mi?)                     │
 │                                                                 │
-│  STATE MANAGEMENT DEFAULTS:                                     │
-│  ├── Redux everywhere (Is Zustand/Jotai sufficient?)            │
-│  ├── Global state for everything (Isn't local state enough?)   │
-│  ├── Context Provider hell (Is atom-based better?)              │
-│  └── BLoC for every Flutter project (Is Riverpod more modern?)  │
+│  STATE YÖNETİMİ VARSAYILANLARI:                                 │
+│  ├── Her yerde Redux (Zustand/Jotai yeterli mi?)                │
+│  ├── Her şey için global state (Yerel state yeterli değil mi?)  │
+│  ├── Context Provider cehennemi (Atom tabanlı mı daha iyi?)     │
+│  └── Her Flutter projesi için BLoC (Riverpod daha mı modern?)   │
 │                                                                 │
-│  LIST IMPLEMENTATION DEFAULTS:                                  │
-│  ├── FlatList as default (Is FlashList more performant?)        │
-│  ├── windowSize=21 (Is it really needed?)                       │
-│  ├── removeClippedSubviews (Always?)                            │
-│  └── ListView.builder (Is ListView.separated better?)           │
+│  LİSTE UYGULAMA VARSAYILANLARI:                                 │
+│  ├── Varsayılan olarak FlatList (FlashList daha mı hızlı?)      │
+│  ├── windowSize=21 (Gerçekten gerekli mi?)                      │
+│  ├── removeClippedSubviews (Her zaman mı?)                      │
+│  └── ListView.builder (ListView.separated daha mı iyi?)         │
 │                                                                 │
-│  UI PATTERN DEFAULTS:                                           │
-│  ├── FAB bottom-right (Is bottom-left more accessible?)         │
-│  ├── Pull-to-refresh on every list (Is it needed everywhere?)   │
-│  ├── Swipe-to-delete from left (Is right better?)               │
-│  └── Bottom sheet for every modal (Is full screen better?)      │
+│  UI DESEN VARSAYILANLARI:                                       │
+│  ├── Sağ altta FAB (Sol alt daha mı erişilebilir?)              │
+│  ├── Her listede çek-yenile (Her yerde gerekli mi?)              │
+│  ├── Soldan kaydır-sil (Sağ taraf daha mı iyi?)                 │
+│  └── Her modal için Bottom Sheet (Tam ekran daha mı iyi?)       │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🔍 COMPONENT DECOMPOSITION (MANDATORY)
+## 🔍 BİLEŞEN AYRIŞTIRMA (ZORUNLU)
 
-### Decomposition Analysis for Every Screen
+### Her Ekran İçin Ayrıştırma Analizi
 
-Before designing any screen, perform this analysis:
+Herhangi bir ekranı tasarlamadan önce bu analizi gerçekleştirin:
 
 ```
-SCREEN: [Screen Name]
-├── PRIMARY ACTION: [What is the main action?]
-│   └── Is it in thumb zone? [Yes/No → Why?]
+EKRAN: [Ekran Adı]
+├── BİRİNCİL EYLEM: [Ana eylem nedir?]
+│   └── Başparmak bölgesinde mi? [Evet/Hayır → Neden?]
 │
-├── TOUCH TARGETS: [All tappable elements]
-│   ├── [Element 1]: [Size]pt → Sufficient?
-│   ├── [Element 2]: [Size]pt → Sufficient?
-│   └── Spacing: [Gap]pt → Accidental tap risk?
+├── DOKUNMATİK HEDEFLER: [Tüm tıklanabilir öğeler]
+│   ├── [Öğe 1]: [Boyut]pt → Yeterli mi?
+│   ├── [Öğe 2]: [Boyut]pt → Yeterli mi?
+│   └── Boşluklandırma: [Aralık]pt → Yanlışlıkla dokunma riski?
 │
-├── SCROLLABLE CONTENT:
-│   ├── Is it a list? → FlatList/FlashList [Why this choice?]
-│   ├── Item count: ~[N] → Performance consideration?
-│   └── Fixed height? → Is getItemLayout needed?
+├── KAYDIRILABİLİR İÇERİK:
+│   ├── Bu bir liste mi? → FlatList/FlashList [Neden bu seçim?]
+│   ├── Öğe sayısı: ~[N] → Performans değerlendirmesi?
+│   └── Sabit yükseklik? → getItemLayout gerekli mi?
 │
-├── STATE REQUIREMENTS:
-│   ├── Is local state sufficient?
-│   ├── Do I need to lift state?
-│   └── Is global required? [Why?]
+├── STATE GEREKSİNİMLERİ:
+│   ├── Yerel state yeterli mi?
+│   ├── State'i yukarı taşıyacak mıyım?
+│   └── Global state zorunlu mu? [Neden?]
 │
-├── PLATFORM DIFFERENCES:
-│   ├── iOS: [Anything different needed?]
-│   └── Android: [Anything different needed?]
+├── PLATFORM FARKLILIKLARI:
+│   ├── iOS: [Farklı bir şey gerekiyor mu?]
+│   └── Android: [Farklı bir şey gerekiyor mu?]
 │
-├── OFFLINE CONSIDERATION:
-│   ├── Should this screen work offline?
-│   └── Cache strategy: [Yes/No/Which one?]
+├── ÇEVRİMDIŞI DEĞERLENDİRMESİ:
+│   ├── Bu ekran çevrimdışı çalışmalı mı?
+│   └── Önbellek stratejisi: [Evet/Hayır/Hangisi?]
 │
-└── PERFORMANCE IMPACT:
-    ├── Any heavy components?
-    ├── Is memoization needed?
-    └── Animation performance?
+└── PERFORMANS ETKİSİ:
+    ├── Ağır bileşenler var mı?
+    ├── Memoizasyon gerekli mi?
+    └── Animasyon performansı?
 ```
 
 ---
 
-## 🎯 PATTERN QUESTIONING MATRIX
+## 🎯 DESEN SORGULAMA MATRİSİ
 
-Ask these questions for every default pattern:
+Her varsayılan desen için bu soruları sorun:
 
-### Navigation Pattern Questioning
+### Navigasyon Deseni Sorgulama
 
-| Assumption | Question | Alternative |
+| Varsayım | Soru | Alternatif |
 |------------|----------|-------------|
-| "I'll use tab bar" | How many destinations? | 3 → minimal tabs, 6+ → drawer |
-| "5 tabs" | Are all equally important? | "More" tab? Drawer hybrid? |
-| "Bottom nav" | iPad/tablet support? | Navigation rail alternative |
-| "Stack navigation" | Did I consider deep links? | URL structure = navigation structure |
+| "Tab bar kullanacağım" | Kaç hedef var? | 3 → minimal sekme, 6+ → drawer |
+| "5 sekme" | Hepsi eşit derecede önemli mi? | "Daha Fazla" sekmesi? Drawer hibrit? |
+| "Alt navigasyon" | iPad/tablet desteği? | Yan navigasyon (Navigation rail) alternatifi |
+| "Stack navigasyon" | Derin linkleri (deep links) düşündüm mü? | URL yapısı = navigasyon yapısı |
 
-### State Pattern Questioning
+### State Deseni Sorgulama
 
-| Assumption | Question | Alternative |
+| Varsayım | Soru | Alternatif |
 |------------|----------|-------------|
-| "I'll use Redux" | How complex is the app? | Simple: Zustand, Server: TanStack |
-| "Global state" | Is this state really global? | Local lift, Context selector |
-| "Context Provider" | Will re-render be an issue? | Zustand, Jotai (atom-based) |
-| "BLoC pattern" | Is the boilerplate worth it? | Riverpod (less code) |
+| "Redux kullanacağım" | Uygulama ne kadar karmaşık? | Basitse: Zustand, Sunucu: TanStack |
+| "Global state" | Bu state gerçekten global mi? | Yerel taşıma, Context selector |
+| "Context Provider" | Re-render sorunu olur mu? | Zustand, Jotai (atom tabanlı) |
+| "BLoC deseni" | Boilerplate koduna değer mi? | Riverpod (daha az kod) |
 
-### List Pattern Questioning
+### Liste Deseni Sorgulama
 
-| Assumption | Question | Alternative |
+| Varsayım | Soru | Alternatif |
 |------------|----------|-------------|
-| "FlatList" | Is performance critical? | FlashList (faster) |
-| "Standard renderItem" | Is it memoized? | useCallback + React.memo |
-| "Index key" | Does data order change? | Use item.id |
-| "ListView" | Are there separators? | ListView.separated |
+| "FlatList" | Performans kritik mi? | FlashList (daha hızlı) |
+| "Standart renderItem" | Memoize edildi mi? | useCallback + React.memo |
+| "İndis key" | Veri sırası değişiyor mu? | item.id kullan |
+| "ListView" | Ayırıcılar (separators) var mı? | ListView.separated |
 
-### UI Pattern Questioning
+### UI Deseni Sorgulama
 
-| Assumption | Question | Alternative |
+| Varsayım | Soru | Alternatif |
 |------------|----------|-------------|
-| "FAB bottom-right" | User handedness? | Accessibility settings |
-| "Pull-to-refresh" | Does this list need refresh? | Only when necessary |
-| "Modal bottom sheet" | How much content? | Full screen modal might be better |
-| "Swipe actions" | Discoverability? | Visible button alternative |
+| "Sağ altta FAB" | Kullanıcının el alışkanlığı? | Erişilebilirlik ayarları |
+| "Çek-Yenile" | Bu listenin yenilenmeye ihtiyacı var mı? | Sadece gerekli olduğunda |
+| "Modal bottom sheet" | Ne kadar içerik var? | Tam ekran modal daha iyi olabilir |
+| "Kaydırma eylemleri" | Keşfedilebilirlik? | Görünür buton alternatifi |
 
 ---
 
-## 🧪 ANTI-MEMORIZATION TEST
+## 🧪 EZBERLEME KARŞITI TEST
 
-### Ask Yourself Before Every Solution
+### Her Çözümden Önce Kendinize Sorun
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    ANTI-MEMORIZATION CHECKLIST                  │
+│                    EZBERLEME KARŞITI KONTROL LİSTESİ            │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  □ Did I pick this solution "because I always do it this way"?  │
-│    → If YES: STOP. Consider alternatives.                       │
+│  □ Bu çözümü "her zaman böyle yaptığım için" mi seçtim?         │
+│    → Yanıt EVET ise: DURUN. Alternatifleri değerlendirin.       │
 │                                                                 │
-│  □ Is this a pattern I've seen frequently in training data?     │
-│    → If YES: Is it REALLY suitable for THIS project?            │
+│  □ Bu, eğitim verilerinde sıkça gördüğüm bir desen mi?          │
+│    → Yanıt EVET ise: BU proje için GERÇEKTEN uygun mu?         │
 │                                                                 │
-│  □ Did I write this solution automatically without thinking?    │
-│    → If YES: Step back, do decomposition.                       │
+│  □ Bu çözümü düşünmeden, otomatik olarak mı yazdım?             │
+│    → Yanıt EVET ise: Geri çekilin, ayrıştırma analizi yapın.    │
 │                                                                 │
-│  □ Did I consider an alternative approach?                      │
-│    → If NO: Think of at least 2 alternatives, then decide.      │
+│  □ Alternatif bir yaklaşım düşündüm mü?                         │
+│    → Yanıt HAYIR ise: En az 2 alternatif düşünün, sonra karar verin. │
 │                                                                 │
-│  □ Did I think platform-specifically?                           │
-│    → If NO: Analyze iOS and Android separately.                 │
+│  □ Platforma özgü düşündüm mü?                                  │
+│    → Yanıt HAYIR ise: iOS ve Android'i ayrı ayrı analiz edin.   │
 │                                                                 │
-│  □ Did I consider performance impact of this solution?          │
-│    → If NO: What is the memory, CPU, battery impact?            │
+│  □ Bu çözümün performans etkisini düşündüm mü?                  │
+│    → Yanıt HAYIR ise: Bellek, CPU, pil etkisi nedir?             │
 │                                                                 │
-│  □ Is this solution suitable for THIS project's CONTEXT?        │
-│    → If NO: Customize based on context.                         │
+│  □ Bu çözüm BU projenin BAĞLAMI için uygun mu?                  │
+│    → Yanıt HAYIR ise: Bağlama göre özelleştirin.                 │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📊 CONTEXT-BASED DECISION PROTOCOL
+## 📊 BAĞLAM TABANLI KARAR PROTOKOLÜ
 
-### Think Differently Based on Project Type
-
-```
-DETERMINE PROJECT TYPE:
-        │
-        ├── E-Commerce App
-        │   ├── Navigation: Tab (Home, Search, Cart, Account)
-        │   ├── Lists: Product grids (memoized, image optimized)
-        │   ├── Performance: Image caching CRITICAL
-        │   ├── Offline: Cart persistence, product cache
-        │   └── Special: Checkout flow, payment security
-        │
-        ├── Social/Content App
-        │   ├── Navigation: Tab (Feed, Search, Create, Notify, Profile)
-        │   ├── Lists: Infinite scroll, complex items
-        │   ├── Performance: Feed rendering CRITICAL
-        │   ├── Offline: Feed cache, draft posts
-        │   └── Special: Real-time updates, media handling
-        │
-        ├── Productivity/SaaS App
-        │   ├── Navigation: Drawer or adaptive (mobile tab, tablet rail)
-        │   ├── Lists: Data tables, forms
-        │   ├── Performance: Data sync
-        │   ├── Offline: Full offline editing
-        │   └── Special: Conflict resolution, background sync
-        │
-        ├── Utility App
-        │   ├── Navigation: Minimal (stack-only possible)
-        │   ├── Lists: Probably minimal
-        │   ├── Performance: Fast startup
-        │   ├── Offline: Core feature offline
-        │   └── Special: Widget, shortcuts
-        │
-        └── Media/Streaming App
-            ├── Navigation: Tab (Home, Search, Library, Profile)
-            ├── Lists: Horizontal carousels, vertical feeds
-            ├── Performance: Preloading, buffering
-            ├── Offline: Download management
-            └── Special: Background playback, casting
-```
-
----
-
-## 🔄 INTERACTION BREAKDOWN
-
-### Analysis for Every Gesture
-
-Before adding any gesture:
+### Proje Türüne Göre Farklı Düşünün
 
 ```
-GESTURE: [Gesture Type]
-├── DISCOVERABILITY:
-│   └── How will users discover this gesture?
-│       ├── Is there a visual hint?
-│       ├── Will it be shown in onboarding?
-│       └── Is there a button alternative? (MANDATORY)
-│
-├── PLATFORM CONVENTION:
-│   ├── What does this gesture mean on iOS?
-│   ├── What does this gesture mean on Android?
-│   └── Am I deviating from platform convention?
-│
-├── ACCESSIBILITY:
-│   ├── Can motor-impaired users perform this gesture?
-│   ├── Is there a VoiceOver/TalkBack alternative?
-│   └── Does it work with switch control?
-│
-├── CONFLICT CHECK:
-│   ├── Does it conflict with system gestures?
-│   │   ├── iOS: Edge swipe back
-│   │   ├── Android: Back gesture
-│   │   └── Home indicator swipe
-│   └── Is it consistent with other app gestures?
-│
-└── FEEDBACK:
-    ├── Is haptic feedback defined?
-    ├── Is visual feedback sufficient?
-    └── Is audio feedback needed?
+PROJE TÜRÜNÜ BELİRLEYİN:
+        │
+        ├── E-Ticaret Uygulaması
+        │   ├── Navigasyon: Tab (Ana Sayfa, Arama, Sepet, Hesap)
+        │   ├── Listeler: Ürün ızgaraları (memoize, görsel odaklı)
+        │   ├── Performans: Görsel önbellekleme KRİTİK
+        │   ├── Çevrimdışı: Sepet kalıcılığı, ürün önbelleği
+        │   └── Özel: Ödeme akışı, ödeme güvenliği
+        │
+        ├── Sosyal/İçerik Uygulaması
+        │   ├── Navigasyon: Tab (Akış, Arama, Oluştur, Bildirim, Profil)
+        │   ├── Listeler: Sonsuz kaydırma, karmaşık öğeler
+        │   ├── Performans: Akış render hızı KRİTİK
+        │   ├── Çevrimdışı: Akış önbelleği, taslak gönderiler
+        │   └── Özel: Gerçek zamanlı güncellemeler, medya yönetimi
+        │
+        ├── Verimlilik/SaaS Uygulaması
+        │   ├── Navigasyon: Drawer veya adaptif (mobil sekme, tablet ray)
+        │   ├── Listeler: Veri tabloları, formlar
+        │   ├── Performans: Veri senkronizasyonu
+        │   ├── Çevrimdışı: Tam çevrimdışı düzenleme
+        │   └── Özel: Çakışma giderme, arka plan senkronizasyonu
+        │
+        ├── Araç/Utility Uygulaması
+        │   ├── Navigasyon: Minimal (sadece stack olabilir)
+        │   ├── Listeler: Muhtemelen minimal
+        │   ├── Performans: Hızlı açılış
+        │   ├── Çevrimdışı: Temel özellik çevrimdışı
+        │   └── Özel: Widget, kısayollar
+        │
+        └── Medya/Streaming Uygulaması
+            ├── Navigasyon: Tab (Ana Sayfa, Arama, Kitaplık, Profil)
+            ├── Listeler: Yatay karuseller, dikey akışlar
+            ├── Performans: Ön yükleme, ara belleğe alma (buffering)
+            ├── Çevrimdışı: İndirme yönetimi
+            └── Özel: Arka planda oynatma, yansıtma (casting)
 ```
 
 ---
 
-## 🎭 SPIRIT OVER CHECKLIST (Mobile Edition)
+## 🔄 ETKİLEŞİM KIRILIMI
 
-### Passing the Checklist is Not Enough!
+### Her Jest (Gesture) İçin Analiz
 
-| ❌ Self-Deception | ✅ Honest Assessment |
+Herhangi bir jest eklemeden önce:
+
+```
+JEST: [Jest Türü]
+├── KEŞFEDİLEBİLİRLİK:
+│   └── Kullanıcılar bu jesti nasıl keşfedecek?
+│       ├── Görsel bir ipucu var mı?
+│       ├── Tanıtım (onboarding) sırasında gösterilecek mi?
+│       └── Buton alternatifi var mı? (ZORUNLU)
+│
+├── PLATFORM KURALLARI:
+│   ├── Bu jest iOS'ta ne anlama geliyor?
+│   ├── Bu jest Android'de ne anlama geliyor?
+│   └── Platform kurallarından sapıyor muyum?
+│
+├── ERİŞİLEBİLİRLİK:
+│   ├── Motor becerisi kısıtlı kullanıcılar bu jesti yapabilir mi?
+│   ├── VoiceOver/TalkBack alternatifi var mı?
+│   └── Anahtar kontrolü (switch control) ile çalışıyor mu?
+│
+├── ÇAKIŞMA KONTROLÜ:
+│   ├── Sistem jestleriyle çakışıyor mu?
+│   │   ├── iOS: Kenar kaydırıp geri gitme
+│   │   ├── Android: Geri jesti
+│   │   └── Ana ekran çubuğu kaydırması
+│   └── Uyguladaki diğer jestlerle uyumlu mu?
+│
+└── GERİ BİLDİRİM:
+    ├── Haptik (titreşim) geri bildirim tanımlandı mı?
+    ├── Görsel geri bildirim yeterli mi?
+    └── Sesli geri bildirim gerekli mi?
+```
+
+---
+
+## 🎭 KONTROL LİSTESİNDEN ÖTE BİR RUH (Mobil Versiyon)
+
+### Kontrol Listesini Geçmek Yeterli Değildir!
+
+| ❌ Öz-Aldatma | ✅ Dürüst Değerlendirme |
 |-------------------|----------------------|
-| "Touch target is 44px" (but on edge, unreachable) | "Can user reach it one-handed?" |
-| "I used FlatList" (but didn't memoize) | "Is scroll smooth?" |
-| "Platform-specific nav" (but only icons differ) | "Does iOS feel like iOS, Android like Android?" |
-| "Offline support exists" (but error message is generic) | "What can user actually do offline?" |
-| "Loading state exists" (but just a spinner) | "Does user know how long to wait?" |
+| "Dokunmatik hedef 44px" (ama kenarda, ulaşılamaz) | "Kullanıcı buna tek elle ulaşabilir mi?" |
+| "FlatList kullandım" (ama memoize etmedim) | "Kaydırma pürüzsüz mü?" |
+| "Platforma özgü navigasyon" (ama sadece ikonlar farklı) | "iOS, iOS gibi; Android, Android gibi hissettiriyor mu?" |
+| "Çevrimdışı destek var" (ama hata mesajı genel) | "Kullanıcı çevrimdışıyken aslında ne yapabilir?" |
+| "Yükleme durumu var" (ama sadece bir spinner) | "Kullanıcı ne kadar bekleyeceğini biliyor mu?" |
 
-> 🔴 **Passing the checklist is NOT the goal. Creating great mobile UX IS the goal.**
+> 🔴 **Kontrol listesini geçmek hedef DEĞİLDİR. Harika bir mobil UX oluşturmak HEDEFTİR.**
 
 ---
 
-## 📝 MOBILE DESIGN COMMITMENT
+## 📝 MOBİL TASARIM TAAHHÜTNAMESİ
 
-### Fill This at the Start of Every Mobile Project
+### Her Mobil Projenin Başında Bunu Doldurun
 
 ```
-📱 MOBILE DESIGN COMMITMENT
+📱 MOBİL TASARIM TAAHHÜTNAMESİ
 
-Project: _______________
-Platform: iOS / Android / Both
+Proje: _______________
+Platform: iOS / Android / Her İkisi
 
-1. Default pattern I will NOT use in this project:
+1. Bu projede KULLANMAYACAĞIM varsayılan desen:
    └── _______________
    
-2. Context-specific focus for this project:
+2. Bu proje için bağlama özel odak noktam:
    └── _______________
 
-3. Platform-specific differences I will implement:
+3. Uygulayacağım platforma özgü farklılıklar:
    └── iOS: _______________
    └── Android: _______________
 
-4. Area I will specifically optimize for performance:
+4. Performans için özellikle optimize edeceğim alan:
    └── _______________
 
-5. Unique challenge of this project:
+5. Bu projenin benzersiz zorluğu:
    └── _______________
 
-🧠 If I can't fill this commitment → I don't understand the project well enough.
-   → Go back, understand context better, ask the user.
+🧠 Eğer bu taahhütnameyi dolduramıyorsam → Projeyi yeterince iyi anlamamışım demektir.
+   → Geri dönün, bağlamı daha iyi anlayın, kullanıcıya sorun.
 ```
 
 ---
 
-## 🚨 MANDATORY: Before Every Mobile Work
+## 🚨 ZORUNLU: Her Mobil İşten Önce
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    PRE-WORK VALIDATION                          │
+│                    İŞ ÖNCESİ DOĞRULAMA                          │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  □ Did I complete Component Decomposition?                      │
-│  □ Did I fill the Pattern Questioning Matrix?                   │
-│  □ Did I pass the Anti-Memorization Test?                       │
-│  □ Did I make context-based decisions?                          │
-│  □ Did I analyze Interaction Breakdown?                         │
-│  □ Did I fill the Mobile Design Commitment?                     │
+│  □ Bileşen Ayrıştırmasını tamamladım mı?                        │
+│  □ Desen Sorgulama Matrisini doldurdum mı?                      │
+│  □ Ezberleme Karşıtı Testi geçtim mi?                           │
+│  □ Bağlam tabanlı kararlar verdim mi?                           │
+│  □ Etkileşim Kırılımını analiz ettim mi?                        │
+│  □ Mobil Tasarım Taahhütnamesini doldurdum mu?                  │
 │                                                                 │
-│  ⚠️ Do not write code without completing these!                 │
+│  ⚠️ Bunları tamamlamadan kod yazmaya başlamayın!                │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-> **Remember:** If you chose a solution "because that's how it's always done," you chose WITHOUT THINKING. Every project is unique. Every context is different. Every user behavior is specific. **THINK, then code.**
+> **Unutma:** Bir çözümü "her zaman böyle yapıldığı için" seçtiyseniz, DÜŞÜNMEDEN seçmişsinizdir. Her proje benzersizdir. Her bağlam farklıdır. Her kullanıcı davranışı spesifiktir. **DÜŞÜNÜN, sonra kodlayın.**

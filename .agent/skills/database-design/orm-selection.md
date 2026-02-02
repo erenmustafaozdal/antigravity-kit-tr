@@ -1,30 +1,30 @@
-# ORM Selection (2025)
+# ORM Seçimi (2025)
 
-> Choose ORM based on deployment and DX needs.
+> Dağıtım ortamına ve geliştirici deneyimi (DX) ihtiyaçlarına göre ORM seçin.
 
-## Decision Tree
+## Karar Ağacı
 
 ```
-What's the context?
+Bağlam nedir?
 │
-├── Edge deployment / Bundle size matters
-│   └── Drizzle (smallest, SQL-like)
+├── Edge dağıtımı / Paket boyutu (bundle size) önemli
+│   └── Drizzle (en küçük, SQL benzeri)
 │
-├── Best DX / Schema-first
-│   └── Prisma (migrations, studio)
+├── En iyi DX / Önce şema (Schema-first)
+│   └── Prisma (migrasyonlar, yönetim paneli/studio)
 │
-├── Maximum control
-│   └── Raw SQL with query builder
+├── Maksimum kontrol
+│   └── Query builder ile ham SQL
 │
-└── Python ecosystem
-    └── SQLAlchemy 2.0 (async support)
+└── Python ekosistemi
+    └── SQLAlchemy 2.0 (async desteği)
 ```
 
-## Comparison
+## Karşılaştırma
 
-| ORM | Best For | Trade-offs |
+| ORM | En İyi Kullanım | Takaslar (Trade-offs) |
 |-----|----------|------------|
-| **Drizzle** | Edge, TypeScript | Newer, less examples |
-| **Prisma** | DX, schema management | Heavier, not edge-ready |
-| **Kysely** | Type-safe SQL builder | Manual migrations |
-| **Raw SQL** | Complex queries, control | Manual type safety |
+| **Drizzle** | Edge, TypeScript | Daha yeni, daha az kaynak/örnek |
+| **Prisma** | DX, şema yönetimi | Daha ağır, "edge" için her zaman uygun değil |
+| **Kysely** | Tip güvenli SQL oluşturucu | Manuel migrasyon yönetimi |
+| **Ham SQL** | Karmaşık sorgular, tam kontrol | Manuel tip güvenliği yönetimi |

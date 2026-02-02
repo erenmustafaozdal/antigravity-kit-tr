@@ -1,42 +1,42 @@
-# 3. Server-Side Performance
+# 3. Sunucu Tarafı Performans (Server-Side Performance)
 
-> **Impact:** HIGH
-> **Focus:** Optimizing server-side rendering and data fetching eliminates server-side waterfalls and reduces response times.
-
----
-
-## Overview
-
-This section contains **7 rules** focused on server-side performance.
+> **Etki:** YÜKSEK
+> **Odak:** Sunucu tarafı rendering ve veri çekmeyi optimize etmek, sunucu tarafı şelaleleri ortadan kaldırır ve yanıt sürelerini azaltır.
 
 ---
 
-## Rule 3.1: Authenticate Server Actions Like API Routes
+## Genel Bakış
 
-**Impact:** CRITICAL  
-**Tags:** server, server-actions, authentication, security, authorization  
+Bu bölüm, sunucu tarafı performansına odaklanan **7 kural** içerir.
 
-## Authenticate Server Actions Like API Routes
+---
 
-**Impact: CRITICAL (prevents unauthorized access to server mutations)**
+## Kural 3.1: Server Action'ları API Route'lar Gibi Kimlik Doğrulayın
 
-Server Actions (functions with `"use server"`) are exposed as public endpoints, just like API routes. Always verify authentication and authorization **inside** each Server Action—do not rely solely on middleware, layout guards, or page-level checks, as Server Actions can be invoked directly.
+**Etki:** KRİTİK  
+**Etiketler:** server, server-actions, authentication, security, authorization  
 
-Next.js documentation explicitly states: "Treat Server Actions with the same security considerations as public-facing API endpoints, and verify if the user is allowed to perform a mutation."
+## Server Action'ları API Route'lar Gibi Kimlik Doğrulayın
 
-**Incorrect (no authentication check):**
+**Etki: KRİTİK (yetkisiz erişimi önler)**
+
+Server Action'lar (`"use server"` ile işaretlenmiş fonksiyonlar) API route'lar gibi public endpoint olarak açığa çıkar. Her zaman her Server Action'ın **içinde** kimlik doğrulama ve yetkilendirme doğrulaması yapın—Server Action'lar doğrudan çağrılabildiği için yalnızca middleware, layout guard'larına veya sayfa düzeyindeki kontrollere güvenmeyin.
+
+Next.js dokümantasyonu açıkça belirtir: "Server Action'ları public-facing API endpoint'leri gibi aynı güvenlik önlemleriyle ele alın ve kullanıcının bir mutasyon yapmasına izin verilip verilmediğini doğrulayın."
+
+**Yanlış (kimlik doğrulama kontrolü yok):**
 
 ```typescript
 'use server'
 
 export async function deleteUser(userId: string) {
-  // Anyone can call this! No auth check
+  // Herkes bunu çağırabilir! Auth kontrolü yok
   await db.user.delete({ where: { id: userId } })
   return { success: true }
 }
 ```
 
-**Correct (authentication inside the action):**
+**Doğru (action içinde kimlik doğrulama):**
 
 ```typescript
 'use server'
@@ -45,16 +45,16 @@ import { verifySession } from '@/lib/auth'
 import { unauthorized } from '@/lib/errors'
 
 export async function deleteUser(userId: string) {
-  // Always check auth inside the action
+  // Her zaman action içinde auth kontrolü yapın
   const session = await verifySession()
   
   if (!session) {
-    throw unauthorized('Must be logged in')
+    throw unauthorized('Giriş yapılmalı')
   }
   
-  // Check authorization too
+  // Yetkilendirme kontrolü de yapın
   if (session.user.role !== 'admin' && session.user.id !== userId) {
-    throw unauthorized('Cannot delete other users')
+    throw unauthorized('Diğer kullanıcıları silemezsiniz')
   }
   
   await db.user.delete({ where: { id: userId } })
@@ -62,7 +62,7 @@ export async function deleteUser(userId: string) {
 }
 ```
 
-**With input validation:**
+**Girdi doğrulama ile:**
 
 ```typescript
 'use server'
@@ -77,21 +77,21 @@ const updateProfileSchema = z.object({
 })
 
 export async function updateProfile(data: unknown) {
-  // Validate input first
+  // Önce girdiyi doğrula
   const validated = updateProfileSchema.parse(data)
   
-  // Then authenticate
+  // Sonra kimlik doğrulama
   const session = await verifySession()
   if (!session) {
-    throw new Error('Unauthorized')
+    throw new Error('Yetkisiz')
   }
   
-  // Then authorize
+  // Sonra yetkilendirme
   if (session.user.id !== validated.userId) {
-    throw new Error('Can only update own profile')
+    throw new Error('Yalnızca kendi profilinizi güncelleyebilirsiniz')
   }
   
-  // Finally perform the mutation
+  // Son olarak mutasyonu gerçekleştir
   await db.user.update({
     where: { id: validated.userId },
     data: {
@@ -104,93 +104,93 @@ export async function updateProfile(data: unknown) {
 }
 ```
 
-Reference: [https://nextjs.org/docs/app/guides/authentication](https://nextjs.org/docs/app/guides/authentication)
+Referans: [https://nextjs.org/docs/app/guides/authentication](https://nextjs.org/docs/app/guides/authentication)
 
 ---
 
-## Rule 3.2: Avoid Duplicate Serialization in RSC Props
+## Kural 3.2: RSC Props'larında Duplicate Serialization'dan Kaçının
 
-**Impact:** LOW  
-**Tags:** server, rsc, serialization, props, client-components  
+**Etki:** DÜŞÜK  
+**Etiketler:** server, rsc, serialization, props, client-components  
 
-## Avoid Duplicate Serialization in RSC Props
+## RSC Props'larında Duplicate Serialization'dan Kaçının
 
-**Impact: LOW (reduces network payload by avoiding duplicate serialization)**
+**Etki: DÜŞÜK (duplicate serialization'dan kaçınarak ağ yükünü azaltır)**
 
-RSC→client serialization deduplicates by object reference, not value. Same reference = serialized once; new reference = serialized again. Do transformations (`.toSorted()`, `.filter()`, `.map()`) in client, not server.
+RSC→client serialization, değere göre değil, nesne referansına göre tekilleştirir. Aynı referans = bir kez serialize edilir; yeni referans = tekrar serialize edilir. Dönüşümleri (`.toSorted()`, `.filter()`, `.map()`) sunucuda değil, istemcide yapın.
 
-**Incorrect (duplicates array):**
+**Yanlış (dizi kopyalanır):**
 
 ```tsx
-// RSC: sends 6 strings (2 arrays × 3 items)
+// RSC: 6 string gönderir (2 dizi × 3 öğe)
 <ClientList usernames={usernames} usernamesOrdered={usernames.toSorted()} />
 ```
 
-**Correct (sends 3 strings):**
+**Doğru (3 string gönderir):**
 
 ```tsx
-// RSC: send once
+// RSC: bir kez gönder
 <ClientList usernames={usernames} />
 
-// Client: transform there
+// Client: orada dönüştür
 'use client'
 const sorted = useMemo(() => [...usernames].sort(), [usernames])
 ```
 
-**Nested deduplication behavior:**
+**İç içe tekilleştirme davranışı:**
 
-Deduplication works recursively. Impact varies by data type:
+Tekilleştirme recursive çalışır. Etki veri tipine göre değişir:
 
-- `string[]`, `number[]`, `boolean[]`: **HIGH impact** - array + all primitives fully duplicated
-- `object[]`: **LOW impact** - array duplicated, but nested objects deduplicated by reference
+- `string[]`, `number[]`, `boolean[]`: **YÜKSEK etki** - dizi + tüm primitive'ler tamamen kopyalanır
+- `object[]`: **DÜŞÜK etki** - dizi kopyalanır, ama iç içe nesneler referansa göre tekilleştirilir
 
 ```tsx
-// string[] - duplicates everything
-usernames={['a','b']} sorted={usernames.toSorted()} // sends 4 strings
+// string[] - her şeyi kopyalar
+usernames={['a','b']} sorted={usernames.toSorted()} // 4 string gönderir
 
-// object[] - duplicates array structure only
-users={[{id:1},{id:2}]} sorted={users.toSorted()} // sends 2 arrays + 2 unique objects (not 4)
+// object[] - yalnızca dizi yapısını kopyalar
+users={[{id:1},{id:2}]} sorted={users.toSorted()} // 2 dizi + 2 benzersiz nesne gönderir (4 değil)
 ```
 
-**Operations breaking deduplication (create new references):**
+**Tekilleştirmeyi bozan işlemler (yeni referanslar oluşturur):**
 
-- Arrays: `.toSorted()`, `.filter()`, `.map()`, `.slice()`, `[...arr]`
-- Objects: `{...obj}`, `Object.assign()`, `structuredClone()`, `JSON.parse(JSON.stringify())`
+- Diziler: `.toSorted()`, `.filter()`, `.map()`, `.slice()`, `[...arr]`
+- Nesneler: `{...obj}`, `Object.assign()`, `structuredClone()`, `JSON.parse(JSON.stringify())`
 
-**More examples:**
+**Daha fazla örnek:**
 
 ```tsx
-// ❌ Bad
+// ❌ Kötü
 <C users={users} active={users.filter(u => u.active)} />
 <C product={product} productName={product.name} />
 
-// ✅ Good
+// ✅ İyi
 <C users={users} />
 <C product={product} />
-// Do filtering/destructuring in client
+// Filtreleme/destructuring'i istemcide yapın
 ```
 
-**Exception:** Pass derived data when transformation is expensive or client doesn't need original.
+**İstisna:** Dönüşüm pahalıysa veya istemci orijinale ihtiyaç duymuyorsa türetilmiş veriyi gönderin.
 
 ---
 
-## Rule 3.3: Cross-Request LRU Caching
+## Kural 3.3: İstekler Arası LRU Önbellekleme
 
-**Impact:** HIGH  
-**Tags:** server, cache, lru, cross-request  
+**Etki:** YÜKSEK  
+**Etiketler:** server, cache, lru, cross-request  
 
-## Cross-Request LRU Caching
+## İstekler Arası LRU Önbellekleme
 
-`React.cache()` only works within one request. For data shared across sequential requests (user clicks button A then button B), use an LRU cache.
+`React.cache()` yalnızca bir istek içinde çalışır. Ardışık istekler arasında paylaşılan veriler için (kullanıcı A butonuna sonra B butonuna tıklar), LRU cache kullanın.
 
-**Implementation:**
+**Uygulama:**
 
 ```typescript
 import { LRUCache } from 'lru-cache'
 
 const cache = new LRUCache<string, any>({
   max: 1000,
-  ttl: 5 * 60 * 1000  // 5 minutes
+  ttl: 5 * 60 * 1000  // 5 dakika
 })
 
 export async function getUser(id: string) {
@@ -202,44 +202,44 @@ export async function getUser(id: string) {
   return user
 }
 
-// Request 1: DB query, result cached
-// Request 2: cache hit, no DB query
+// İstek 1: DB sorgusu, sonuç önbelleğe alındı
+// İstek 2: önbellek isabet, DB sorgusu yok
 ```
 
-Use when sequential user actions hit multiple endpoints needing the same data within seconds.
+Ardışık kullanıcı eylemleri, saniyeler içinde aynı veriye ihtiyaç duyan birden fazla endpoint'e isabet ettiğinde kullanın.
 
-**With Vercel's [Fluid Compute](https://vercel.com/docs/fluid-compute):** LRU caching is especially effective because multiple concurrent requests can share the same function instance and cache. This means the cache persists across requests without needing external storage like Redis.
+**Vercel'in [Fluid Compute](https://vercel.com/docs/fluid-compute) ile:** LRU önbellekleme özellikle etkilidir çünkü birden fazla eşzamanlı istek aynı fonksiyon instance'ını ve önbelleği paylaşabilir. Bu, önbelleğin Redis gibi harici depolama olmadan istekler arasında kalıcı olduğu anlamına gelir.
 
-**In traditional serverless:** Each invocation runs in isolation, so consider Redis for cross-process caching.
+**Geleneksel serverless'ta:** Her invocation izole çalışır, bu yüzden process'ler arası önbellekleme için Redis düşünün.
 
-Reference: [https://github.com/isaacs/node-lru-cache](https://github.com/isaacs/node-lru-cache)
+Referans: [https://github.com/isaacs/node-lru-cache](https://github.com/isaacs/node-lru-cache)
 
 ---
 
-## Rule 3.4: Minimize Serialization at RSC Boundaries
+## Kural 3.4: RSC Sınırlarında Serialization'ı Minimize Edin
 
-**Impact:** HIGH  
-**Tags:** server, rsc, serialization, props  
+**Etki:** YÜKSEK  
+**Etiketler:** server, rsc, serialization, props  
 
-## Minimize Serialization at RSC Boundaries
+## RSC Sınırlarında Serialization'ı Minimize Edin
 
-The React Server/Client boundary serializes all object properties into strings and embeds them in the HTML response and subsequent RSC requests. This serialized data directly impacts page weight and load time, so **size matters a lot**. Only pass fields that the client actually uses.
+React Server/Client sınırı tüm nesne özelliklerini string'lere serialize eder ve bunları HTML yanıtına ve sonraki RSC isteklerine gömer. Bu serialize edilmiş veri direkt olarak sayfa ağırlığını ve yükleme süresini etkiler, bu yüzden **boyut çok önemlidir**. Yalnızca istemcinin gerçekten kullandığı alanları gönderin.
 
-**Incorrect (serializes all 50 fields):**
+**Yanlış (tüm 50 alanı serialize eder):**
 
 ```tsx
 async function Page() {
-  const user = await fetchUser()  // 50 fields
+  const user = await fetchUser()  // 50 alan
   return <Profile user={user} />
 }
 
 'use client'
 function Profile({ user }: { user: User }) {
-  return <div>{user.name}</div>  // uses 1 field
+  return <div>{user.name}</div>  // 1 alan kullanır
 }
 ```
 
-**Correct (serializes only 1 field):**
+**Doğru (yalnızca 1 alanı serialize eder):**
 
 ```tsx
 async function Page() {
@@ -255,16 +255,16 @@ function Profile({ name }: { name: string }) {
 
 ---
 
-## Rule 3.5: Parallel Data Fetching with Component Composition
+## Kural 3.5: Component Composition ile Paralel Veri Çekme
 
-**Impact:** CRITICAL  
-**Tags:** server, rsc, parallel-fetching, composition  
+**Etki:** KRİTİK  
+**Etiketler:** server, rsc, parallel-fetching, composition  
 
-## Parallel Data Fetching with Component Composition
+## Component Composition ile Paralel Veri Çekme
 
-React Server Components execute sequentially within a tree. Restructure with composition to parallelize data fetching.
+React Server Components bir ağaç içinde sıralı olarak yürütülür. Veri çekmeyi paralel hale getirmek için composition ile yeniden yapılandırın.
 
-**Incorrect (Sidebar waits for Page's fetch to complete):**
+**Yanlış (Sidebar, Page'in fetch'ini bekler):**
 
 ```tsx
 export default async function Page() {
@@ -283,7 +283,7 @@ async function Sidebar() {
 }
 ```
 
-**Correct (both fetch simultaneously):**
+**Doğru (ikisi de aynı anda fetch eder):**
 
 ```tsx
 async function Header() {
@@ -306,7 +306,7 @@ export default function Page() {
 }
 ```
 
-**Alternative with children prop:**
+**children prop ile alternatif:**
 
 ```tsx
 async function Header() {
@@ -339,16 +339,16 @@ export default function Page() {
 
 ---
 
-## Rule 3.6: Per-Request Deduplication with React.cache()
+## Kural 3.6: React.cache() ile İstek Başına Tekilleştirme
 
-**Impact:** MEDIUM  
-**Tags:** server, cache, react-cache, deduplication  
+**Etki:** ORTA  
+**Etiketler:** server, cache, react-cache, deduplication  
 
-## Per-Request Deduplication with React.cache()
+## React.cache() ile İstek Başına Tekilleştirme
 
-Use `React.cache()` for server-side request deduplication. Authentication and database queries benefit most.
+Sunucu tarafı istek tekilleştirmesi için `React.cache()` kullanın. Kimlik doğrulama ve veritabanı sorguları en çok fayda görür.
 
-**Usage:**
+**Kullanım:**
 
 ```typescript
 import { cache } from 'react'
@@ -362,79 +362,81 @@ export const getCurrentUser = cache(async () => {
 })
 ```
 
-Within a single request, multiple calls to `getCurrentUser()` execute the query only once.
+Tek bir istek içinde, `getCurrentUser()`'a yapılan birden fazla çağrı sorguyu yalnızca bir kez yürütür.
 
-**Avoid inline objects as arguments:**
+**Argüman olarak inline nesnelerden kaçının:**
 
-`React.cache()` uses shallow equality (`Object.is`) to determine cache hits. Inline objects create new references each call, preventing cache hits.
+`React.cache()` önbellek isabetini belirlemek için shallow equality (`Object.is`) kullanır. Inline nesneler her çağrıda yeni referanslar oluşturur, önbellek isabetini önler.
 
-**Incorrect (always cache miss):**
+**Yanlış (her zaman cache miss):**
 
 ```typescript
 const getUser = cache(async (params: { uid: number }) => {
   return await db.user.findUnique({ where: { id: params.uid } })
 })
 
-// Each call creates new object, never hits cache
+// Her çağrı yeni nesne oluşturur, asla önbelleği kullanmaz
 getUser({ uid: 1 })
-getUser({ uid: 1 })  // Cache miss, runs query again
+getUser({ uid: 1 })  // Cache miss, sorguyu tekrar çalıştırır
 ```
 
-**Correct (cache hit):**
+**Doğru (cache hit):**
 
 ```typescript
 const getUser = cache(async (uid: number) => {
   return await db.user.findUnique({ where: { id: uid } })
 })
 
-// Primitive args use value equality
+// Primitive argümanlar değer eşitliği kullanır
 getUser(1)
-getUser(1)  // Cache hit, returns cached result
+getUser(1)  // Cache hit, önbelleğe alınmış sonucu döndürür
 ```
 
-If you must pass objects, pass the same reference:
+Nesne geçirmek zorundaysanız, aynı referansı geçirin:
 
 ```typescript
 const params = { uid: 1 }
-getUser(params)  // Query runs
-getUser(params)  // Cache hit (same reference)
+getUser(params)  // Sorgu çalışır
+getUser(params)  // Cache hit (aynı referans)
 ```
 
-**Next.js-Specific Note:**
+**Next.js'e Özgü Not:**
 
-In Next.js, the `fetch` API is automatically extended with request memoization. Requests with the same URL and options are automatically deduplicated within a single request, so you don't need `React.cache()` for `fetch` calls. However, `React.cache()` is still essential for other async tasks:
+Next.js'te, `fetch` API'si otomatik olarak istek memoization ile genişletilir. Aynı URL ve seçeneklere sahip istekler otomatik olarak tek bir istek içinde tekilleştirilir, bu yüzden `fetch` çağrıları için `React.cache()`'e ihtiyacınız yoktur. Ancak, `React.cache()` diğer async görevler için hala gereklidir:
 
-- Database queries (Prisma, Drizzle, etc.)
-- Heavy computations
-- Authentication checks
-- File system operations
-- Any non-fetch async work
+- Veritabanı sorguları (Prisma, Drizzle, vb.)
+- Ağır hesaplamalar
+- Kimlik doğrulama kontrolleri
+- Dosya sistemi işlemleri
+- Fetch olmayan herhangi bir async iş
 
-Use `React.cache()` to deduplicate these operations across your component tree.
+Component ağacınız boyunca bu işlemleri tekilleştirmek için `React.cache()` kullan
 
-Reference: [React.cache documentation](https://react.dev/reference/react/cache)
+ın.
+
+Referans: [React.cache documentation](https://react.dev/reference/react/cache)
 
 ---
 
-## Rule 3.7: Use after() for Non-Blocking Operations
+## Kural 3.7: Bloke Etmeyen İşlemler İçin after() Kullanın
 
-**Impact:** MEDIUM  
-**Tags:** server, async, logging, analytics, side-effects  
+**Etki:** ORTA  
+**Etiketler:** server, async, logging, analytics, side-effects  
 
-## Use after() for Non-Blocking Operations
+## Bloke Etmeyen İşlemler İçin after() Kullanın
 
-Use Next.js's `after()` to schedule work that should execute after a response is sent. This prevents logging, analytics, and other side effects from blocking the response.
+Yanıt gönderildikten sonra yürütülmesi gereken işleri planlamak için Next.js'in `after()` fonksiyonunu kullanın. Bu, logging, analytics ve diğer yan etkilerin yanıtı bloke etmesini önler.
 
-**Incorrect (blocks response):**
+**Yanlış (yanıtı bloklar):**
 
 ```tsx
 import { logUserAction } from '@/app/utils'
 
 export async function POST(request: Request) {
-  // Perform mutation
+  // Mutasyonu gerçekleştir
   await updateDatabase(request)
   
-  // Logging blocks the response
+  // Logging yanıtı bloklar
   const userAgent = request.headers.get('user-agent') || 'unknown'
   await logUserAction({ userAgent })
   
@@ -445,7 +447,7 @@ export async function POST(request: Request) {
 }
 ```
 
-**Correct (non-blocking):**
+**Doğru (bloke etmeyen):**
 
 ```tsx
 import { after } from 'next/server'
@@ -453,10 +455,10 @@ import { headers, cookies } from 'next/headers'
 import { logUserAction } from '@/app/utils'
 
 export async function POST(request: Request) {
-  // Perform mutation
+  // Mutasyonu gerçekleştir
   await updateDatabase(request)
   
-  // Log after response is sent
+  // Yanıt gönderildikten sonra logla
   after(async () => {
     const userAgent = (await headers()).get('user-agent') || 'unknown'
     const sessionCookie = (await cookies()).get('session-id')?.value || 'anonymous'
@@ -471,20 +473,19 @@ export async function POST(request: Request) {
 }
 ```
 
-The response is sent immediately while logging happens in the background.
+Yanıt hemen gönderilir, logging arka planda gerçekleşir.
 
-**Common use cases:**
+**Yaygın kullanım durumları:**
 
-- Analytics tracking
+- Analytics izleme
 - Audit logging
-- Sending notifications
-- Cache invalidation
-- Cleanup tasks
+- Bildirim gönderme
+- Önbellek invalidation
+- Temizlik görevleri
 
-**Important notes:**
+**Önemli notlar:**
 
-- `after()` runs even if the response fails or redirects
-- Works in Server Actions, Route Handlers, and Server Components
+- `after()` yanıt başarısız olsa veya redirect olsa bile çalışır
+- Server Action'larda, Route Handler'larda ve Server Components'ta çalışır
 
-Reference: [https://nextjs.org/docs/app/api-reference/functions/after](https://nextjs.org/docs/app/api-reference/functions/after)
-
+Referans: [https://nextjs.org/docs/app/api-reference/functions/after](https://nextjs.org/docs/app/api-reference/functions/after)

@@ -1,43 +1,43 @@
-# Context Discovery
+# Bağlam Keşfi (Context Discovery)
 
-> Before suggesting any architecture, gather context.
+> Herhangi bir mimari önermeden önce bağlamı (context) toplayın.
 
-## Question Hierarchy (Ask User FIRST)
+## Soru Hiyerarşisi (ÖNCELİKLE Kullanıcıya Sorun)
 
-1. **Scale**
-   - How many users? (10, 1K, 100K, 1M+)
-   - Data volume? (MB, GB, TB)
-   - Transaction rate? (per second/minute)
+1. **Ölçek (Scale)**
+   - Kaç kullanıcı bekliyorsunuz? (10, 1K, 100K, 1M+)
+   - Veri trafiği ne kadar? (MB, GB, TB)
+   - İşlem hızı nedir? (Saniye/dakika başına işlem sayısı)
 
-2. **Team**
-   - Solo developer or team?
-   - Team size and expertise?
-   - Distributed or co-located?
+2. **Ekip (Team)**
+   - Tek bir geliştirici mi yoksa bir ekip mi?
+   - Ekip boyutu ve uzmanlık düzeyi nedir?
+   - Dağıtık mı yoksa aynı lokasyonda mı çalışılıyor?
 
-3. **Timeline**
-   - MVP/Prototype or long-term product?
-   - Time to market pressure?
+3. **Zaman Çizelgesi (Timeline)**
+   - MVP/Prototipten mi bahsediyoruz yoksa uzun vadeli bir üründen mi?
+   - Piyasaya çıkış süresi (time to market) baskısı var mı?
 
-4. **Domain**
-   - CRUD-heavy or business logic complex?
-   - Real-time requirements?
-   - Compliance/regulations?
+4. **Alan (Domain)**
+   - CRUD ağırlıklı mı yoksa iş mantığı (business logic) karmaşık mı?
+   - Gerçek zamanlı (real-time) çalışma gereksinimleri var mı?
+   - Yasal uyumluluklar veya regülasyonlar (GDPR, KVKK vb.) geçerli mi?
 
-5. **Constraints**
-   - Budget limitations?
-   - Legacy systems to integrate?
-   - Technology stack preferences?
+5. **Kısıtlamalar (Constraints)**
+   - Bütçe sınırlamaları var mı?
+   - Entegre edilmesi gereken eski (legacy) sistemler var mı?
+   - Teknoloji yığını (stack) tercihleri neler?
 
-## Project Classification Matrix
+## Proje Sınıflandırma Matrisi
 
 ```
-                    MVP              SaaS           Enterprise
+                    MVP              SaaS           Kurumsal (Enterprise)
 ┌─────────────────────────────────────────────────────────────┐
-│ Scale        │ <1K           │ 1K-100K      │ 100K+        │
-│ Team         │ Solo          │ 2-10         │ 10+          │
-│ Timeline     │ Fast (weeks)  │ Medium (months)│ Long (years)│
-│ Architecture │ Simple        │ Modular      │ Distributed  │
-│ Patterns     │ Minimal       │ Selective    │ Comprehensive│
-│ Example      │ Next.js API   │ NestJS       │ Microservices│
+│ Ölçek        │ <1K           │ 1K-100K      │ 100K+        │
+│ Ekip         │ Tek Kişi      │ 2-10         │ 10+          │
+│ Zaman        │ Hızlı (Hafta) │ Orta (Ay)    │ Uzun (Yıl)   │
+│ Mimari       │ Basit         │ Modüler      │ Dağıtık      │
+│ Desenler     │ Minimal       │ Seçici       │ Kapsamlı     │
+│ Örnek        │ Next.js API   │ NestJS       │ Mikroservis  │
 └─────────────────────────────────────────────────────────────┘
 ```

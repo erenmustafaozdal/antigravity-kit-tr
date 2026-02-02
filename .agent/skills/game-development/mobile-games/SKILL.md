@@ -1,108 +1,108 @@
 ---
 name: mobile-games
-description: Mobile game development principles. Touch input, battery, performance, app stores.
+description: Mobil oyun geliştirme prensipleri. Dokunma girdisi, pil ömrü, performans, uygulama mağazaları.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Mobile Game Development
+# Mobil Oyun Geliştirme (Mobile Game Development)
 
-> Platform constraints and optimization principles.
+> Platform kısıtlamaları ve optimizasyon prensipleri.
 
 ---
 
-## 1. Platform Considerations
+## 1. Platform Hususları
 
-### Key Constraints
+### Temel Kısıtlamalar
 
-| Constraint | Strategy |
+| Kısıtlama | Strateji |
 |------------|----------|
-| **Touch input** | Large hit areas, gestures |
-| **Battery** | Limit CPU/GPU usage |
-| **Thermal** | Throttle when hot |
-| **Screen size** | Responsive UI |
-| **Interruptions** | Pause on background |
+| **Dokunma Girdisi** | Geniş tıklama alanları, jestler |
+| **Pil Ömrü** | CPU/GPU kullanımını sınırla |
+| **Isınma (Thermal)** | Isındığında performansı düşür (throttle) |
+| **Ekran Boyutu** | Duyarlı (responsive) arayüz |
+| **Kesintiler** | Arka plana atıldığında oyunu duraklat |
 
 ---
 
-## 2. Touch Input Principles
+## 2. Dokunma Girdisi Prensipleri
 
-### Touch vs Controller
+### Dokunma (Touch) vs Kumanda (Controller)
 
-| Touch | Desktop/Console |
+| Dokunma | Masaüstü/Konsol |
 |-------|-----------------|
-| Imprecise | Precise |
-| Occludes screen | No occlusion |
-| Limited buttons | Many buttons |
-| Gestures available | Buttons/sticks |
+| Hassas değil | Hassas |
+| Ekranı kapatır | Görüşü engellemez |
+| Sınırlı buton sayısı | Çok sayıda buton |
+| Jestler mevcut | Butonlar/analog çubuklar |
 
-### Best Practices
+### En İyi Pratikler
 
-- Minimum touch target: 44x44 points
-- Visual feedback on touch
-- Avoid precise timing requirements
-- Support both portrait and landscape
+- Minimum dokunma hedefi: 44x44 puan (points).
+- Dokunma anında görsel geri bildirim.
+- Çok hassas zamanlama gereksinimlerinden kaçının.
+- Hem dikey (portrait) hem de yatay (landscape) modu destekleyin.
 
 ---
 
-## 3. Performance Targets
+## 3. Performans Hedefleri
 
-### Thermal Management
+### Isı Yönetimi (Thermal Management)
 
-| Action | Trigger |
+| Eylem | Tetikleyici |
 |--------|---------|
-| Reduce quality | Device warm |
-| Limit FPS | Device hot |
-| Pause effects | Critical temp |
+| Kaliteyi düşür | Cihaz ısındığında |
+| FPS'i sınırla | Cihaz çok ısındığında |
+| Efektleri durdur | Kritik sıcaklık seviyesinde |
 
-### Battery Optimization
+### Pil Optimizasyonu
 
-- 30 FPS often sufficient
-- Sleep when paused
-- Minimize GPS/network
-- Dark mode saves OLED battery
+- 30 FPS genellikle yeterlidir.
+- Duraklatıldığında uyku moduna geçin.
+- GPS/Ağ kullanımını minimuma indirin.
+- Karanlık mod (dark mode) OLED pillerde tasarruf sağlar.
 
 ---
 
-## 4. App Store Requirements
+## 4. Uygulama Mağazası Gereksinimleri
 
 ### iOS (App Store)
 
-| Requirement | Note |
+| Gereksinim | Not |
 |-------------|------|
-| Privacy labels | Required |
-| Account deletion | If account creation exists |
-| Screenshots | For all device sizes |
+| Gizlilik etiketleri | Zorunlu |
+| Hesap silme | Hesap oluşturma varsa zorunlu |
+| Ekran görüntüleri | Tüm cihaz boyutları için |
 
 ### Android (Google Play)
 
-| Requirement | Note |
+| Gereksinim | Not |
 |-------------|------|
-| Target API | Current year's SDK |
-| 64-bit | Required |
-| App bundles | Recommended |
+| Hedef API | Mevcut yılın SDK'sı |
+| 64-bit desteği | Zorunlu |
+| App bundles | Tavsiye edilir |
 
 ---
 
-## 5. Monetization Models
+## 5. Gelir Modelleri (Monetization)
 
-| Model | Best For |
+| Model | En Uygun Kullanım |
 |-------|----------|
-| **Premium** | Quality games, loyal audience |
-| **Free + IAP** | Casual, progression-based |
-| **Ads** | Hyper-casual, high volume |
-| **Subscription** | Content updates, multiplayer |
+| **Premium** | Kaliteli oyunlar, sadık kitle |
+| **Ücretsiz + IAP** | Gündelik, ilerleme odaklı oyunlar |
+| **Reklamlar** | Hiper-gündelik, yüksek hacimli oyunlar |
+| **Abonelik** | İçerik güncellemeleri, çok oyunculu |
 
 ---
 
-## 6. Anti-Patterns
+## 6. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Desktop controls on mobile | Design for touch |
-| Ignore battery drain | Monitor thermals |
-| Force landscape | Support player preference |
-| Always-on network | Cache and sync |
+| Masaüstü kontrollerini aynen aktarmak | Dokunmatik için tasarlayın |
+| Pil tüketimini görmezden gelmek | Isı değerlerini izleyin |
+| Yatay modu zorunlu tutmak | Oyuncu tercihine saygı duyun |
+| Her zaman açık internet zorunluluğu | Önbelleğe alın ve senkronize edin |
 
 ---
 
-> **Remember:** Mobile is the most constrained platform. Respect battery and attention.
+> **Unutmayın:** Mobil, en kısıtlı platformdur. Pile ve oyuncunun dikkat süresine saygı duyun.

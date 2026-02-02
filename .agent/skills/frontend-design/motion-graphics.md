@@ -1,306 +1,306 @@
-# Motion Graphics Reference
+# Hareketli Grafikler (Motion Graphics) Referansı
 
-> Advanced animation techniques for premium web experiences - Lottie, GSAP, SVG, 3D, Particles.
-> **Learn the principles, create WOW effects.**
+> Premium web deneyimleri için gelişmiş animasyon teknikleri - Lottie, GSAP, SVG, 3B, Parçacıklar.
+> **Prensipleri öğrenin, "Vay Canına" (WOW) efektleri yaratın.**
 
 ---
 
-## 1. Lottie Animations
+## 1. Lottie Animasyonları
 
-### What is Lottie?
+### Lottie Nedir?
 
 ```
-JSON-based vector animations:
-├── Exported from After Effects via Bodymovin
-├── Lightweight (smaller than GIF/video)
-├── Scalable (vector-based, no pixelation)
-├── Interactive (control playback, segments)
-└── Cross-platform (web, iOS, Android, React Native)
+JSON tabanlı vektör animasyonlar:
+├── After Effects'ten Bodymovin aracılığıyla dışa aktarılır
+├── Hafiftir (GIF veya videodan daha küçüktür)
+├── Ölçeklenebilirdir (vektör tabanlıdır, pikselleşme olmaz)
+├── Etkileşimlidir (oynatma, bölümler kontrol edilebilir)
+└── Çok platformludur (web, iOS, Android, React Native)
 ```
 
-### When to Use Lottie
+### Lottie Ne Zaman Kullanılır?
 
-| Use Case | Why Lottie? |
+| Kullanım Durumu | Neden Lottie? |
 |----------|-------------|
-| **Loading animations** | Branded, smooth, lightweight |
-| **Empty states** | Engaging illustrations |
-| **Onboarding flows** | Complex multi-step animations |
-| **Success/Error feedback** | Delightful micro-interactions |
-| **Animated icons** | Consistent cross-platform |
+| **Yükleme (Loading) animasyonları** | Markaya özel, yumuşak, hafif |
+| **Boş durum (Empty state) ekranları** | İlgi çekici illüstrasyonlar |
+| **Onboarding akışları** | Karmaşık, çok adımlı animasyonlar |
+| **Başarı/Hata geri bildirimi** | Keyifli mikro-etkileşimler |
+| **Animasyonlu ikonlar** | Platformlar arası tutarlılık |
 
-### Principles
+### Prensipler
 
-- Keep file size under 100KB for performance
-- Use loop sparingly (avoid distraction)
-- Provide static fallback for reduced-motion
-- Lazy load animation files when possible
+- Performans için dosya boyutunu 100KB'ın altında tutun.
+- Döngüleri (loop) idareli kullanın (dikkat dağıtmaktan kaçının).
+- Hareketi azaltma (reduced-motion) tercihi için statik bir yedek (fallback) sunun.
+- Mümkünse animasyon dosyalarını tembel yükleme (lazy load) ile getirin.
 
-### Sources
+### Kaynaklar
 
-- LottieFiles.com (free library)
-- After Effects + Bodymovin (custom)
-- Figma plugins (export from design)
+- LottieFiles.com (ücretsiz kütüphane)
+- After Effects + Bodymovin (özel tasarımlar)
+- Figma eklentileri (tasarımdan dışa aktarma)
 
 ---
 
 ## 2. GSAP (GreenSock)
 
-### What Makes GSAP Different
+### GSAP'i Farklı Kılan Nedir?
 
 ```
-Professional timeline-based animation:
-├── Precise control over sequences
-├── ScrollTrigger for scroll-driven animations
-├── MorphSVG for shape transitions
-├── Physics-based easing
-└── Works with any DOM element
+Profesyonel, zaman çizelgesi (timeline) tabanlı animasyon:
+├── Diziler üzerinde hassas kontrol
+├── Kaydırma tabanlı animasyonlar için ScrollTrigger
+├── Şekil geçişleri için MorphSVG
+├── Fizik tabanlı easing seçenekleri
+└── Herhangi bir DOM öğesiyle çalışır
 ```
 
-### Core Concepts
+### Temel Kavramlar
 
-| Concept | Purpose |
+| Kavram | Amaç |
 |---------|---------|
-| **Tween** | Single A→B animation |
-| **Timeline** | Sequenced/overlapping animations |
-| **ScrollTrigger** | Scroll position controls playback |
-| **Stagger** | Cascade effect across elements |
+| **Tween** | Tekil A→B animasyonu |
+| **Timeline** | Sıralı/üst üste binen animasyonlar |
+| **ScrollTrigger** | Kaydırma konumu oynatmayı kontrol eder |
+| **Stagger** | Öğeler arasında kademeli geçiş efekti |
 
-### When to Use GSAP
+### GSAP Ne Zaman Kullanılır?
 
-- ✅ Complex sequenced animations
-- ✅ Scroll-triggered reveals
-- ✅ Precise timing control needed
-- ✅ SVG morphing effects
-- ❌ Simple hover/focus effects (use CSS)
-- ❌ Performance-critical mobile (heavier)
+- ✅ Karmaşık sıralı animasyonlar
+- ✅ Kaydırma ile tetiklenen ortaya çıkma efektleri
+- ✅ Hassas zamanlama kontrolü gerektiğinde
+- ✅ SVG morphing (şekil değiştirme) efektleri
+- ❌ Basit hover/focus efektleri (CSS kullanın)
+- ❌ Performansın kritik olduğu mobil görünümler (daha ağırdır)
 
-### Principles
+### Prensipler
 
-- Use timeline for orchestration (not individual tweens)
-- Stagger delay: 0.05-0.15s between items
-- ScrollTrigger: start at 70-80% viewport entry
-- Kill animations on unmount (prevent memory leaks)
+- Orkestrasyon için zaman çizelgesi (timeline) kullanın (tekil tween'ler yerine).
+- Kademeli gecikme (Stagger delay): Öğeler arasında 0.05-0.15sn arası.
+- ScrollTrigger: Görüş alanına girişin %70-80'inde başlatın.
+- Bileşen bellekten kaldırıldığında (unmount) animasyonları sonlandırın (bellek sızıntısını önleyin).
 
 ---
 
-## 3. SVG Animations
+## 3. SVG Animasyonları
 
-### Types of SVG Animation
+### SVG Animasyon Türleri
 
-| Type | Technique | Use Case |
+| Tür | Teknik | Kullanım Durumu |
 |------|-----------|----------|
-| **Line Drawing** | stroke-dashoffset | Logo reveals, signatures |
-| **Morph** | Path interpolation | Icon transitions |
-| **Transform** | rotate, scale, translate | Interactive icons |
-| **Color** | fill/stroke transition | State changes |
+| **Çizgi Çizimi** | stroke-dashoffset | Logo açılışları, imzalar |
+| **Morph (Dönüşüm)** | Path interpolasyonu | İkon geçişleri |
+| **Transform** | rotate, scale, translate | Etkileşimli ikonlar |
+| **Renk** | fill/stroke geçişi | Durum değişiklikleri |
 
-### Line Drawing Principles
+### Çizgi Çizimi Prensipleri
 
 ```
-How stroke-dashoffset drawing works:
-├── Set dasharray to path length
-├── Set dashoffset equal to dasharray (hidden)
-├── Animate dashoffset to 0 (revealed)
-└── Create "drawing" effect
+stroke-dashoffset çizimi nasıl çalışır:
+├── dasharray değerini yol (path) uzunluğuna eşitleyin
+├── dashoffset değerini dasharray'e eşitleyin (gizli durum)
+├── dashoffset değerini 0'a anime edin (açığa çıkan durum)
+└── "Çizilme" efekti yaratın
 ```
 
-### When to Use SVG Animations
+### SVG Animasyonları Ne Zaman Kullanılır?
 
-- ✅ Logo reveals, brand moments
-- ✅ Icon state transitions (hamburger ↔ X)
-- ✅ Infographics, data visualization
-- ✅ Interactive illustrations
-- ❌ Photo-realistic content (use video)
-- ❌ Very complex scenes (performance)
+- ✅ Logo açılışları, marka anları
+- ✅ İkon durum geçişleri (hamburger menü ↔ X)
+- ✅ İnfografikler, veri görselleştirme
+- ✅ Etkileşimli illüstrasyonlar
+- ❌ Foto-gerçekçi içerikler (video kullanın)
+- ❌ Çok karmaşık sahneler (performans sorunu yaratabilir)
 
-### Principles
+### Prensipler
 
-- Get path length dynamically for accuracy
-- Duration: 1-3s for full drawings
-- Easing: ease-out for natural feel
-- Simple fills complement, don't compete
+- Doğruluk için yol (path) uzunluğunu dinamik olarak alın.
+- Süre: Tam çizimler için 1-3sn arası.
+- Easing: Doğal bir his için ease-out.
+- Basit dolgu renkleri (fills) animasyonu desteklemeli, onunla yarışmamalıdır.
 
 ---
 
-## 4. 3D CSS Transforms
+## 4. 3B (3D) CSS Transformları
 
-### Core Properties
+### Temel Özellikler
 
 ```
-CSS 3D Space:
-├── perspective: depth of 3D field (500-1500px typical)
-├── transform-style: preserve-3d (enable children 3D)
-├── rotateX/Y/Z: rotation per axis
-├── translateZ: move toward/away from viewer
-└── backface-visibility: show/hide back side
+CSS 3B Alanı:
+├── perspective: 3B alanın derinliği (genellikle 500-1500px)
+├── transform-style: preserve-3d (çocuk öğeler için 3B'yi etkinleştirir)
+├── rotateX/Y/Z: Eksen başına döndürme
+├── translateZ: İzleyiciye yaklaşma/uzaklaşma
+└── backface-visibility: Arka yüzün görünürlüğü
 ```
 
-### Common 3D Patterns
+### Yaygın 3B Desenleri
 
-| Pattern | Use Case |
+| Desen | Kullanım Durumu |
 |---------|----------|
-| **Card flip** | Reveals, flashcards, product views |
-| **Tilt on hover** | Interactive cards, 3D depth |
-| **Parallax layers** | Hero sections, immersive scrolling |
-| **3D carousel** | Image galleries, sliders |
+| **Kart çevirme** | Gizli bilgiler, ürün görünümleri |
+| **Hover'da eğilme (Tilt)** | Etkileşimli kartlar, 3B derinlik hissi |
+| **Parallax katmanları** | Hero bölümleri, derinlikli kaydırma |
+| **3B atlıkarınca (carousel)** | Görsel galerileri, sliderlar |
 
-### Principles
+### Prensipler
 
-- Perspective: 800-1200px for subtle, 400-600px for dramatic
-- Keep transforms simple (rotate + translate)
-- Ensure backface-visibility: hidden for flips
-- Test on Safari (different rendering)
+- Perspektif: Hafif etki için 800-1200px, dramatik etki için 400-600px.
+- Transformları basit tutun (döndürme + taşıma).
+- Çevirme işlemlerinde `backface-visibility: hidden` durumundan emin olun.
+- Safari tarayıcısında test edin (farklı işleme yapabilir).
 
 ---
 
-## 5. Particle Effects
+## 5. Parçacık (Particle) Efektleri
 
-### Types of Particle Systems
+### Parçacık Sistemi Türleri
 
-| Type | Feel | Use Case |
+| Tür | Hissi | Kullanım Durumu |
 |------|------|----------|
-| **Geometric** | Tech, network | SaaS, tech sites |
-| **Confetti** | Celebration | Success moments |
-| **Snow/Rain** | Atmospheric | Seasonal, mood |
-| **Dust/Bokeh** | Dreamy | Photography, luxury |
-| **Fireflies** | Magical | Games, fantasy |
+| **Geometrik** | Teknoloji, ağ (network) | SaaS, teknoloji siteleri |
+| **Konfeti** | Kutlama | Başarı anları |
+| **Kar/Yağmur** | Atmosferik | Mevsimsel, ruh hali |
+| **Toz/Bokeh** | Rüya gibi | Fotoğrafçılık, lüks |
+| **Ateşböcekleri** | Büyülü | Oyunlar, fantezi |
 
-### Libraries
+### Kütüphaneler
 
-| Library | Best For |
+| Kütüphane | En İyi Kullanım |
 |---------|----------|
-| **tsParticles** | Configurable, lightweight |
-| **particles.js** | Simple backgrounds |
-| **Canvas API** | Custom, maximum control |
-| **Three.js** | Complex 3D particles |
+| **tsParticles** | Yapılandırılabilir, hafif |
+| **particles.js** | Basit arka planlar |
+| **Canvas API** | Özel tasarım, maksimum kontrol |
+| **Three.js** | Karmaşık 3B parçacıklar |
 
-### Principles
+### Prensipler
 
-- Default: 30-50 particles (not overwhelming)
-- Movement: slow, organic (speed 0.5-2)
-- Opacity: 0.3-0.6 (don't compete with content)
-- Connections: subtle lines for "network" feel
-- ⚠️ Disable or reduce on mobile
+- Varsayılan: 30-50 parçacık (boğucu olmamalı).
+- Hareket: Yavaş, organik (hız 0.5-2 arası).
+- Opaklık: 0.3-0.6 (içerikle yarışmamalıdır).
+- Bağlantılar: "Ağ" hissi için ince çizgiler.
+- ⚠️ Mobilde devre dışı bırakın veya sayıyı azaltın.
 
-### When to Use
+### Ne Zaman Kullanılır?
 
-- ✅ Hero backgrounds (atmospheric)
-- ✅ Success celebrations (confetti burst)
-- ✅ Tech visualization (connected nodes)
-- ❌ Content-heavy pages (distraction)
-- ❌ Low-powered devices (battery drain)
+- ✅ Hero arka planları (atmosferik etki)
+- ✅ Başarı kutlamaları (konfeti patlaması)
+- ✅ Teknoloji görselleştirme (bağlı düğümler)
+- ❌ İçerik yoğunluğu fazla olan sayfalar (dikkat dağıtır)
+- ❌ Düşük güçlü cihazlar (pil tüketimi)
 
 ---
 
-## 6. Scroll-Driven Animations
+## 6. Kaydırma Tetiklemeli (Scroll-Driven) Animasyonlar
 
-### Native CSS (Modern)
+### Native CSS (Modern Yaklaşım)
 
 ```
-CSS Scroll Timelines:
-├── animation-timeline: scroll() - document scroll
-├── animation-timeline: view() - element in viewport
-├── animation-range: entry/exit thresholds
-└── No JavaScript required
+CSS Kaydırma Zaman Çizelgeleri (Scroll Timelines):
+├── animation-timeline: scroll() - döküman kaydırma
+├── animation-timeline: view() - öğe görüş alanında
+├── animation-range: giriş/çıkış eşikleri
+└── JavaScript gerektirmez
 ```
 
-### Principles
+### Prensipler
 
-| Trigger Point | Use Case |
+| Tetikleme Noktası | Kullanım |
 |---------------|----------|
-| **Entry 0%** | When element starts entering |
-| **Entry 50%** | When half visible |
-| **Cover 50%** | When centered in viewport |
-| **Exit 100%** | When fully exited |
+| **Entry 0%** | Öğe görüş alanına girmeye başladığında |
+| **Entry 50%** | Yarısı görünür olduğunda |
+| **Cover 50%** | Görüş alanında merkezlendiğinde |
+| **Exit 100%** | Tamamen çıkış yaptığında |
 
-### Best Practices
+### En İyi Pratikler
 
-- Reveal animations: start at ~25% entry
-- Parallax: continuous scroll progress
-- Sticky elements: use cover range
-- Always test scroll performance
+- Ortaya çıkma animasyonları: Girişin yaklaşık %25'inde başlatın.
+- Parallax: Sürekli kaydırma ilerlemesini kullanın.
+- Sabit (sticky) öğeler: `cover` aralığını kullanın.
+- Kaydırma performansını her zaman test edin.
 
 ---
 
-## 7. Performance Principles
+## 7. Performans Prensipleri
 
-### GPU vs CPU Animation
+### GPU ve CPU Animasyonu Farkı
 
 ```
-CHEAP (GPU-accelerated):
+UCUZ / KOLAY (GPU hızlandırmalı):
 ├── transform (translate, scale, rotate)
 ├── opacity
-└── filter (use sparingly)
+└── filter (idareli kullanın)
 
-EXPENSIVE (triggers reflow):
+PAHALI / ZOR (Yeniden düzenleme tetikler):
 ├── width, height
 ├── top, left, right, bottom
 ├── padding, margin
-└── complex box-shadow
+└── karmaşık box-shadow (gölge)
 ```
 
-### Optimization Checklist
+### Optimizasyon Kontrol Listesi
 
-- [ ] Animate only transform/opacity
-- [ ] Use `will-change` before heavy animations (remove after)
-- [ ] Test on low-end devices
-- [ ] Implement `prefers-reduced-motion`
-- [ ] Lazy load animation libraries
-- [ ] Throttle scroll-based calculations
+- [ ] Sadece transform/opacity değerlerini anime edin.
+- [ ] Ağır animasyonlardan önce `will-change` kullanın (sonra kaldırın).
+- [ ] Düşük donanımlı cihazlarda test edin.
+- [ ] `prefers-reduced-motion` tercihini uygulayın.
+- [ ] Animasyon kütüphanelerini tembel yükle (lazy load) ile getirin.
+- [ ] Kaydırma tabanlı hesaplamaları kısıtlayın (throttle).
 
 ---
 
-## 8. Motion Graphics Decision Tree
+## 8. Hareketli Grafik Karar Ağacı
 
 ```
-What animation do you need?
+Hangi animasyona ihtiyacınız var?
 │
-├── Complex branded animation?
-│   └── Lottie (After Effects export)
+├── Karmaşık markalı animasyon?
+│   └── Lottie (After Effects çıktısı)
 │
-├── Sequenced scroll-triggered?
+├── Sıralı ve kaydırma tetiklemeli mi?
 │   └── GSAP + ScrollTrigger
 │
-├── Logo/icon animation?
-│   └── SVG animation (stroke or morph)
+├── Logo veya ikon animasyonu mu?
+│   └── SVG animasyonu (çizgi veya morph)
 │
-├── Interactive 3D effect?
-│   └── CSS 3D Transforms (simple) or Three.js (complex)
+├── Etkileşimli 3B efekti mi?
+│   └── CSS 3B Transformları (basit) veya Three.js (karmaşık)
 │
-├── Atmospheric background?
-│   └── tsParticles or Canvas
+├── Atmosferik arka plan mı?
+│   └── tsParticles veya Canvas
 │
-└── Simple entrance/hover?
-    └── CSS @keyframes or Framer Motion
+└── Basit giriş veya hover mı?
+    └── CSS @keyframes veya Framer Motion
 ```
 
 ---
 
-## 9. Anti-Patterns
+## 9. Anti-Desenler (Yapılmaması Gerekenler)
 
-| ❌ Don't | ✅ Do |
+| ❌ YAPMAYIN | ✅ YAPIN |
 |----------|-------|
-| Animate everything at once | Stagger and sequence |
-| Use heavy libraries for simple effects | Start with CSS |
-| Ignore reduced-motion | Always provide fallback |
-| Block main thread | Optimize for 60fps |
-| Same particles every project | Match brand/context |
-| Complex effects on mobile | Feature detection |
+| Her şeyi aynı anda anime etmek | Kademeli ve sıralı ilerleyin |
+| Basit etkiler için ağır kütüphaneler kullanmak | CSS ile başlayın |
+| Hareketi azaltma tercihini görmezden gelmek | Her zaman yedek (fallback) sunun |
+| Ana iş parçacığını (thread) tıkamak | 60fps için optimize edin |
+| Her projede aynı parçacıkları kullanmak | Markaya/bağlama uygun olanı seçin |
+| Mobilde karmaşık etkiler kullanmak | Özellik algılama (feature detection) yapın |
 
 ---
 
-## 10. Quick Reference
+## 10. Hızlı Referans
 
-| Effect | Tool | Performance |
+| Efekt | Araç | Performans |
 |--------|------|-------------|
-| Loading spinner | CSS/Lottie | Light |
-| Staggered reveal | GSAP/Framer | Medium |
-| SVG path draw | CSS stroke | Light |
-| 3D card flip | CSS transforms | Light |
-| Particle background | tsParticles | Heavy |
-| Scroll parallax | GSAP ScrollTrigger | Medium |
-| Shape morphing | GSAP MorphSVG | Medium |
+| Yükleme spinnerı | CSS/Lottie | Hafif |
+| Kademeli ortaya çıkma | GSAP/Framer | Orta |
+| SVG yol çizimi | CSS stroke | Hafif |
+| 3B kart çevirme | CSS transform | Hafif |
+| Parçacıklı arka plan | tsParticles | Ağır |
+| Kaydırma parallaxı | GSAP ScrollTrigger | Orta |
+| Şekil değiştirme (Morph) | GSAP MorphSVG | Orta |
 
 ---
 
-> **Remember**: Motion graphics should enhance, not distract. Every animation must serve a PURPOSE—feedback, guidance, delight, or storytelling.
+> **Unutmayın**: Hareketli grafikler deneyimi geliştirmeli, dikkati dağıtmamalıdır. Her animasyon bir AMACA hizmet etmelidir: geri bildirim, rehberlik, keyif veya hikaye anlatımı.

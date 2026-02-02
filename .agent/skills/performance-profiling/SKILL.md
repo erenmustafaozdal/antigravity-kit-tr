@@ -1,143 +1,143 @@
 ---
 name: performance-profiling
-description: Performance profiling principles. Measurement, analysis, and optimization techniques.
+description: Performans profilleme prensipleri. Ölçüm, analiz ve optimizasyon teknikleri.
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
-# Performance Profiling
+# Performans Profilleme (Performance Profiling)
 
-> Measure, analyze, optimize - in that order.
+> Ölç, analiz et, optimize et - bu sırayla.
 
-## 🔧 Runtime Scripts
+## 🔧 Çalışma Zamanı Script'leri
 
-**Execute these for automated profiling:**
+**Otomatik profilleme için bunları çalıştırın:**
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `scripts/lighthouse_audit.py` | Lighthouse performance audit | `python scripts/lighthouse_audit.py https://example.com` |
+| Script | Amaç | Kullanım |
+|--------|------|----------|
+| `scripts/lighthouse_audit.py` | Lighthouse performans denetimi | `python scripts/lighthouse_audit.py https://example.com` |
 
 ---
 
 ## 1. Core Web Vitals
 
-### Targets
+### Hedefler
 
-| Metric | Good | Poor | Measures |
-|--------|------|------|----------|
-| **LCP** | < 2.5s | > 4.0s | Loading |
-| **INP** | < 200ms | > 500ms | Interactivity |
-| **CLS** | < 0.1 | > 0.25 | Stability |
+| Metrik | İyi | Kötü | Ölçer |
+|--------|-----|------|-------|
+| **LCP** | < 2.5s | > 4.0s | Yükleme |
+| **INP** | < 200ms | > 500ms | Etkileşim |
+| **CLS** | < 0.1 | > 0.25 | Stabilite |
 
-### When to Measure
+### Ne Zaman Ölçülür
 
-| Stage | Tool |
+| Aşama | Araç |
 |-------|------|
-| Development | Local Lighthouse |
+| Geliştirme | Yerel Lighthouse |
 | CI/CD | Lighthouse CI |
-| Production | RUM (Real User Monitoring) |
+| Prodüksiyon | RUM (Real User Monitoring) |
 
 ---
 
-## 2. Profiling Workflow
+## 2. Profilleme İş Akışı
 
-### The 4-Step Process
+### 4 Adımlı Süreç
 
 ```
-1. BASELINE → Measure current state
-2. IDENTIFY → Find the bottleneck
-3. FIX → Make targeted change
-4. VALIDATE → Confirm improvement
+1. BASELINE → Mevcut durumu ölç
+2. IDENTIFY → Darboğazı bul
+3. FIX → Hedefli değişiklik yap
+4. VALIDATE → İyileştirmeyi doğrula
 ```
 
-### Profiling Tool Selection
+### Profilleme Aracı Seçimi
 
-| Problem | Tool |
-|---------|------|
-| Page load | Lighthouse |
-| Bundle size | Bundle analyzer |
-| Runtime | DevTools Performance |
-| Memory | DevTools Memory |
-| Network | DevTools Network |
-
----
-
-## 3. Bundle Analysis
-
-### What to Look For
-
-| Issue | Indicator |
-|-------|-----------|
-| Large dependencies | Top of bundle |
-| Duplicate code | Multiple chunks |
-| Unused code | Low coverage |
-| Missing splits | Single large chunk |
-
-### Optimization Actions
-
-| Finding | Action |
-|---------|--------|
-| Big library | Import specific modules |
-| Duplicate deps | Dedupe, update versions |
-| Route in main | Code split |
-| Unused exports | Tree shake |
+| Sorun | Araç |
+|-------|------|
+| Sayfa yüklemesi | Lighthouse |
+| Paket boyutu | Bundle analyzer |
+| Çalışma zamanı | DevTools Performance |
+| Bellek | DevTools Memory |
+| Ağ | DevTools Network |
 
 ---
 
-## 4. Runtime Profiling
+## 3. Paket Analizi
 
-### Performance Tab Analysis
+### Neye Bakılır
 
-| Pattern | Meaning |
-|---------|---------|
-| Long tasks (>50ms) | UI blocking |
-| Many small tasks | Possible batching opportunity |
-| Layout/paint | Rendering bottleneck |
-| Script | JavaScript execution |
+| Sorun | Gösterge |
+|-------|----------|
+| Büyük bağımlılıklar | Paketin en üstünde |
+| Yinelenen kod | Birden fazla chunk |
+| Kullanılmayan kod | Düşük kapsam |
+| Eksik bölünmeler | Tek büyük chunk |
 
-### Memory Tab Analysis
+### Optimizasyon Eylemleri
 
-| Pattern | Meaning |
-|---------|---------|
-| Growing heap | Possible leak |
-| Large retained | Check references |
-| Detached DOM | Not cleaned up |
-
----
-
-## 5. Common Bottlenecks
-
-### By Symptom
-
-| Symptom | Likely Cause |
-|---------|--------------|
-| Slow initial load | Large JS, render blocking |
-| Slow interactions | Heavy event handlers |
-| Jank during scroll | Layout thrashing |
-| Growing memory | Leaks, retained refs |
+| Bulgu | Eylem |
+|-------|-------|
+| Büyük kütüphane | Belirli modülleri içe aktar |
+| Yinelenen bağımlılıklar | Dedup, versiyonları güncelle |
+| Ana rota | Kod bölme |
+| Kullanılmayan export'lar | Tree shake |
 
 ---
 
-## 6. Quick Win Priorities
+## 4. Çalışma Zamanı Profilleme
 
-| Priority | Action | Impact |
-|----------|--------|--------|
-| 1 | Enable compression | High |
-| 2 | Lazy load images | High |
-| 3 | Code split routes | High |
-| 4 | Cache static assets | Medium |
-| 5 | Optimize images | Medium |
+### Performance Sekmesi Analizi
 
----
+| Desen | Anlam |
+|-------|-------|
+| Uzun görevler (>50ms) | UI bloke |
+| Birçok küçük görev | Toplu işleme fırsatı |
+| Layout/paint | Rendering darboğazı |
+| Script | JavaScript yürütme |
 
-## 7. Anti-Patterns
+### Memory Sekmesi Analizi
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Guess at problems | Profile first |
-| Micro-optimize | Fix biggest issue |
-| Optimize early | Optimize when needed |
-| Ignore real users | Use RUM data |
+| Desen | Anlam |
+|-------|-------|
+| Büyüyen heap | Olası sızıntı |
+| Büyük tutulma | Referansları kontrol et |
+| Ayrılmış DOM | Temizlenmedi |
 
 ---
 
-> **Remember:** The fastest code is code that doesn't run. Remove before optimizing.
+## 5. Yaygın Darboğazlar
+
+### Belirtiye Göre
+
+| Belirti | Olası Neden |
+|---------|-------------|
+| Yavaş ilk yükleme | Büyük JS, render bloke |
+| Yavaş etkileşimler | Ağır event handler'lar |
+| Scroll sırasında jank | Layout thrashing |
+| Büyüyen bellek | Sızıntılar, tutulmuş ref'ler |
+
+---
+
+## 6. Hızlı Kazanım Öncelikleri
+
+| Öncelik | Eylem | Etki |
+|---------|-------|------|
+| 1 | Sıkıştırmayı etkinleştir | Yüksek |
+| 2 | Görselleri lazy load yap | Yüksek |
+| 3 | Rotaları kod bölme | Yüksek |
+| 4 | Statik varlıkları önbelleğe al | Orta |
+| 5 | Görselleri optimize et | Orta |
+
+---
+
+## 7. Anti-Desenler
+
+| ❌ Yapma | ✅ Yap |
+|----------|--------|
+| Sorunları tahmin et | Önce profillle |
+| Mikro-optimize et | En büyük sorunu düzelt |
+| Erken optimize et | Gerektiğinde optimize et |
+| Gerçek kullanıcıları görmezden gel | RUM verilerini kullan |
+
+---
+
+> **Unutma:** En hızlı kod, çalışmayan koddur. Optimize etmeden önce kaldır.

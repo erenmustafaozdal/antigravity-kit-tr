@@ -1,57 +1,57 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
+description: Web Arayüz Kurallarına uygunluk için UI kodunu incele. "UI'umı incele", "erişilebilirliği kontrol et", "tasarımı denetle", "UX'i incele" veya "sitemi en iyi uygulamalara karşı kontrol et" dendiğinde kullan.
 metadata:
   author: vercel
   version: "1.0.0"
-  argument-hint: <file-or-pattern>
+  argument-hint: <dosya-veya-desen>
 ---
 
-# Web Interface Guidelines
+# Web Arayüz Kuralları (Web Interface Guidelines)
 
-Review files for compliance with Web Interface Guidelines.
+Dosyaları Web Arayüz Kurallarına uygunluk açısından incele.
 
-## How It Works
+## Nasıl Çalışır
 
-1. Fetch the latest guidelines from the source URL below
-2. Read the specified files (or prompt user for files/pattern)
-3. Check against all rules in the fetched guidelines
-4. Output findings in the terse `file:line` format
+1. Aşağıdaki kaynak URL'den en son kuralları al
+2. Belirtilen dosyaları oku (veya kullanıcıya dosya/desen sor)
+3. Alınan kurallardaki tüm kurallara karşı kontrol et
+4. Bulguları özlü `dosya:satır` formatında çıktıla
 
-## Guidelines Source
+## Kural Kaynağı
 
-Fetch fresh guidelines before each review:
+Her incelemeden önce yeni kuralları al:
 
 ```
 https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
 ```
 
-Use WebFetch to retrieve the latest rules. The fetched content contains all the rules and output format instructions.
+En son kuralları almak için WebFetch kullan. Alınan içerik tüm kuralları ve çıktı formatı talimatlarını içerir.
 
-## Usage
+## Kullanım
 
-When a user provides a file or pattern argument:
-1. Fetch guidelines from the source URL above
-2. Read the specified files
-3. Apply all rules from the fetched guidelines
-4. Output findings using the format specified in the guidelines
+Kullanıcı bir dosya veya desen argümanı sağladığında:
+1. Yukarıdaki kaynak URL'den kuralları al
+2. Belirtilen dosyaları oku
+3. Alınan kurallardaki tüm kuralları uygula
+4. Kurallarda belirtilen formatı kullanarak bulguları çıktıla
 
-If no files specified, ask the user which files to review.
+Dosya belirtilmemişse, kullanıcıya hangi dosyaları inceleyeceğini sor.
 
 ---
 
-## Related Skills
+## İlgili Yetenekler
 
-| Skill | When to Use |
-|-------|-------------|
-| **[frontend-design](../frontend-design/SKILL.md)** | Before coding - Learn design principles (color, typography, UX psychology) |
-| **web-design-guidelines** (this) | After coding - Audit for accessibility, performance, and best practices |
+| Yetenek | Ne Zaman Kullanılır |
+|---------|---------------------|
+| **[frontend-design](../frontend-design/SKILL.md)** | Kodlamadan önce - Tasarım prensiplerini öğren (renk, tipografi, UX psikolojisi) |
+| **web-design-guidelines** (bu) | Kodlamadan sonra - Erişilebilirlik, performans ve en iyi uygulamalar için denetle |
 
-## Design Workflow
+## Tasarım İş Akışı
 
 ```
-1. DESIGN   → Read frontend-design principles
-2. CODE     → Implement the design
-3. AUDIT    → Run web-design-guidelines review ← YOU ARE HERE
-4. FIX      → Address findings from audit
+1. TASARIM   → frontend-design prensiplerini oku
+2. KOD       → Tasarımı uygula
+3. DENETLEME → web-design-guidelines incelemesi yap ← BURADASINız
+4. DÜZELT    → Denetimden gelen bulguları ele al
 ```

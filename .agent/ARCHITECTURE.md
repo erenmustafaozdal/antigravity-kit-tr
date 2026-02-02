@@ -1,288 +1,288 @@
-# Antigravity Kit Architecture
+# Antigravity Kit Mimarisi
 
-> Comprehensive AI Agent Capability Expansion Toolkit
-
----
-
-## 📋 Overview
-
-Antigravity Kit is a modular system consisting of:
-
-- **20 Specialist Agents** - Role-based AI personas
-- **36 Skills** - Domain-specific knowledge modules
-- **11 Workflows** - Slash command procedures
+> Kapsamlı YZ Ajan Yetenek Genişletme Araç Kiti
 
 ---
 
-## 🏗️ Directory Structure
+## 📋 Genel Bakış
+
+Antigravity Kit, aşağıdaki bileşenlerden oluşan modüler bir sistemdir:
+
+- **20 Uzman Ajan** - Rol tabanlı YZ personaları
+- **36 Yetenek** - Alana özgü bilgi modülleri
+- **11 İş Akışı** - Slash komut prosedürleri
+
+---
+
+## 🏗️ Dizin Yapısı
 
 ```plaintext
 .agent/
-├── ARCHITECTURE.md          # This file
-├── agents/                  # 20 Specialist Agents
-├── skills/                  # 36 Skills
-├── workflows/               # 11 Slash Commands
-├── rules/                   # Global Rules
-└── scripts/                 # Master Validation Scripts
+├── ARCHITECTURE.md          # Bu dosya
+├── agents/                  # 20 Uzman Ajan
+├── skills/                  # 36 Yetenek
+├── workflows/               # 11 Slash Komutları
+├── rules/                   # Global Kurallar
+└── scripts/                 # Ana Doğrulama Scriptleri
 ```
 
 ---
 
-## 🤖 Agents (20)
+## 🤖 Ajanlar (20)
 
-Specialist AI personas for different domains.
+Farklı alanlar için uzmanlaşmış YZ personaları.
 
-| Agent                    | Focus                      | Skills Used                                              |
+| Ajan                     | Odak Noktası               | Kullanılan Yetenekler                                    |
 | ------------------------ | -------------------------- | -------------------------------------------------------- |
-| `orchestrator`           | Multi-agent coordination   | parallel-agents, behavioral-modes                        |
-| `project-planner`        | Discovery, task planning   | brainstorming, plan-writing, architecture                |
+| `orchestrator`           | Çoklu ajan koordinasyonu   | parallel-agents, behavioral-modes                        |
+| `project-planner`        | Keşif, görev planlama      | brainstorming, plan-writing, architecture                |
 | `frontend-specialist`    | Web UI/UX                  | frontend-design, react-best-practices, tailwind-patterns |
-| `backend-specialist`     | API, business logic        | api-patterns, nodejs-best-practices, database-design     |
-| `database-architect`     | Schema, SQL                | database-design, prisma-expert                           |
+| `backend-specialist`     | API, iş mantığı            | api-patterns, nodejs-best-practices, database-design     |
+| `database-architect`     | Şema, SQL                  | database-design, prisma-expert                           |
 | `mobile-developer`       | iOS, Android, RN           | mobile-design                                            |
-| `game-developer`         | Game logic, mechanics      | game-development                                         |
+| `game-developer`         | Oyun mantığı, mekanikler   | game-development                                         |
 | `devops-engineer`        | CI/CD, Docker              | deployment-procedures, docker-expert                     |
-| `security-auditor`       | Security compliance        | vulnerability-scanner, red-team-tactics                  |
-| `penetration-tester`     | Offensive security         | red-team-tactics                                         |
-| `test-engineer`          | Testing strategies         | testing-patterns, tdd-workflow, webapp-testing           |
-| `debugger`               | Root cause analysis        | systematic-debugging                                     |
-| `performance-optimizer`  | Speed, Web Vitals          | performance-profiling                                    |
-| `seo-specialist`         | Ranking, visibility        | seo-fundamentals, geo-fundamentals                       |
-| `documentation-writer`   | Manuals, docs              | documentation-templates                                  |
-| `product-manager`        | Requirements, user stories | plan-writing, brainstorming                              |
-| `product-owner`          | Strategy, backlog, MVP     | plan-writing, brainstorming                              |
-| `qa-automation-engineer` | E2E testing, CI pipelines  | webapp-testing, testing-patterns                         |
-| `code-archaeologist`     | Legacy code, refactoring   | clean-code, code-review-checklist                        |
-| `explorer-agent`         | Codebase analysis          | -                                                        |
+| `security-auditor`       | Güvenlik uyumluluğu        | vulnerability-scanner, red-team-tactics                  |
+| `penetration-tester`     | Ofansif güvenlik           | red-team-tactics                                         |
+| `test-engineer`          | Test stratejileri          | testing-patterns, tdd-workflow, webapp-testing           |
+| `debugger`               | Kök neden analizi          | systematic-debugging                                     |
+| `performance-optimizer`  | Hız, Web Vitals            | performance-profiling                                    |
+| `seo-specialist`         | Sıralama, görünürlük       | seo-fundamentals, geo-fundamentals                       |
+| `documentation-writer`   | Kılavuzlar, dokümanlar     | documentation-templates                                  |
+| `product-manager`        | Gereksinimler, kullanıcı hikayeleri | plan-writing, brainstorming                    |
+| `product-owner`          | Strateji, backlog, MVP     | plan-writing, brainstorming                              |
+| `qa-automation-engineer` | E2E testi, CI pipeline'ları | webapp-testing, testing-patterns                         |
+| `code-archaeologist`     | Eski kod, refactoring      | clean-code, code-review-checklist                        |
+| `explorer-agent`         | Kod tabanı analizi         | -                                                        |
 
 ---
 
-## 🧩 Skills (36)
+## 🧩 Yetenekler (36)
 
-Modular knowledge domains that agents can load on-demand. based on task context.
+Ajanların görev bağlamına göre isteğe bağlı olarak yükleyebilecekleri modüler bilgi alanları.
 
 ### Frontend & UI
 
-| Skill                   | Description                                                           |
+| Yetenek                 | Açıklama                                                              |
 | ----------------------- | --------------------------------------------------------------------- |
-| `react-best-practices`  | React & Next.js performance optimization (Vercel - 57 rules)          |
-| `web-design-guidelines` | Web UI audit - 100+ rules for accessibility, UX, performance (Vercel) |
-| `tailwind-patterns`     | Tailwind CSS v4 utilities                                             |
-| `frontend-design`       | UI/UX patterns, design systems                                        |
-| `ui-ux-pro-max`         | 50 styles, 21 palettes, 50 fonts                                      |
+| `react-best-practices`  | React & Next.js performans optimizasyonu (Vercel - 57 kural)          |
+| `web-design-guidelines` | Web UI denetimi - Erişilebilirlik, UX, performans için 100+ kural     |
+| `tailwind-patterns`     | Tailwind CSS v4 yardımcı sınıfları                                    |
+| `frontend-design`       | UI/UX desenleri, tasarım sistemleri                                   |
+| `ui-ux-pro-max`         | 50 stil, 21 palet, 50 font                                            |
 
 ### Backend & API
 
-| Skill                   | Description                    |
+| Yetenek                 | Açıklama                       |
 | ----------------------- | ------------------------------ |
 | `api-patterns`          | REST, GraphQL, tRPC            |
-| `nestjs-expert`         | NestJS modules, DI, decorators |
-| `nodejs-best-practices` | Node.js async, modules         |
-| `python-patterns`       | Python standards, FastAPI      |
+| `nestjs-expert`         | NestJS modülleri, DI, dekoratörler |
+| `nodejs-best-practices` | Node.js asenkron, modüller     |
+| `python-patterns`       | Python standartları, FastAPI   |
 
-### Database
+### Veritabanı
 
-| Skill             | Description                 |
+| Yetenek           | Açıklama                    |
 | ----------------- | --------------------------- |
-| `database-design` | Schema design, optimization |
-| `prisma-expert`   | Prisma ORM, migrations      |
+| `database-design` | Şema tasarımı, optimizasyon |
+| `prisma-expert`   | Prisma ORM, migrasyonlar    |
 
 ### TypeScript/JavaScript
 
-| Skill               | Description                         |
+| Yetenek             | Açıklama                            |
 | ------------------- | ----------------------------------- |
-| `typescript-expert` | Type-level programming, performance |
+| `typescript-expert` | Tip seviyesinde programlama, performans |
 
-### Cloud & Infrastructure
+### Bulut & Altyapı
 
-| Skill                   | Description               |
+| Yetenek                 | Açıklama                  |
 | ----------------------- | ------------------------- |
-| `docker-expert`         | Containerization, Compose |
-| `deployment-procedures` | CI/CD, deploy workflows   |
-| `server-management`     | Infrastructure management |
+| `docker-expert`         | Konteynerizasyon, Compose |
+| `deployment-procedures` | CI/CD, dağıtım iş akışları |
+| `server-management`     | Altyapı yönetimi          |
 
-### Testing & Quality
+### Test & Kalite
 
-| Skill                   | Description              |
+| Yetenek                 | Açıklama                 |
 | ----------------------- | ------------------------ |
-| `testing-patterns`      | Jest, Vitest, strategies |
+| `testing-patterns`      | Jest, Vitest, stratejiler |
 | `webapp-testing`        | E2E, Playwright          |
-| `tdd-workflow`          | Test-driven development  |
-| `code-review-checklist` | Code review standards    |
-| `lint-and-validate`     | Linting, validation      |
+| `tdd-workflow`          | Test güdümlü geliştirme  |
+| `code-review-checklist` | Kod inceleme standartları |
+| `lint-and-validate`     | Linting, doğrulama       |
 
-### Security
+### Güvenlik
 
-| Skill                   | Description              |
+| Yetenek                 | Açıklama                 |
 | ----------------------- | ------------------------ |
-| `vulnerability-scanner` | Security auditing, OWASP |
-| `red-team-tactics`      | Offensive security       |
+| `vulnerability-scanner` | Güvenlik denetimi, OWASP |
+| `red-team-tactics`      | Ofansif güvenlik         |
 
-### Architecture & Planning
+### Mimari & Planlama
 
-| Skill           | Description                |
-| --------------- | -------------------------- |
-| `app-builder`   | Full-stack app scaffolding |
-| `architecture`  | System design patterns     |
-| `plan-writing`  | Task planning, breakdown   |
-| `brainstorming` | Socratic questioning       |
+| Yetenek         | Açıklama                    |
+| --------------- | --------------------------- |
+| `app-builder`   | Full-stack uygulama iskeleti |
+| `architecture`  | Sistem tasarım desenleri    |
+| `plan-writing`  | Görev planlama, kırılım     |
+| `brainstorming` | Sokratik sorgulama          |
 
-### Mobile
+### Mobil
 
-| Skill           | Description           |
+| Yetenek         | Açıklama              |
 | --------------- | --------------------- |
-| `mobile-design` | Mobile UI/UX patterns |
+| `mobile-design` | Mobil UI/UX desenleri |
 
-### Game Development
+### Oyun Geliştirme
 
-| Skill              | Description           |
-| ------------------ | --------------------- |
-| `game-development` | Game logic, mechanics |
+| Yetenek            | Açıklama                |
+| ------------------ | ----------------------- |
+| `game-development` | Oyun mantığı, mekanikler |
 
-### SEO & Growth
+### SEO & Büyüme
 
-| Skill              | Description                   |
+| Yetenek            | Açıklama                      |
 | ------------------ | ----------------------------- |
 | `seo-fundamentals` | SEO, E-E-A-T, Core Web Vitals |
-| `geo-fundamentals` | GenAI optimization            |
+| `geo-fundamentals` | GenAI optimizasyonu           |
 
 ### Shell/CLI
 
-| Skill                | Description               |
+| Yetenek              | Açıklama                  |
 | -------------------- | ------------------------- |
-| `bash-linux`         | Linux commands, scripting |
+| `bash-linux`         | Linux komutları, scripting |
 | `powershell-windows` | Windows PowerShell        |
 
-### Other
+### Diğerleri
 
-| Skill                     | Description               |
+| Yetenek                   | Açıklama                  |
 | ------------------------- | ------------------------- |
-| `clean-code`              | Coding standards (Global) |
-| `behavioral-modes`        | Agent personas            |
-| `parallel-agents`         | Multi-agent patterns      |
+| `clean-code`              | Kodlama standartları (Global) |
+| `behavioral-modes`        | Ajan personaları          |
+| `parallel-agents`         | Çoklu ajan desenleri      |
 | `mcp-builder`             | Model Context Protocol    |
-| `documentation-templates` | Doc formats               |
-| `i18n-localization`       | Internationalization      |
-| `performance-profiling`   | Web Vitals, optimization  |
-| `systematic-debugging`    | Troubleshooting           |
+| `documentation-templates` | Doküman formatları        |
+| `i18n-localization`       | Uluslararasılaştırma      |
+| `performance-profiling`   | Web Vitals, optimizasyon  |
+| `systematic-debugging`    | Sorun giderme             |
 
 ---
 
-## 🔄 Workflows (11)
+## 🔄 İş Akışları (11)
 
-Slash command procedures. Invoke with `/command`.
+Slash komut prosedürleri. `/komut` ile çağrılır.
 
-| Command          | Description              |
+| Komut            | Açıklama                 |
 | ---------------- | ------------------------ |
-| `/brainstorm`    | Socratic discovery       |
-| `/create`        | Create new features      |
-| `/debug`         | Debug issues             |
-| `/deploy`        | Deploy application       |
-| `/enhance`       | Improve existing code    |
-| `/orchestrate`   | Multi-agent coordination |
-| `/plan`          | Task breakdown           |
-| `/preview`       | Preview changes          |
-| `/status`        | Check project status     |
-| `/test`          | Run tests                |
-| `/ui-ux-pro-max` | Design with 50 styles    |
+| `/brainstorm`    | Sokratik keşif           |
+| `/create`        | Yeni özellikler oluşturma |
+| `/debug`         | Sorun giderme            |
+| `/deploy`        | Uygulama dağıtımı        |
+| `/enhance`       | Mevcut kodu iyileştirme  |
+| `/orchestrate`   | Çoklu ajan koordinasyonu |
+| `/plan`          | Görev kırılımı           |
+| `/preview`       | Değişiklikleri önizleme  |
+| `/status`        | Proje durumunu kontrol et |
+| `/test`          | Testleri çalıştır        |
+| `/ui-ux-pro-max` | 50 stil ile tasarım      |
 
 ---
 
-## 🎯 Skill Loading Protocol
+## 🎯 Yetenek Yükleme Protokolü
 
 ```plaintext
-User Request → Skill Description Match → Load SKILL.md
-                                            ↓
-                                    Read references/
-                                            ↓
-                                    Read scripts/
+Kullanıcı İsteği → Yetenek Açıklaması Eşleşmesi → SKILL.md Yükle
+                                             ↓
+                                     references/ Oku
+                                             ↓
+                                     scripts/ Oku
 ```
 
-### Skill Structure
+### Yetenek Yapısı
 
 ```plaintext
-skill-name/
-├── SKILL.md           # (Required) Metadata & instructions
-├── scripts/           # (Optional) Python/Bash scripts
-├── references/        # (Optional) Templates, docs
-└── assets/            # (Optional) Images, logos
+yetenek-adi/
+├── SKILL.md           # (Zorunlu) Metaveri ve talimatlar
+├── scripts/           # (Opsiyonel) Python/Bash scriptleri
+├── references/        # (Opsiyonel) Şablonlar, dokümanlar
+└── assets/            # (Opsiyonel) Görseller, logolar
 ```
 
-### Enhanced Skills (with scripts/references)
+### Gelişmiş Yetenekler (scripts/references ile)
 
-| Skill               | Files | Coverage                            |
-| ------------------- | ----- | ----------------------------------- |
-| `ui-ux-pro-max`     | 27    | 50 styles, 21 palettes, 50 fonts    |
-| `app-builder`       | 20    | Full-stack scaffolding              |
+| Yetenek             | Dosyalar | Kapsam                              |
+| ------------------- | -------- | ----------------------------------- |
+| `ui-ux-pro-max`     | 27       | 50 stil, 21 palet, 50 font          |
+| `app-builder`       | 20       | Full-stack yapı kurma               |
 
 ---
 
-## � Scripts (2)
+## ⚙️ Scriptler (2)
 
-Master validation scripts that orchestrate skill-level scripts.
+Yetenek seviyesindeki scriptleri koordine eden ana doğrulama scriptleri.
 
-### Master Scripts
+### Ana Scriptler
 
-| Script          | Purpose                                 | When to Use              |
+| Script          | Amaç                                    | Ne Zaman Kullanılır      |
 | --------------- | --------------------------------------- | ------------------------ |
-| `checklist.py`  | Priority-based validation (Core checks) | Development, pre-commit  |
-| `verify_all.py` | Comprehensive verification (All checks) | Pre-deployment, releases |
+| `checklist.py`  | Öncelik tabanlı doğrulama (Temel)       | Geliştirme, pre-commit   |
+| `verify_all.py` | Kapsamlı doğrulama (Tüm kontroller)     | Dağıtım öncesi, sürümler |
 
-### Usage
+### Kullanım
 
 ```bash
-# Quick validation during development
+# Geliştirme sırasında hızlı doğrulama
 python .agent/scripts/checklist.py .
 
-# Full verification before deployment
+# Dağıtım öncesi tam doğrulama
 python .agent/scripts/verify_all.py . --url http://localhost:3000
 ```
 
-### What They Check
+### Neleri Kontrol Ederler?
 
-**checklist.py** (Core checks):
+**checklist.py** (Temel kontroller):
 
-- Security (vulnerabilities, secrets)
-- Code Quality (lint, types)
-- Schema Validation
-- Test Suite
-- UX Audit
-- SEO Check
+- Güvenlik (zafiyetler, sırlar)
+- Kod Kalitesi (lint, tipler)
+- Şema Doğrulama
+- Test Paketi
+- UX Denetimi
+- SEO Kontrolü
 
-**verify_all.py** (Full suite):
+**verify_all.py** (Tam paket):
 
-- Everything in checklist.py PLUS:
+- checklist.py içindeki her şey ARTI:
 - Lighthouse (Core Web Vitals)
 - Playwright E2E
-- Bundle Analysis
-- Mobile Audit
-- i18n Check
+- Paket Analizi (Bundle Analysis)
+- Mobil Denetim
+- i18n Kontrolü
 
-For details, see [scripts/README.md](scripts/README.md)
-
----
-
-## 📊 Statistics
-
-| Metric              | Value                         |
-| ------------------- | ----------------------------- |
-| **Total Agents**    | 20                            |
-| **Total Skills**    | 36                            |
-| **Total Workflows** | 11                            |
-| **Total Scripts**   | 2 (master) + 18 (skill-level) |
-| **Coverage**        | ~90% web/mobile development   |
+Detaylar için bkz. [scripts/README.md](scripts/README.md)
 
 ---
 
-## 🔗 Quick Reference
+## 📊 İstatistikler
 
-| Need     | Agent                 | Skills                                |
-| -------- | --------------------- | ------------------------------------- |
-| Web App  | `frontend-specialist` | react-best-practices, frontend-design |
-| API      | `backend-specialist`  | api-patterns, nodejs-best-practices   |
-| Mobile   | `mobile-developer`    | mobile-design                         |
-| Database | `database-architect`  | database-design, prisma-expert        |
-| Security | `security-auditor`    | vulnerability-scanner                 |
-| Testing  | `test-engineer`       | testing-patterns, webapp-testing      |
-| Debug    | `debugger`            | systematic-debugging                  |
-| Plan     | `project-planner`     | brainstorming, plan-writing           |
+| Metrik             | Değer                         |
+| ------------------ | ----------------------------- |
+| **Toplam Ajan**    | 20                            |
+| **Toplam Yetenek** | 36                            |
+| **Toplam İş Akışı**| 11                            |
+| **Toplam Script**  | 2 (ana) + 18 (yetenek bazlı)  |
+| **Kapsam**         | ~%90 web/mobil geliştirme     |
+
+---
+
+## 🔗 Hızlı Referans
+
+| İhtiyaç   | Ajan                  | Yetenekler                            |
+| --------- | --------------------- | ------------------------------------- |
+| Web Uyg.  | `frontend-specialist` | react-best-practices, frontend-design |
+| API       | `backend-specialist`  | api-patterns, nodejs-best-practices   |
+| Mobil     | `mobile-developer`    | mobile-design                         |
+| Veritabanı| `database-architect`  | database-design, prisma-expert        |
+| Güvenlik  | `security-auditor`    | vulnerability-scanner                 |
+| Test      | `test-engineer`       | testing-patterns, webapp-testing      |
+| Hata Giderme | `debugger`         | systematic-debugging                  |
+| Plan      | `project-planner`     | brainstorming, plan-writing           |

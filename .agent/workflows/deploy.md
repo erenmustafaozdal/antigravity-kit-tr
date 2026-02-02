@@ -1,64 +1,64 @@
 ---
-description: Deployment command for production releases. Pre-flight checks and deployment execution.
+description: Üretim (production) sürümleri için dağıtım komutu. Dağıtım öncesi kontrolleri ve dağıtım işlemini gerçekleştirir.
 ---
 
-# /deploy - Production Deployment
+# /deploy - Üretim Dağıtımı
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Amaç
 
-This command handles production deployment with pre-flight checks, deployment execution, and verification.
-
----
-
-## Sub-commands
-
-```
-/deploy            - Interactive deployment wizard
-/deploy check      - Run pre-deployment checks only
-/deploy preview    - Deploy to preview/staging
-/deploy production - Deploy to production
-/deploy rollback   - Rollback to previous version
-```
+Bu komut; dağıtım öncesi kontroller, dağıtımın yürütülmesi ve doğrulama aşamalarıyla birlikte üretim ortamına dağıtımı yönetir.
 
 ---
 
-## Pre-Deployment Checklist
+## Alt Komutlar
 
-Before any deployment:
+```
+/deploy            - Etkileşimli dağıtım sihirbazı
+/deploy check      - Sadece dağıtım öncesi kontrolleri çalıştır
+/deploy preview    - Önizleme/hazırlık (staging) ortamına dağıt
+/deploy production - Üretime (production) dağıt
+/deploy rollback   - Önceki sürüme geri dön
+```
+
+---
+
+## Dağıtım Öncesi Kontrol Listesi
+
+Herhangi bir dağıtımdan önce:
 
 ```markdown
-## 🚀 Pre-Deploy Checklist
+## 🚀 Dağıtım Öncesi Kontrol Listesi
 
-### Code Quality
-- [ ] No TypeScript errors (`npx tsc --noEmit`)
-- [ ] ESLint passing (`npx eslint .`)
-- [ ] All tests passing (`npm test`)
+### Kod Kalitesi
+- [ ] TypeScript hatası yok (`npx tsc --noEmit`)
+- [ ] ESLint geçiyor (`npx eslint .`)
+- [ ] Tüm testler geçiyor (`npm test`)
 
-### Security
-- [ ] No hardcoded secrets
-- [ ] Environment variables documented
-- [ ] Dependencies audited (`npm audit`)
+### Güvenlik
+- [ ] Hardcoded (açık kodlanmış) gizli bilgi yok
+- [ ] Ortam değişkenleri dokümante edildi
+- [ ] Bağımlılıklar denetlendi (`npm audit`)
 
-### Performance
-- [ ] Bundle size acceptable
-- [ ] No console.log statements
-- [ ] Images optimized
+### Performans
+- [ ] Paket boyutu kabul edilebilir düzeyde
+- [ ] console.log ifadeleri yok
+- [ ] Görseller optimize edildi
 
-### Documentation
-- [ ] README updated
-- [ ] CHANGELOG updated
-- [ ] API docs current
+### Dokümantasyon
+- [ ] README güncellendi
+- [ ] CHANGELOG güncellendi
+- [ ] API dokümanları güncel
 
-### Ready to deploy? (y/n)
+### Dağıtıma hazır mısınız? (e/h)
 ```
 
 ---
 
-## Deployment Flow
+## Dağıtım Akışı
 
 ```
 ┌─────────────────┐
@@ -67,105 +67,105 @@ Before any deployment:
          │
          ▼
 ┌─────────────────┐
-│  Pre-flight     │
-│  checks         │
+│  Uçuş öncesi    │
+│  kontroller     │
 └────────┬────────┘
          │
-    Pass? ──No──► Fix issues
+    Geçti mi? ──Hayır──► Sorunları düzelt
          │
-        Yes
+        Evet
          │
          ▼
 ┌─────────────────┐
+│  Uygulama       │
 │  Build          │
-│  application    │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│  Deploy to      │
-│  platform       │
+│  Platforma      │
+│  Dağıtım        │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│  Health check   │
-│  & verify       │
+│  Sağlık kontrolü│
+│  & Doğrulama    │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│  ✅ Complete    │
+│  ✅ Tamamlandı  │
 └─────────────────┘
 ```
 
 ---
 
-## Output Format
+## Çıktı Formatı
 
-### Successful Deploy
+### Başarılı Dağıtım
 
 ```markdown
-## 🚀 Deployment Complete
+## 🚀 Dağıtım Tamamlandı
 
-### Summary
-- **Version:** v1.2.3
-- **Environment:** production
-- **Duration:** 47 seconds
+### Özet
+- **Sürüm:** v1.2.3
+- **Ortam:** production
+- **Süre:** 47 saniye
 - **Platform:** Vercel
 
-### URLs
-- 🌐 Production: https://app.example.com
+### URL'ler
+- 🌐 Üretim: https://app.example.com
 - 📊 Dashboard: https://vercel.com/project
 
-### What Changed
-- Added user profile feature
-- Fixed login bug
-- Updated dependencies
+### Neler Değişti
+- Kullanıcı profili özelliği eklendi
+- Giriş hatası düzeltildi
+- Bağımlılıklar güncellendi
 
-### Health Check
-✅ API responding (200 OK)
-✅ Database connected
-✅ All services healthy
+### Sağlık Kontrolü
+✅ API yanıt veriyor (200 OK)
+✅ Veritabanı bağlandı
+✅ Tüm servisler sağlıklı
 ```
 
-### Failed Deploy
+### Hatalı Dağıtım
 
 ```markdown
-## ❌ Deployment Failed
+## ❌ Dağıtım Başarısız
 
-### Error
-Build failed at step: TypeScript compilation
+### Hata
+Build aşamasında hata oluştu: TypeScript derlemesi
 
-### Details
+### Detaylar
 ```
 error TS2345: Argument of type 'string' is not assignable...
 ```
 
-### Resolution
-1. Fix TypeScript error in `src/services/user.ts:45`
-2. Run `npm run build` locally to verify
-3. Try `/deploy` again
+### Çözüm
+1. `src/services/user.ts:45` adresindeki TypeScript hatasını düzelt
+2. Doğrulamak için yerelde `npm run build` çalıştır
+3. Tekrar `/deploy` yapmayı dene
 
-### Rollback Available
-Previous version (v1.2.2) is still active.
-Run `/deploy rollback` if needed.
+### Geri Dönüş (Rollback) Mevcut
+Önceki sürüm (v1.2.2) hala aktif.
+Gerekirse `/deploy rollback` komutunu çalıştırın.
 ```
 
 ---
 
-## Platform Support
+## Platform Desteği
 
-| Platform | Command | Notes |
+| Platform | Komut | Notlar |
 |----------|---------|-------|
-| Vercel | `vercel --prod` | Auto-detected for Next.js |
-| Railway | `railway up` | Needs Railway CLI |
-| Fly.io | `fly deploy` | Needs flyctl |
-| Docker | `docker compose up -d` | For self-hosted |
+| Vercel | `vercel --prod` | Next.js için otomatik algılanır |
+| Railway | `railway up` | Railway CLI gerektirir |
+| Fly.io | `fly deploy` | flyctl gerektirir |
+| Docker | `docker compose up -d` | Self-hosted için |
 
 ---
 
-## Examples
+## Örnekler
 
 ```
 /deploy

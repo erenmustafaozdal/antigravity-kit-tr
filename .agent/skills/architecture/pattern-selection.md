@@ -1,68 +1,68 @@
-# Pattern Selection Guidelines
+# Desen Seçim Yönergeleri
 
-> Decision trees for choosing architectural patterns.
+> Mimari desenleri seçmek için karar ağaçları.
 
-## Main Decision Tree
+## Ana Karar Ağacı
 
 ```
-START: What's your MAIN concern?
+BAŞLA: Temel odak noktanız nedir?
 
-┌─ Data Access Complexity?
-│  ├─ HIGH (complex queries, testing needed)
+┌─ Veri Erişim Karmaşıklığı mı?
+│  ├─ YÜKSEK (karmaşık sorgular, test ihtiyacı)
 │  │  → Repository Pattern + Unit of Work
-│  │  VALIDATE: Will data source change frequently?
-│  │     ├─ YES → Repository worth the indirection
-│  │     └─ NO  → Consider simpler ORM direct access
-│  └─ LOW (simple CRUD, single database)
-│     → ORM directly (Prisma, Drizzle)
-│     Simpler = Better, Faster
+│  │  DOĞRULA: Veri kaynağı sık değişecek mi?
+│  │     ├─ EVET → Repository katmanı eklemeye değer
+│  │     └─ HAYIR → Daha basit olan doğrudan ORM erişimini düşünün
+│  └─ DÜŞÜK (basit CRUD, tek veritabanı)
+│     → Doğrudan ORM (Prisma, Drizzle vb.)
+│     Daha Basit = Daha İyi, Daha Hızlı
 │
-├─ Business Rules Complexity?
-│  ├─ HIGH (domain logic, rules vary by context)
-│  │  → Domain-Driven Design
-│  │  VALIDATE: Do you have domain experts on team?
-│  │     ├─ YES → Full DDD (Aggregates, Value Objects)
-│  │     └─ NO  → Partial DDD (rich entities, clear boundaries)
-│  └─ LOW (mostly CRUD, simple validation)
-│     → Transaction Script pattern
-│     Simpler = Better, Faster
+├─ İş Kuralları (Business Rules) Karmaşıklığı mı?
+│  ├─ YÜKSEK (alan mantığı, bağlama göre değişen kurallar)
+│  │  → Etki Alanı Odaklı Tasarım (Domain-Driven Design - DDD)
+│  │  DOĞRULA: Ekipte alan uzmanları (domain experts) var mı?
+│  │     ├─ EVET → Tam DDD (Aggregates, Value Objects)
+│  │     └─ HAYIR → Kısmi DDD (zengin varlıklar, net sınırlar)
+│  └─ DÜŞÜK (çoğunlukla CRUD, basit doğrulama)
+│     → Transaction Script deseni
+│     Daha Basit = Daha İyi, Daha Hızlı
 │
-├─ Independent Scaling Needed?
-│  ├─ YES (different components scale differently)
-│  │  → Microservices WORTH the complexity
-│  │  REQUIREMENTS (ALL must be true):
-│  │    - Clear domain boundaries
-│  │    - Team > 10 developers
-│  │    - Different scaling needs per service
-│  │  IF NOT ALL MET → Modular Monolith instead
-│  └─ NO (everything scales together)
-│     → Modular Monolith
-│     Can extract services later when proven needed
+├─ Bağımsız Ölçeklendirme İhtiyacı mı?
+│  ├─ EVET (farklı bileşenler farklı ölçeklenmeli)
+│  │  → Mikroservisler - Karmaşıklığa DEĞER
+│  │  GEREKSİNİMLER (HEPSİ doğru olmalı):
+│  │    - Net etki alanı sınırları
+│  │    - Ekip > 10 geliştirici
+│  │    - Servis başına farklı ölçeklenme ihtiyaçları
+│  │  HEPSİ KARŞILANMIYORSA → Modüler Monolit (Modular Monolith)
+│  └─ HAYIR (her şey birlikte ölçekleniyor)
+│     → Modüler Monolit
+│     İhtiyaç duyulduğu kanıtlandığında servisler daha sonra ayrılabilir
 │
-└─ Real-time Requirements?
-   ├─ HIGH (immediate updates, multi-user sync)
-   │  → Event-Driven Architecture
-   │  → Message Queue (RabbitMQ, Redis, Kafka)
-   │  VALIDATE: Can you handle eventual consistency?
-   │     ├─ YES → Event-driven valid
-   │     └─ NO  → Synchronous with polling
-   └─ LOW (eventual consistency acceptable)
-      → Synchronous (REST/GraphQL)
-      Simpler = Better, Faster
+└─ Gerçek Zamanlı (Real-time) Gereksinimler mi?
+   ├─ YÜKSEK (anlık güncellemeler, çoklu kullanıcı senkronizasyonu)
+   │  → Olay Güdümlü Mimari (Event-Driven Architecture)
+   │  → Mesaj Kuyruğu (RabbitMQ, Redis, Kafka)
+   │  DOĞRULA: Nihai tutarlılığı (eventual consistency) yönetebilir misiniz?
+   │     ├─ EVET → Olay güdümlü mimari uygundur
+   │     └─ HAYIR → Polling ile senkron iletişim
+   └─ DÜŞÜK (nihai tutarlılık kabul edilebilir)
+      → Senkron (REST/GraphQL)
+      Daha Basit = Daha İyi, Daha Hızlı
 ```
 
-## The 3 Questions (Before ANY Pattern)
+## Desen Seçmeden Önce 3 Soru
 
-1. **Problem Solved**: What SPECIFIC problem does this pattern solve?
-2. **Simpler Alternative**: Is there a simpler solution?
-3. **Deferred Complexity**: Can we add this LATER when needed?
+1. **Çözülen Sorun**: Bu desen TAM OLARAK hangi sorunu çözüyor?
+2. **Daha Basit Alternatif**: Daha basit bir çözüm var mı?
+3. **Ertelenebilir Karmaşıklık**: Bunu daha sonra ihtiyaç olduğunda ekleyebilir miyiz?
 
-## Red Flags (Anti-patterns)
+## Kırmızı Bayraklar (Anti-desenler)
 
-| Pattern | Anti-pattern | Simpler Alternative |
+| Desen | Anti-desen | Daha Basit Alternatif |
 |---------|-------------|-------------------|
-| Microservices | Premature splitting | Start monolith, extract later |
-| Clean/Hexagonal | Over-abstraction | Concrete first, interfaces later |
-| Event Sourcing | Over-engineering | Append-only audit log |
-| CQRS | Unnecessary complexity | Single model |
-| Repository | YAGNI for simple CRUD | ORM direct access |
+| Mikroservisler | Erken parçalama | Monolit ile başla, sonra ayır |
+| Clean/Hexagonal | Aşırı soyutlama | Önce somut yapılar, sonra arayüzler |
+| Event Sourcing | Fazla mühendislik | Sadece ekleme (append-only) yapılan denetim logu |
+| CQRS | Gereksiz karmaşıklık | Tekil model |
+| Repository | Basit CRUD için YAGNI | Doğrudan ORM erişimi |

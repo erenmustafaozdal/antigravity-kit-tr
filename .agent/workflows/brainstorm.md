@@ -1,113 +1,113 @@
 ---
-description: Structured brainstorming for projects and features. Explores multiple options before implementation.
+description: Projeler ve özellikler için yapılandırılmış beyin fırtınası. Uygulamadan önce birden fazla seçeneği araştırır.
 ---
 
-# /brainstorm - Structured Idea Exploration
+# /brainstorm - Yapılandırılmış Fikir Keşfi
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Amaç
 
-This command activates BRAINSTORM mode for structured idea exploration. Use when you need to explore options before committing to an implementation.
-
----
-
-## Behavior
-
-When `/brainstorm` is triggered:
-
-1. **Understand the goal**
-   - What problem are we solving?
-   - Who is the user?
-   - What constraints exist?
-
-2. **Generate options**
-   - Provide at least 3 different approaches
-   - Each with pros and cons
-   - Consider unconventional solutions
-
-3. **Compare and recommend**
-   - Summarize tradeoffs
-   - Give a recommendation with reasoning
+Bu komut, yapılandırılmış fikir keşfi için BEYİN FIRTINASI modunu etkinleştirir. Bir uygulamaya başlamadan önce seçenekleri keşfetmeniz gerektiğinde kullanın.
 
 ---
 
-## Output Format
+## Davranış
+
+`/brainstorm` tetiklendiğinde:
+
+1. **Hedefi Anla**
+   - Hangi sorunu çözüyoruz?
+   - Kullanıcı kim?
+   - Hangi kısıtlamalar mevcut?
+
+2. **Seçenekler Oluştur**
+   - En az 3 farklı yaklaşım sun
+   - Her birinin artılarını ve eksilerini belirt
+   - Alışılmadık çözümleri de değerlendir
+
+3. **Karşılaştır ve Tavsiye Et**
+   - Takasları (trade-offs) özetle
+   - Gerekçesiyle birlikte bir tavsiyede bulun
+
+---
+
+## Çıktı Formatı
 
 ```markdown
-## 🧠 Brainstorm: [Topic]
+## 🧠 Beyin Fırtınası: [Konu]
 
-### Context
-[Brief problem statement]
-
----
-
-### Option A: [Name]
-[Description]
-
-✅ **Pros:**
-- [benefit 1]
-- [benefit 2]
-
-❌ **Cons:**
-- [drawback 1]
-
-📊 **Effort:** Low | Medium | High
+### Bağlam
+[Kısa sorun ifadesi]
 
 ---
 
-### Option B: [Name]
-[Description]
+### Seçenek A: [İsim]
+[Açıklama]
 
-✅ **Pros:**
-- [benefit 1]
+✅ **Artılar:**
+- [fayda 1]
+- [fayda 2]
 
-❌ **Cons:**
-- [drawback 1]
-- [drawback 2]
+❌ **Eksiler:**
+- [dezavantaj 1]
 
-📊 **Effort:** Low | Medium | High
-
----
-
-### Option C: [Name]
-[Description]
-
-✅ **Pros:**
-- [benefit 1]
-
-❌ **Cons:**
-- [drawback 1]
-
-📊 **Effort:** Low | Medium | High
+📊 **Efor:** Düşük | Orta | Yüksek
 
 ---
 
-## 💡 Recommendation
+### Seçenek B: [İsim]
+[Açıklama]
 
-**Option [X]** because [reasoning].
+✅ **Artılar:**
+- [fayda 1]
 
-What direction would you like to explore?
+❌ **Eksiler:**
+- [dezavantaj 1]
+- [dezavantaj 2]
+
+📊 **Efor:** Düşük | Orta | Yüksek
+
+---
+
+### Seçenek C: [İsim]
+[Açıklama]
+
+✅ **Artılar:**
+- [fayda 1]
+
+❌ **Eksiler:**
+- [dezavantaj 1]
+
+📊 **Efor:** Düşük | Orta | Yüksek
+
+---
+
+## 💡 Tavsiye
+
+**Seçenek [X]** çünkü [gerekçe].
+
+Hangi yönü keşfetmek istersiniz?
 ```
 
 ---
 
-## Examples
+## Örnekler
 
 ```
-/brainstorm authentication system
-/brainstorm state management for complex form
-/brainstorm database schema for social app
-/brainstorm caching strategy
+/brainstorm kimlik doğrulama sistemi
+/brainstorm karmaşık form için durum yönetimi
+/brainstorm sosyal uygulama için veritabanı şeması
+/brainstorm önbelleğe alma stratejisi
 ```
 
 ---
 
-## Key Principles
+## Temel Prensipler
 
-- **No code** - this is about ideas, not implementation
-- **Visual when helpful** - use diagrams for architecture
-- **Honest tradeoffs** - don't hide complexity
-- **Defer to user** - present options, let them decide
+- **Kod yok** - bu fikirlerle ilgilidir, uygulama ile değil
+- **Yardımcı olduğunda görselleştir** - mimari için diyagramlar kullan
+- **Dürüst takaslar** - karmaşıklığı gizleme
+- **Kullanıcıya bırak** - seçenekleri sun, kararı kullanıcı versin

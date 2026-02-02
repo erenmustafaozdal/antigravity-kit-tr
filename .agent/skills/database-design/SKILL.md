@@ -1,52 +1,52 @@
 ---
 name: database-design
-description: Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.
+description: Veritabanı tasarım prensipleri ve karar verme. Şema tasarımı, indeksleme stratejisi, ORM seçimi, sunucusuz (serverless) veritabanları.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Database Design
+# Veritabanı Tasarımı (Database Design)
 
-> **Learn to THINK, not copy SQL patterns.**
+> **Sadece SQL kalıplarını kopyalamayı değil, DÜŞÜNMEYİ öğrenin.**
 
-## 🎯 Selective Reading Rule
+## 🎯 Seçici Okuma Kuralı
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+**SADECE istekle ilgili dosyaları okuyun!** İçerik haritasını kontrol edin ve ihtiyacınız olanı bulun.
 
-| File | Description | When to Read |
+| Dosya | Açıklama | Ne Zaman Okunmalı? |
 |------|-------------|--------------|
-| `database-selection.md` | PostgreSQL vs Neon vs Turso vs SQLite | Choosing database |
-| `orm-selection.md` | Drizzle vs Prisma vs Kysely | Choosing ORM |
-| `schema-design.md` | Normalization, PKs, relationships | Designing schema |
-| `indexing.md` | Index types, composite indexes | Performance tuning |
-| `optimization.md` | N+1, EXPLAIN ANALYZE | Query optimization |
-| `migrations.md` | Safe migrations, serverless DBs | Schema changes |
+| `database-selection.md` | PostgreSQL vs Neon vs Turso vs SQLite | Veritabanı seçerken |
+| `orm-selection.md` | Drizzle vs Prisma vs Kysely | ORM seçerken |
+| `schema-design.md` | Normalizasyon, PK'ler, ilişkiler | Şema tasarlarken |
+| `indexing.md` | İndeks türleri, bileşik indeksler | Performans iyileştirirken |
+| `optimization.md` | N+1 problemi, EXPLAIN ANALYZE | Sorgu optimizasyonu yaparken |
+| `migrations.md` | Güvenli migrasyonlar, sunucusuz veritabanları | Şema değişikliklerinde |
 
 ---
 
-## ⚠️ Core Principle
+## ⚠️ Temel Prensip
 
-- ASK user for database preferences when unclear
-- Choose database/ORM based on CONTEXT
-- Don't default to PostgreSQL for everything
-
----
-
-## Decision Checklist
-
-Before designing schema:
-
-- [ ] Asked user about database preference?
-- [ ] Chosen database for THIS context?
-- [ ] Considered deployment environment?
-- [ ] Planned index strategy?
-- [ ] Defined relationship types?
+- Belirsiz durumlarda veritabanı tercihlerini kullanıcıya SORUN.
+- Veritabanı/ORM seçimini BAĞLAM'a (context) göre yapın.
+- Her şey için varsayılan olarak PostgreSQL'i seçmeyin.
 
 ---
 
-## Anti-Patterns
+## Karar Kontrol Listesi
 
-❌ Default to PostgreSQL for simple apps (SQLite may suffice)
-❌ Skip indexing
-❌ Use SELECT * in production
-❌ Store JSON when structured data is better
-❌ Ignore N+1 queries
+Şema tasarlamadan önce:
+
+- [ ] Veritabanı tercihi hakkında kullanıcıya soruldu mu?
+- [ ] BU bağlam için uygun veritabanı seçildi mi?
+- [ ] Dağıtım (deployment) ortamı değerlendirildi mi?
+- [ ] İndeks stratejisi planlandı mı?
+- [ ] İlişki türleri tanımlandı mı?
+
+---
+
+## Anti-Desenler
+
+❌ Basit uygulamalar için varsayılan olarak PostgreSQL seçmek (SQLite yeterli olabilir)
+❌ İndekslemeyi atlamak
+❌ Prodüksiyonda SELECT * kullanmak
+❌ Yapılandırılmış verinin daha iyi olduğu durumlarda JSON saklamak
+❌ N+1 sorgu problemlerini görmezden gelmek

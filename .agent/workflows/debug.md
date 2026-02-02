@@ -1,103 +1,103 @@
 ---
-description: Debugging command. Activates DEBUG mode for systematic problem investigation.
+description: Hata ayıklama komutu. Sistematik sorun incelemesi için HATA AYIKLAMA (DEBUG) modunu etkinleştirir.
 ---
 
-# /debug - Systematic Problem Investigation
+# /debug - Sistematik Sorun İncelemesi
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Amaç
 
-This command activates DEBUG mode for systematic investigation of issues, errors, or unexpected behavior.
-
----
-
-## Behavior
-
-When `/debug` is triggered:
-
-1. **Gather information**
-   - Error message
-   - Reproduction steps
-   - Expected vs actual behavior
-   - Recent changes
-
-2. **Form hypotheses**
-   - List possible causes
-   - Order by likelihood
-
-3. **Investigate systematically**
-   - Test each hypothesis
-   - Check logs, data flow
-   - Use elimination method
-
-4. **Fix and prevent**
-   - Apply fix
-   - Explain root cause
-   - Add prevention measures
+Bu komut; sorunların, hataların veya beklenmedik davranışların sistematik olarak incelenmesi için HATA AYIKLAMA modunu etkinleştirir.
 
 ---
 
-## Output Format
+## Davranış
+
+`/debug` tetiklendiğinde:
+
+1. **Bilgi Topla**
+   - Hata mesajı
+   - Yeniden oluşturma (reproduction) adımları
+   - Beklenen ve gerçekleşen davranış
+   - Son değişiklikler
+
+2. **Hipotezler Kur**
+   - Olası nedenleri listele
+   - Olasılık sırasına diz
+
+3. **Sistematik Olarak İncele**
+   - Her hipotezi test et
+   - Logları ve veri akışını kontrol et
+   - Eleme yöntemini kullan
+
+4. **Düzelt ve Önle**
+   - Düzeltmeyi uygula
+   - Kök nedeni açıkla
+   - Önleyici tedbirler ekle
+
+---
+
+## Çıktı Formatı
 
 ```markdown
-## 🔍 Debug: [Issue]
+## 🔍 Hata Ayıklama: [Sorun]
 
-### 1. Symptom
-[What's happening]
+### 1. Belirti
+[Ne oluyor?]
 
-### 2. Information Gathered
-- Error: `[error message]`
-- File: `[filepath]`
-- Line: [line number]
+### 2. Toplanan Bilgiler
+- Hata: `[hata mesajı]`
+- Dosya: `[dosya yolu]`
+- Satır: [satır numarası]
 
-### 3. Hypotheses
-1. ❓ [Most likely cause]
-2. ❓ [Second possibility]
-3. ❓ [Less likely cause]
+### 3. Hipotezler
+1. ❓ [En olası neden]
+2. ❓ [İkinci olasılık]
+3. ❓ [Daha düşük olasılıklı neden]
 
-### 4. Investigation
+### 4. İnceleme
 
-**Testing hypothesis 1:**
-[What I checked] → [Result]
+**Hipotez 1 Test Ediliyor:**
+[Ne kontrol ettim] → [Sonuç]
 
-**Testing hypothesis 2:**
-[What I checked] → [Result]
+**Hipotez 2 Test Ediliyor:**
+[Ne kontrol ettim] → [Sonuç]
 
-### 5. Root Cause
-🎯 **[Explanation of why this happened]**
+### 5. Kök Neden
+🎯 **[Bunun neden olduğuna dair açıklama]**
 
-### 6. Fix
-```[language]
-// Before
-[broken code]
+### 6. Düzeltme
+```[dil]
+// Önce
+[bozuk kod]
 
-// After
-[fixed code]
+// Sonra
+[düzeltilmiş kod]
 ```
 
-### 7. Prevention
-🛡️ [How to prevent this in the future]
-```
-
----
-
-## Examples
-
-```
-/debug login not working
-/debug API returns 500
-/debug form doesn't submit
-/debug data not saving
+### 7. Önleme
+🛡️ [Bunun gelecekte tekrar etmesi nasıl önlenir?]
 ```
 
 ---
 
-## Key Principles
+## Örnekler
 
-- **Ask before assuming** - get full error context
-- **Test hypotheses** - don't guess randomly
-- **Explain why** - not just what to fix
-- **Prevent recurrence** - add tests, validation
+```
+/debug giriş çalışmıyor
+/debug API 500 hatası döndürüyor
+/debug form gönderilmiyor
+/debug veriler kaydedilmiyor
+```
+
+---
+
+## Temel Prensipler
+
+- **Varsaymadan önce sor** - tam hata bağlamını al
+- **Hipotezleri test et** - rastgele tahminlerde bulunma
+- **Nedenini açıkla** - sadece neyin düzeltileceğini değil
+- **Tekrarı önle** - testler ve doğrulama ekle

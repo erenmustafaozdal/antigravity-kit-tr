@@ -1,24 +1,24 @@
-# Authentication Patterns
+# Kimlik Doğrulama Desenleri (Authentication Patterns)
 
-> Choose auth pattern based on use case.
+> Kullanım durumuna göre kimlik doğrulama deseni seçimi.
 
-## Selection Guide
+## Seçim Rehberi
 
-| Pattern | Best For |
+| Desen | En İyi Kullanım |
 |---------|----------|
-| **JWT** | Stateless, microservices |
-| **Session** | Traditional web, simple |
-| **OAuth 2.0** | Third-party integration |
-| **API Keys** | Server-to-server, public APIs |
-| **Passkey** | Modern passwordless (2025+) |
+| **JWT** | Durumsuz (Stateless) yapılar, mikro servisler |
+| **Oturum (Session)** | Geleneksel web uygulamaları, basit yapılar |
+| **OAuth 2.0** | Üçüncü taraf entegrasyonları |
+| **API Anahtarları** | Sunucudan sunucuya iletişim, herkese açık API'ler |
+| **Passkey** | Modern şifresiz doğrulama (2025+) |
 
-## JWT Principles
+## JWT Prensipleri
 
 ```
-Important:
-├── Always verify signature
-├── Check expiration
-├── Include minimal claims
-├── Use short expiry + refresh tokens
-└── Never store sensitive data in JWT
+Önemli Kurallar:
+├── İmzayı HER ZAMAN doğrulayın
+├── Son kullanma tarihini (expiration) kontrol edin
+├── Sadece gerekli verileri (claims) dahil edin
+├── Kısa süreli erişim tokenı + yenileme (refresh) tokenı kullanın
+└── JWT içinde ASLA hassas veri saklamayın
 ```
