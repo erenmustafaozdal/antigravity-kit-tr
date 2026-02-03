@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import Typing from "@/components/typing";
+
 const Github = () => {
   return (
     <svg
@@ -455,8 +457,6 @@ const AntigravityGoogle = () => {
 
   );
 };
-
-import Typing from "@/components/typing";
 
 export default function Home() {
   return (
